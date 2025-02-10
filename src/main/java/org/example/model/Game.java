@@ -2,7 +2,7 @@ package org.example.model;
 
 import jakarta.persistence.*;
 
-//@Entity
+@Entity
 @Table(name = "GAME")
 public class Game {
 
@@ -13,22 +13,18 @@ public class Game {
 	@Column(name = "STATUS", nullable = false)
 	private int status;
 
-	@Column(name = "MODE_ID", nullable = false)
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "MODE",
-			joinColumns = @JoinColumn(name = "ID"))
-	private long modeId;
 
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinTable(name = "PLAYER",
-			joinColumns = @JoinColumn(name = "ID"))
-	private long playerId;
-
-	@Column(name = "MAP_ID", nullable = false)
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "MAP",
-			joinColumns = @JoinColumn(name = "ID"))
-	private long mapId;
+	@JoinColumn(name = "id")
+	private Mode mode;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id")
+	private Player player;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id")
+	private Map map;
 
 	public void start(Mode mode) {
 		// TODO - implement Game.start

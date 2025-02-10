@@ -1,6 +1,7 @@
 package Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,8 +15,11 @@ public class Resource extends Event {
 	@Column(name = "CATEGORY", nullable = false)
 	private String category;
 
-	@Column(name = "ATTACKS", nullable = false)
-	private List<Attack> attacks;
+	@Column(name = "ATTACK_IDS", nullable = false)
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "ATTACK",
+			joinColumns = @JoinColumn(name = "ID"))
+	private ArrayList<Long> attackIds;
 
 	@Column(name = "LEVEL", nullable = false)
 	private int level = 1;

@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class Mode {
 
 	@Id
-	@GeneratedValue
 	private long id;
 
 	@Column(name = "DESCRIPTION", nullable = false)
@@ -18,5 +17,26 @@ public class Mode {
 
 	@Column(name = "NUM_ENEMY", nullable = false)
 	private int numEnemy;
+
+	@Column(name = "TOTAL_AREA", nullable = false)
+	private long totalArea;
+
+
+	public long setResourcesAndArea(Long id) {
+		if(id == 1) {
+			totalArea = 9;
+			numResources = 4;
+			//numEnemy = 4;
+		}
+		else if(id == 2) {
+			totalArea = 18;
+			numResources = 8;
+		}
+		else if(id == 3) {
+			totalArea = 36;
+			numResources = 12;
+		}
+		return totalArea;
+	}
 
 }

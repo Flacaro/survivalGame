@@ -13,8 +13,22 @@ public class Game {
 	@Column(name = "STATUS", nullable = false)
 	private int status;
 
-	@Column(name = "MODE", nullable = false)
-	private Mode mode;
+	@Column(name = "MODE_ID", nullable = false)
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinTable(name = "MODE",
+			joinColumns = @JoinColumn(name = "ID"))
+	private long modeId;
+
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinTable(name = "PLAYER",
+			joinColumns = @JoinColumn(name = "ID"))
+	private long playerId;
+
+	@Column(name = "MAP_ID", nullable = false)
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinTable(name = "MAP",
+			joinColumns = @JoinColumn(name = "ID"))
+	private long mapId;
 
 	public void start(Mode mode) {
 		// TODO - implement Game.start

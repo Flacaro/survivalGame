@@ -1,7 +1,8 @@
 package Model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.ArrayList;
+
 
 @Entity
 @Table(name = "INVENTORY")
@@ -15,10 +16,18 @@ public class Inventory {
 	private int capacity;
 
 	@Column(name = "RESOURCES_IDS", nullable = false)
-	private List<Long> resourcesIds;
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "RESOURCE",
+			joinColumns = @JoinColumn(name = "ID"))
+	private ArrayList<Long> resourcesIds;
 
 	@Column(name = "RESOURCES_SELECTED_IDS", nullable = false)
-	private List<Long> resourcesSelectedIds;
+	private ArrayList<Long> resourcesSelectedIds;
+
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinTable(name = "PLAYER",
+			joinColumns = @JoinColumn(name = "ID"))
+	private long playerId;
 
 	public Resource combine(Resource[] selections) {
 		// TODO - implement Inventory.combine

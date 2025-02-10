@@ -1,6 +1,8 @@
 package Model;
 
+import javax.persistence.MappedSuperclass;
 
+@MappedSuperclass
 public abstract class Event {
 
     private String type;

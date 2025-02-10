@@ -13,7 +13,7 @@ public class GameFactory {
 	}
 
 	public void setInventory() {
-		// TODO - implement GameFactory.setInventory
+		Inventory inventory = new Inventory();
 		throw new UnsupportedOperationException();
 	}
 

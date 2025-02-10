@@ -1,6 +1,7 @@
 package Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,19 +13,23 @@ public class CraftingCatalog {
 	@GeneratedValue
 	private long id;
 
-	@Column(name = "RESOURCES_TO_CRAFT", nullable = false)
-	private HashMap<List<Long>, Long> resourcesToCraft;
+	@Column(name = "ID_RESOURCES_TO_CRAFT", nullable = false)
+	private ArrayList<Long> resourcesIdsToCraft;
+
+	@Column(name = "FINAL_RESOURCE", nullable = false)
+	private Long finalResource;
+
+	private HashMap<ArrayList<Long>, Long> combinationOfCrafting;
 
 
-	public boolean checkCompatibility(Resource[] selections) {
-		// TODO - implement CraftingCatalog.checkCompatibility
-		throw new UnsupportedOperationException();
+	public boolean checkCompatibility(ArrayList<Long> selections) {
+		return combinationOfCrafting.containsKey(selections);
 	}
 
 
-	public Resource createResource(Resource[] selections) {
-		// TODO - implement CraftingCatalog.createResource
-		throw new UnsupportedOperationException();
-	}
+//in un controller!
+//	public Resource createResource(List<Long> selections) {
+//		return null;
+//	}
 
 }

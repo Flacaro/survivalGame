@@ -1,7 +1,7 @@
 package Model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "ENEMY")
@@ -11,8 +11,11 @@ public class Enemy extends Event {
 	@GeneratedValue
 	private long id;
 
-	@Column(name = "ATTACKS", nullable = false)
-	private List<Attack> attacks;
+	@Column(name = "ATTACK_IDS", nullable = false)
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "ATTACK",
+			joinColumns = @JoinColumn(name = "ID"))
+	private ArrayList<Long> attackIds;
 
 	@Column(name = "TYPE", nullable = false)
 	private String type;

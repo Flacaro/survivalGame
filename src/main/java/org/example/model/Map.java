@@ -1,9 +1,9 @@
-package Model;
+package org.example.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 
-@Entity
+//@Entity
 @Table(name = "MAP")
 public class Map {
 

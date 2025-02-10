@@ -1,9 +1,9 @@
-package Model;
+package org.example.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
-@Entity
-@Table(name = "CHECKPOINT")
+//@Entity
+//@Table(name = "CHECKPOINT")
 public class Checkpoint {
 
 	@Id

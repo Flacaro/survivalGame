@@ -1,16 +1,25 @@
 package org.example;
 
-import Persistence.HibernateUtil;
-import org.hibernate.SessionFactory;
+import org.example.model.Attack;
+import org.example.persistence.EntityManagerSingleton;
 
 public class Main {
+
+
     public static void main(String[] args) {
-        System.out.println("Inizializzazione di Hibernate...");
-        HibernateUtil.getSessionFactory();
-        System.out.println("Hibernate inizializzato con successo!");
+        var em = EntityManagerSingleton.getEntityManager();
 
-        // Puoi decidere di terminare qui, oppure fare altre operazioni
-        HibernateUtil.shutdown();
+        var tx = em.getTransaction();
 
+        tx.begin();
+        Attack attack = new Attack("boom!", 10.0, "boom");
+
+        em.persist(attack);
+        System.out.println("Persisting attack: " + attack);
+
+        tx.commit();
+        em.close();
     }
+
+
 }

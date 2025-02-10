@@ -1,8 +1,12 @@
-package Model;
+package org.example.model;
 
-import javax.persistence.*;
 
-@Entity
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+//@Entity
 @Table(name = "MODE")
 public class Mode {
 

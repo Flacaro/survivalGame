@@ -1,6 +1,7 @@
-package Model;
+package org.example.model;
 
-import javax.persistence.MappedSuperclass;
+
+import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class Event {

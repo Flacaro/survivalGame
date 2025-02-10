@@ -1,8 +1,8 @@
-package Model;
+package org.example.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
-@Entity
+//@Entity
 @Table(name = "CLIMATE")
 public class Climate {
 

@@ -1,10 +1,9 @@
-package Model;
+package org.example.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
-import java.util.List;
 
-@Entity
+//@Entity
 @Table(name = "RESOURCES")
 public class Resource extends Event {
 

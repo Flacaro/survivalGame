@@ -1,9 +1,10 @@
-package Model;
+package org.example.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 
-@Entity
+//@Entity
 @Table(name = "AREA")
 public class Area implements Serializable {
 

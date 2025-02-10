@@ -2,7 +2,6 @@ package Model;
 
 public class GameFactory {
 
-
 	public void createEvent(String type, Mode mode) {
 		// TODO - implement GameFactory.createEvent
 		throw new UnsupportedOperationException();

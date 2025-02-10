@@ -1,23 +1,37 @@
 package Model;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "INVENTORY")
 public class Inventory {
 
-	private int capacity;
-	private Resources[] resources;
-	private Resources[] selections;
+	@Id
+	@GeneratedValue
+	private long id;
 
-	public Resources combine(Resources[] selections) {
+	@Column(name = "CAPACITY", nullable = false)
+	private int capacity;
+
+	@Column(name = "RESOURCES_IDS", nullable = false)
+	private List<Long> resourcesIds;
+
+	@Column(name = "RESOURCES_SELECTED_IDS", nullable = false)
+	private List<Long> resourcesSelectedIds;
+
+	public Resource combine(Resource[] selections) {
 		// TODO - implement Inventory.combine
 		throw new UnsupportedOperationException();
 	}
 
-	public boolean add(Resources res) {
+	public boolean add(Resource res) {
 		// TODO - implement Inventory.add
 		throw new UnsupportedOperationException();
 	}
 
 
-	public boolean remove(Resources[] selections, int[] qnt) {
+	public boolean remove(Resource[] selections, int[] qnt) {
 		// TODO - implement Inventory.remove
 		throw new UnsupportedOperationException();
 	}
@@ -28,13 +42,13 @@ public class Inventory {
 	}
 
 
-	public void addSelections(Resources res) {
+	public void addSelections(Resource res) {
 		// TODO - implement Inventory.addSelections
 		throw new UnsupportedOperationException();
 	}
 
 
-	public void useResource(Resources resource) {
+	public void useResource(Resource resource) {
 		// TODO - implement Inventory.useResource
 		throw new UnsupportedOperationException();
 	}

@@ -1,10 +1,24 @@
 package Model;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "MAP")
 public class Map {
 
-	private Area[] area;
-	private Area[] adjacentArea;
-	private int playerPosition;
+	@Id
+	@GeneratedValue
+	private long id;
+
+	@Column(name = "TOTAL_MAP_AREA", nullable = false)
+	private List<Long> totalMapArea;
+
+	@Column(name = "ADJACENT_AREA", nullable = false)
+	private List<Long> adjacentArea;
+
+	@Column(name = "PLAYER_POSITION", nullable = false)
+	private long playerPosition;
 
 
 	public int setadjacentArea(int position) {

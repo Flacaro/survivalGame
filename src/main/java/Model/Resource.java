@@ -4,21 +4,18 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "ENEMY")
-public class Enemy extends Event {
+@Table(name = "RESOURCES")
+public class Resource extends Event {
 
 	@Id
 	@GeneratedValue
 	private long id;
 
+	@Column(name = "CATEGORY", nullable = false)
+	private String category;
+
 	@Column(name = "ATTACKS", nullable = false)
 	private List<Attack> attacks;
-
-	@Column(name = "TYPE", nullable = false)
-	private String type;
-
-	@Column(name = "DESCRIPTION", nullable = false)
-	private String description;
 
 	@Column(name = "LEVEL", nullable = false)
 	private int level = 1;

@@ -3,17 +3,20 @@ package Model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CHECKPOINT")
-public class Checkpoint {
+@Table(name = "SKILL")
+public class Skill {
 
 	@Id
 	@GeneratedValue
 	private long id;
 
+	@Column(name = "NAME", nullable = false)
+	private String name;
+
 	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
 
-	@Column(name = "EXP", nullable = false)
-	private int exp;
+	@Column(name = "LEVEL", nullable = false)
+	private int level = 1;
 
 }

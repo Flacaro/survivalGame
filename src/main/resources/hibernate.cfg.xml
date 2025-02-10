@@ -8,7 +8,7 @@
 
         <!-- Connessione al database -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/miodatabase</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/the_survival_game</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">password</property>
 
@@ -24,5 +24,18 @@
 
         <!-- Registrare le entity -->
         <mapping class="com.survivalGame.model.Area"/>
+        <mapping class="com.survivalGame.model.Checkpoint"/>
+        <mapping class="com.survivalGame.model.Climate"/>
+        <mapping class="com.survivalGame.model.CraftingCatalog"/>
+        <mapping class="com.survivalGame.model.Enemy"/>
+        <mapping class="com.survivalGame.model.Event"/>
+        <mapping class="com.survivalGame.model.Game"/>
+        <mapping class="com.survivalGame.model.GameFactory"/>
+        <mapping class="com.survivalGame.model.Inventory"/>
+        <mapping class="com.survivalGame.model.Map"/>
+        <mapping class="com.survivalGame.model.Mode"/>
+        <mapping class="com.survivalGame.model.Player"/>
+        <mapping class="com.survivalGame.model.Resources"/>
+        <mapping class="com.survivalGame.model.Skills"/>
     </session-factory>
 </hibernate-configuration>

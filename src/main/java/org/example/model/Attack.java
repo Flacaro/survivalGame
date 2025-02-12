@@ -21,6 +21,7 @@ public class Attack {
     @Column(name = "TYPE", nullable = false)
     private String type;
 
+
     public Attack() {
     }
 
@@ -34,9 +35,6 @@ public class Attack {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

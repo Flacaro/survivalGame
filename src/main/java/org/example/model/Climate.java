@@ -2,7 +2,7 @@ package org.example.model;
 
 import jakarta.persistence.*;
 
-//@Entity
+@Entity
 @Table(name = "CLIMATE")
 public class Climate {
 

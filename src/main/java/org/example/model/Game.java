@@ -14,16 +14,21 @@ public class Game {
 	private int status;
 
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id")
+	//uno ad uno con modalità
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "id_mode",referencedColumnName = "id")
 	private Mode mode;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id")
+
+	//uno ad uno con player, il player possiede la relazione
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="id_player", referencedColumnName = "id")
 	private Player player;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id")
+
+	//uno ad uno con la mappa
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="id_map", referencedColumnName = "id")
 	private Map map;
 
 	public void start(Mode mode) {

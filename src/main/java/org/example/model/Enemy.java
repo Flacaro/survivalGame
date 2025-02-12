@@ -2,20 +2,20 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
-//@Entity
+@Entity
 @Table(name = "ENEMY")
 public class Enemy extends Event {
-
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name = "ATTACK_IDS", nullable = false)
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "ATTACK",
-			joinColumns = @JoinColumn(name = "ID"))
-	private ArrayList<Long> attackIds;
+
+	//test 1 a molti con attack
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+
+	private ArrayList<Attack> attacks= new ArrayList<>();
 
 	@Column(name = "TYPE", nullable = false)
 	private String type;

@@ -2,9 +2,10 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
-//@Entity
-@Table(name = "RESOURCES")
+@Entity
+@Table(name = "RESOURCE")
 public class Resource extends Event {
 
 	@Id
@@ -14,11 +15,11 @@ public class Resource extends Event {
 	@Column(name = "CATEGORY", nullable = false)
 	private String category;
 
-	@Column(name = "ATTACK_IDS", nullable = false)
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "ATTACK",
-			joinColumns = @JoinColumn(name = "ID"))
-	private ArrayList<Long> attackIds;
+
+
+	//test 1 a molti con attack
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Attack> attacks=new ArrayList<>();
 
 	@Column(name = "LEVEL", nullable = false)
 	private int level = 1;

@@ -2,8 +2,9 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
-//@Entity
+@Entity
 @Table(name = "PLAYER")
 public class Player {
 
@@ -21,21 +22,25 @@ public class Player {
 	private int level = 1;
 
 	@Column(name = "POSITION", nullable = false)
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinTable(name = "MAP",
-			joinColumns = @JoinColumn(name = "PLAYER_POSITION"))
 	private long position;
 
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinTable(name = "INVENTORY",
-			joinColumns = @JoinColumn(name = "ID"))
-	private long inventoryId;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_map", referencedColumnName = "id")
+	private Map map;
 
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "SKILL",
-			joinColumns = @JoinColumn(name = "ID"))
-	private ArrayList<Long> skillIds;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_inventory", referencedColumnName = "id")
+	private Inventory inventory;
+
+
+	//uno a uno con la skill, ma la skill non ne tiene traccia
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Skill> skills= new ArrayList<>();
+
+	//uno ad uno con il game
+	@OneToOne(mappedBy = "player")
+	private Game game;
 
 	public boolean pickUp(Resource res) {
 		// TODO - implement Player.pickUp

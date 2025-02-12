@@ -2,8 +2,9 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
-//@Entity
+@Entity
 @Table(name = "MAP")
 public class Map {
 
@@ -11,29 +12,34 @@ public class Map {
 	@GeneratedValue
 	private long id;
 
-	@Column(name = "TOTAL_MAP_AREA", nullable = false)
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "AREA",
-			joinColumns = @JoinColumn(name = "ID"))
-	private ArrayList<Long> totalMapArea;
 
-	@Column(name = "ADJACENT_AREA", nullable = false)
-	private ArrayList<Long> adjacentArea;
+	//test composizione
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private ArrayList<Area> totalMapArea =new ArrayList<>();
 
-	@Column(name = "PLAYER_POSITION", nullable = false)
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinTable(name = "PLAYER",
-			joinColumns = @JoinColumn(name = "POSITION"))
-	private long playerPosition;
+
+	//test composizione
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private ArrayList<Area> adjacentArea= new ArrayList<>();
+
+
+	//uno ad uno con il player
+	@OneToOne(mappedBy = "map")
+	private Player player;
+	//private long playerPosition;
+
+	//uno ad uno con il gioco
+	@OneToOne(mappedBy = "map")
+	private Game game;
 
 
 	public void setAdjacentArea(long position) {
-		if(position == totalMapArea.get(totalMapArea.size()- 1)) {
-			adjacentArea.add(position - 1);
-		} else {
-            adjacentArea.add(position - 1);
-			adjacentArea.add(position + 1);
-            }
+//		if(position == totalMapArea.get(totalMapArea.size()- 1)) {
+//			adjacentArea.add(position - 1);
+//		} else {
+//            adjacentArea.add(position - 1);
+//			adjacentArea.add(position + 1);
+//            }
 	}
 
 

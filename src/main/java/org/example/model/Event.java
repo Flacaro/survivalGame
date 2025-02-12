@@ -1,12 +1,19 @@
 package org.example.model;
 
 
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 
 @MappedSuperclass
-public abstract class Event {
+//@Entity
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Event implements Serializable {
+
+
 
     private String type;
+
     private String name;
 
 

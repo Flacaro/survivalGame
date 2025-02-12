@@ -2,9 +2,10 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
-//@Entity
+@Entity
 @Table(name = "INVENTORY")
 public class Inventory {
 
@@ -15,19 +16,19 @@ public class Inventory {
 	@Column(name = "CAPACITY", nullable = false)
 	private int capacity;
 
-	@Column(name = "RESOURCES_IDS", nullable = false)
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "RESOURCE",
-			joinColumns = @JoinColumn(name = "ID"))
-	private ArrayList<Long> resourcesIds;
 
-	@Column(name = "RESOURCES_SELECTED_IDS", nullable = false)
-	private ArrayList<Long> resourcesSelectedIds;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@Column(name = "RESOURCES", nullable = false)
+	private List<Resource> resources=new ArrayList<>();
 
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinTable(name = "PLAYER",
-			joinColumns = @JoinColumn(name = "ID"))
-	private long playerId;
+	//@Column(name = "RESOURCES_SELECTED_IDS", nullable = false)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@Column(name = "RESOURCES_SELECTED", nullable = false)
+	private ArrayList<Resource> resourcesSelected= new ArrayList<>();
+
+
+	@OneToOne(mappedBy = "inventory")
+	private Player player;
 
 	public Resource combine(Resource[] selections) {
 		// TODO - implement Inventory.combine

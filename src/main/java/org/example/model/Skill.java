@@ -2,9 +2,11 @@ package org.example.model;
 
 import jakarta.persistence.*;
 
-//@Entity
+import java.io.Serializable;
+
+@Entity
 @Table(name = "SKILL")
-public class Skill {
+public class Skill implements Serializable {
 
 	@Id
 	@GeneratedValue
@@ -18,5 +20,9 @@ public class Skill {
 
 	@Column(name = "LEVEL", nullable = false)
 	private int level = 1;
+
+	//test uno a uno con checkpoint
+	@OneToOne(mappedBy = "skill")
+	private Checkpoint checkpoint;
 
 }

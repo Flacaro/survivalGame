@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//@Entity
+@Entity
 @Table(name = "CRAFTING_CATALOG")
 public class CraftingCatalog {
 
@@ -19,12 +19,12 @@ public class CraftingCatalog {
     @Column(name = "FINAL_RESOURCE", nullable = false)
     private Long finalResource;
 
-    private HashMap<ArrayList<Long>, Long> combinationOfCrafting;
-
-
-    public boolean checkCompatibility(ArrayList<Long> selections) {
-        return combinationOfCrafting.containsKey(selections);
-    }
+//    private HashMap<ArrayList<Long>, Long> combinationOfCrafting= new HashMap<>();
+//
+//
+//    public boolean checkCompatibility(ArrayList<Long> selections) {
+//        return combinationOfCrafting.containsKey(selections);
+//    }
 
 
 //in un controller!

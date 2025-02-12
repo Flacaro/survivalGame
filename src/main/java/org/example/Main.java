@@ -1,5 +1,6 @@
 package org.example;
 
+
 import org.example.model.Attack;
 import org.example.persistence.EntityManagerSingleton;
 

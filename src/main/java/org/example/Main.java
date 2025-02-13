@@ -34,7 +34,7 @@ public class Main {
 
         attaks.add(attack);
         attaks.add(attack1);
-        Resource r = new Resource("arma", attaks, 1, "pietra", "arma");
+        Resource r = new Resource("cibo", null, 1, "acqua", "cibo");
         Resource r2 = new Resource("arma", attaks, 1, "legno", "arma");
         CraftedResource r3 = new CraftedResource("arma", attaks, 3, "lancia", "fa male");
 
@@ -47,9 +47,10 @@ public class Main {
         cc.setFinalResource(r3);
 
         //em.persist(attack);
-//        em.persist(r);
+//           em.persist(r);
+//           em.detach(r);
 //        em.persist(r2);
-       // em.persist(r3);
+        em.persist(r3);
         em.persist(cc);
 //        em.flush();
         //em.getTransaction().commit();

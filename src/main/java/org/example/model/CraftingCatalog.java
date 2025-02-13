@@ -3,7 +3,6 @@ package org.example.model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 @Entity
 @Table(name = "CRAFTING_CATALOG")
@@ -19,17 +18,37 @@ public class CraftingCatalog {
     @Column(name = "FINAL_RESOURCE", nullable = false)
     private Long finalResource;
 
-//    private HashMap<ArrayList<Long>, Long> combinationOfCrafting= new HashMap<>();
-//
-//
-//    public boolean checkCompatibility(ArrayList<Long> selections) {
-//        return combinationOfCrafting.containsKey(selections);
-//    }
+    public long getId() {
+        return id;
+    }
 
+    public ArrayList<Long> getResourcesIdsToCraft() {
+        return resourcesIdsToCraft;
+    }
 
-//in un controller!
-//	public Resource createResource(List<Long> selections) {
-//		return null;
-//	}
+    public void setResourcesIdsToCraft(ArrayList<Long> resourcesIdsToCraft) {
+        this.resourcesIdsToCraft = resourcesIdsToCraft;
+    }
+
+    public Long getFinalResource() {
+        return finalResource;
+    }
+
+    public void setFinalResource(Long finalResource) {
+        this.finalResource = finalResource;
+    }
+
+    @Override
+    public String toString() {
+        return "CraftingCatalog{" +
+                "id=" + id +
+                ", resourcesIdsToCraft=" + resourcesIdsToCraft +
+                ", finalResource=" + finalResource +
+                '}';
+    }
+
+    public boolean checkCompatibility(ArrayList<Long> selections, ArrayList<Long> resourcesIdsToCraft) {
+        return resourcesIdsToCraft.equals(selections);
+    }
 
 }

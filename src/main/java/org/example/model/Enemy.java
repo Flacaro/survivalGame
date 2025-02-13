@@ -14,7 +14,6 @@ public class Enemy extends Event {
 
 	//test 1 a molti con attack
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-
 	private ArrayList<Attack> attacks= new ArrayList<>();
 
 	@Column(name = "TYPE", nullable = false)

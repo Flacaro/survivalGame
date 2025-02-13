@@ -6,11 +6,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @MappedSuperclass
-//@Entity
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Event implements Serializable {
-
-
 
     private String type;
 

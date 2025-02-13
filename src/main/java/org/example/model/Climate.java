@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Climate {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@Column(name = "TYPE", nullable = false)

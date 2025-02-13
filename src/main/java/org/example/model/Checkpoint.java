@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Checkpoint {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@Column(name = "DESCRIPTION", nullable = false)

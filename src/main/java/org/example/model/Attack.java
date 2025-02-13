@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Attack {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "NAME", nullable = false)

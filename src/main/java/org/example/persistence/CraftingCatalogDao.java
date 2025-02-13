@@ -1,9 +1,10 @@
 package org.example.persistence;
 
 import org.example.model.CraftingCatalog;
-import java.util.List;
+
+import java.util.ArrayList;
 
 public interface CraftingCatalogDao {
 
-    List<CraftingCatalog> getResourcesIdsToCraft();
+    ArrayList<CraftingCatalog> getResourcesToCraft();
 }

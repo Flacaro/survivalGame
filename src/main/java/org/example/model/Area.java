@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Area implements Serializable {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@Column(name = "NAME", nullable = false)
@@ -24,7 +24,6 @@ public class Area implements Serializable {
 	//test composizione
 	@ManyToOne
 	@JoinColumn(name = "id",insertable=false, updatable=false)
-
 	private Map map;
 
 	//test uno ad uno con checkpoint

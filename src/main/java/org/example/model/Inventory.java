@@ -10,7 +10,7 @@ import java.util.List;
 public class Inventory {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@Column(name = "CAPACITY", nullable = false)

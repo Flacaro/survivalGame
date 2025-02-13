@@ -3,38 +3,42 @@ package org.example.model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "CRAFTING_CATALOG")
 public class CraftingCatalog {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "ID_RESOURCES_TO_CRAFT", nullable = false)
-    private ArrayList<Long> resourcesIdsToCraft;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Resource> resourcesToCraft = new ArrayList<>();
 
-    @Column(name = "FINAL_RESOURCE", nullable = false)
-    private Long finalResource;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private CraftedResource finalResource;
 
     public long getId() {
         return id;
     }
 
-    public ArrayList<Long> getResourcesIdsToCraft() {
-        return resourcesIdsToCraft;
+    public CraftingCatalog() {
     }
 
-    public void setResourcesIdsToCraft(ArrayList<Long> resourcesIdsToCraft) {
-        this.resourcesIdsToCraft = resourcesIdsToCraft;
+    public ArrayList<Resource> getResourcesToCraft() {
+        return (ArrayList<Resource>) resourcesToCraft;
     }
 
-    public Long getFinalResource() {
+    public void setResourcesToCraft(ArrayList<Resource> resourcesToCraft) {
+        this.resourcesToCraft = resourcesToCraft;
+    }
+
+    public CraftedResource getFinalResource() {
         return finalResource;
     }
 
-    public void setFinalResource(Long finalResource) {
+    public void setFinalResource(CraftedResource finalResource) {
         this.finalResource = finalResource;
     }
 
@@ -42,12 +46,16 @@ public class CraftingCatalog {
     public String toString() {
         return "CraftingCatalog{" +
                 "id=" + id +
-                ", resourcesIdsToCraft=" + resourcesIdsToCraft +
+                ", resourcesToCraft=" + resourcesToCraft +
                 ", finalResource=" + finalResource +
                 '}';
     }
 
-    public boolean checkCompatibility(ArrayList<Long> selections, ArrayList<Long> resourcesIdsToCraft) {
+    public boolean checkCompatibility(ArrayList<Long> selections, ArrayList<Resource> resourcesToCraft) {
+        ArrayList<Long> resourcesIdsToCraft = new ArrayList<>();
+        for(Resource r : resourcesToCraft) {
+            resourcesIdsToCraft.add(r.getId());
+        }
         return resourcesIdsToCraft.equals(selections);
     }
 

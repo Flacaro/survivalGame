@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Skill implements Serializable {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@Column(name = "NAME", nullable = false)

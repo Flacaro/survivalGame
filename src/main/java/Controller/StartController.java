@@ -11,6 +11,5 @@ public class StartController {
     public Game start(Mode mode){
         game.start(mode);
         return game;
-
     }
 }

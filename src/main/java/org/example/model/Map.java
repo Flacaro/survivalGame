@@ -43,7 +43,7 @@ public class Map {
 		for (int c=0; c<totalArea; c++){
 			this.totalMapArea.add(new Area());
 		}
-		//vanno salvate tutte le aree nel db altrimenti non hanno id e non matcha con le risorrse
+		//vanno salvate tutte le aree nel db altrimenti non hanno id e non matcha con le risorse
 		gms.createEvent(totalMapArea,mode);
 
 	}

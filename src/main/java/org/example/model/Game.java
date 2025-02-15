@@ -35,7 +35,6 @@ public class Game {
 		this.mode=mode;
 		//va salvato nel db
 		this.player=new Player();
-
 		this.map=new Map(mode,this,player);
 	}
 

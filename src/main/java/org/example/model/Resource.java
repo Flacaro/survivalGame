@@ -114,4 +114,17 @@ public class Resource extends Event {
 //	public int getLevel() {
 //		return level;
 //	}
+
+	@Override
+	public String toString() {
+		return "Resource{" +
+				"id=" + id +
+				", category='" + category + '\'' +
+				", level=" + level +
+				", name='" + name + '\'' +
+				", type='" + type + '\'' +
+				", description='" + description + '\'' +
+				", quantity=" + quantity +
+				'}';
+	}
 }

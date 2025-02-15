@@ -2,10 +2,7 @@ package org.example.model;
 
 import org.example.persistence.ResourceDao;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class GameFactorySingleton {
 	private static GameFactorySingleton instance;
@@ -25,37 +22,18 @@ public class GameFactorySingleton {
 		ResourceDao resourceDao=new ResourceDao();
 		ArrayList<Resource> resources;
 		resources=resourceDao.getResource();
-		System.out.println(resources);
 
-		List<Integer> numbers = new ArrayList<>();
 
-		// Riempie la lista con tutti i numeri dell'intervallo
-		for (int i =1; i <= mode.getTotalArea(); i++) {
-			numbers.add(i);
-		}
-
-		Collections.shuffle(numbers);
+		Collections.shuffle(totalMapArea);
 		Collections.shuffle(resources);
 		//id delle caselle contenenti le risorse
-		List<Integer> subListR=numbers.subList(0, numRes);
+		List<Area> subListArea=totalMapArea.subList(0, numRes);
+		List<Resource> subListResources= resources.subList(0,numRes);
 
-		HashMap<Integer, Resource> pairs= new HashMap<>();
-
-		for (int i = 0; i < numRes; i++) {
-			pairs.put(subListR.get(i),resources.get(i));
+		for (int i=0; i<numRes; i++){
+			subListArea.get(i).setEvent(subListResources.get(i));
+			System.out.println(subListArea.get(i).getEvent());
 		}
-
-			for (Area a: totalMapArea){
-				long id1 = a.getId();
-				for (long id : pairs.keySet()){
-					if (id1 == id){
-						a.setEvent(pairs.get(id));
-					}
-			}
-		}
-		//numero delle caselle conteneti i nemici
-		//List<Integer> subListE=numbers.subList(mode.getNumResources()+1,mode.getNumEnemy());
-
 	}
 
 

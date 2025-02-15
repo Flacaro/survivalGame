@@ -91,4 +91,19 @@ public class Enemy extends Event {
 	public void setUp(String type, Mode mode) {
 
 	}
+//
+//	@Override
+//	public String getName() {
+//		return "";
+//	}
+//
+//	@Override
+//	public String getType() {
+//		return "";
+//	}
+//
+//	@Override
+//	public String getDescription() {
+//		return "";
+//	}
 }

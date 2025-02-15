@@ -25,8 +25,11 @@ public class Mode {
 	@Column(name = "TOTAL_AREA", nullable = false)
 	private long totalArea;
 
+	public Mode(long id) {
+		this.id = setResourcesAndArea((int) id);
+	}
 
-	public long setResourcesAndArea(Long id) {
+	public long setResourcesAndArea(int id) {
 		if(id == 1) {
 			totalArea = 9;
 			numResources = 4;
@@ -43,4 +46,35 @@ public class Mode {
 		return totalArea;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getNumResources() {
+		return numResources;
+	}
+
+	public void setNumResources(int numResources) {
+		this.numResources = numResources;
+	}
+
+	public int getNumEnemy() {
+		return numEnemy;
+	}
+
+	public void setNumEnemy(int numEnemy) {
+		this.numEnemy = numEnemy;
+	}
+
+	public long getTotalArea() {
+		return totalArea;
+	}
+
+	public void setTotalArea(long totalArea) {
+		this.totalArea = totalArea;
+	}
 }

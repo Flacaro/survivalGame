@@ -24,8 +24,14 @@ public class Resource extends Event {
 	@Column(name = "LEVEL", nullable = false)
 	private int level = 1;
 
+	@Column(name = "NAME", nullable = false)
 	private String name;
+	@Column(name = "TYPE", nullable = false)
 	private String type;
+	@Column(name = "description", nullable = false)
+	private String description;
+	@Column(name = "QUANTITY", nullable = false)
+	private int quantity;
 
 	public Resource() {
 	}
@@ -92,4 +98,20 @@ public class Resource extends Event {
 	public void setName(String name) {
 		this.name = name;
 	}
+//
+//	public long getId() {
+//		return id;
+//	}
+//
+//	public String getCategory() {
+//		return category;
+//	}
+//
+//	public List<Attack> getAttacks() {
+//		return attacks;
+//	}
+//
+//	public int getLevel() {
+//		return level;
+//	}
 }

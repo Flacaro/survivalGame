@@ -63,4 +63,23 @@ public class Inventory {
 		throw new UnsupportedOperationException();
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public List<Resource> getResources() {
+		return resources;
+	}
+
+	public ArrayList<Resource> getResourcesSelected() {
+		return resourcesSelected;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
 }

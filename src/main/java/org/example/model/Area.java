@@ -41,4 +41,11 @@ public class Area implements Serializable {
 		return this.event;
 	}
 
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
+	public long getId() {
+		return id;
+	}
 }

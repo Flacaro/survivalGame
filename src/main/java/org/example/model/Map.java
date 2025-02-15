@@ -25,12 +25,32 @@ public class Map {
 	//uno ad uno con il player
 	@OneToOne(mappedBy = "map")
 	private Player player;
-	//private long playerPosition;
 
 	//uno ad uno con il gioco
 	@OneToOne(mappedBy = "map")
 	private Game game;
 
+	public Map(Mode mode,Game game,Player player) {
+		setTotalMapArea(mode);
+		this.game=game;
+		this.player=player;
+	}
+
+	public void setTotalMapArea(Mode mode) {
+		GameFactorySingleton gms= GameFactorySingleton.getInstance();
+		int totalArea= (int) mode.getTotalArea();
+
+		for (int c=0; c<totalArea; c++){
+			this.totalMapArea.add(new Area());
+		}
+		//vanno salvate tutte le aree nel db altrimenti non hanno id e non matcha con le risorrse
+		gms.createEvent(totalMapArea,mode);
+
+	}
+
+	public ArrayList<Area> getTotalMapArea() {
+		return totalMapArea;
+	}
 
 	public void setAdjacentArea(long position) {
 //		if(position == totalMapArea.get(totalMapArea.size()- 1)) {

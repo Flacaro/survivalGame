@@ -32,9 +32,13 @@ public class Game {
 	private Map map;
 
 	public void start(Mode mode) {
-		// TODO - implement Game.start
-		throw new UnsupportedOperationException();
+		this.mode=mode;
+		//va salvato nel db
+		this.player=new Player();
+
+		this.map=new Map(mode,this,player);
 	}
+
 
 	public void triggerEvent(Event event) {
 		// TODO - implement Game.triggerEvent
@@ -46,5 +50,38 @@ public class Game {
 		// TODO - implement Game.verifyAnswer
 		throw new UnsupportedOperationException();
 	}
+
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public Mode getMode() {
+		return mode;
+	}
+
+	public void setMode(Mode mode) {
+		this.mode = mode;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 
 }

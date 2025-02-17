@@ -42,6 +42,7 @@ public class Player {
 	@OneToOne(mappedBy = "player")
 	private Game game;
 
+
 	public boolean pickUp(Resource res) {
 		// TODO - implement Player.pickUp
 		throw new UnsupportedOperationException();

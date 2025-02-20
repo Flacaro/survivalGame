@@ -21,7 +21,7 @@ public class Player {
 	@Column(name = "LEVEL", nullable = false)
 	private int level = 1;
 
-	@Column(name = "POSITION", nullable = false)
+	@Column(name = "POSITION")
 	private long position;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -42,6 +42,12 @@ public class Player {
 	@OneToOne(mappedBy = "player")
 	private Game game;
 
+	public Player(String nickname, float health, int level,Game game) {
+		this.nickname = nickname;
+		this.health = health;
+		this.level = level;
+		this.game = game;
+	}
 
 	public boolean pickUp(Resource res) {
 		// TODO - implement Player.pickUp
@@ -78,9 +84,11 @@ public class Player {
 	}
 
 
-	public void setPosition(Area[] adjacentArea) {
-		// TODO - implement Player.setposition
-		throw new UnsupportedOperationException();
+	public void setPosition(Area position) {
+		this.position=position.getId();
 	}
 
+	public void setMap(Map map) {
+		this.map = map;
+	}
 }

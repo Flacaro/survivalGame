@@ -1,14 +1,16 @@
 package org.example.persistence;
 
 import jakarta.persistence.EntityManager;
-import org.example.model.Game;
+import org.example.model.Map;
 
-public class GameDao {
+public class MapDaoImpl implements MapDao {
 
-    public void saveGame(Game game, EntityManager em) {
+
+    @Override
+    public void saveMap(Map map, EntityManager em) {
         try {
             em.getTransaction().begin();
-            em.persist(game); // Salva nel database
+            em.persist(map); // Salva nel database
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -17,4 +19,3 @@ public class GameDao {
     }
 
 }
-

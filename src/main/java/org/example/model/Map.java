@@ -1,6 +1,8 @@
 package org.example.model;
 
+import Controller.DBController;
 import jakarta.persistence.*;
+
 import java.util.ArrayList;
 
 @Entity
@@ -34,14 +36,17 @@ public class Map {
 		setTotalMapArea(mode);
 		this.game=game;
 		this.player=player;
+		this.player.setPosition(totalMapArea.get(0));
+		this.player.setMap(this);
 	}
 
 	public void setTotalMapArea(Mode mode) {
 		GameFactorySingleton gms= GameFactorySingleton.getInstance();
 		int totalArea= (int) mode.getTotalArea();
-
+		DBController controller=new DBController();
 		for (int c=0; c<totalArea; c++){
 			this.totalMapArea.add(new Area());
+
 		}
 		//vanno salvate tutte le aree nel db altrimenti non hanno id e non matcha con le risorse
 		gms.createEvent(totalMapArea,mode);

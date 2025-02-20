@@ -20,7 +20,6 @@ public class CraftedResource {
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
-
     @Column(name = "CATEGORY", nullable = false)
     private String category;
 

@@ -1,28 +1,42 @@
 package Controller;
 
+import jakarta.persistence.EntityManager;
+import org.example.model.Area;
 import org.example.model.Game;
 import org.example.model.Map;
 import org.example.model.Player;
-import org.example.persistence.GameDao;
-import org.example.persistence.MapDao;
-import org.example.persistence.PlayerDao;
+import org.example.persistence.*;
 
 public class DBController {
 
-    private PlayerDao playerDao;
-    private GameDao gameDao;
-    private MapDao mapDao;
+
+    private PlayerDaoImpl playerDaoImpl =new PlayerDaoImpl();
+    private GameDao gameDao= new GameDao();
+    private MapDaoImpl mapDaoImpl =new MapDaoImpl();
+    private AreaDaoimpl areaDaoimpl =new AreaDaoimpl();
 
     public void insertPlayer(Player player){
-        playerDao.savePlayer(player);
-        playerDao.close();
+        EntityManager em= EntityManagerSingleton.getEntityManager();
+        playerDaoImpl.savePlayer(player,em);
+        close();
     }
     public void insertGame(Game game){
-        gameDao.saveGame(game);
-        gameDao.close();
+        EntityManager em= EntityManagerSingleton.getEntityManager();
+        gameDao.saveGame(game,em);
+        close();
     }
     public void insertMap(Map map){
-        mapDao.saveMap(map);
-        mapDao.close();
+        EntityManager em= EntityManagerSingleton.getEntityManager();
+        mapDaoImpl.saveMap(map,em);
+        close();
+    }
+    public void insertArea(Area area){
+        EntityManager em= EntityManagerSingleton.getEntityManager();
+        areaDaoimpl.saveArea(area,em);
+        close();
+    }
+
+    public void close(){
+       EntityManagerSingleton.closeEntityManager();
     }
 }

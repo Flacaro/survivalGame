@@ -45,8 +45,10 @@ public class Map {
 		int totalArea= (int) mode.getTotalArea();
 		DBController controller=new DBController();
 		for (int c=0; c<totalArea; c++){
-			this.totalMapArea.add(new Area());
-
+			Area a=new Area("area",String.valueOf(c), this);
+			this.totalMapArea.add(a);
+			this.adjacentArea.add(a);
+			controller.insertArea(a);
 		}
 		//vanno salvate tutte le aree nel db altrimenti non hanno id e non matcha con le risorse
 		gms.createEvent(totalMapArea,mode);
@@ -57,14 +59,7 @@ public class Map {
 		return totalMapArea;
 	}
 
-	public void setAdjacentArea(long position) {
-//		if(position == totalMapArea.get(totalMapArea.size()- 1)) {
-//			adjacentArea.add(position - 1);
-//		} else {
-//            adjacentArea.add(position - 1);
-//			adjacentArea.add(position + 1);
-//            }
-	}
+
 
 
 		public Event getEvent () {

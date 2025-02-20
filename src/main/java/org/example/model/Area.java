@@ -37,6 +37,12 @@ public class Area implements Serializable {
 	@JoinColumn(name = "id_climate",referencedColumnName = "id")
 	private Climate climate;
 
+	public Area(String name, String description, Map map) {
+		this.name = name;
+		this.description = description;
+		this.map=map;
+	}
+
 	public Event getEvent() {
 		return this.event;
 	}

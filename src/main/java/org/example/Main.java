@@ -1,8 +1,8 @@
 package org.example;
 
-import Controller.StartController;
-import org.example.model.*;
-import org.example.persistence.EntityManagerSingleton;
+import controller.StartController;
+import model.*;
+import persistence.EntityManagerSingleton;
 
 import java.util.ArrayList;
 
@@ -28,8 +28,8 @@ public class Main {
 
         attaks.add(attack);
         attaks.add(attack1);
-        Resource r = new Resource("cibo", null, 1, "acqua", "cibo");
-        Resource r2 = new Resource("arma", attaks, 1, "legno", "arma");
+        Resource r = new Resource("cibo", null, 1, "acqua");
+        Resource r2 = new Resource("arma", attaks, 1, "legno");
         CraftedResource r3 = new CraftedResource("arma", attaks, 3, "lancia", "fa male");
 
         ArrayList<Resource> resources = new ArrayList<>();
@@ -39,6 +39,9 @@ public class Main {
         CraftingCatalog cc = new CraftingCatalog();
         cc.setResourcesToCraft(resources);
         cc.setFinalResource(r3);
+
+
+
 
         //em.persist(attack);
 //           em.persist(r);

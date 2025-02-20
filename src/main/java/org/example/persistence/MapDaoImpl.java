@@ -5,9 +5,7 @@ import org.example.model.Map;
 
 public class MapDaoImpl implements MapDao {
 
-private final EntityManager em= EntityManagerSingleton.getEntityManager();
-
-public void saveMap(Map map) {
+public void saveMap(Map map, EntityManager em) {
     try {
         em.getTransaction().begin();
         em.persist(map); // Salva nel database

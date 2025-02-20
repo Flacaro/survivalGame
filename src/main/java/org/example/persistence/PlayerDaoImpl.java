@@ -5,9 +5,7 @@ import org.example.model.Player;
 
 public class PlayerDaoImpl implements PlayerDao {
 
-    private final EntityManager em= EntityManagerSingleton.getEntityManager();
-
-    public void savePlayer(Player player) {
+    public void savePlayer(Player player, EntityManager em) {
         try {
             em.getTransaction().begin();
             em.persist(player); // Salva nel database
@@ -18,7 +16,5 @@ public class PlayerDaoImpl implements PlayerDao {
         }
 
     }
-
-
 
 }

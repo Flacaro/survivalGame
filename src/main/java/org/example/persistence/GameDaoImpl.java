@@ -4,9 +4,8 @@ import jakarta.persistence.EntityManager;
 import org.example.model.Game;
 
 public class GameDaoImpl implements GameDao {
-    private final EntityManager em= EntityManagerSingleton.getEntityManager();
 
-    public void saveGame(Game game) {
+    public void saveGame(Game game, EntityManager em) {
         try {
             em.getTransaction().begin();
             em.persist(game); // Salva nel database

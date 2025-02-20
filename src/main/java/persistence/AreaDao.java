@@ -3,6 +3,8 @@ package persistence;
 import jakarta.persistence.EntityManager;
 import model.Area;
 
+import java.util.ArrayList;
+
 public interface AreaDao {
-    public void saveArea(Area area, EntityManager em);
+    void saveTotalMapArea(ArrayList<Area> area, EntityManager em);
 }

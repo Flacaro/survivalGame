@@ -29,7 +29,7 @@ public class GameFactorySingleton {
 		Collections.shuffle(totalMapArea);
 		Collections.shuffle(resources);
 		//id delle caselle contenenti le risorse
-		List<Area> subListArea=totalMapArea.subList(0, numRes);
+		List<Area> subListArea = totalMapArea.subList(0, numRes);
 		List<Resource> subListResources= resources.subList(0,numRes);
 
 		for (int i = 0; i < numRes; i++){

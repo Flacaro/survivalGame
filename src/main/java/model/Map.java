@@ -32,22 +32,19 @@ public class Map {
 	@OneToOne(mappedBy = "map")
 	private Game game;
 
-	public Map(Mode mode,Game game,Player player) {
-		setTotalMapArea(mode);
-		this.game=game;
-		this.player=player;
-		this.player.setPosition(totalMapArea.get(0));
-		this.player.setMap(this);
+	public Map(ArrayList<Area> totalMapArea, ArrayList<Area> adjacentArea, Player player, Game game) {
+		this.totalMapArea = totalMapArea;
+		this.adjacentArea = adjacentArea;
+		this.player = player;
+		this.game = game;
 	}
 
-	public void setTotalMapArea(Mode mode) {
+	public void setTotalMapArea(Mode mode, Map map) {
 		GameFactorySingleton gms= GameFactorySingleton.getInstance();
 		int totalArea= (int) mode.getTotalArea();
-//		DBController controller=new DBController();
 		for (int c = 0; c < totalArea; c++){
-			Area a=new Area("area",String.valueOf(c), this);
+			Area a = new Area("area","deserto", map);
 			this.totalMapArea.add(a);
-//			controller.insertArea(a);
 		}
 		//vanno salvate tutte le aree nel db altrimenti non hanno id e non matcha con le risorse
 		gms.createEvent(totalMapArea,mode);

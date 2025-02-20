@@ -3,16 +3,23 @@ package persistence;
 import jakarta.persistence.EntityManager;
 import model.Area;
 
+import java.util.ArrayList;
+
 public class AreaDaoImpl implements AreaDao {
+
     @Override
-    public void saveArea(Area area, EntityManager em) {
+    public void saveTotalMapArea(ArrayList<Area> area, EntityManager em) {
         try {
             em.getTransaction().begin();
-            em.persist(area); // Salva nel database
+            for (int i = 0; i < area.size(); i++) {
+                em.persist(area);
+            }
             em.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         }
     }
+
 }

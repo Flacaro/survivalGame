@@ -4,13 +4,15 @@ import jakarta.persistence.EntityManager;
 import model.*;
 import persistence.*;
 
+import java.util.ArrayList;
+
 public class DBController {
 
 
     private final PlayerDaoImpl playerDaoImpl = new PlayerDaoImpl();
     private final GameDaoImpl gameDaoImpl = new GameDaoImpl();
     private final MapDaoImpl mapDaoImpl = new MapDaoImpl();
-    private final AreaDaoImpl areaDaoimpl = new AreaDaoImpl();
+    private final AreaDaoImpl areaDaoImpl = new AreaDaoImpl();
 
     public void insertPlayer(Player player){
         EntityManager em= EntityManagerSingleton.getEntityManager();
@@ -25,13 +27,13 @@ public class DBController {
     public void insertMap(Map map){
         EntityManager em= EntityManagerSingleton.getEntityManager();
         Mode m = new Mode(1L);
-        map.setTotalMapArea(m);
+        map.setTotalMapArea(m, map);
         mapDaoImpl.saveMap(map,em);
         close();
     }
-    public void insertArea(Area area){
+    public void insertArea(ArrayList<Area> area){
         EntityManager em= EntityManagerSingleton.getEntityManager();
-        areaDaoimpl.saveArea(area,em);
+        areaDaoImpl.saveTotalMapArea(area,em);
         close();
     }
 

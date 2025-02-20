@@ -5,6 +5,8 @@ import model.Map;
 import model.Mode;
 import model.Player;
 
+import java.util.ArrayList;
+
 public class StartController {
 
     private final Game game=new Game();
@@ -14,12 +16,13 @@ public class StartController {
         game.setMode(mode);
         Player player=new Player("crivall",5,1,game);
         game.setPlayer(player);
-        Map map=new Map(mode,game,player);
+        Map map = new Map(new ArrayList<>(), new ArrayList<>(),player, game);
         game.setMap(map);
 
         dbController.insertPlayer(player);
         dbController.insertGame(game);
         dbController.insertMap(map);
+        dbController.insertArea(map.getTotalMapArea());
 
         return game;
     }

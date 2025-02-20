@@ -58,7 +58,6 @@ public class Resource extends Event {
 		return id;
 	}
 
-
 	public String getCategory() {
 		return category;
 	}
@@ -98,22 +97,6 @@ public class Resource extends Event {
 	public void setName(String name) {
 		this.name = name;
 	}
-//
-//	public long getId() {
-//		return id;
-//	}
-//
-//	public String getCategory() {
-//		return category;
-//	}
-//
-//	public List<Attack> getAttacks() {
-//		return attacks;
-//	}
-//
-//	public int getLevel() {
-//		return level;
-//	}
 
 	@Override
 	public String toString() {

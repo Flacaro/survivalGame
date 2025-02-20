@@ -31,12 +31,7 @@ public class Game {
 	@JoinColumn(name="id_map", referencedColumnName = "id")
 	private Map map;
 
-	public void start(Mode mode) {
-		this.mode=mode;
-		//va salvato nel db
-		this.player=new Player();
-		this.map=new Map(mode,this,player);
-	}
+
 
 
 	public void triggerEvent(Event event) {

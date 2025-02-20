@@ -1,6 +1,8 @@
 package Controller;
 
+import jakarta.persistence.EntityManager;
 import org.example.model.*;
+import org.example.persistence.EntityManagerSingleton;
 
 import java.util.ArrayList;
 
@@ -9,22 +11,16 @@ public class StartController {
     private final Game game=new Game();
     private DBController dbController= new DBController();
 
-//    public void start(Mode mode) {
-//        this.mode=mode;
-//        //va salvato nel db
-//        this.player=new Player();
-//        this.map=new Map(mode,this,player);
-//    }
     public Game start(Mode mode){
         game.setMode(mode);
-        Player player=new Player();
+        Player player=new Player("crivall",5,1,game);
         game.setPlayer(player);
         Map map=new Map(mode,game,player);
         game.setMap(map);
-//        dbController.insertPlayer(player);
-//        dbController.insertGame(game);
-//        dbController.insertMap(map);
-        dbController.insertPlayerGameMap(player, game, map);
+
+        dbController.insertPlayer(player);
+        dbController.insertGame(game);
+        dbController.insertMap(map);
 
         return game;
     }

@@ -1,14 +1,10 @@
 package org.example;
 
-
-import Controller.CraftingCatalogueController;
 import Controller.StartController;
 import org.example.model.*;
-import org.example.persistence.CraftingCatalogDaoImpl;
 import org.example.persistence.EntityManagerSingleton;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Main {
 

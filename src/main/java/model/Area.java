@@ -15,9 +15,7 @@ public class Area implements Serializable {
 	@Column(name = "NAME", nullable = false)
 	private String name;
 
-//	@Column(name = "EVENT", nullable = false)
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "event_id")
+	@Column(name = "EVENT", nullable = false)
 	private Event event;
 
 	@Column(name = "DESCRIPTION", nullable = false)

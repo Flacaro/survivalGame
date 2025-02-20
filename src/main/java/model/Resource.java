@@ -6,7 +6,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "RESOURCE")
-//@DiscriminatorColumn(name = "event_type", discriminatorType = DiscriminatorType.STRING)
 public class Resource extends Event {
 
 	@Id
@@ -29,14 +28,20 @@ public class Resource extends Event {
 	@Column(name = "QUANTITY", nullable = false)
 	private int quantity;
 
+	@Column(name = "TYPE", nullable = false)
+	private String type;
+
+
 	public Resource() {
 	}
 
-	public Resource(String category, List<Attack> attacks, int level, String name) {
+	public Resource(String category, List<Attack> attacks, int level, String name, int quantity, String type) {
 		this.category = category;
 		this.attacks = attacks;
 		this.level = level;
 		this.name = name;
+		this.quantity = quantity;
+		this.type = type;
 	}
 
 	@Override
@@ -86,14 +91,32 @@ public class Resource extends Event {
 		this.name = name;
 	}
 
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
 		return "Resource{" +
-//				"id=" + id +
+				"id=" + id +
 				", category='" + category + '\'' +
+				", attacks=" + attacks +
 				", level=" + level +
 				", name='" + name + '\'' +
 				", quantity=" + quantity +
+				", type='" + type + '\'' +
 				'}';
 	}
 }

@@ -32,7 +32,7 @@ public class GameFactorySingleton {
 		List<Area> subListArea=totalMapArea.subList(0, numRes);
 		List<Resource> subListResources= resources.subList(0,numRes);
 
-		for (int i=0; i<numRes; i++){
+		for (int i = 0; i < numRes; i++){
 			subListArea.get(i).setEvent(subListResources.get(i));
 			System.out.println(subListArea.get(i).getEvent());
 		}

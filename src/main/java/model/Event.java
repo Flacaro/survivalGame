@@ -1,10 +1,11 @@
 package model;
 
-
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @MappedSuperclass
-public abstract class Event {
+public abstract class Event implements Serializable {
 
 
     private String type;

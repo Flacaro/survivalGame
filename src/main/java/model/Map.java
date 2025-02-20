@@ -16,12 +16,12 @@ public class Map {
 
 	//test composizione
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Area> totalMapArea =new ArrayList<>();
+	private ArrayList<Area> totalMapArea = new ArrayList<>();
 
 
 	//test composizione
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Area> adjacentArea= new ArrayList<>();
+	private ArrayList<Area> adjacentArea= new ArrayList<>();
 
 
 	//uno ad uno con il player
@@ -44,14 +44,14 @@ public class Map {
 		GameFactorySingleton gms= GameFactorySingleton.getInstance();
 		int totalArea= (int) mode.getTotalArea();
 //		DBController controller=new DBController();
-		for (int c=0; c<totalArea; c++){
+		for (int c = 0; c < totalArea; c++){
 			Area a=new Area("area",String.valueOf(c), this);
 			this.totalMapArea.add(a);
 //			controller.insertArea(a);
 		}
 		//vanno salvate tutte le aree nel db altrimenti non hanno id e non matcha con le risorse
-		gms.createEvent((ArrayList<Area>) totalMapArea,mode);
-		setAdjacentArea((ArrayList<Area>) totalMapArea);
+		gms.createEvent(totalMapArea,mode);
+		setAdjacentArea(totalMapArea);
 	}
 
 	public ArrayList<Area> getTotalMapArea() {

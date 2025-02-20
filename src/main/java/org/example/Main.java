@@ -28,8 +28,8 @@ public class Main {
 
         attaks.add(attack);
         attaks.add(attack1);
-        Resource r = new Resource("cibo", null, 1, "acqua");
-        Resource r2 = new Resource("arma", attaks, 1, "legno");
+        Resource r = new Resource("risorsa", null, 1, "acqua", 2, "risorsa");
+        Resource r2 = new Resource("arma", attaks, 1, "legno", 1, "arma");
         CraftedResource r3 = new CraftedResource("arma", attaks, 3, "lancia", "fa male");
 
         ArrayList<Resource> resources = new ArrayList<>();

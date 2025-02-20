@@ -11,7 +11,6 @@ public class DBController {
     private final GameDaoImpl gameDaoImpl = new GameDaoImpl();
     private final MapDaoImpl mapDaoImpl = new MapDaoImpl();
     private final AreaDaoImpl areaDaoimpl = new AreaDaoImpl();
-    private final ResourceDaoImpl resDaoImpl = new ResourceDaoImpl();
 
     public void insertPlayer(Player player){
         EntityManager em= EntityManagerSingleton.getEntityManager();
@@ -33,12 +32,6 @@ public class DBController {
     public void insertArea(Area area){
         EntityManager em= EntityManagerSingleton.getEntityManager();
         areaDaoimpl.saveArea(area,em);
-        close();
-    }
-
-    public void addResource(Resource r) {
-        EntityManager em= EntityManagerSingleton.getEntityManager();
-        resDaoImpl.saveResource(r, em);
         close();
     }
 

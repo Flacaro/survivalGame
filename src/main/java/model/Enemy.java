@@ -18,9 +18,14 @@ public class Enemy extends Event {
 	@Column(name = "LEVEL", nullable = false)
 	private int level = 1;
 
+	@Column(name = "NAME", nullable = false)
 	private String name;
 
+	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
+
+	@Column(name = "TYPE", nullable = false)
+	private String type;
 
 	public Enemy() {
 	}
@@ -47,17 +52,15 @@ public class Enemy extends Event {
 		this.level = level;
 	}
 
-	public String getName() {
-		return name;
-	}
+
 
 	public void setName(String name) {
 		this.name = name;
 	}
-//
-//	public long getId() {
-//		return id;
-//	}
+
+	public long getId() {
+		return id;
+	}
 
 	@Override
 	public void updateQuantity(String name, int qnt) {
@@ -68,19 +71,24 @@ public class Enemy extends Event {
 	public void setUp(String type, Mode mode) {
 
 	}
-//
-//	@Override
-//	public String getName() {
-//		return "";
-//	}
-//
-//	@Override
-//	public String getType() {
-//		return "";
-//	}
-//
-//	@Override
-//	public String getDescription() {
-//		return "";
-//	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }

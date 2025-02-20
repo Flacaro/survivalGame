@@ -44,11 +44,11 @@ public class Map {
 	public void setTotalMapArea(Mode mode) {
 		GameFactorySingleton gms= GameFactorySingleton.getInstance();
 		int totalArea= (int) mode.getTotalArea();
-		DBController controller=new DBController();
+//		DBController controller=new DBController();
 		for (int c=0; c<totalArea; c++){
 			Area a=new Area("area",String.valueOf(c), this);
 			this.totalMapArea.add(a);
-			controller.insertArea(a);
+//			controller.insertArea(a);
 		}
 		//vanno salvate tutte le aree nel db altrimenti non hanno id e non matcha con le risorse
 		gms.createEvent((ArrayList<Area>) totalMapArea,mode);

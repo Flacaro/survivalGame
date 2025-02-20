@@ -1,10 +1,7 @@
 package Controller;
 
 import jakarta.persistence.EntityManager;
-import org.example.model.Area;
-import org.example.model.Game;
-import org.example.model.Map;
-import org.example.model.Player;
+import org.example.model.*;
 import org.example.persistence.*;
 
 public class DBController {
@@ -27,6 +24,8 @@ public class DBController {
     }
     public void insertMap(Map map){
         EntityManager em= EntityManagerSingleton.getEntityManager();
+        Mode m = new Mode(1L);
+        map.setTotalMapArea(m);
         mapDaoImpl.saveMap(map,em);
         close();
     }

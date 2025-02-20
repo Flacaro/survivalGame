@@ -44,8 +44,8 @@ public class Main {
 //           em.persist(r);
 //           em.detach(r);
 //        em.persist(r2);
-        em.persist(r3);
-        em.persist(cc);
+//        em.persist(r3);
+//        em.persist(cc);
 //        em.flush();
         //em.getTransaction().commit();
 

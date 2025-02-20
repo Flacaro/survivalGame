@@ -3,6 +3,7 @@ package persistence;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.transaction.Transaction;
 
 public class EntityManagerSingleton {
 
@@ -20,6 +21,12 @@ public class EntityManagerSingleton {
 
         return em;
     }
+
+//    public static void checkIfTransactionAlreadyBegan() {
+//        if(!em.getTransaction().isActive()) {
+//            em.getTransaction().begin();
+//        }
+//    }
 
 
     public static void closeEntityManager() {

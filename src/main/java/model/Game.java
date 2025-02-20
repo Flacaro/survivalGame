@@ -77,5 +77,7 @@ public class Game {
 		this.status = status;
 	}
 
-
+	public long getId() {
+		return id;
+	}
 }

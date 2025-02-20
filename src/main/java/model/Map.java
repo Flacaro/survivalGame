@@ -48,11 +48,10 @@ public class Map {
 		}
 		//vanno salvate tutte le aree nel db altrimenti non hanno id e non matcha con le risorse
 		gms.createEvent(totalMapArea,mode);
-		setAdjacentArea(totalMapArea);
 	}
 
 	public ArrayList<Area> getTotalMapArea() {
-		return (ArrayList<Area>) totalMapArea;
+		return totalMapArea;
 	}
 
 	public void setAdjacentArea(ArrayList<Area> adjacentArea) {

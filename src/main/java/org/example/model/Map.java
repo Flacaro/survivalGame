@@ -4,6 +4,7 @@ import Controller.DBController;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "MAP")
@@ -16,12 +17,12 @@ public class Map {
 
 	//test composizione
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private ArrayList<Area> totalMapArea =new ArrayList<>();
+	private List<Area> totalMapArea =new ArrayList<>();
 
 
 	//test composizione
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private ArrayList<Area> adjacentArea= new ArrayList<>();
+	private List<Area> adjacentArea= new ArrayList<>();
 
 
 	//uno ad uno con il player
@@ -47,22 +48,22 @@ public class Map {
 		for (int c=0; c<totalArea; c++){
 			Area a=new Area("area",String.valueOf(c), this);
 			this.totalMapArea.add(a);
-			this.adjacentArea.add(a);
 			controller.insertArea(a);
 		}
 		//vanno salvate tutte le aree nel db altrimenti non hanno id e non matcha con le risorse
-		gms.createEvent(totalMapArea,mode);
-
+		gms.createEvent((ArrayList<Area>) totalMapArea,mode);
+		setAdjacentArea((ArrayList<Area>) totalMapArea);
 	}
 
 	public ArrayList<Area> getTotalMapArea() {
-		return totalMapArea;
+		return (ArrayList<Area>) totalMapArea;
 	}
 
+	public void setAdjacentArea(ArrayList<Area> adjacentArea) {
+		this.adjacentArea = adjacentArea;
+	}
 
-
-
-		public Event getEvent () {
+	public Event getEvent () {
 			// TODO - implement Map.getEvent
 			throw new UnsupportedOperationException();
 		}

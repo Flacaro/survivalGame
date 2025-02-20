@@ -1,26 +1,10 @@
 package org.example.persistence;
 
-import jakarta.persistence.EntityManager;
 import org.example.model.Game;
 
-public class GameDao {
-    private EntityManager em= EntityManagerSingleton.getEntityManager();
+public interface GameDao {
 
-    public void saveGame(Game game) {
-        try {
-            em.getTransaction().begin();
-            em.persist(game); // Salva nel database
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
-    }
+    void saveGame(Game game);
 
-    public void close() {
-        em.close();
-    }
 }
 

@@ -3,26 +3,25 @@ package Controller;
 import org.example.model.Game;
 import org.example.model.Map;
 import org.example.model.Player;
-import org.example.persistence.GameDao;
-import org.example.persistence.MapDao;
-import org.example.persistence.PlayerDao;
+import org.example.persistence.*;
 
 public class DBController {
 
-    private PlayerDao playerDao;
-    private GameDao gameDao;
-    private MapDao mapDao;
+    private final PlayerDaoImpl playerDaoImpl = new PlayerDaoImpl();
+    private final GameDaoImpl gameDaoImpl = new GameDaoImpl();
+    private final MapDaoImpl mapDaoImpl = new MapDaoImpl();
 
-    public void insertPlayer(Player player){
-        playerDao.savePlayer(player);
-        playerDao.close();
+    public void insertPlayerGameMap(Player player, Game game, Map map){
+        playerDaoImpl.savePlayer(player);
+        mapDaoImpl.saveMap(map);
+        gameDaoImpl.saveGame(game);
     }
-    public void insertGame(Game game){
-        gameDao.saveGame(game);
-        gameDao.close();
-    }
-    public void insertMap(Map map){
-        mapDao.saveMap(map);
-        mapDao.close();
-    }
+//    public void insertGame(Game game){
+//        gameDaoImpl.saveGame(game);
+////        gameDaoImpl.close();
+//    }
+//    public void insertMap(Map map){
+//        mapDaoImpl.saveMap(map);
+////        mapDaoImpl.close();
+//    }
 }

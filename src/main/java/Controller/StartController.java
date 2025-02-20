@@ -21,9 +21,11 @@ public class StartController {
         game.setPlayer(player);
         Map map=new Map(mode,game,player);
         game.setMap(map);
-        dbController.insertPlayer(player);
-        dbController.insertGame(game);
-        dbController.insertMap(map);
+//        dbController.insertPlayer(player);
+//        dbController.insertGame(game);
+//        dbController.insertMap(map);
+        dbController.insertPlayerGameMap(player, game, map);
+
         return game;
     }
 }

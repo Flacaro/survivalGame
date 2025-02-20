@@ -20,8 +20,6 @@ public class CraftingCatalogDaoImpl implements CraftingCatalogDao {
 
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            em.close();
         }
 
         return null;

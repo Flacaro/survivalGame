@@ -1,19 +1,34 @@
 package services;
 
 import model.domain.AreaDomain;
-import model.domain.MapDomain;
 import model.entity.Area;
-import model.entity.Map;
+
 
 public class AreaService {
 
-    public Area areaMapper(AreaDomain areaDomain) {
-        Area area = new Area();
-        area.setId(area.getId());
-        area.setName(areaDomain.getName());
-        area.setDescription(area.getDescription());
-        area.setIdEvent(area.getIdEvent());
-        area.setCheckpoint(areaDomain.getCheckpoint());
+    private CheckpointService checkpointService;
+    private ClimateService climateService;
 
+    public Area areaMapper(AreaDomain areaDomain) {
+        if (areaDomain == null) {
+            return null;
+        }
+
+        Area area = new Area();
+        area.setId(areaDomain.getId()); // Corretto
+        area.setName(areaDomain.getName());
+        area.setDescription(areaDomain.getDescription());
+        area.setIdEvent(areaDomain.getIdEvent());
+
+        if (areaDomain.getCheckpoint() != null) {
+            area.setCheckpoint(checkpointService.checkpointMapper(areaDomain.getCheckpoint()));
+        }
+
+        // Conversione di ClimateDomain in Climate (se necessario)
+        if (areaDomain.getClimate() != null) {
+            area.setClimate(climateService.climateMapper(areaDomain.getClimate()));
+        }
+
+        return area;
     }
 }

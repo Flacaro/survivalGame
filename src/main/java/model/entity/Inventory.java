@@ -27,7 +27,36 @@ public class Inventory {
 	private ArrayList<Resource> resourcesSelected= new ArrayList<>();
 
 
-	@OneToOne(mappedBy = "inventory")
-	private Player player;
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public List<Resource> getResources() {
+		return resources;
+	}
+
+	public void setResources(List<Resource> resources) {
+		this.resources = resources;
+	}
+
+	public ArrayList<Resource> getResourcesSelected() {
+		return resourcesSelected;
+	}
+
+	public void setResourcesSelected(ArrayList<Resource> resourcesSelected) {
+		this.resourcesSelected = resourcesSelected;
+	}
 
 }

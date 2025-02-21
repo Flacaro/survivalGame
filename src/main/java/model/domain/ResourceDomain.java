@@ -1,9 +1,6 @@
 package model.domain;
 
 
-import model.entity.Attack;
-import model.entity.Mode;
-
 import java.util.List;
 
 public class ResourceDomain {
@@ -12,7 +9,7 @@ public class ResourceDomain {
 
     private String category;
 
-    private List<Attack> attacks;
+    private List<AttackDomain> attacks;
 
     private int level = 1;
 
@@ -26,7 +23,7 @@ public class ResourceDomain {
     public ResourceDomain() {
     }
 
-    public ResourceDomain(String category, List<Attack> attacks, int level, String name, int quantity, String type) {
+    public ResourceDomain(String category, List<AttackDomain> attacks, int level, String name, int quantity, String type) {
         this.category = category;
         this.attacks = attacks;
         this.level = level;
@@ -47,11 +44,11 @@ public class ResourceDomain {
         this.category = category;
     }
 
-    public List<Attack> getAttacks() {
+    public List<AttackDomain> getAttacks() {
         return attacks;
     }
 
-    public void setAttacks(List<Attack> attacks) {
+    public void setAttacks(List<AttackDomain> attacks) {
         this.attacks = attacks;
     }
 
@@ -91,6 +88,6 @@ public class ResourceDomain {
     public void updateQuantity(String name, int qnt) {
     }
 
-    public void setUp(String type, Mode mode) {
+    public void setUp(String type, ModeDomain mode) {
     }
 }

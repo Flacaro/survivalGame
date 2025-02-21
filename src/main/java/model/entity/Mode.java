@@ -27,6 +27,9 @@ public class Mode {
 	@Column(name = "TOTAL_AREA")
 	private long totalArea;
 
+	public Mode() {
+	}
+
 	public Mode(long id) {
 		this.id = id;
 		setResourcesAndArea(id);

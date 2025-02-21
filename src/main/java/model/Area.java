@@ -54,4 +54,44 @@ public class Area implements Serializable {
 	public long getId() {
 		return id;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+	}
+
+	public Checkpoint getCheckpoint() {
+		return checkpoint;
+	}
+
+	public void setCheckpoint(Checkpoint checkpoint) {
+		this.checkpoint = checkpoint;
+	}
+
+	public Climate getClimate() {
+		return climate;
+	}
+
+	public void setClimate(Climate climate) {
+		this.climate = climate;
+	}
 }

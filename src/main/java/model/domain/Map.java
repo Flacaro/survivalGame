@@ -18,17 +18,7 @@ public class Map {
     public Map() {
     }
 
-    public void setTotalMapArea(Mode mode) {
-        GameFactorySingleton gms = GameFactorySingleton.getInstance();
-        int totalArea = (int) mode.getTotalArea();
-        for (int c = 0; c < totalArea; c++) {
-            Area a = new Area("area", "deserto");
-            this.areas.add(a);
-        }
-        //vanno salvate tutte le aree nel db altrimenti non hanno id e non matcha con le risorse
-        gms.createEvent(areas, mode);
-        setAreas(areas);
-    }
+
 
     public List<Area> getAreas() {
         return areas;

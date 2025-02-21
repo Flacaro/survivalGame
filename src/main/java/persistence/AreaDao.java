@@ -1,7 +1,7 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
-import model.entity.Area;
+import model.domain.Area;
 
 import java.util.List;
 

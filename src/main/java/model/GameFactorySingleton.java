@@ -2,7 +2,7 @@ package model;
 
 import model.domain.Area;
 import model.entity.Inventory;
-import model.entity.Mode;
+import model.domain.Mode;
 import model.entity.Resource;
 import persistence.ResourceDaoImpl;
 
@@ -19,7 +19,6 @@ public class GameFactorySingleton {
 	}
 
 	public void createEvent(List<Area> totalMapArea, Mode mode) {
-		//int numEn=mode.getNumEnemy();
 		int numRes= mode.getNumResources();
 
 		//devo recuperare le risorse nel db, posizionarle nelle caselle ed aggiornare la quantità
@@ -33,8 +32,8 @@ public class GameFactorySingleton {
 		Collections.shuffle(totalMapArea);
 		Collections.shuffle(resources);
 		//id delle caselle contenenti le risorse
-		List<Area> subListArea = totalMapArea.subList(0, numRes);
-		List<Resource> subListResources= resources.subList(0,numRes);
+		List<Area> subListArea = totalMapArea.subList(0, numRes-1);
+		List<Resource> subListResources= resources.subList(0,numRes-1);
 
 		for (int i = 0; i < numRes; i++){
 			subListArea.get(i).setEvent(subListResources.get(i).getId());

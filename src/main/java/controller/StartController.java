@@ -1,9 +1,10 @@
 package controller;
 
-import model.entity.Game;
+import model.domain.Game;
 import model.domain.Map;
 import model.domain.Mode;
-import model.entity.Player;
+import model.domain.Player;
+import services.MapServices;
 
 public class StartController {
 
@@ -15,7 +16,8 @@ public class StartController {
 
 
         Map map = new Map();
-        map.setTotalMapArea(mode);
+        MapServices mapServices=new MapServices();
+        map.setAreas(mapServices.setTotalMapArea(mode));
 
         Game game = new Game(
                 1,

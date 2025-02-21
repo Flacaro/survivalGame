@@ -3,7 +3,6 @@ package model.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table(name = "AREA")
@@ -34,4 +33,51 @@ public class Area implements Serializable {
 	private Climate climate;
 
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public long getIdEvent() {
+		return idEvent;
+	}
+
+	public void setIdEvent(long idEvent) {
+		this.idEvent = idEvent;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Checkpoint getCheckpoint() {
+		return checkpoint;
+	}
+
+	public void setCheckpoint(Checkpoint checkpoint) {
+		this.checkpoint = checkpoint;
+	}
+
+	public Climate getClimate() {
+		return climate;
+	}
+
+	public void setClimate(Climate climate) {
+		this.climate = climate;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 }

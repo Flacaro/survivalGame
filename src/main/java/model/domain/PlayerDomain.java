@@ -8,7 +8,7 @@ import model.entity.Skill;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class PlayerDomain {
 
     private long id;
 
@@ -24,7 +24,7 @@ public class Player {
 
     private List<Skill> skills= new ArrayList<>();
 
-    public Player(String nickname, float health, int level) {
+    public PlayerDomain(String nickname, float health, int level) {
         this.nickname = nickname;
         this.health = health;
         this.level = level;

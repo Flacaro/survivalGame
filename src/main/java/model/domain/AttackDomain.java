@@ -1,6 +1,6 @@
 package model.domain;
 
-public class Attack {
+public class AttackDomain {
 
     private long id;
 
@@ -11,10 +11,10 @@ public class Attack {
     private String type;
 
 
-    public Attack() {
+    public AttackDomain() {
     }
 
-    public Attack(String name, double damage, String type) {
+    public AttackDomain(String name, double damage, String type) {
         this.name = name;
         this.damage = damage;
         this.type = type;

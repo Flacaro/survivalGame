@@ -16,5 +16,16 @@ public class Map {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Area> areas = new ArrayList<>();
 
+    public long getId() {
+        return id;
+    }
 
+
+    public List<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(List<Area> areas) {
+        this.areas = areas;
+    }
 }

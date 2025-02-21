@@ -4,17 +4,17 @@ package model.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Inventory {
+public class InventoryDomain {
 
     private long id;
 
     private int capacity;
 
-    private List<Resource> resources;
+    private List<ResourceDomain> resourceDomains;
 
-    private List<Resource> resourcesSelected;
+    private List<ResourceDomain> resourcesSelected;
 
-    private Player player;
+    private PlayerDomain playerDomain;
 
     public model.entity.Resource combine(model.entity.Resource[] selections) {
         // TODO - implement Inventory.combine
@@ -57,27 +57,27 @@ public class Inventory {
         this.capacity = capacity;
     }
 
-    public List<Resource> getResources() {
-        return resources;
+    public List<ResourceDomain> getResources() {
+        return resourceDomains;
     }
 
-    public void setResources(List<Resource> resources) {
-        this.resources = resources;
+    public void setResources(List<ResourceDomain> resourceDomains) {
+        this.resourceDomains = resourceDomains;
     }
 
-    public Player getPlayer() {
-        return player;
+    public PlayerDomain getPlayer() {
+        return playerDomain;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setPlayer(PlayerDomain playerDomain) {
+        this.playerDomain = playerDomain;
     }
 
-    public List<Resource> getResourcesSelected() {
+    public List<ResourceDomain> getResourcesSelected() {
         return resourcesSelected;
     }
 
-    public void setResourcesSelected(ArrayList<Resource> resourcesSelected) {
+    public void setResourcesSelected(ArrayList<ResourceDomain> resourcesSelected) {
         this.resourcesSelected = resourcesSelected;
     }
 }

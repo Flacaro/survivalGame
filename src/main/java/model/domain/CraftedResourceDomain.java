@@ -5,7 +5,7 @@ import model.entity.Attack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CraftedResource {
+public class CraftedResourceDomain {
 
     private long id;
 
@@ -19,10 +19,10 @@ public class CraftedResource {
 
     private int level = 1;
 
-    public CraftedResource() {
+    public CraftedResourceDomain() {
     }
 
-    public CraftedResource(String category, List<model.entity.Attack> attacks, int level, String name, String description) {
+    public CraftedResourceDomain(String category, List<model.entity.Attack> attacks, int level, String name, String description) {
         this.category = category;
         this.attacks = attacks;
         this.level = level;

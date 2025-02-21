@@ -6,7 +6,7 @@ import model.entity.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CraftingCatalog {
+public class CraftingCatalogDomain {
 
     private long id;
 
@@ -18,7 +18,7 @@ public class CraftingCatalog {
         return id;
     }
 
-    public CraftingCatalog() {
+    public CraftingCatalogDomain() {
     }
 
     public ArrayList<model.entity.Resource> getResourcesToCraft() {

@@ -1,11 +1,9 @@
 package model.domain;
 
-import model.entity.Checkpoint;
-import model.entity.Climate;
 
 import java.util.Objects;
 
-public class Area {
+public class AreaDomain {
 
     private long id;
 
@@ -15,15 +13,15 @@ public class Area {
 
     private String description;
 
-    private Checkpoint checkpoint;
+    private CheckpointDomain checkpoint;
 
-    private Climate climate;
+    private ClimateDomain climate;
 
 
-    public Area() {
+    public AreaDomain() {
     }
 
-    public Area(String name, String description) {
+    public AreaDomain(String name, String description) {
         this.name = name;
         this.description = description;
     }
@@ -57,19 +55,19 @@ public class Area {
     }
 
 
-    public Checkpoint getCheckpoint() {
+    public CheckpointDomain getCheckpoint() {
         return checkpoint;
     }
 
-    public void setCheckpoint(Checkpoint checkpoint) {
+    public void setCheckpoint(CheckpointDomain checkpoint) {
         this.checkpoint = checkpoint;
     }
 
-    public Climate getClimate() {
+    public ClimateDomain getClimate() {
         return climate;
     }
 
-    public void setClimate(Climate climate) {
+    public void setClimate(ClimateDomain climate) {
         this.climate = climate;
     }
 
@@ -89,8 +87,8 @@ public class Area {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Area area = (Area) o;
-        return id == area.id && idEvent == area.idEvent && Objects.equals(name, area.name) && Objects.equals(description, area.description) && Objects.equals(checkpoint, area.checkpoint) && Objects.equals(climate, area.climate);
+        AreaDomain areaDomain = (AreaDomain) o;
+        return id == areaDomain.id && idEvent == areaDomain.idEvent && Objects.equals(name, areaDomain.name) && Objects.equals(description, areaDomain.description) && Objects.equals(checkpoint, areaDomain.checkpoint) && Objects.equals(climate, areaDomain.climate);
     }
 
     @Override

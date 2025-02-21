@@ -1,8 +1,8 @@
 package model;
 
-import model.domain.Area;
+import model.domain.AreaDomain;
 import model.entity.Inventory;
-import model.domain.Mode;
+import model.domain.ModeDomain;
 import model.entity.Resource;
 import persistence.ResourceDaoImpl;
 
@@ -18,8 +18,8 @@ public class GameFactorySingleton {
 		return instance;
 	}
 
-	public void createEvent(List<Area> totalMapArea, Mode mode) {
-		int numRes= mode.getNumResources();
+	public void createEvent(List<AreaDomain> totalMapAreaDomain, ModeDomain modeDomain) {
+		int numRes= modeDomain.getNumResources();
 
 		//devo recuperare le risorse nel db, posizionarle nelle caselle ed aggiornare la quantità
 		ResourceDaoImpl resourceDao = new ResourceDaoImpl();
@@ -29,20 +29,20 @@ public class GameFactorySingleton {
 			resources = new ArrayList<>();
 		}
 
-		Collections.shuffle(totalMapArea);
+		Collections.shuffle(totalMapAreaDomain);
 		Collections.shuffle(resources);
 		//id delle caselle contenenti le risorse
-		List<Area> subListArea = totalMapArea.subList(0, numRes-1);
+		List<AreaDomain> subListAreaDomain = totalMapAreaDomain.subList(0, numRes-1);
 		List<Resource> subListResources= resources.subList(0,numRes-1);
 
 		for (int i = 0; i < numRes; i++){
-			subListArea.get(i).setEvent(subListResources.get(i).getId());
-			System.out.println(subListArea.get(i).getEvent());
+			subListAreaDomain.get(i).setEvent(subListResources.get(i).getId());
+			System.out.println(subListAreaDomain.get(i).getEvent());
 		}
 	}
 
 
-	public void createClimate(Mode mode) {
+	public void createClimate(ModeDomain modeDomain) {
 		// TODO - implement GameFactorySingleton.createClimate
 		throw new UnsupportedOperationException();
 	}

@@ -2,7 +2,7 @@ package model.domain;
 
 import model.entity.Checkpoint;
 
-public class Skill {
+public class SkillDomain {
 
     private long id;
 

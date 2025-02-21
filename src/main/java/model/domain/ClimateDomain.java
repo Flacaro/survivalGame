@@ -1,7 +1,7 @@
 package model.domain;
 
 
-public class Climate {
+public class ClimateDomain {
 
     private long id;
 

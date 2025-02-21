@@ -4,7 +4,7 @@ import model.entity.Mode;
 
 import java.util.ArrayList;
 
-public class Enemy {
+public class EnemyDomain {
 
     private Long id;
 
@@ -18,10 +18,10 @@ public class Enemy {
 
     private String type;
 
-    public Enemy() {
+    public EnemyDomain() {
     }
 
-    public Enemy(ArrayList<Attack> attacks, int level, String name) {
+    public EnemyDomain(ArrayList<Attack> attacks, int level, String name) {
         this.attacks = attacks;
         this.level = level;
         this.name = name;

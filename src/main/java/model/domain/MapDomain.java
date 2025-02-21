@@ -1,31 +1,29 @@
 package model.domain;
 
 
-import model.GameFactorySingleton;
 import model.entity.Event;
-import model.entity.Mode;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Map {
+public class MapDomain {
 
     private long id;
 
-    private List<Area> areas = new ArrayList<>();
+    private List<AreaDomain> areaDomains = new ArrayList<>();
 
-    public Map() {
+    public MapDomain() {
     }
 
 
 
-    public List<Area> getAreas() {
-        return areas;
+    public List<AreaDomain> getAreas() {
+        return areaDomains;
     }
 
-    public void setAreas(List<Area> areas) {
-        this.areas = areas;
+    public void setAreas(List<AreaDomain> areaDomains) {
+        this.areaDomains = areaDomains;
     }
 
     public Event getEvent() {
@@ -50,12 +48,12 @@ public class Map {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Map map = (Map) o;
-        return id == map.id && Objects.equals(areas, map.areas);
+        MapDomain mapDomain = (MapDomain) o;
+        return id == mapDomain.id && Objects.equals(areaDomains, mapDomain.areaDomains);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, areas);
+        return Objects.hash(id, areaDomains);
     }
 }

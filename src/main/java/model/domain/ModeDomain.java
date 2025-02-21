@@ -1,6 +1,6 @@
 package model.domain;
 
-public class Mode {
+public class ModeDomain {
     private long id;
 
     private String description;
@@ -11,7 +11,7 @@ public class Mode {
 
     private long totalArea;
 
-    public Mode(long id) {
+    public ModeDomain(long id) {
         this.id = id;
         setResourcesAndArea(id);
     }

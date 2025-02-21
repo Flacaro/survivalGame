@@ -6,7 +6,7 @@ import model.entity.Mode;
 
 import java.util.List;
 
-public class Resource {
+public class ResourceDomain {
 
     private long id;
 
@@ -23,10 +23,10 @@ public class Resource {
     private String type;
 
 
-    public Resource() {
+    public ResourceDomain() {
     }
 
-    public Resource(String category, List<Attack> attacks, int level, String name, int quantity, String type) {
+    public ResourceDomain(String category, List<Attack> attacks, int level, String name, int quantity, String type) {
         this.category = category;
         this.attacks = attacks;
         this.level = level;

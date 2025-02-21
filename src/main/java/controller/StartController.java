@@ -1,33 +1,33 @@
 package controller;
 
-import model.domain.Game;
-import model.domain.Map;
-import model.domain.Mode;
-import model.domain.Player;
+import model.domain.GameDomain;
+import model.domain.MapDomain;
+import model.domain.ModeDomain;
+import model.domain.PlayerDomain;
 import services.MapServices;
 
 public class StartController {
 
     private final DBController dbController = new DBController();
 
-    public Game start() {
-        Mode mode = new Mode(1L);
-        Player player = new Player("crivall", 5, 1);
+    public GameDomain start() {
+        ModeDomain modeDomain = new ModeDomain(1L);
+        PlayerDomain playerDomain = new PlayerDomain("crivall", 5, 1);
 
 
-        Map map = new Map();
+        MapDomain mapDomain = new MapDomain();
         MapServices mapServices=new MapServices();
-        map.setAreas(mapServices.setTotalMapArea(mode));
+        mapDomain.setAreas(mapServices.setTotalMapArea(modeDomain));
 
-        Game game = new Game(
+        GameDomain gameDomain = new GameDomain(
                 1,
-                mode,
-                player,
-                map
+                modeDomain,
+                playerDomain,
+                mapDomain
         );
 
-        dbController.insertGame(game);
+        dbController.insertGame(gameDomain);
 
-        return game;
+        return gameDomain;
     }
 }

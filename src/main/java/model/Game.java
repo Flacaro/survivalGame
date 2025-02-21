@@ -31,8 +31,15 @@ public class Game {
 	@JoinColumn(name="id_map", referencedColumnName = "id")
 	private Map map;
 
+	public Game() {
+	}
 
-
+	public Game(int status, Mode mode, Player player, Map map) {
+		this.status = status;
+		this.mode = mode;
+		this.player = player;
+		this.map = map;
+	}
 
 	public void triggerEvent(Event event) {
 		// TODO - implement Game.triggerEvent

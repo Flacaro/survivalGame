@@ -33,7 +33,7 @@ public class GameFactorySingleton {
 		List<Resource> subListResources= resources.subList(0,numRes);
 
 		for (int i = 0; i < numRes; i++){
-			subListArea.get(i).setEvent(subListResources.get(i));
+			subListArea.get(i).setEvent(subListResources.get(i).getId());
 			System.out.println(subListArea.get(i).getEvent());
 		}
 	}

@@ -12,8 +12,8 @@ public class AreaDaoImpl implements AreaDao {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-            for (int i = 0; i < area.size(); i++) {
-                em.persist(area);
+            for (Area value : area) {
+                em.persist(value);
             }
             em.getTransaction().commit();
 

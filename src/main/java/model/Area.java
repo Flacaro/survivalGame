@@ -15,15 +15,15 @@ public class Area implements Serializable {
 	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@Column(name = "EVENT", nullable = false)
-	private Event event;
+	@Column(name = "ID_EVENT", nullable = false)
+	private long idEvent;
 
 	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
 
 	//test composizione
 	@ManyToOne
-	@JoinColumn(name = "id",insertable=false, updatable=false,referencedColumnName = "id")
+	@JoinColumn(name = "map_id",insertable=false, updatable=false,referencedColumnName = "id")
 	private Map map;
 
 	//test uno ad uno con checkpoint
@@ -40,15 +40,15 @@ public class Area implements Serializable {
 	public Area(String name, String description, Map map) {
 		this.name = name;
 		this.description = description;
-		this.map=map;
+		this.map = map;
 	}
 
-	public Event getEvent() {
-		return this.event;
+	public long getEvent() {
+		return this.idEvent;
 	}
 
-	public void setEvent(Event event) {
-		this.event = event;
+	public void setEvent(long event) {
+		this.idEvent = event;
 	}
 
 	public long getId() {

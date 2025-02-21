@@ -26,14 +26,14 @@ public class Mode {
 	private long totalArea;
 
 	public Mode(long id) {
-		this.id = setResourcesAndArea((int) id);
+		this.id = id;
+		setResourcesAndArea(id);
 	}
 
-	public long setResourcesAndArea(int id) {
+	public void setResourcesAndArea(long id) {
 		if(id == 1) {
 			totalArea = 9;
 			numResources = 4;
-			//numEnemy = 4;
 		}
 		else if(id == 2) {
 			totalArea = 18;
@@ -43,7 +43,6 @@ public class Mode {
 			totalArea = 36;
 			numResources = 12;
 		}
-		return totalArea;
 	}
 
 	public String getDescription() {

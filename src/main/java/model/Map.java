@@ -33,8 +33,7 @@ public class Map {
 	@OneToOne(mappedBy = "map")
 	private Game game;
 
-	public Map(ArrayList<Area> totalMapArea, ArrayList<Area> adjacentArea, Player player, Game game) {
-		this.totalMapArea = totalMapArea;
+	public Map(ArrayList<Area> adjacentArea, Player player, Game game) {
 		this.adjacentArea = adjacentArea;
 		this.player = player;
 		this.game = game;
@@ -43,7 +42,7 @@ public class Map {
 	public void setTotalMapArea(Mode mode, Map map) {
 		GameFactorySingleton gms= GameFactorySingleton.getInstance();
 		int totalArea= (int) mode.getTotalArea();
-		for (int c = 0; c < totalArea; c++){
+		for (int c = 0; c < totalArea; c++) {
 			Area a = new Area("area","deserto", map);
 			this.totalMapArea.add(a);
 		}

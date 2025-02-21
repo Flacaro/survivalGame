@@ -16,12 +16,13 @@ public class StartController {
         game.setMode(mode);
         Player player=new Player("crivall",5,1,game);
         game.setPlayer(player);
-        Map map = new Map(new ArrayList<>(), new ArrayList<>(),player, game);
+        Map map = new Map(new ArrayList<>(),player, game);
         game.setMap(map);
 
         dbController.insertPlayer(player);
-        dbController.insertMap(map);
+        map.setTotalMapArea(game.getMode(), map);
         dbController.insertArea(map.getTotalMapArea());
+       // dbController.insertArea(map.getTotalMapArea());
 
         return game;
     }

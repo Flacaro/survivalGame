@@ -54,9 +54,9 @@ public class Resource extends Event {
 
 	}
 
-//	public long getId() {
-//		return id;
-//	}
+	public long getId() {
+		return id;
+	}
 
 	public String getCategory() {
 		return category;

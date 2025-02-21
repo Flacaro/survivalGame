@@ -19,16 +19,17 @@ public class DBController {
             gameDaoImpl.saveGame(player.getGame(), em);
         }
         playerDaoImpl.savePlayer(player, em);
+
         close();
     }
 
-    public void insertMap(Map map){
-        EntityManager em= EntityManagerSingleton.getEntityManager();
-        Mode m = new Mode(1L);
-        map.setTotalMapArea(m, map);
-        mapDaoImpl.saveMap(map,em);
-        close();
-    }
+//    public void insertMap(Map map){
+//        EntityManager em= EntityManagerSingleton.getEntityManager();
+//        Mode m = new Mode(1L);
+//        map.setTotalMapArea(m, map);
+//        mapDaoImpl.saveMap(map,em);
+//        close();
+//    }
     public void insertArea(List<Area> area){
         EntityManager em= EntityManagerSingleton.getEntityManager();
         areaDaoImpl.saveTotalMapArea(area,em);

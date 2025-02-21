@@ -22,11 +22,11 @@ public class EntityManagerSingleton {
         return em;
     }
 
-//    public static void checkIfTransactionAlreadyBegan() {
-//        if(!em.getTransaction().isActive()) {
-//            em.getTransaction().begin();
-//        }
-//    }
+    public static void checkIfTransactionAlreadyBegan() {
+        if(!em.getTransaction().isActive()) {
+            em.getTransaction().begin();
+        }
+    }
 
 
     public static void closeEntityManager() {

@@ -7,9 +7,13 @@ public class GameDaoImpl implements GameDao {
 
     public void saveGame(Game game, EntityManager em) {
         try {
-            //em.getTransaction().begin();
-            em.persist(game); // Salva nel database
+
+            if(!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+            em.persist(game);
             em.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();

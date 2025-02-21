@@ -7,8 +7,10 @@ public class MapDaoImpl implements MapDao {
 
     public void saveMap(Map map, EntityManager em) {
         try {
-            em.getTransaction().begin();
-            em.persist(map); // Salva nel database
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+            em.persist(map);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();

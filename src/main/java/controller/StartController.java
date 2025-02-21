@@ -19,7 +19,6 @@ public class StartController {
         Map map = new Map(new ArrayList<>(), new ArrayList<>(),player, game);
         game.setMap(map);
 
-        //dbController.insertGame(game);
         dbController.insertPlayer(player);
         dbController.insertMap(map);
         dbController.insertArea(map.getTotalMapArea());

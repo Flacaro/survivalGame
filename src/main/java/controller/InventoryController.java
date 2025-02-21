@@ -1,7 +1,7 @@
 package controller;
 
-import model.entity.Inventory;
-import model.entity.Resource;
+import model.domain.Inventory;
+import model.domain.Resource;
 import persistence.InventoryDaoImpl;
 
 public class InventoryController {
@@ -11,7 +11,7 @@ public class InventoryController {
 
     public void addSelections(long idInventory){
         //query che prende l'inventario
-        inventory= inventoryDao.getInventory(idInventory);
+        inventory = inventoryDao.getInventory(idInventory);
         for(Resource r : inventory.getResources()){
             //gliele faccio vedere tutte e lui me le deve selezionare
             System.out.println("risorsa: ");

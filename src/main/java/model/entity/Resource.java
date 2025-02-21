@@ -32,18 +32,6 @@ public class Resource extends Event {
 	private String type;
 
 
-	public Resource() {
-	}
-
-	public Resource(String category, List<Attack> attacks, int level, String name, int quantity, String type) {
-		this.category = category;
-		this.attacks = attacks;
-		this.level = level;
-		this.name = name;
-		this.quantity = quantity;
-		this.type = type;
-	}
-
 	@Override
 	public void updateQuantity(String name, int qnt) {
 
@@ -52,71 +40,5 @@ public class Resource extends Event {
 	@Override
 	public void setUp(String type, Mode mode) {
 
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public List<Attack> getAttacks() {
-		return attacks;
-	}
-
-	public void setAttacks(List<Attack> attacks) {
-		this.attacks = attacks;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	@Override
-	public String toString() {
-		return "Resource{" +
-				"id=" + id +
-				", category='" + category + '\'' +
-				", attacks=" + attacks +
-				", level=" + level +
-				", name='" + name + '\'' +
-				", quantity=" + quantity +
-				", type='" + type + '\'' +
-				'}';
 	}
 }

@@ -1,8 +1,5 @@
 package model.domain;
 
-import model.domain.Event;
-import model.domain.Mode;
-import model.domain.Player;
 
 public class Game {
 
@@ -26,16 +23,6 @@ public class Game {
         this.map = map;
     }
 
-    public void triggerEvent(Event event) {
-        // TODO - implement Game.triggerEvent
-        throw new UnsupportedOperationException();
-    }
-
-
-    public boolean verifyAnswer(Event event, boolean answer) {
-        // TODO - implement Game.verifyAnswer
-        throw new UnsupportedOperationException();
-    }
 
     public int getStatus() {
         return status;

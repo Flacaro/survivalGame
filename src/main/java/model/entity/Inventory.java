@@ -24,7 +24,7 @@ public class Inventory {
 	//@Column(name = "RESOURCES_SELECTED_IDS", nullable = false)
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@Column(name = "RESOURCES_SELECTED", nullable = false)
-	private ArrayList<Resource> resourcesSelected= new ArrayList<>();
+	private List<Resource> resourcesSelected= new ArrayList<>();
 
 
 	public long getId() {
@@ -51,11 +51,11 @@ public class Inventory {
 		this.resources = resources;
 	}
 
-	public ArrayList<Resource> getResourcesSelected() {
+	public List<Resource> getResourcesSelected() {
 		return resourcesSelected;
 	}
 
-	public void setResourcesSelected(ArrayList<Resource> resourcesSelected) {
+	public void setResourcesSelected(List<Resource> resourcesSelected) {
 		this.resourcesSelected = resourcesSelected;
 	}
 

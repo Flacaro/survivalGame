@@ -27,13 +27,60 @@ public class Enemy extends Event {
 	@Column(name = "TYPE", nullable = false)
 	private String type;
 
-	@Override
-	public void updateQuantity(String name, int qnt) {
-
+	public Enemy() {
 	}
 
-	@Override
-	public void setUp(String type, Mode mode) {
+	public Enemy(ArrayList<Attack> attacks, int level, String name) {
+		this.attacks = attacks;
+		this.level = level;
+		this.name = name;
+	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public ArrayList<Attack> getAttacks() {
+		return attacks;
+	}
+
+	public void setAttacks(ArrayList<Attack> attacks) {
+		this.attacks = attacks;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

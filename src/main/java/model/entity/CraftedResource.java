@@ -28,5 +28,51 @@ public class CraftedResource {
     @Column(name = "LEVEL", nullable = false)
     private int level = 1;
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public List<Attack> getAttacks() {
+        return attacks;
+    }
+
+    public void setAttacks(List<Attack> attacks) {
+        this.attacks = attacks;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 }

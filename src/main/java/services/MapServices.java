@@ -4,7 +4,10 @@ import model.GameFactorySingleton;
 import model.domain.AreaDomain;
 import model.domain.MapDomain;
 import model.domain.ModeDomain;
+import model.domain.ResourceDomain;
+import model.entity.Area;
 import model.entity.Map;
+import model.entity.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,15 @@ public class MapServices {
 
     public Map mapMapper(MapDomain mapDomain) {
         Map map = new Map();
-        map.setAreas(mapDomain.getAreas());
-        map.
+        map.setId(mapDomain.getId());
+
+        AreaService areaService=new AreaService();
+        List<Area> list= new ArrayList<>();
+        List<AreaDomain> domainList= mapDomain.getAreas();
+        for (AreaDomain a :domainList){
+            list.add(areaService.areaMapper(a));
+        }
+        map.setAreas(list);
+        return map;
     }
 }

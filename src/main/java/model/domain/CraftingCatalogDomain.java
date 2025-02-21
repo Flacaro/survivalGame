@@ -18,6 +18,14 @@ public class CraftingCatalogDomain {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setResourcesToCraft(List<Resource> resourcesToCraft) {
+        this.resourcesToCraft = resourcesToCraft;
+    }
+
     public CraftingCatalogDomain() {
     }
 

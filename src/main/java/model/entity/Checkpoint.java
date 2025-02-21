@@ -64,4 +64,5 @@ public class Checkpoint {
 	public void setSkill(Skill skill) {
 		this.skill = skill;
 	}
+
 }

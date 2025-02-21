@@ -67,4 +67,8 @@ public class Game {
 	public void setMap(Map map) {
 		this.map = map;
 	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 }

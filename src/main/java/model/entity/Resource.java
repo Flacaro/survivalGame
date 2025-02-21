@@ -31,14 +31,59 @@ public class Resource extends Event {
 	@Column(name = "TYPE", nullable = false)
 	private String type;
 
-
-	@Override
-	public void updateQuantity(String name, int qnt) {
-
+	public long getId() {
+		return id;
 	}
 
-	@Override
-	public void setUp(String type, Mode mode) {
+	public void setId(long id) {
+		this.id = id;
+	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public List<Attack> getAttacks() {
+		return attacks;
+	}
+
+	public void setAttacks(List<Attack> attacks) {
+		this.attacks = attacks;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

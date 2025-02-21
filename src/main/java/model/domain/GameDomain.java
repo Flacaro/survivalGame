@@ -23,6 +23,37 @@ public class GameDomain {
         this.mapDomain = mapDomain;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public ModeDomain getModeDomain() {
+        return modeDomain;
+    }
+
+    public void setModeDomain(ModeDomain modeDomain) {
+        this.modeDomain = modeDomain;
+    }
+
+    public PlayerDomain getPlayerDomain() {
+        return playerDomain;
+    }
+
+    public void setPlayerDomain(PlayerDomain playerDomain) {
+        this.playerDomain = playerDomain;
+    }
+
+    public MapDomain getMapDomain() {
+        return mapDomain;
+    }
+
+    public void setMapDomain(MapDomain mapDomain) {
+        this.mapDomain = mapDomain;
+    }
 
     public int getStatus() {
         return status;

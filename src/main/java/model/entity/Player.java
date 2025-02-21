@@ -90,4 +90,5 @@ public class Player {
 	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
 	}
+
 }

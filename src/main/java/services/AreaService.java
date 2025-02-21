@@ -13,7 +13,6 @@ public class AreaService {
         if (areaDomain == null) {
             return null;
         }
-
         Area area = new Area();
         area.setId(areaDomain.getId()); // Corretto
         area.setName(areaDomain.getName());

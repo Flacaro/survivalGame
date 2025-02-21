@@ -30,24 +30,24 @@ public class Mode {
 	public Mode() {
 	}
 
-	public Mode(long id) {
-		this.id = id;
-		setResourcesAndArea(id);
+	@Override
+	public boolean equals(Object o) {
+		if (o == null || getClass() != o.getClass()) return false;
+		Mode mode = (Mode) o;
+		return id == mode.id && numResources == mode.numResources && numEnemy == mode.numEnemy && totalArea == mode.totalArea && Objects.equals(description, mode.description);
 	}
 
-	public void setResourcesAndArea(long id) {
-		if(id == 1) {
-			totalArea = 9;
-			numResources = 4;
-		}
-		else if(id == 2) {
-			totalArea = 18;
-			numResources = 8;
-		}
-		else if(id == 3) {
-			totalArea = 36;
-			numResources = 12;
-		}
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, description, numResources, numEnemy, totalArea);
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getDescription() {
@@ -80,25 +80,5 @@ public class Mode {
 
 	public void setTotalArea(long totalArea) {
 		this.totalArea = totalArea;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (o == null || getClass() != o.getClass()) return false;
-		Mode mode = (Mode) o;
-		return id == mode.id && numResources == mode.numResources && numEnemy == mode.numEnemy && totalArea == mode.totalArea && Objects.equals(description, mode.description);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, description, numResources, numEnemy, totalArea);
 	}
 }

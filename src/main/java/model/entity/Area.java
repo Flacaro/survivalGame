@@ -3,6 +3,7 @@ package model.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "AREA")
@@ -32,6 +33,13 @@ public class Area implements Serializable {
 	@JoinColumn(name = "id_climate",referencedColumnName = "id")
 	private Climate climate;
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -71,13 +79,5 @@ public class Area implements Serializable {
 
 	public void setClimate(Climate climate) {
 		this.climate = climate;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 }

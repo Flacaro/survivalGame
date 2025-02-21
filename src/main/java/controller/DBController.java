@@ -1,8 +1,8 @@
 package controller;
 
 import jakarta.persistence.EntityManager;
-import model.entity.Area;
-import model.entity.Game;
+import model.domain.Area;
+import model.domain.Game;
 import persistence.*;
 
 import java.util.List;

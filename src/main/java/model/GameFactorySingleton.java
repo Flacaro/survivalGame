@@ -14,7 +14,7 @@ public class GameFactorySingleton {
 		return instance;
 	}
 
-	public void createEvent(ArrayList<Area> totalMapArea, Mode mode) {
+	public void createEvent(List<Area> totalMapArea, Mode mode) {
 		//int numEn=mode.getNumEnemy();
 		int numRes= mode.getNumResources();
 

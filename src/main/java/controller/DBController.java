@@ -5,6 +5,7 @@ import model.*;
 import persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DBController {
 
@@ -31,7 +32,7 @@ public class DBController {
         mapDaoImpl.saveMap(map,em);
         close();
     }
-    public void insertArea(ArrayList<Area> area){
+    public void insertArea(List<Area> area){
         EntityManager em= EntityManagerSingleton.getEntityManager();
         areaDaoImpl.saveTotalMapArea(area,em);
         close();

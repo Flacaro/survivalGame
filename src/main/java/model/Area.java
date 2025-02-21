@@ -23,7 +23,7 @@ public class Area implements Serializable {
 
 	//test composizione
 	@ManyToOne
-	@JoinColumn(name = "id",insertable=false, updatable=false)
+	@JoinColumn(name = "id",insertable=false, updatable=false,referencedColumnName = "id")
 	private Map map;
 
 	//test uno ad uno con checkpoint

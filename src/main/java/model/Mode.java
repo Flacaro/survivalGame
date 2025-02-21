@@ -13,16 +13,16 @@ public class Mode {
 	@Id
 	private long id;
 
-	@Column(name = "DESCRIPTION", nullable = false)
+	@Column(name = "DESCRIPTION")
 	private String description;
 
-	@Column(name = "NUM_RESOURCES", nullable = false)
+	@Column(name = "NUM_RESOURCES")
 	private int numResources;
 
-	@Column(name = "NUM_ENEMY", nullable = false)
+	@Column(name = "NUM_ENEMY")
 	private int numEnemy;
 
-	@Column(name = "TOTAL_AREA", nullable = false)
+	@Column(name = "TOTAL_AREA")
 	private long totalArea;
 
 	public Mode(long id) {

@@ -15,13 +15,14 @@ public class Map {
 
 
 	//test composizione
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private ArrayList<Area> totalMapArea = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+	private List<Area> totalMapArea = new ArrayList<>();
 
 
 	//test composizione
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private ArrayList<Area> adjacentArea= new ArrayList<>();
+	//@OneToMany(mappedBy = "map",cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+	@Column(name = "adjacentArea")
+	private List<Area> adjacentArea= new ArrayList<>();
 
 
 	//uno ad uno con il player
@@ -51,11 +52,11 @@ public class Map {
 		setAdjacentArea(totalMapArea);
 	}
 
-	public ArrayList<Area> getTotalMapArea() {
-		return (ArrayList<Area>) totalMapArea;
+	public List<Area> getTotalMapArea() {
+		return totalMapArea;
 	}
 
-	public void setAdjacentArea(ArrayList<Area> adjacentArea) {
+	public void setAdjacentArea(List<Area> adjacentArea) {
 		this.adjacentArea = adjacentArea;
 	}
 

@@ -1,7 +1,7 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
-import model.Game;
+import model.entity.Game;
 
 public interface GameDao {
 

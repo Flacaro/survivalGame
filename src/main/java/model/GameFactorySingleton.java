@@ -1,5 +1,9 @@
 package model;
 
+import model.domain.Area;
+import model.entity.Inventory;
+import model.entity.Mode;
+import model.entity.Resource;
 import persistence.ResourceDaoImpl;
 
 import java.util.*;

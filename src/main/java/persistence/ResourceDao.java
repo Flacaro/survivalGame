@@ -1,6 +1,6 @@
 package persistence;
 
-import model.Resource;
+import model.entity.Resource;
 
 import java.util.ArrayList;
 

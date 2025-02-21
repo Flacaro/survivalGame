@@ -1,9 +1,8 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
-import model.Area;
+import model.entity.Area;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface AreaDao {

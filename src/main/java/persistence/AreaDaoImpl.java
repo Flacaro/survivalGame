@@ -1,7 +1,7 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
-import model.Area;
+import model.entity.Area;
 import java.util.List;
 
 public class AreaDaoImpl implements AreaDao {

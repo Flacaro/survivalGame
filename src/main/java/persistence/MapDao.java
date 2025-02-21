@@ -1,7 +1,7 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
-import model.Map;
+import model.entity.Map;
 
 public interface MapDao {
 

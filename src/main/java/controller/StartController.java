@@ -1,28 +1,30 @@
 package controller;
 
-import model.Game;
-import model.Map;
-import model.Mode;
-import model.Player;
-
-import java.util.ArrayList;
+import model.entity.Game;
+import model.domain.Map;
+import model.domain.Mode;
+import model.entity.Player;
 
 public class StartController {
 
-    private final Game game=new Game();
-    private DBController dbController= new DBController();
+    private final DBController dbController = new DBController();
 
-    public Game start(Mode mode){
-        game.setMode(mode);
-        Player player=new Player("crivall",5,1,game);
-        game.setPlayer(player);
-        Map map = new Map(new ArrayList<>(),player, game);
-        game.setMap(map);
+    public Game start() {
+        Mode mode = new Mode(1L);
+        Player player = new Player("crivall", 5, 1);
 
-        dbController.insertPlayer(player);
-        map.setTotalMapArea(game.getMode(), map);
-        dbController.insertArea(map.getTotalMapArea());
-       // dbController.insertArea(map.getTotalMapArea());
+
+        Map map = new Map();
+        map.setTotalMapArea(mode);
+
+        Game game = new Game(
+                1,
+                mode,
+                player,
+                map
+        );
+
+        dbController.insertGame(game);
 
         return game;
     }

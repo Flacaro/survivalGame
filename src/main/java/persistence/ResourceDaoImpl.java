@@ -2,8 +2,7 @@ package persistence;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import model.CraftingCatalog;
-import model.Resource;
+import model.entity.Resource;
 
 import java.util.ArrayList;
 

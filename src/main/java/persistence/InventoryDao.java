@@ -1,7 +1,7 @@
 package persistence;
 
-import model.Inventory;
-import model.Resource;
+import model.entity.Inventory;
+import model.entity.Resource;
 
 import java.util.ArrayList;
 

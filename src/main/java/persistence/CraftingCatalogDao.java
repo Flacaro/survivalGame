@@ -1,6 +1,6 @@
 package persistence;
 
-import model.CraftingCatalog;
+import model.entity.CraftingCatalog;
 
 import java.util.ArrayList;
 

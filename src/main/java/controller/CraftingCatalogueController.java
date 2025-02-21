@@ -1,6 +1,6 @@
 package controller;
 
-import model.CraftingCatalog;
+import model.entity.CraftingCatalog;
 import persistence.CraftingCatalogDaoImpl;
 
 

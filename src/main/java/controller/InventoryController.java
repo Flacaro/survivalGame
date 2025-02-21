@@ -1,7 +1,7 @@
 package controller;
 
-import model.Inventory;
-import model.Resource;
+import model.entity.Inventory;
+import model.entity.Resource;
 import persistence.InventoryDaoImpl;
 
 public class InventoryController {

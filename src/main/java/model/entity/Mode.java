@@ -1,10 +1,12 @@
-package model;
+package model.entity;
 
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "MODE")
@@ -75,5 +77,25 @@ public class Mode {
 
 	public void setTotalArea(long totalArea) {
 		this.totalArea = totalArea;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == null || getClass() != o.getClass()) return false;
+		Mode mode = (Mode) o;
+		return id == mode.id && numResources == mode.numResources && numEnemy == mode.numEnemy && totalArea == mode.totalArea && Objects.equals(description, mode.description);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, description, numResources, numEnemy, totalArea);
 	}
 }

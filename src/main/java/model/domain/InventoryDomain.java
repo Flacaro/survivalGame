@@ -77,7 +77,7 @@ public class InventoryDomain {
         return resourcesSelected;
     }
 
-    public void setResourcesSelected(ArrayList<ResourceDomain> resourcesSelected) {
+    public void setResourcesSelected(List<ResourceDomain> resourcesSelected) {
         this.resourcesSelected = resourcesSelected;
     }
 }

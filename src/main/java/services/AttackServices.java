@@ -13,4 +13,12 @@ public class AttackServices {
         attack.setDamage(attackDomain.getDamage());
         return attack;
     }
+    public AttackDomain attackDomainMapper(Attack attack){
+        AttackDomain attackDomain= new AttackDomain();
+        attackDomain.setId(attack.getId());
+        attackDomain.setName(attack.getName());
+        attackDomain.setType(attack.getType());
+        attackDomain.setDamage(attack.getDamage());
+        return attackDomain;
+    }
 }

@@ -28,4 +28,23 @@ public class ResourceService {
         r.setType(rd.getType());
         return r;
     }
+
+    public ResourceDomain resourceDomainMapper(Resource r) {
+        AttackServices attackServices=new AttackServices();
+        ResourceDomain resourceDomain = new ResourceDomain();
+        resourceDomain.setId(r.getId());
+        resourceDomain.setCategory(r.getCategory());
+        List<Attack> attackList=r.getAttacks();
+        List<AttackDomain> domainList=  new ArrayList<>();
+
+        for (Attack a :attackList){
+            domainList.add(attackServices.attackDomainMapper(a));
+        }
+        resourceDomain.setAttacks(domainList);
+        resourceDomain.setLevel(r.getLevel());
+        resourceDomain.setName(r.getName());
+        resourceDomain.setQuantity(r.getQuantity());
+        resourceDomain.setType(r.getType());
+        return resourceDomain;
+    }
 }

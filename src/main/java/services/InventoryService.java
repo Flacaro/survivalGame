@@ -35,6 +35,27 @@ public class InventoryService {
         return i;
     }
 
+    public InventoryDomain inventoryDomainMapper(Inventory i) {
+        InventoryDomain id = new InventoryDomain();
+        ResourceService resourceService=new ResourceService();
+        id.setCapacity(i.getCapacity());
+        List<Resource> list= i.getResources();
+        List<ResourceDomain> domainList=new ArrayList<>() ;
+        for (Resource r :list){
+            domainList.add(resourceService.resourceDomainMapper(r));
+        }
+        id.setResources(domainList);
+
+        List<Resource> listS=i.getResources();
+        List<ResourceDomain> domainListS= new ArrayList<>();
+        for (Resource a :listS){
+            domainListS.add(resourceService.resourceDomainMapper(a));
+        }
+        id.setResourcesSelected(domainListS);
+
+        return id;
+    }
+
     public Resource combine(Resource[] selections) {
         // TODO - implement Inventory.combine
         throw new UnsupportedOperationException();

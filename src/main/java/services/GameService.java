@@ -8,7 +8,7 @@ public class GameService {
 
     private MapServices mapServices;
     private ModeService modeService;
-    private PlayerService playerService;
+    private PlayerServices playerService;
 
     public Game gameMapper(GameDomain gameDomain) {
         Game game = new Game();

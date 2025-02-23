@@ -1,6 +1,7 @@
 package model;
 
 import model.domain.AreaDomain;
+import model.domain.ResourceDomain;
 import model.entity.Inventory;
 import model.domain.ModeDomain;
 import model.entity.Resource;
@@ -23,7 +24,7 @@ public class GameFactorySingleton {
 
 		//devo recuperare le risorse nel db, posizionarle nelle caselle ed aggiornare la quantità
 		ResourceDaoImpl resourceDao = new ResourceDaoImpl();
-		ArrayList<Resource> resources;
+		ArrayList<ResourceDomain> resources;
 		resources = resourceDao.getResource();
 		if(resources == null) {
 			resources = new ArrayList<>();
@@ -33,7 +34,7 @@ public class GameFactorySingleton {
 		Collections.shuffle(resources);
 		//id delle caselle contenenti le risorse
 		List<AreaDomain> subListAreaDomain = totalMapAreaDomain.subList(0, numRes-1);
-		List<Resource> subListResources= resources.subList(0,numRes-1);
+		List<ResourceDomain> subListResources= resources.subList(0,numRes-1);
 
 		for (int i = 0; i < numRes; i++){
 			subListAreaDomain.get(i).setEvent(subListResources.get(i).getId());

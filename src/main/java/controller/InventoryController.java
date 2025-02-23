@@ -15,7 +15,7 @@ public class InventoryController {
 
         //query che prende l'inventario
 
-        inventoryDomain = inventoryService.inventoryDomainMapper(inventoryDao.getInventory(idInventory));
+        inventoryDomain = inventoryDao.getInventory(idInventory);
         for(ResourceDomain r : inventoryDomain.getResources()){
             //gliele faccio vedere tutte e lui me le deve selezionare
             System.out.println("risorsa: ");

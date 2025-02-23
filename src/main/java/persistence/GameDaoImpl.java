@@ -1,16 +1,18 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
-import model.entity.Game;
+import model.domain.GameDomain;
+import services.GameService;
 
 public class GameDaoImpl implements GameDao {
 
-    public void saveGame(Game game, EntityManager em) {
+    public void saveGame(GameDomain game, EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-            em.persist(game);
+            GameService gameService= new GameService();
+            em.persist(gameService.gameMapper(game));
             em.getTransaction().commit();
 
         } catch (Exception e) {

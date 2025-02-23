@@ -2,6 +2,8 @@ package persistence;
 
 import jakarta.persistence.EntityManager;
 import model.domain.AreaDomain;
+import services.AreaService;
+
 import java.util.List;
 
 public class AreaDaoImpl implements AreaDao {
@@ -12,8 +14,9 @@ public class AreaDaoImpl implements AreaDao {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
+            AreaService areaService=new AreaService();
             for (AreaDomain value : areaDomain) {
-                em.persist(value);
+                em.persist(areaService.areaMapper(value));
             }
             em.getTransaction().commit();
 

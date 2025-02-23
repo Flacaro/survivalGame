@@ -1,9 +1,10 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
+import model.domain.PlayerDomain;
 import model.entity.Player;
 
 public interface PlayerDao {
 
-    void savePlayer(Player player, EntityManager em);
+    void savePlayer(PlayerDomain player, EntityManager em);
 }

@@ -14,7 +14,7 @@ public class DBController {
         GameService gameService=new GameService();
         EntityManager em = EntityManagerSingleton.getEntityManager();
 
-        gameDaoImpl.saveGame(gameService.gameMapper(g), em);
+        gameDaoImpl.saveGame(g, em);
         close();
     }
 

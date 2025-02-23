@@ -1,14 +1,14 @@
 package services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.GameFactorySingleton;
 import model.domain.AreaDomain;
 import model.domain.MapDomain;
 import model.domain.ModeDomain;
 import model.entity.Area;
 import model.entity.Map;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MapServices {
 

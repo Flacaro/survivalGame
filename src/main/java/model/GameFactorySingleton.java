@@ -1,13 +1,14 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import model.domain.AreaDomain;
+import model.domain.ModeDomain;
 import model.domain.ResourceDomain;
 import model.entity.Inventory;
-import model.domain.ModeDomain;
-import model.entity.Resource;
 import persistence.ResourceDaoImpl;
-
-import java.util.*;
 
 public class GameFactorySingleton {
 	private static GameFactorySingleton instance;
@@ -33,8 +34,9 @@ public class GameFactorySingleton {
 		Collections.shuffle(totalMapAreaDomain);
 		Collections.shuffle(resources);
 		//id delle caselle contenenti le risorse
-		List<AreaDomain> subListAreaDomain = totalMapAreaDomain.subList(0, numRes-1);
-		List<ResourceDomain> subListResources= resources.subList(0,numRes-1);
+		// 0 index per 4 aree
+		List<AreaDomain> subListAreaDomain = totalMapAreaDomain.subList(0, numRes);
+		List<ResourceDomain> subListResources= resources.subList(0,numRes);
 
 		for (int i = 0; i < numRes; i++){
 			subListAreaDomain.get(i).setEvent(subListResources.get(i).getId());

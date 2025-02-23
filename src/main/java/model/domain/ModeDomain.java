@@ -11,6 +11,9 @@ public class ModeDomain {
 
     private long totalArea;
 
+    public ModeDomain() {
+    }
+
     public ModeDomain(long id) {
         this.id = id;
         setResourcesAndArea(id);

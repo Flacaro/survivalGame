@@ -20,6 +20,20 @@ public class PlayerServices {
         return player;
 
     }
+
+    public PlayerDomain playerDomainMapper(Player player1){
+        PlayerDomain player=new PlayerDomain();
+        player.setId(player1.getId());
+        player.setNickname(player1.getNickname());
+        player.setHealth(player1.getHealth());
+        player.setLevel(player1.getLevel());
+        player.setPosition(player1.getPosition());
+        player.setInventory(player1.getInventory());
+        player.setSkills(player1.getSkills());
+        return player;
+
+    }
+
     public boolean pickUp(Resource res) {
         // TODO - implement Player.pickUp
         throw new UnsupportedOperationException();

@@ -20,6 +20,16 @@ public class GameService {
         return game;
     }
 
+    public GameDomain gameDomainMapper(Game game) {
+        GameDomain gameDomain = new GameDomain();
+        gameDomain.setMap(mapServices.mapDomainMapper(game.getMap()));
+        gameDomain.setMode(modeService.modeDomainMapper(game.getMode()));
+        gameDomain.setPlayer(playerService.playerDomainMapper(game.getPlayer()));
+        gameDomain.setStatus(game.getStatus());
+        gameDomain.setId(game.getId());
+        return gameDomain;
+    }
+
 
     public void triggerEvent(Event event) {
         // TODO - implement Game.triggerEvent

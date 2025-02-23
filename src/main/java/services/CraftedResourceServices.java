@@ -15,4 +15,15 @@ public class CraftedResourceServices {
         craftedResource.setLevel(craftedResourceDomain.getLevel());
         return craftedResource;
     }
+
+    public CraftedResourceDomain craftedResourceDomainMapper(CraftedResource craftedResource){
+        CraftedResourceDomain craftedResourceDomain=new CraftedResourceDomain();
+        craftedResourceDomain.setId(craftedResource.getId());
+        craftedResourceDomain.setName(craftedResource.getName());
+        craftedResourceDomain.setDescription(craftedResource.getDescription());
+        craftedResourceDomain.setCategory(craftedResource.getCategory());
+        craftedResourceDomain.setAttacks(craftedResource.getAttacks());
+        craftedResourceDomain.setLevel(craftedResource.getLevel());
+        return craftedResourceDomain;
+    }
 }

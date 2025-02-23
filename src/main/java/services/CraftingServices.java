@@ -12,6 +12,14 @@ public class CraftingServices {
         catalog.setFinalResource(craftingCatalog.getFinalResource());
         return catalog;
     }
+
+    public CraftingCatalogDomain craftingCatalogDomainMapper(CraftingCatalog craftingCatalog){
+        CraftingCatalogDomain catalogDomain = new CraftingCatalogDomain();
+        catalogDomain.setId(craftingCatalog.getId());
+        catalogDomain.setResourcesToCraft(craftingCatalog.getResourcesToCraft());
+        catalogDomain.setFinalResource(craftingCatalog.getFinalResource());
+        return catalogDomain;
+    }
 //    public boolean checkCompatibility(ArrayList<Long> selections, ArrayList<Resource> resourcesToCraft) {
 //        ArrayList<Long> resourcesIdsToCraft = new ArrayList<>();
 //        for(Resource r : resourcesToCraft) {

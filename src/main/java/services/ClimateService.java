@@ -14,4 +14,11 @@ public class ClimateService {
         c.setDamage(climateDomain.getDamage());
         return c;
     }
+    public ClimateDomain climateDomainMapper(Climate climate) {
+        ClimateDomain c = new ClimateDomain();
+        c.setType(climate.getType());
+        c.setLevel(climate.getLevel());
+        c.setDamage(climate.getDamage());
+        return c;
+    }
 }

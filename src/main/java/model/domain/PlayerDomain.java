@@ -30,6 +30,10 @@ public class PlayerDomain {
         this.level = level;
     }
 
+    public PlayerDomain() {
+
+    }
+
     public boolean pickUp(Resource res) {
         // TODO - implement Player.pickUp
         throw new UnsupportedOperationException();

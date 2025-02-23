@@ -14,4 +14,14 @@ public class SkillServices {
         skill.setCheckpoint(skillDomain.getCheckpoint());
         return skill;
     }
+
+    public SkillDomain skillDomainMapper(Skill skill1){
+        SkillDomain skill=new SkillDomain();
+        skill.setId(skill1.getId());
+        skill.setName(skill1.getName());
+        skill.setDescription(skill1.getDescription());
+        skill.setLevel(skill1.getLevel());
+        skill.setCheckpoint(skill1.getCheckpoint());
+        return skill;
+    }
 }

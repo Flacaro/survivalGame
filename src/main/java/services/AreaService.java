@@ -30,4 +30,26 @@ public class AreaService {
 
         return area;
     }
+
+    public AreaDomain areaDomainMapper(Area area) {
+        if (area == null) {
+            return null;
+        }
+        AreaDomain areaDomain = new AreaDomain();
+        areaDomain.setId(area.getId()); // Corretto
+        areaDomain.setName(area.getName());
+        areaDomain.setDescription(area.getDescription());
+        areaDomain.setIdEvent(area.getIdEvent());
+
+        if (area.getCheckpoint() != null) {
+            areaDomain.setCheckpoint(checkpointService.checkpointDomainMapper(area.getCheckpoint()));
+        }
+
+        // Conversione di ClimateDomain in Climate (se necessario)
+        if (area.getClimate() != null) {
+            areaDomain.setClimate(climateService.climateDomainMapper(area.getClimate()));
+        }
+
+        return areaDomain;
+    }
 }

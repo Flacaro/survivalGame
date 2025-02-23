@@ -27,6 +27,10 @@ public class EnemyDomain {
         this.name = name;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public ArrayList<Attack> getAttacks() {
         return attacks;
     }

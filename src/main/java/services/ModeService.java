@@ -13,4 +13,13 @@ public class ModeService {
         mode.setTotalArea(modeDomain.getTotalArea());
         return mode;
     }
+
+    public ModeDomain modeDomainMapper(Mode mode1) {
+        ModeDomain mode = new ModeDomain();
+        mode.setDescription(mode1.getDescription());
+        mode.setNumEnemy(mode1.getNumEnemy());
+        mode.setNumResources(mode1.getNumResources());
+        mode.setTotalArea(mode1.getTotalArea());
+        return mode;
+    }
 }

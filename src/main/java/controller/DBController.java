@@ -7,6 +7,7 @@ import persistence.*;
 import services.AreaService;
 import services.GameService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,7 +19,8 @@ public class DBController {
     public void insertGame(GameDomain g) {
         GameService gameService=new GameService();
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        gameService.saveGame(g, em);
+
+        gameDaoImpl.saveGame(g, em);
         close();
     }
 
@@ -33,9 +35,10 @@ public class DBController {
         close();
     }
 
-
-
-    public void getAreas() {
-
+    public ArrayList<AreaDomain> getAreas() {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        ArrayList<AreaDomain> areaDomains= areaDao.getArea(em);
+        close();
+        return areaDomains;
     }
 }

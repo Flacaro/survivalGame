@@ -1,6 +1,7 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import model.domain.AreaDomain;
 import model.domain.ResourceDomain;
@@ -39,8 +40,11 @@ public class AreaDaoImpl implements AreaDao {
             }
             AreaService areaService=new AreaService();
             for (AreaDomain value : areas) {
-
-                em.persist(areaService.areaMapper(value));
+                Area area = em.find(Area.class, value.getId()); // Trova l'oggetto con ID 1
+                if (area != null) {
+                    area.setIdEvent(value.getIdEvent());
+                    em.getTransaction().commit();// Modifica i campi necessari
+                }
             }
             em.getTransaction().commit();
 
@@ -52,26 +56,25 @@ public class AreaDaoImpl implements AreaDao {
     }
 
     @Override
-    public void getArea(EntityManager em) {
+    public ArrayList<AreaDomain> getArea(EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
             AreaService areaService= new AreaService();
-            TypedQuery<Area> query = em.createQuery("SELECT a FROM Area a WHERE ", Area.class);
+            TypedQuery<Area> query = em.createQuery("SELECT a FROM Area a", Area.class);
 
             ArrayList<AreaDomain> areaDomains= new ArrayList<>();
             for (Area a :query.getResultList()){
                 areaDomains.add(areaService.areaDomainMapper(a));
             }
-            em.getTransaction().commit();
+            return areaDomains;
 
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         }
-
-
+        return  null;
     }
 
 

@@ -7,6 +7,7 @@ import persistence.*;
 import services.AreaService;
 import services.GameService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,13 +29,15 @@ public class DBController {
     }
 
     public void updateArea(List<AreaDomain> areas) {
-        AreaService areaService= new AreaService();
         EntityManager em = EntityManagerSingleton.getEntityManager();
         areaDao.updateArea(areas,em);
         close();
     }
 
-    public void getAreas() {
-
+    public ArrayList<AreaDomain> getAreas() {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        ArrayList<AreaDomain> areaDomains= areaDao.getArea(em);
+        close();
+        return areaDomains;
     }
 }

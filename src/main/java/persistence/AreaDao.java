@@ -3,6 +3,7 @@ package persistence;
 import jakarta.persistence.EntityManager;
 import model.domain.AreaDomain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface AreaDao {
@@ -10,5 +11,5 @@ public interface AreaDao {
 
     void updateArea(List<AreaDomain> areas, EntityManager em);
 
-    void getArea(EntityManager em);
+    ArrayList<AreaDomain> getArea(EntityManager em);
 }

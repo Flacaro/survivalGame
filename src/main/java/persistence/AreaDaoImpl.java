@@ -33,45 +33,44 @@ public class AreaDaoImpl implements AreaDao {
 
     @Override
     public void updateArea(List<AreaDomain> areas, EntityManager em) {
-        try {
-            if (!em.getTransaction().isActive()) {
-                em.getTransaction().begin();
-            }
-            AreaService areaService=new AreaService();
-            for (AreaDomain value : areas) {
-
-                em.persist(areaService.areaMapper(value));
-            }
-            em.getTransaction().commit();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();
-        }
+//        try {
+//            if (!em.getTransaction().isActive()) {
+//                em.getTransaction().begin();
+//            }
+//            AreaService areaService=new AreaService();
+//            for (AreaDomain value : areas) {
+//
+//                em.persist(areaService.areaMapper(value));
+//            }
+//            em.getTransaction().commit();
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            em.getTransaction().rollback();
+//        }
 
     }
 
     @Override
-    public void getArea(EntityManager em) {
+    public ArrayList<AreaDomain> getArea(EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
             AreaService areaService= new AreaService();
-            TypedQuery<Area> query = em.createQuery("SELECT a FROM Area a WHERE ", Area.class);
+            TypedQuery<Area> query = em.createQuery("SELECT a FROM Area a", Area.class);
 
             ArrayList<AreaDomain> areaDomains= new ArrayList<>();
             for (Area a :query.getResultList()){
                 areaDomains.add(areaService.areaDomainMapper(a));
             }
-            em.getTransaction().commit();
+            return areaDomains;
 
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         }
-
-
+        return  null;
     }
 
 

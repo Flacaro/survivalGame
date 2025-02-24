@@ -24,7 +24,7 @@ public class ResourceDaoImpl implements ResourceDao {
     }
 
     @Override
-    public ArrayList<ResourceDomain> getResource() {
+    public ArrayList<ResourceDomain> getResources() {
         ResourceService resourceService= new ResourceService();
         EntityManager em = EntityManagerSingleton.getEntityManager();
         TypedQuery<Resource> query = em.createQuery("SELECT r FROM Resource r", Resource.class);

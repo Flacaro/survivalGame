@@ -4,11 +4,14 @@ import model.domain.AttackDomain;
 import model.domain.ResourceDomain;
 import model.entity.Attack;
 import model.entity.Resource;
+import persistence.ResourceDaoImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ResourceService {
+
+    private ResourceDaoImpl resourceDaoImpl = new ResourceDaoImpl();
 
 
     public Resource resourceMapper(ResourceDomain rd) {
@@ -48,10 +51,8 @@ public class ResourceService {
         return resourceDomain;
     }
 
-    public ArrayList<ResourceDomain> getResources(ArrayList<ResourceDomain> resources) {
-
-
-        return resources;
+    public ArrayList<ResourceDomain> getResources() {
+        return resourceDaoImpl.getResources();
     }
 
 

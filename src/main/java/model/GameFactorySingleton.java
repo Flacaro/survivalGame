@@ -10,9 +10,11 @@ import model.domain.ResourceDomain;
 import model.entity.Inventory;
 import persistence.AreaDaoImpl;
 import persistence.ResourceDaoImpl;
+import services.ResourceService;
 
 public class GameFactorySingleton {
 	private static GameFactorySingleton instance;
+	private ResourceService rs = new ResourceService();
 
 	public static GameFactorySingleton getInstance() {
 		if (instance==null){
@@ -25,11 +27,9 @@ public class GameFactorySingleton {
 		int numRes= modeDomain.getNumResources();
 
 		//devo recuperare le risorse nel db, posizionarle nelle caselle ed aggiornare la quantità
-		ResourceDaoImpl resourceDao = new ResourceDaoImpl();
 		ArrayList<ResourceDomain> resources= new ArrayList<>();
-		resources = resourceDao.getResource();
+		resources = rs.getResources();
 		AreaDaoImpl areaDao= new AreaDaoImpl();
-//		areaDao.saveTotalMapArea();
 
 		Collections.shuffle(totalMapAreaDomain);
 		Collections.shuffle(resources);

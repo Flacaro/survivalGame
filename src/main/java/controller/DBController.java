@@ -33,6 +33,8 @@ public class DBController {
         close();
     }
 
+
+
     public void getAreas() {
 
     }

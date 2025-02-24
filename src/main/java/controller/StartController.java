@@ -25,7 +25,6 @@ public class StartController {
                 playerDomain,
                 mapDomain
         );
-
         dbController.insertGame(gameDomain);
 
         return gameDomain;

@@ -35,10 +35,10 @@ public class GameFactorySingleton {
 		Collections.shuffle(resources);
 		//id delle caselle contenenti le risorse
 		// 0 index per 4 aree
-		List<AreaDomain> subListAreaDomain = totalMapAreaDomain.subList(0, numRes-1);
-		List<ResourceDomain> subListResources= resources.subList(0,numRes-1);
+		List<AreaDomain> subListAreaDomain = totalMapAreaDomain.subList(0, numRes);
+		List<ResourceDomain> subListResources= resources.subList(0,numRes);
 
-		for (int i = 0; i < numRes-1; i++){
+		for (int i = 0; i < numRes; i++){
 			subListAreaDomain.get(i).setEvent(subListResources.get(i).getId());
 			System.out.println(subListAreaDomain.get(i).getEvent());
 		}

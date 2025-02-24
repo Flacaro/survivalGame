@@ -18,7 +18,8 @@ public class DBController {
     public void insertGame(GameDomain g) {
         GameService gameService=new GameService();
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        gameService.saveGame(g, em);
+
+        gameDaoImpl.saveGame(g, em);
         close();
     }
 
@@ -32,8 +33,6 @@ public class DBController {
         areaDao.updateArea(areas,em);
         close();
     }
-
-
 
     public void getAreas() {
 

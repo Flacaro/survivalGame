@@ -1,5 +1,6 @@
 package controller;
 
+import model.GameFactorySingleton;
 import model.domain.GameDomain;
 import model.domain.MapDomain;
 import model.domain.ModeDomain;
@@ -10,7 +11,10 @@ public class StartController {
 
     private final DBController dbController = new DBController();
 
+    private GameFactorySingleton gms = GameFactorySingleton.getInstance();
+
     public GameDomain start() {
+
         ModeDomain modeDomain = new ModeDomain(1L);
         PlayerDomain playerDomain = new PlayerDomain("crivall", 5, 1);
 
@@ -26,7 +30,10 @@ public class StartController {
                 mapDomain
         );
         dbController.insertGame(gameDomain);
-
+        //dobbiamo riprendere le aree dal db altimenti non sono salvate
+        dbController.getAreas();
+        gms.createEvent(mapDomain.getAreas(), modeDomain);
+        dbController.updateArea(mapDomain.getAreas());
         return gameDomain;
     }
 }

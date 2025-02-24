@@ -14,7 +14,7 @@ public class MapServices {
 
     public List<AreaDomain> setTotalMapArea(ModeDomain modeDomain) {
 
-        GameFactorySingleton gms = GameFactorySingleton.getInstance();
+//        GameFactorySingleton gms = GameFactorySingleton.getInstance();
         int totalArea = (int) modeDomain.getTotalArea();
         List<AreaDomain> areaDomains = new ArrayList<>();
         for (int c = 0; c < totalArea; c++) {
@@ -22,7 +22,7 @@ public class MapServices {
             areaDomains.add(a);
         }
         //vanno salvate tutte le aree nel db altrimenti non hanno id e non matcha con le risorse
-        gms.createEvent(areaDomains, modeDomain);
+//        gms.createEvent(areaDomains, modeDomain);
         return areaDomains;
     }
 

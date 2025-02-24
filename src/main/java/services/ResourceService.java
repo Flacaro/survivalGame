@@ -47,4 +47,12 @@ public class ResourceService {
         resourceDomain.setType(r.getType());
         return resourceDomain;
     }
+
+    public ArrayList<ResourceDomain> getResources(ArrayList<ResourceDomain> resources) {
+
+
+        return resources;
+    }
+
+
 }

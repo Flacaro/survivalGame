@@ -13,8 +13,7 @@ public class DBController {
     public void insertGame(GameDomain g) {
         GameService gameService=new GameService();
         EntityManager em = EntityManagerSingleton.getEntityManager();
-
-        gameDaoImpl.saveGame(g, em);
+        gameService.saveGame(g, em);
         close();
     }
 

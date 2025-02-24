@@ -6,9 +6,9 @@ import model.entity.Game;
 
 public class GameService {
 
-    private MapServices mapServices;
-    private ModeService modeService;
-    private PlayerServices playerService;
+    private MapServices mapServices= new MapServices();
+    private ModeService modeService= new ModeService();
+    private PlayerServices playerService= new PlayerServices();
 
     public Game gameMapper(GameDomain gameDomain) {
         Game game = new Game();

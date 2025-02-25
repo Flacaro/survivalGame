@@ -1,13 +1,19 @@
 package services;
 
+import jakarta.persistence.EntityManager;
 import model.domain.AreaDomain;
 import model.entity.Area;
+import persistence.AreaDaoImpl;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AreaService {
 
     private CheckpointService checkpointService;
     private ClimateService climateService;
+    private AreaDaoImpl areaDaoImpl = new AreaDaoImpl();
 
     public Area areaMapper(AreaDomain areaDomain) {
         if (areaDomain == null) {
@@ -51,5 +57,14 @@ public class AreaService {
         }
 
         return areaDomain;
+    }
+
+
+    public void updateArea(List<AreaDomain> areas, EntityManager em) {
+        areaDaoImpl.updateArea(areas, em);
+    }
+
+    public ArrayList<AreaDomain> getAreas(EntityManager em) {
+        return areaDaoImpl.getAreas(em);
     }
 }

@@ -13,14 +13,15 @@ import java.util.List;
 
 public class DBController {
 
-    private final GameDaoImpl gameDaoImpl = new GameDaoImpl();
-    private final AreaDaoImpl areaDao= new AreaDaoImpl();
+    private final AreaService areaService= new AreaService();
+    private GameService gameService=new GameService();
+
 
     public void insertGame(GameDomain g) {
-        GameService gameService=new GameService();
+
         EntityManager em = EntityManagerSingleton.getEntityManager();
 
-        gameDaoImpl.saveGame(g, em);
+        gameService.saveGame(g, em);
         close();
     }
 
@@ -31,14 +32,22 @@ public class DBController {
     public void updateArea(List<AreaDomain> areas) {
         AreaService areaService= new AreaService();
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        areaDao.updateArea(areas,em);
+        areaService.updateArea(areas,em);
         close();
     }
 
     public ArrayList<AreaDomain> getAreas() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        ArrayList<AreaDomain> areaDomains= areaDao.getArea(em);
+        ArrayList<AreaDomain> areaDomains= areaService.getAreas(em);
         close();
         return areaDomains;
+    }
+
+    public GameService getGameService() {
+        return gameService;
+    }
+
+    public void setGameService(GameService gameService) {
+        this.gameService = gameService;
     }
 }

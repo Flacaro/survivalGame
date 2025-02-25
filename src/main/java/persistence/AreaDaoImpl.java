@@ -38,7 +38,6 @@ public class AreaDaoImpl implements AreaDao {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-            AreaService areaService=new AreaService();
             for (AreaDomain value : areas) {
                 Area area = em.find(Area.class, value.getId()); // Trova l'oggetto con ID 1
                 if (area != null) {
@@ -56,7 +55,7 @@ public class AreaDaoImpl implements AreaDao {
     }
 
     @Override
-    public ArrayList<AreaDomain> getArea(EntityManager em) {
+    public ArrayList<AreaDomain> getAreas(EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();

@@ -19,7 +19,7 @@ public class StartController {
 
 
         MapDomain mapDomain = new MapDomain();
-        MapServices mapServices=new MapServices();
+        MapServices mapServices = new MapServices();
         mapDomain.setAreas(mapServices.setTotalMapArea(modeDomain));
 
         GameDomain gameDomain = new GameDomain(
@@ -31,7 +31,7 @@ public class StartController {
         dbController.insertGame(gameDomain);
         //dobbiamo riprendere le aree dal db altimenti non sono salvate
 
-        ArrayList<AreaDomain> areaDomains=dbController.getAreas();
+        ArrayList<AreaDomain> areaDomains = dbController.getAreas();
         gms.createEvent(mapDomain.getAreas(), modeDomain);
         dbController.updateArea(mapDomain.getAreas());
         return gameDomain;

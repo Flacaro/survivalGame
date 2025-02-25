@@ -22,13 +22,10 @@ public class Resource extends Event {
 	@Column(name = "LEVEL", nullable = false)
 	private int level = 1;
 
-	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@Column(name = "QUANTITY", nullable = false)
 	private int quantity;
 
-	@Column(name = "TYPE", nullable = false)
 	private String type;
 
 	public long getId() {

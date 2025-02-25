@@ -22,6 +22,9 @@ public class Area implements Serializable {
 	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
 
+	@Column(name = "CATEGORY")
+	private String category;
+
 	//test uno ad uno con checkpoint
 	@OneToOne
 	@JoinColumn(name = "id_checkpoint",referencedColumnName = "id")
@@ -79,5 +82,13 @@ public class Area implements Serializable {
 
 	public void setClimate(Climate climate) {
 		this.climate = climate;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 }

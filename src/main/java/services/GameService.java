@@ -1,10 +1,13 @@
 package services;
 
 import jakarta.persistence.EntityManager;
+import model.domain.AreaDomain;
 import model.domain.GameDomain;
 import model.entity.Event;
 import model.entity.Game;
 import persistence.GameDaoImpl;
+
+import java.util.List;
 
 public class GameService {
 
@@ -37,8 +40,15 @@ public class GameService {
         gameDaoImpl.saveGame(g, em);
     }
 
-    public void triggerEvent(Event event) {
-        // TODO - implement Game.triggerEvent
+    //viene chiamato ogni volta che il giocatore si muove
+    public void triggerEvent(long idArea, GameDomain gd) {
+        List<AreaDomain> mapAreas = gd.getMap().getAreas();
+        for (AreaDomain areas : mapAreas) {
+            if(areas.getId() == idArea) {
+                long idEvent = areas.getIdEvent();
+
+            }
+        }
         throw new UnsupportedOperationException();
     }
 

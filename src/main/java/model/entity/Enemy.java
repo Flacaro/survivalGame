@@ -18,13 +18,10 @@ public class Enemy extends Event {
 	@Column(name = "LEVEL", nullable = false)
 	private int level = 1;
 
-	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
 
-	@Column(name = "TYPE", nullable = false)
 	private String type;
 
 	public Enemy() {

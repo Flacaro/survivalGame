@@ -24,6 +24,7 @@ public class AreaService {
         area.setName(areaDomain.getName());
         area.setDescription(areaDomain.getDescription());
         area.setIdEvent(areaDomain.getIdEvent());
+        area.setCategory(areaDomain.getCategory());
 
         if (areaDomain.getCheckpoint() != null) {
             area.setCheckpoint(checkpointService.checkpointMapper(areaDomain.getCheckpoint()));
@@ -46,6 +47,7 @@ public class AreaService {
         areaDomain.setName(area.getName());
         areaDomain.setDescription(area.getDescription());
         areaDomain.setIdEvent(area.getIdEvent());
+        areaDomain.setCategory(area.getCategory());
 
         if (area.getCheckpoint() != null) {
             areaDomain.setCheckpoint(checkpointService.checkpointDomainMapper(area.getCheckpoint()));

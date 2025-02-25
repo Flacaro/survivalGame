@@ -7,7 +7,6 @@ import java.io.Serializable;
 @MappedSuperclass
 public abstract class Event implements Serializable {
 
-
     private String type;
 
     private String name;

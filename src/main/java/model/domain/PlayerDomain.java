@@ -18,7 +18,7 @@ public class PlayerDomain {
 
     private int level = 1;
 
-    private long position;
+    private long idArea;
 
     private Inventory inventory;
 
@@ -92,12 +92,12 @@ public class PlayerDomain {
         this.level = level;
     }
 
-    public long getPosition() {
-        return position;
+    public long getIdArea() {
+        return idArea;
     }
 
-    public void setPosition(long position) {
-        this.position = position;
+    public void setIdArea(long idArea) {
+        this.idArea = idArea;
     }
 
     public Inventory getInventory() {

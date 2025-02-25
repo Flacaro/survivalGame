@@ -22,8 +22,8 @@ public class Player {
 	@Column(name = "LEVEL", nullable = false)
 	private int level = 1;
 
-	@Column(name = "POSITION")
-	private long position;
+	@Column(name = "ID_AREA")
+	private long idArea;
 
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -67,12 +67,12 @@ public class Player {
 		this.level = level;
 	}
 
-	public long getPosition() {
-		return position;
+	public long getIdArea() {
+		return idArea;
 	}
 
-	public void setPosition(long position) {
-		this.position = position;
+	public void setIdArea(long idArea) {
+		this.idArea = idArea;
 	}
 
 	public Inventory getInventory() {

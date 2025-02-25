@@ -14,7 +14,7 @@ public class PlayerServices {
         player.setNickname(playerDomain.getNickname());
         player.setHealth(playerDomain.getHealth());
         player.setLevel(playerDomain.getLevel());
-        player.setPosition(playerDomain.getPosition());
+        player.setIdArea(playerDomain.getIdArea());
         player.setInventory(playerDomain.getInventory());
         player.setSkills(playerDomain.getSkills());
         return player;
@@ -27,7 +27,7 @@ public class PlayerServices {
         player.setNickname(player1.getNickname());
         player.setHealth(player1.getHealth());
         player.setLevel(player1.getLevel());
-        player.setPosition(player1.getPosition());
+        player.setIdArea(player1.getIdArea());
         player.setInventory(player1.getInventory());
         player.setSkills(player1.getSkills());
         return player;

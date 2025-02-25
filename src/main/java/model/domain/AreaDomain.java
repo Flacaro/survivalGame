@@ -17,6 +17,8 @@ public class AreaDomain {
 
     private ClimateDomain climate;
 
+    private String category;
+
 
     public AreaDomain() {
     }
@@ -24,14 +26,6 @@ public class AreaDomain {
     public AreaDomain(String name, String description) {
         this.name = name;
         this.description = description;
-    }
-
-    public long getEvent() {
-        return this.idEvent;
-    }
-
-    public void setEvent(long event) {
-        this.idEvent = event;
     }
 
     public long getId() {
@@ -83,16 +77,23 @@ public class AreaDomain {
         this.idEvent = idEvent;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        AreaDomain areaDomain = (AreaDomain) o;
-        return id == areaDomain.id && idEvent == areaDomain.idEvent && Objects.equals(name, areaDomain.name) && Objects.equals(description, areaDomain.description) && Objects.equals(checkpoint, areaDomain.checkpoint) && Objects.equals(climate, areaDomain.climate);
+        AreaDomain that = (AreaDomain) o;
+        return id == that.id && idEvent == that.idEvent && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(checkpoint, that.checkpoint) && Objects.equals(climate, that.climate) && Objects.equals(category, that.category);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, idEvent, description, checkpoint, climate);
+        return Objects.hash(id, name, idEvent, description, checkpoint, climate, category);
     }
 }

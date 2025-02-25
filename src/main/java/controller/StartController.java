@@ -32,8 +32,8 @@ public class StartController {
         //dobbiamo riprendere le aree dal db altimenti non sono salvate
 
         ArrayList<AreaDomain> areaDomains = dbController.getAreas();
-        gms.createEvent(mapDomain.getAreas(), modeDomain);
-        dbController.updateArea(mapDomain.getAreas());
+        gms.createEvent(areaDomains, modeDomain);
+        dbController.updateArea(areaDomains);
         return gameDomain;
     }
 }

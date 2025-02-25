@@ -42,7 +42,7 @@ public class AreaDaoImpl implements AreaDao {
                 Area area = em.find(Area.class, value.getId()); // Trova l'oggetto con ID 1
                 if (area != null) {
                     area.setIdEvent(value.getIdEvent());
-                    em.getTransaction().commit();// Modifica i campi necessari
+//                    em.getTransaction().commit();// Modifica i campi necessari
                 }
             }
             em.getTransaction().commit();

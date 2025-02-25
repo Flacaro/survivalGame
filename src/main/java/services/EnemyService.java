@@ -3,7 +3,7 @@ package services;
 import model.domain.EnemyDomain;
 import model.entity.Enemy;
 
-public class EnemyServices {
+public class EnemyService {
     public Enemy enemyMapper(EnemyDomain enemyDomain){
         Enemy enemy= new Enemy();
         enemy.setId(enemyDomain.getId());
@@ -24,5 +24,9 @@ public class EnemyServices {
         enemyDomain.setDescription(enemy.getDescription());
         enemyDomain.setType(enemy.getType());
         return enemyDomain;
+    }
+
+    public EnemyDomain getEnemyById(long id) {
+        return null;
     }
 }

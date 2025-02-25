@@ -18,7 +18,7 @@ public class PlayerDomain {
 
     private int level = 1;
 
-    private long idArea;
+    private long idArea = 1;
 
     private Inventory inventory;
 

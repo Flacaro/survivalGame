@@ -94,4 +94,17 @@ public class ResourceDomain {
 
     public void setUp(String type, ModeDomain mode) {
     }
+
+    @Override
+    public String toString() {
+        return "ResourceDomain{" +
+                "id=" + id +
+                ", category='" + category + '\'' +
+                ", attacks=" + attacks +
+                ", level=" + level +
+                ", name='" + name + '\'' +
+                ", quantity=" + quantity +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

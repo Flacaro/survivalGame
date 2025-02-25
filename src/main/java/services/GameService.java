@@ -3,11 +3,13 @@ package services;
 import jakarta.persistence.EntityManager;
 import model.domain.AreaDomain;
 import model.domain.GameDomain;
+import model.domain.ResourceDomain;
 import model.entity.Event;
 import model.entity.Game;
 import persistence.GameDaoImpl;
 
 import java.util.List;
+import java.util.Objects;
 
 public class GameService {
 
@@ -15,6 +17,8 @@ public class GameService {
     private ModeService modeService= new ModeService();
     private PlayerServices playerService= new PlayerServices();
     private GameDaoImpl gameDaoImpl = new GameDaoImpl();
+    private ResourceService resourceService = new ResourceService();
+    private EnemyService enemyService =  new EnemyService();
 
     public Game gameMapper(GameDomain gameDomain) {
         Game game = new Game();
@@ -41,15 +45,21 @@ public class GameService {
     }
 
     //viene chiamato ogni volta che il giocatore si muove
-    public void triggerEvent(long idArea, GameDomain gd) {
+    public ResourceDomain triggerEvent(long idArea, GameDomain gd) {
         List<AreaDomain> mapAreas = gd.getMap().getAreas();
         for (AreaDomain areas : mapAreas) {
             if(areas.getId() == idArea) {
                 long idEvent = areas.getIdEvent();
-
+                String category = areas.getCategory();
+                if(Objects.equals(category, "RISORSA")) {
+                   return resourceService.getResourceById(idEvent);
+                } else {
+                    enemyService.getEnemyById(idEvent);
+                }
             }
         }
-        throw new UnsupportedOperationException();
+        System.out.println("Nessuna risorsa è presente nell'area in cui ti trovi");
+        return null;
     }
 
 

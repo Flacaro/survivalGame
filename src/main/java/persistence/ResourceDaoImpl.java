@@ -24,6 +24,15 @@ public class ResourceDaoImpl implements ResourceDao {
     }
 
     @Override
+    public ResourceDomain getResourceById(long id) {
+        ResourceService resourceService= new ResourceService();
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        TypedQuery<Resource> query = em.createQuery("SELECT r FROM Resource r where r.id =:id", Resource.class);
+        query.setParameter("id", id);
+        return resourceService.resourceDomainMapper(query.getSingleResult());
+    }
+
+    @Override
     public ArrayList<ResourceDomain> getResources() {
         ResourceService resourceService= new ResourceService();
         EntityManager em = EntityManagerSingleton.getEntityManager();
@@ -35,4 +44,6 @@ public class ResourceDaoImpl implements ResourceDao {
         }
         return resourceDomains;
     }
+
+
 }

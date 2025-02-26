@@ -25,9 +25,9 @@ public class PlayerDomain {
 
     private List<Skill> skills= new ArrayList<>();
 
-    private long x_axis=0;
+    private int x_axis=0;
 
-    private long y_axis=0;
+    private int y_axis=0;
 
 
     public PlayerDomain(String nickname, float health, int level) {
@@ -132,19 +132,19 @@ public class PlayerDomain {
         this.id = id;
     }
 
-    public long getX_axis() {
+    public int getX_axis() {
         return x_axis;
     }
 
-    public void setX_axis(long x_axis) {
+    public void setX_axis(int x_axis) {
         this.x_axis = x_axis;
     }
 
-    public long getY_axis() {
+    public int getY_axis() {
         return y_axis;
     }
 
-    public void setY_axis(long y_axis) {
+    public void setY_axis(int y_axis) {
         this.y_axis = y_axis;
     }
 }

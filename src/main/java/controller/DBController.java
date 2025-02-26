@@ -3,6 +3,7 @@ package controller;
 import jakarta.persistence.EntityManager;
 import model.domain.AreaDomain;
 import model.domain.GameDomain;
+import model.domain.PlayerDomain;
 import persistence.*;
 import services.AreaService;
 import services.GameService;
@@ -62,5 +63,12 @@ public class DBController {
         GameDomain gameDomain=gameService.getGame(em);
         close();
         return gameDomain;
+    }
+
+    public void updatePlayer(PlayerDomain p) {
+        PlayerDaoImpl pd= new PlayerDaoImpl();
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        pd.updatePlayer(p,em);
+        close();
     }
 }

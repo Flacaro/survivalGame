@@ -1,7 +1,10 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
+import model.domain.AreaDomain;
 import model.domain.PlayerDomain;
+import model.entity.Area;
+import model.entity.Player;
 import services.PlayerServices;
 
 public class PlayerDaoImpl implements PlayerDao {
@@ -20,6 +23,27 @@ public class PlayerDaoImpl implements PlayerDao {
             e.printStackTrace();
             em.getTransaction().rollback();
         }
+
+    }
+
+    @Override
+    public void updatePlayer(PlayerDomain player, EntityManager em) {
+            try {
+                if (!em.getTransaction().isActive()) {
+                    em.getTransaction().begin();
+                }
+                    Player player1 = em.find(Player.class, player.getId()); // Trova l'oggetto con ID 1
+                    if (player1 != null) {
+                        player1.setX_axis(player.getX_axis());
+                        player1.setY_axis(player.getY_axis());
+                    }
+                em.getTransaction().commit();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                em.getTransaction().rollback();
+            }
+
 
     }
 

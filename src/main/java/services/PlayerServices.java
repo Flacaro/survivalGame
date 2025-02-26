@@ -1,12 +1,19 @@
 package services;
 
+import controller.DBController;
+import jakarta.persistence.EntityManager;
+import model.domain.GameDomain;
+import model.domain.ModeDomain;
 import model.domain.PlayerDomain;
 import model.entity.Enemy;
 import model.entity.Inventory;
 import model.entity.Player;
 import model.entity.Resource;
+import persistence.PlayerDaoImpl;
 
 public class PlayerServices {
+
+
 
     public Player playerMapper(PlayerDomain playerDomain){
         Player player=new Player();
@@ -52,9 +59,60 @@ public class PlayerServices {
     }
 
 
-    public void move(int position) {
-        // TODO - implement Player.move
-        throw new UnsupportedOperationException();
+    public boolean move(int position, GameDomain g) {
+        DBController dbController=new DBController();
+        PlayerDomain p= g.getPlayer();
+        int x_axis= p.getX_axis();
+        int y_axis=p.getY_axis();
+        ModeDomain m = g.getMode();
+        int range= (int) (m.getTotalArea()/2);
+        switch (position){
+            case 0:
+                //nord x=x y=y-1
+                if(y_axis-1>=0 && y_axis-1<=range){
+                   y_axis=y_axis-1;
+                    //update player;
+                    p.setX_axis(x_axis);
+                    p.setY_axis(y_axis);
+                    dbController.updatePlayer(p);
+                    return true;
+                }
+                return false;
+            case 1:
+                //est x=x+1 y=y
+                if(x_axis+1>=0 && x_axis+1<=range){
+                    x_axis=x_axis+1;
+                    //update player;
+                    p.setX_axis(x_axis);
+                    p.setY_axis(y_axis);
+                    dbController.updatePlayer(p);
+                    return true;
+                }
+                return false;
+            case 2:
+                //sud x=x y=y+1
+                if(y_axis+1>=0 && y_axis+1<=range){
+                    y_axis=y_axis+1;
+                    //update player;
+                    p.setX_axis(x_axis);
+                    p.setY_axis(y_axis);
+                    dbController.updatePlayer(p);
+                    return true;
+                }
+                return false;
+            case 3:
+                //ovest x=x-1 y=y
+                if(x_axis-1>=0 && x_axis-1<=range){
+                    x_axis=x_axis-1;
+                    //update player;
+                    p.setX_axis(x_axis);
+                    p.setY_axis(y_axis);
+                    dbController.updatePlayer(p);
+                    return true;
+                }
+                return false;
+        }
+        return false;
     }
 
 
@@ -72,5 +130,10 @@ public class PlayerServices {
     public void useSkill(String skill) {
         // TODO - implement Player.useSkill
         throw new UnsupportedOperationException();
+    }
+
+    public void updatePlayer(PlayerDomain playereDomain, EntityManager em) {
+        PlayerDaoImpl playerDao=new PlayerDaoImpl();
+        playerDao.updatePlayer(playereDomain,em);
     }
 }

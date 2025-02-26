@@ -6,7 +6,6 @@ import java.util.List;
 import model.domain.AreaDomain;
 import model.domain.MapDomain;
 import model.domain.ModeDomain;
-import model.domain.PlayerDomain;
 import model.entity.Area;
 import model.entity.Map;
 
@@ -22,16 +21,6 @@ public class MapServices {
         }
         return areaDomains;
     }
-
-//    public List<AreaDomain> move(long) {
-//
-//        List<AreaDomain> adjacentAreaDomains = new ArrayList<>();
-//        for (AreaDomain a :totalMapArea) {
-//            AreaDomain b = new AreaDomain("area", "deserto");
-//            adjacentAreaDomains.add(a);
-//        }
-//        return adjacentAreaDomains;
-//    }
 
     public Map mapMapper(MapDomain mapDomain) {
         Map map = new Map();

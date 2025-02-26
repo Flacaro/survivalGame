@@ -15,7 +15,7 @@ public class GameService {
 
     private MapServices mapServices= new MapServices();
     private ModeService modeService= new ModeService();
-    private PlayerServices playerService= new PlayerServices();
+    private PlayerService playerService= new PlayerService();
     private final GameDaoImpl gameDaoImpl = new GameDaoImpl();
     private ResourceService resourceService = new ResourceService();
     private EnemyService enemyService =  new EnemyService();

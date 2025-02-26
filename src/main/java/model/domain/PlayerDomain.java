@@ -20,7 +20,7 @@ public class PlayerDomain {
 
     private long idArea = 1;
 
-    private Inventory inventory;
+    private InventoryDomain inventory;
 
     private List<Skill> skills= new ArrayList<>();
 
@@ -28,6 +28,7 @@ public class PlayerDomain {
         this.nickname = nickname;
         this.health = health;
         this.level = level;
+        this.inventory=new InventoryDomain();
     }
 
     public PlayerDomain() {
@@ -100,11 +101,11 @@ public class PlayerDomain {
         this.idArea = idArea;
     }
 
-    public Inventory getInventory() {
+    public InventoryDomain getInventory() {
         return inventory;
     }
 
-    public void setInventory(Inventory inventory) {
+    public void setInventory(InventoryDomain inventory) {
         this.inventory = inventory;
     }
 

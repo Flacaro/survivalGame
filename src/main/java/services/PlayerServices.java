@@ -10,12 +10,13 @@ public class PlayerServices {
 
     public Player playerMapper(PlayerDomain playerDomain){
         Player player=new Player();
+        InventoryService service= new InventoryService();
         player.setId(playerDomain.getId());
         player.setNickname(playerDomain.getNickname());
         player.setHealth(playerDomain.getHealth());
         player.setLevel(playerDomain.getLevel());
         player.setIdArea(playerDomain.getIdArea());
-        player.setInventory(playerDomain.getInventory());
+        player.setInventory(service.inventoryMapper(playerDomain.getInventory()));
         player.setSkills(playerDomain.getSkills());
         return player;
 
@@ -23,12 +24,13 @@ public class PlayerServices {
 
     public PlayerDomain playerDomainMapper(Player player1){
         PlayerDomain player=new PlayerDomain();
+        InventoryService service= new InventoryService();
         player.setId(player1.getId());
         player.setNickname(player1.getNickname());
         player.setHealth(player1.getHealth());
         player.setLevel(player1.getLevel());
         player.setIdArea(player1.getIdArea());
-        player.setInventory(player1.getInventory());
+        player.setInventory(service.inventoryDomainMapper(player1.getInventory()));
         player.setSkills(player1.getSkills());
         return player;
 

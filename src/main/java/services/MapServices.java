@@ -23,15 +23,15 @@ public class MapServices {
         return areaDomains;
     }
 
-    public List<AreaDomain> setAdjacentArea(List<AreaDomain> totalMapArea, PlayerDomain p) {
-        long currentArea=p.getIdArea();
-        List<AreaDomain> adjacentAreaDomains = new ArrayList<>();
-        for (AreaDomain a :totalMapArea) {
-            AreaDomain a = new AreaDomain("area", "deserto");
-            adjacentAreaDomains.add(a);
-        }
-        return adjacentAreaDomains;
-    }
+//    public List<AreaDomain> move(long) {
+//
+//        List<AreaDomain> adjacentAreaDomains = new ArrayList<>();
+//        for (AreaDomain a :totalMapArea) {
+//            AreaDomain b = new AreaDomain("area", "deserto");
+//            adjacentAreaDomains.add(a);
+//        }
+//        return adjacentAreaDomains;
+//    }
 
     public Map mapMapper(MapDomain mapDomain) {
         Map map = new Map();

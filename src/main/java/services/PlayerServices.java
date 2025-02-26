@@ -18,6 +18,8 @@ public class PlayerServices {
         player.setIdArea(playerDomain.getIdArea());
         player.setInventory(service.inventoryMapper(playerDomain.getInventory()));
         player.setSkills(playerDomain.getSkills());
+        player.setX_axis(playerDomain.getX_axis());
+        player.setY_axis(playerDomain.getY_axis());
         return player;
 
     }
@@ -32,6 +34,8 @@ public class PlayerServices {
         player.setIdArea(player1.getIdArea());
         player.setInventory(service.inventoryDomainMapper(player1.getInventory()));
         player.setSkills(player1.getSkills());
+        player.setX_axis(player1.getX_axis());
+        player.setY_axis(player1.getY_axis());
         return player;
 
     }

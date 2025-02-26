@@ -1,5 +1,6 @@
 package model.domain;
 
+import jakarta.persistence.Column;
 import model.entity.Enemy;
 import model.entity.Inventory;
 import model.entity.Resource;
@@ -23,6 +24,11 @@ public class PlayerDomain {
     private InventoryDomain inventory;
 
     private List<Skill> skills= new ArrayList<>();
+
+    private long x_axis=0;
+
+    private long y_axis=0;
+
 
     public PlayerDomain(String nickname, float health, int level) {
         this.nickname = nickname;
@@ -124,5 +130,21 @@ public class PlayerDomain {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getX_axis() {
+        return x_axis;
+    }
+
+    public void setX_axis(long x_axis) {
+        this.x_axis = x_axis;
+    }
+
+    public long getY_axis() {
+        return y_axis;
+    }
+
+    public void setY_axis(long y_axis) {
+        this.y_axis = y_axis;
     }
 }

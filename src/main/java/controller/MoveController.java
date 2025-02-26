@@ -1,11 +1,11 @@
 package controller;
 
 import model.domain.GameDomain;
-import services.PlayerServices;
+import services.PlayerService;
 
 public class MoveController {
 
     public boolean move(int move, GameDomain game){
-        PlayerServices playerServices= new PlayerServices();
+        PlayerService playerServices= new PlayerService();
         return playerServices.move(move,game);
 }}

@@ -2,6 +2,7 @@ package services;
 
 import jakarta.persistence.EntityManager;
 import model.domain.AreaDomain;
+import model.domain.GameDomain;
 import model.entity.Area;
 import persistence.AreaDaoImpl;
 
@@ -69,4 +70,22 @@ public class AreaService {
     public ArrayList<AreaDomain> getAreas(EntityManager em) {
         return areaDaoImpl.getAreas(em);
     }
+
+    public long setNewIdAreaxVariant(int x_axis, GameDomain g) {
+        List<AreaDomain> areaxVariant= new ArrayList<>();
+        List<AreaDomain> areas=g.getMap().getAreas();
+        int range= (int) (g.getMode().getTotalArea()/2);
+        areaxVariant=areas.subList(0,range-1);
+        return areaxVariant.get(x_axis).getId();
+    }
+
+    public long setNewIdAreayVariant(int y_axis, GameDomain g) {
+        List<AreaDomain> areayVariant= new ArrayList<>();
+        List<AreaDomain> areas=g.getMap().getAreas();
+        int range= (int) (g.getMode().getTotalArea()/2);
+        areayVariant=areas.subList(range+1,areas.size()-1);
+        return areayVariant.get(y_axis).getId();
+    }
+
+
 }

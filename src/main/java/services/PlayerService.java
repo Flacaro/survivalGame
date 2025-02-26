@@ -73,7 +73,7 @@ public class PlayerService {
                 if(y_axis-1>=0 && y_axis-1<=range){
                    y_axis=y_axis-1;
                     //update player;
-                    p.setIdArea(a.setNewIdArea());
+                    p.setIdArea(a.setNewIdAreayVariant(y_axis,g));
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
                     dbController.updatePlayer(p);
@@ -84,6 +84,7 @@ public class PlayerService {
                 if(x_axis+1>=0 && x_axis+1<=range){
                     x_axis=x_axis+1;
                     //update player;
+                    p.setIdArea(a.setNewIdAreaxVariant(x_axis,g));
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
                     dbController.updatePlayer(p);
@@ -94,7 +95,7 @@ public class PlayerService {
                 if(y_axis+1>=0 && y_axis+1<=range){
                     y_axis=y_axis+1;
                     //update player;
-                    p.setIdArea();
+                    p.setIdArea(a.setNewIdAreayVariant(y_axis,g));
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
                     dbController.updatePlayer(p);
@@ -105,7 +106,7 @@ public class PlayerService {
                 if(x_axis-1>=0 && x_axis-1<=range){
                     x_axis=x_axis-1;
                     //update player;
-                    p.setIdArea();
+                    p.setIdArea(a.setNewIdAreaxVariant(x_axis,g));
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
                     dbController.updatePlayer(p);

@@ -5,13 +5,13 @@ import model.domain.AreaDomain;
 import model.domain.PlayerDomain;
 import model.entity.Area;
 import model.entity.Player;
-import services.PlayerServices;
+import services.PlayerService;
 
 public class PlayerDaoImpl implements PlayerDao {
 
     public void savePlayer(PlayerDomain player, EntityManager em) {
         try {
-            PlayerServices playerServices=new PlayerServices();
+            PlayerService playerServices=new PlayerService();
             if(!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
@@ -34,6 +34,7 @@ public class PlayerDaoImpl implements PlayerDao {
                 }
                     Player player1 = em.find(Player.class, player.getId()); // Trova l'oggetto con ID 1
                     if (player1 != null) {
+                        player1.setIdArea(player.getIdArea());
                         player1.setX_axis(player.getX_axis());
                         player1.setY_axis(player.getY_axis());
                     }

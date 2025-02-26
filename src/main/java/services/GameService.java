@@ -52,7 +52,6 @@ public class GameService {
                 long idEvent = areas.getIdEvent();
                 String category = areas.getCategory();
                 if(Objects.equals(category, "RISORSA")) {
-                    System.out.println("C'E' UNA RISORSA");
                    return resourceService.getResourceById(idEvent);
                 } else {
                     enemyService.getEnemyById(idEvent);

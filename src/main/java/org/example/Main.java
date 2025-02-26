@@ -5,6 +5,7 @@ import model.*;
 import model.domain.GameDomain;
 import model.domain.ResourceDomain;
 import services.GameService;
+import services.PlayerService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,6 +20,7 @@ public class Main {
         StartController sc = new StartController();
         GameDomain g = sc.start();
         GameService gameService = new GameService();
+        PlayerService playerService = new PlayerService();
         //restituisce una risorsa dobbiamo fargliela vedere e chiedere cosa fare
         ResourceDomain resourceDomain=gameService.triggerEvent(g.getPlayer().getIdArea(), g);
         System.out.println("Hai trovato " + resourceDomain.getName()+ ", la vuoi prendere?\n"+ "Inserisci 1 per raccoglierla\n"+
@@ -27,10 +29,13 @@ public class Main {
         int choice= Integer.parseInt(bf.readLine());
         switch (choice){
             case 1:
-                //controlla capienza inventario
-                //aggiungi se c'è posto
-                //rifiuta se non c'è postp
-                System.out.println("Risorsa aggiunta all'inventario");
+                //pickup
+                if (playerService.pickUp(resourceDomain, g.getPlayer())) {
+                    System.out.println("Risorsa aggiunta all'inventario");
+                } else {
+                    System.out.println("L'inventario e' pieno, non puoi aggiungere la risorsa");
+                }
+
                 break;
             case 2:
                 System.out.println("Risorsa ignorata");

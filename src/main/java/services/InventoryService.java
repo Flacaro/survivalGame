@@ -80,9 +80,8 @@ public class InventoryService {
         throw new UnsupportedOperationException();
     }
 
-    public boolean checkCapacity() {
-        // TODO - implement Inventory.checkCapacity
-        throw new UnsupportedOperationException();
+    public boolean checkCapacity(InventoryDomain inventoryDomain) {
+        return inventoryDomain.getCapacity() > 0;
     }
 
     public void addSelections(Resource res) {

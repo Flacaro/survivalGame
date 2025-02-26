@@ -1,16 +1,21 @@
 package services;
 
+import model.domain.InventoryDomain;
 import model.domain.PlayerDomain;
+import model.domain.ResourceDomain;
 import model.entity.Enemy;
 import model.entity.Inventory;
 import model.entity.Player;
 import model.entity.Resource;
+import persistence.PlayerDaoImpl;
 
-public class PlayerServices {
+public class PlayerService {
 
-    public Player playerMapper(PlayerDomain playerDomain){
-        Player player=new Player();
-        InventoryService service= new InventoryService();
+    private InventoryService inventoryService = new InventoryService();
+
+    public Player playerMapper(PlayerDomain playerDomain) {
+        Player player = new Player();
+        InventoryService service = new InventoryService();
         player.setId(playerDomain.getId());
         player.setNickname(playerDomain.getNickname());
         player.setHealth(playerDomain.getHealth());
@@ -24,9 +29,9 @@ public class PlayerServices {
 
     }
 
-    public PlayerDomain playerDomainMapper(Player player1){
-        PlayerDomain player=new PlayerDomain();
-        InventoryService service= new InventoryService();
+    public PlayerDomain playerDomainMapper(Player player1) {
+        PlayerDomain player = new PlayerDomain();
+        InventoryService service = new InventoryService();
         player.setId(player1.getId());
         player.setNickname(player1.getNickname());
         player.setHealth(player1.getHealth());
@@ -40,11 +45,27 @@ public class PlayerServices {
 
     }
 
-    public boolean pickUp(Resource res) {
-        // TODO - implement Player.pickUp
-        throw new UnsupportedOperationException();
+    //caso in cui il giocatore prende la risorsa
+    //controllo la capienza dell'inventario
+    //se c'e' spazio, lo aggiungo all'inventario altrimenti "non hai spazio!"
+    public boolean pickUp(ResourceDomain res, PlayerDomain player) {
+        InventoryDomain id = player.getInventory();
+        if (inventoryService.checkCapacity(id)) {
+            id.add(res);
+            id.setCapacity(id.getCapacity() - 1);
+            player.setInventory(id);
+            updatePlayer(player);
+            return true;
+        }
+        return false;
     }
 
+
+
+    public void updatePlayer(PlayerDomain player) {
+        PlayerDaoImpl playerDaoImpl = new PlayerDaoImpl();
+        playerDaoImpl.updatePlayerInventory(player);
+    }
 
     public boolean attack(Enemy enemy, Resource res) {
         // TODO - implement Player.attack

@@ -23,7 +23,8 @@ public class Inventory {
 
 	//@Column(name = "RESOURCES_SELECTED_IDS", nullable = false)
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@Column(name = "RESOURCES_SELECTED", nullable = false)
+	//@Column(name = "RESOURCES_SELECTED", nullable = false)
+	@JoinColumn(name = "inventory_id")
 	private List<Resource> resourcesSelected= new ArrayList<>();
 
 

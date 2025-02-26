@@ -2,7 +2,6 @@ package controller;
 
 import model.GameFactorySingleton;
 import model.domain.*;
-import services.GameService;
 import services.MapServices;
 
 import java.util.ArrayList;

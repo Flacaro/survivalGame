@@ -21,9 +21,8 @@ public class InventoryDomain {
         throw new UnsupportedOperationException();
     }
 
-    public boolean add(model.entity.Resource res) {
-        // TODO - implement Inventory.add
-        throw new UnsupportedOperationException();
+    public boolean add(ResourceDomain res) {
+        return resourceDomains.add(res);
     }
 
 

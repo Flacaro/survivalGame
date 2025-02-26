@@ -14,7 +14,9 @@ public class Main {
         StartController sc = new StartController();
         GameDomain g = sc.start();
         GameService gameService = new GameService();
+
         gameService.triggerEvent(g.getPlayer().getIdArea(), g);
+        //dobbiamo fargli raccogliere la risorsa
 
     }
 

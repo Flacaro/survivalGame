@@ -16,7 +16,7 @@ public class GameService {
     private MapServices mapServices= new MapServices();
     private ModeService modeService= new ModeService();
     private PlayerServices playerService= new PlayerServices();
-    private GameDaoImpl gameDaoImpl = new GameDaoImpl();
+    private final GameDaoImpl gameDaoImpl = new GameDaoImpl();
     private ResourceService resourceService = new ResourceService();
     private EnemyService enemyService =  new EnemyService();
 
@@ -52,6 +52,7 @@ public class GameService {
                 long idEvent = areas.getIdEvent();
                 String category = areas.getCategory();
                 if(Objects.equals(category, "RISORSA")) {
+                    System.out.println("C'E' UNA RISORSA");
                    return resourceService.getResourceById(idEvent);
                 } else {
                     enemyService.getEnemyById(idEvent);
@@ -66,5 +67,14 @@ public class GameService {
     public boolean verifyAnswer(Event event, boolean answer) {
         // TODO - implement Game.verifyAnswer
         throw new UnsupportedOperationException();
+    }
+
+    public void updateGame(GameDomain gameDomain, EntityManager em) {
+
+        gameDaoImpl.updateGame(gameDomain,em);
+    }
+
+    public  GameDomain getGame(EntityManager em){
+        return gameDaoImpl.getGame(em);
     }
 }

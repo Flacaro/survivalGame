@@ -31,7 +31,7 @@ public class GameFactorySingleton {
 		resources = rs.getResources();
 		AreaDaoImpl areaDao= new AreaDaoImpl();
 
-		Collections.shuffle(totalMapAreaDomain);
+		//Collections.shuffle(totalMapAreaDomain);
 		Collections.shuffle(resources);
 		//id delle caselle contenenti le risorse
 		// 0 index per 4 aree

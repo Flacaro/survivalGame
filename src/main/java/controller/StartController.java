@@ -2,6 +2,7 @@ package controller;
 
 import model.GameFactorySingleton;
 import model.domain.*;
+import services.GameService;
 import services.MapServices;
 
 import java.util.ArrayList;
@@ -34,6 +35,13 @@ public class StartController {
         ArrayList<AreaDomain> areaDomains = dbController.getAreas();
         gms.createEvent(areaDomains, modeDomain);
         dbController.updateArea(areaDomains);
-        return gameDomain;
+        mapDomain.setAreas(areaDomains);
+        //riprendo il gioco dal db
+        GameDomain gameDB=dbController.getGame();
+        gameDB.setMap(mapDomain);
+
+        dbController.updateGame(gameDB);
+
+        return gameDB;
     }
 }

@@ -50,4 +50,17 @@ public class DBController {
     public void setGameService(GameService gameService) {
         this.gameService = gameService;
     }
+
+    public void updateGame(GameDomain gameDomain) {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        gameService.updateGame(gameDomain,em);
+        close();
+    }
+
+    public GameDomain getGame(){
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        GameDomain gameDomain=gameService.getGame(em);
+        close();
+        return gameDomain;
+    }
 }

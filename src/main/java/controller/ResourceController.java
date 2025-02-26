@@ -16,6 +16,7 @@ public class ResourceController {
     //se ha spazio, aggiungerlo all'inventario altrimenti ERROR
 
     public void pickUp(long idArea, MapDomain map) {
+
     }
 
     public void showResource(ResourceDomain resourceDomain) {

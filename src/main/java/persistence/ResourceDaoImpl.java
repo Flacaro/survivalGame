@@ -45,5 +45,4 @@ public class ResourceDaoImpl implements ResourceDao {
         return resourceDomains;
     }
 
-
 }

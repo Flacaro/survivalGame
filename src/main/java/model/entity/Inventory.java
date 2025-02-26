@@ -14,7 +14,7 @@ public class Inventory {
 	private long id;
 
 	@Column(name = "CAPACITY", nullable = false)
-	private int capacity;
+	private int capacity=10;
 
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

@@ -19,18 +19,22 @@ public class InventoryService {
         ResourceService resourceService=new ResourceService();
         i.setCapacity(id.getCapacity());
         List<Resource> list= new ArrayList<>();
+        if(id.getResources()!=null){
         List<ResourceDomain> domainList= id.getResources();
         for (ResourceDomain a :domainList){
+
             list.add(resourceService.resourceMapper(a));
         }
-        i.setResources(list);
+        i.setResources(list);}
 
         List<Resource> listS= new ArrayList<>();
-        List<ResourceDomain> domainListS= id.getResources();
+        if(id.getResourcesSelected()!=null){
+        List<ResourceDomain> domainListS= id.getResourcesSelected();
         for (ResourceDomain a :domainListS){
+
             list.add(resourceService.resourceMapper(a));
         }
-        i.setResourcesSelected(listS);
+        i.setResourcesSelected(listS);}
 
         return i;
     }
@@ -39,18 +43,22 @@ public class InventoryService {
         InventoryDomain id = new InventoryDomain();
         ResourceService resourceService=new ResourceService();
         id.setCapacity(i.getCapacity());
+        if(i.getResources()!=null){
         List<Resource> list= i.getResources();
         List<ResourceDomain> domainList=new ArrayList<>() ;
         for (Resource r :list){
+
             domainList.add(resourceService.resourceDomainMapper(r));
         }
-        id.setResources(domainList);
-
-        List<Resource> listS=i.getResources();
+        id.setResources(domainList);}
         List<ResourceDomain> domainListS= new ArrayList<>();
+        if(i.getResourcesSelected()!=null){
+        List<Resource> listS=i.getResourcesSelected();
+
         for (Resource a :listS){
+
             domainListS.add(resourceService.resourceDomainMapper(a));
-        }
+        }}
         id.setResourcesSelected(domainListS);
 
         return id;

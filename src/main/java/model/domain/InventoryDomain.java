@@ -8,7 +8,7 @@ public class InventoryDomain {
 
     private long id;
 
-    private int capacity;
+    private int capacity=10;
 
     private List<ResourceDomain> resourceDomains;
 

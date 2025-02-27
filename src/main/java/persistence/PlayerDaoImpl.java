@@ -2,15 +2,9 @@ package persistence;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import model.domain.AreaDomain;
-import model.domain.GameDomain;
 import model.domain.PlayerDomain;
 import model.entity.*;
 import services.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PlayerDaoImpl implements PlayerDao {
 
@@ -28,6 +22,11 @@ public class PlayerDaoImpl implements PlayerDao {
             e.printStackTrace();
             em.getTransaction().rollback();
         }
+
+    }
+
+    @Override
+    public void updatePlayer(PlayerDomain player, EntityManager em) {
 
     }
 

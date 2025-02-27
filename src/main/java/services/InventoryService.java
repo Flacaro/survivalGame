@@ -1,11 +1,14 @@
 package services;
 
+import jakarta.persistence.EntityManager;
 import model.domain.AttackDomain;
 import model.domain.InventoryDomain;
 import model.domain.ResourceDomain;
 import model.entity.Attack;
 import model.entity.Inventory;
 import model.entity.Resource;
+import persistence.EntityManagerSingleton;
+import persistence.InventoryDaoImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,5 +95,11 @@ public class InventoryService {
     public void useResource(Resource resource) {
         // TODO - implement Inventory.useResource
         throw new UnsupportedOperationException();
+    }
+
+    public void updateInventory(InventoryDomain id) {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
+        inventoryDao.updateInventory(id, em);
     }
 }

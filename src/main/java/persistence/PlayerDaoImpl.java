@@ -7,10 +7,7 @@ import model.domain.AreaDomain;
 import model.domain.GameDomain;
 import model.domain.PlayerDomain;
 import model.entity.*;
-import services.AreaService;
-import services.InventoryService;
-import services.MapServices;
-import services.PlayerService;
+import services.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,33 +31,53 @@ public class PlayerDaoImpl implements PlayerDao {
 
     }
 
-
-    public void updatePlayerInventory(PlayerDomain playerDomain) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
-        InventoryService inventoryService = new InventoryService();
+    public PlayerDomain getPlayer(EntityManager em) {
         try {
+            PlayerService playerService = new PlayerService();
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-            Player player = em.find(Player.class, playerDomain.getId());
-            if (player != null) {
-                Inventory managedInventory = inventoryService.inventoryMapper(playerDomain.getInventory());
+            TypedQuery<Player> query = em.createQuery("SELECT p FROM Player p", Player.class);
 
-                List<Resource> managedResources = new ArrayList<>();
-                for (Resource res : managedInventory.getResources()) {
-                    managedResources.add(em.merge(res));
-                }
-                managedInventory.setResources(managedResources);
+            return playerService.playerDomainMapper(query.getSingleResult());
 
-                player.setInventory(managedInventory);
-            }
-
-            em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         }
+        return null;
     }
+
+
+//    public void updatePlayerInventory(PlayerDomain playerDomain) {
+//        EntityManager em = EntityManagerSingleton.getEntityManager();
+//        InventoryService inventoryService = new InventoryService();
+//        try {
+//            if (!em.getTransaction().isActive()) {
+//                em.getTransaction().begin();
+//            }
+//            Player player = em.find(Player.class, playerDomain.getId());
+//            if (player != null) {
+//                Inventory managedInventory = inventoryService.inventoryMapper(playerDomain.getInventory());
+//
+//                Inventory oldInventory = player.getInventory();
+//                oldInventory.setResources(managedInventory.getResources());
+////                //List<Resource> managedResources = new ArrayList<>();
+////                for (Resource res : managedInventory.getResources()) {
+////                    managedResources.add(res);
+////
+////                }
+//                //managedInventory.setResources(managedResources);
+//
+//                player.setInventory(oldInventory);
+//            }
+//
+//            em.getTransaction().commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            em.getTransaction().rollback();
+//        }
+//    }
 
 
 

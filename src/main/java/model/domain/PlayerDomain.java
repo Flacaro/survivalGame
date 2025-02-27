@@ -34,7 +34,6 @@ public class PlayerDomain {
         this.nickname = nickname;
         this.health = health;
         this.level = level;
-        this.inventory=new InventoryDomain();
     }
 
     public PlayerDomain() {

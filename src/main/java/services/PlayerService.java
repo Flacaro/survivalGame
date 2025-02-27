@@ -1,5 +1,6 @@
 package services;
 
+import jakarta.persistence.EntityManager;
 import model.domain.InventoryDomain;
 import model.domain.PlayerDomain;
 import model.domain.ResourceDomain;
@@ -7,6 +8,7 @@ import model.entity.Enemy;
 import model.entity.Inventory;
 import model.entity.Player;
 import model.entity.Resource;
+import persistence.EntityManagerSingleton;
 import persistence.PlayerDaoImpl;
 
 public class PlayerService {
@@ -53,19 +55,25 @@ public class PlayerService {
         if (inventoryService.checkCapacity(id)) {
             id.add(res);
             id.setCapacity(id.getCapacity() - 1);
-            player.setInventory(id);
-            updatePlayer(player);
+            inventoryService.updateInventory(id);
             return true;
         }
         return false;
     }
 
 
-
-    public void updatePlayer(PlayerDomain player) {
-        PlayerDaoImpl playerDaoImpl = new PlayerDaoImpl();
-        playerDaoImpl.updatePlayerInventory(player);
+    public PlayerDomain getPlayer() {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        PlayerDaoImpl playerDao = new PlayerDaoImpl();
+        return playerDao.getPlayer(em);
     }
+
+
+//
+//    public void updatePlayer(PlayerDomain player) {
+//        PlayerDaoImpl playerDaoImpl = new PlayerDaoImpl();
+//        playerDaoImpl.updatePlayerInventory(player);
+//    }
 
     public boolean attack(Enemy enemy, Resource res) {
         // TODO - implement Player.attack

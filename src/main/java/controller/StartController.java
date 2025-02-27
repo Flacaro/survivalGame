@@ -16,7 +16,8 @@ public class StartController {
 
         ModeDomain modeDomain = new ModeDomain(1L);
         PlayerDomain playerDomain = new PlayerDomain("crivall", 5, 1);
-
+        InventoryDomain id = new InventoryDomain();
+        playerDomain.setInventory(id);
 
         MapDomain mapDomain = new MapDomain();
         MapServices mapServices = new MapServices();

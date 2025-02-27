@@ -29,6 +29,7 @@ public class PlayerDaoImpl implements PlayerDao {
     @Override
     public void updatePlayer(PlayerDomain player, EntityManager em) {
             try {
+
                 if (!em.getTransaction().isActive()) {
                     em.getTransaction().begin();
                 }

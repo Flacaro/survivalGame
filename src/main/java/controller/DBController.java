@@ -7,7 +7,6 @@ import model.domain.PlayerDomain;
 import persistence.*;
 import services.AreaService;
 import services.GameService;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,6 @@ public class DBController {
 
 
     public void insertGame(GameDomain g) {
-
         EntityManager em = EntityManagerSingleton.getEntityManager();
         gameService.saveGame(g, em);
         close();

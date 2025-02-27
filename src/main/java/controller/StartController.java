@@ -41,7 +41,6 @@ public class StartController {
         gameDB.setMap(mapDomain);
 
         dbController.updateGame(gameDB);
-
         return gameDB;
     }
 }

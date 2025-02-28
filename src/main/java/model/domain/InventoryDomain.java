@@ -79,4 +79,39 @@ public class InventoryDomain {
     public void setResourcesSelected(List<ResourceDomain> resourcesSelected) {
         this.resourcesSelected = resourcesSelected;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<ResourceDomain> getResourceDomains() {
+        return resourceDomains;
+    }
+
+    public void setResourceDomains(List<ResourceDomain> resourceDomains) {
+        this.resourceDomains = resourceDomains;
+    }
+
+    public PlayerDomain getPlayerDomain() {
+        return playerDomain;
+    }
+
+    public void setPlayerDomain(PlayerDomain playerDomain) {
+        this.playerDomain = playerDomain;
+    }
+
+    @Override
+    public String toString() {
+        return "InventoryDomain{" +
+                "id=" + id +
+                ", capacity=" + capacity +
+                ", resourceDomains=" + resourceDomains +
+                ", resourcesSelected=" + resourcesSelected +
+                ", playerDomain=" + playerDomain +
+                '}';
+    }
 }

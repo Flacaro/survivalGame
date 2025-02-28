@@ -17,6 +17,7 @@ public class InventoryService {
     public Inventory inventoryMapper(InventoryDomain id) {
         Inventory i = new Inventory();
         ResourceService resourceService=new ResourceService();
+        i.setId(id.getId());
         i.setCapacity(id.getCapacity());
         List<Resource> list= new ArrayList<>();
         if(id.getResources()!=null){
@@ -42,6 +43,7 @@ public class InventoryService {
     public InventoryDomain inventoryDomainMapper(Inventory i) {
         InventoryDomain id = new InventoryDomain();
         ResourceService resourceService=new ResourceService();
+        id.setId(i.getId());
         id.setCapacity(i.getCapacity());
         if(i.getResources()!=null){
         List<Resource> list= i.getResources();
@@ -60,7 +62,6 @@ public class InventoryService {
             domainListS.add(resourceService.resourceDomainMapper(a));
         }}
         id.setResourcesSelected(domainListS);
-
         return id;
     }
 

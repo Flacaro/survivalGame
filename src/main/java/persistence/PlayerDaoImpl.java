@@ -1,11 +1,18 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import model.domain.AreaDomain;
+import model.domain.InventoryDomain;
 import model.domain.PlayerDomain;
 import model.entity.Area;
+import model.entity.Inventory;
 import model.entity.Player;
+import services.AreaService;
+import services.InventoryService;
 import services.PlayerService;
+
+import java.util.ArrayList;
 
 public class PlayerDaoImpl implements PlayerDao {
 
@@ -46,6 +53,28 @@ public class PlayerDaoImpl implements PlayerDao {
                 em.getTransaction().rollback();
             }
 
+
+    }
+
+    @Override
+    public InventoryDomain getInventorytoShow(PlayerDomain pd, EntityManager em) {
+        try {
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+            InventoryService inventoryService= new InventoryService();
+
+            TypedQuery<Inventory> queryInventory = em.createQuery("SELECT i FROM Inventory i", Inventory.class);
+            if(queryInventory.getSingleResult()==null){
+                System.out.println("tab inventario è vuota");
+                return null;
+            }
+            return inventoryService.inventoryDomainMapper(queryInventory.getSingleResult());
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
+        return  null;
 
     }
 

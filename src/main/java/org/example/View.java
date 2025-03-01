@@ -1,13 +1,18 @@
-package org.example.view;
+package org.example;
 
-import controller.MoveController;
-import model.domain.*;
-import services.AreaService;
-import services.GameService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
+
+import controller.MoveController;
+import model.domain.AreaDomain;
+import model.domain.GameDomain;
+import model.domain.MapDomain;
+import model.domain.PlayerDomain;
+import model.domain.ResourceDomain;
+import services.AreaService;
+import services.GameService;
 
 public class View {
 
@@ -29,7 +34,7 @@ public class View {
         List<AreaDomain> areas = mapDomain.getAreas();
 
         // Imposta l'area iniziale del giocatore
-        if (!areas.isEmpty()) {
+1        if (!areas.isEmpty()) {
             PlayerDomain player = gameDomain.getPlayer();
             currentArea = areaService.areaDomainMapper(areaService.areaMapper(gameDomain.getMap().getAreas().get(0)));
             player.setIdArea(currentArea.getId());

@@ -698,7 +698,7 @@ public class Main {
 
 import controller.StartController;
 import model.domain.GameDomain;
-import org.example.view.View;
+
 import java.io.IOException;
 
 public class Main {

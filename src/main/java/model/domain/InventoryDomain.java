@@ -103,4 +103,15 @@ public class InventoryDomain {
     public void setPlayerDomain(PlayerDomain playerDomain) {
         this.playerDomain = playerDomain;
     }
+
+    @Override
+    public String toString() {
+        return "InventoryDomain{" +
+                "id=" + id +
+                ", capacity=" + capacity +
+                ", resourceDomains=" + resourceDomains +
+                ", resourcesSelected=" + resourcesSelected +
+                ", playerDomain=" + playerDomain +
+                '}';
+    }
 }

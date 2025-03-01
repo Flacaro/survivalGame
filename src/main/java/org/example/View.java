@@ -34,7 +34,7 @@ public class View {
         List<AreaDomain> areas = mapDomain.getAreas();
 
         // Imposta l'area iniziale del giocatore
-1        if (!areas.isEmpty()) {
+        if (!areas.isEmpty()) {
             PlayerDomain player = gameDomain.getPlayer();
             currentArea = areaService.areaDomainMapper(areaService.areaMapper(gameDomain.getMap().getAreas().get(0)));
             player.setIdArea(currentArea.getId());

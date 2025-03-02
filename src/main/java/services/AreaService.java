@@ -71,7 +71,7 @@ public class AreaService {
         return areaDaoImpl.getAreas(em);
     }
 
-    public long setNewIdAreaxVariant(int x_axis, GameDomain g) {
+    /*public long setNewIdAreaxVariant(int x_axis, GameDomain g) {
         List<AreaDomain> areaxVariant= new ArrayList<>();
         List<AreaDomain> areas=g.getMap().getAreas();
         int range= (int) (g.getMode().getTotalArea()/2);
@@ -88,4 +88,33 @@ public class AreaService {
     }
 
 
+ }*/
+    public long setNewIdAreaxVariant(int x_axis, GameDomain g) {
+        List<AreaDomain> areaxVariant = new ArrayList<>();
+        List<AreaDomain> areas = g.getMap().getAreas();
+        int range = (int) (g.getMode().getTotalArea() / 2);
+        areaxVariant = areas.subList(0, Math.max(0, range - 1)); //Avoid negative index in sublist.
+
+        if (x_axis >= 0 && x_axis < areaxVariant.size() && areaxVariant.size() > 0) {
+            return areaxVariant.get(x_axis).getId();
+        } else {
+            System.err.println("Errore: x_axis fuori dai limiti in setNewIdAreaxVariant.");
+            return -1; // o lancia un'eccezione
+        }
+    }
+
+    public long setNewIdAreayVariant(int y_axis, GameDomain g) {
+        List<AreaDomain> areayVariant = new ArrayList<>();
+        List<AreaDomain> areas = g.getMap().getAreas();
+        int range = (int) (g.getMode().getTotalArea() / 2);
+        int startIndex = Math.min(range + 1, areas.size() - 1); // Avoid index out of bound.
+        areayVariant = areas.subList(startIndex, areas.size() - 1);
+
+        if (y_axis >= 0 && y_axis < areayVariant.size() && areayVariant.size() > 0) {
+            return areayVariant.get(y_axis).getId();
+        } else {
+            System.err.println("Errore: y_axis fuori dai limiti in setNewIdAreayVariant.");
+            return -1; // o lancia un'eccezione
+        }
+    }
 }

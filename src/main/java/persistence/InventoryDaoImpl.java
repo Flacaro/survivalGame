@@ -76,7 +76,6 @@ public class InventoryDaoImpl implements InventoryDao {
                     List<Resource> inventoryResources = inventory.getResources();
                     inventoryResources.add(newResource);
                 }
-
                 em.merge(inventory);
             }
 

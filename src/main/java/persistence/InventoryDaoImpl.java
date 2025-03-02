@@ -71,7 +71,7 @@ public class InventoryDaoImpl implements InventoryDao {
                 }
 
                 if (!resourceFound) {
-                    Resource newResource = new Resource(res.getCategory(), rs.resourceMapper(res).getAttacks(), res.getLevel(), res.getName(), res.getQuantity(), res.getType());
+                    Resource newResource = new Resource(res.getId(), res.getCategory(), rs.resourceMapper(res).getAttacks(), res.getLevel(), res.getName(), res.getQuantity(), res.getType());
                     List<Resource> inventoryResources = inventory.getResources();
                     inventoryResources.add(newResource);
                 }

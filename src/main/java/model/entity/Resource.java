@@ -31,7 +31,8 @@ public class Resource extends Event {
 	public Resource() {
 	}
 
-	public Resource(String category, List<Attack> attacks, int level, String name, int quantity, String type) {
+	public Resource(long id, String category, List<Attack> attacks, int level, String name, int quantity, String type) {
+		this.id = id;
 		this.category = category;
 		this.attacks = attacks;
 		this.level = level;

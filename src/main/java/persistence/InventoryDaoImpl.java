@@ -17,7 +17,6 @@ import java.util.List;
 
 public class InventoryDaoImpl implements InventoryDao {
 
-    private final InventoryService inventoryService = new InventoryService();
 
 
     @Override

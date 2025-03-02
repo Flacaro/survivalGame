@@ -6,6 +6,7 @@ import model.domain.GameDomain;
 import model.domain.PlayerDomain;
 import model.domain.ResourceDomain;
 import services.GameService;
+import services.MapServices;
 import services.PlayerService;
 
 import java.io.BufferedReader;
@@ -22,8 +23,8 @@ public class Main {
         GameDomain g = sc.start();
         GameService gameService = new GameService();
         PlayerService playerService = new PlayerService();
-        //PlayerDomain pd = playerService.getPlayer();
-        //restituisce una risorsa dobbiamo fargliela vedere e chiedere cosa fare
+        MapServices ms = new MapServices();
+
         ResourceDomain resourceDomain = gameService.triggerEvent(g.getPlayer().getIdArea(), g);
         System.out.println("Hai trovato " + resourceDomain.getName() + ", la vuoi prendere?\n" + "Inserisci 1 per raccoglierla\n" +
                 "inserisci 0 per ignorarla");
@@ -33,6 +34,7 @@ public class Main {
             case 1:
                 //pickup
                 if (playerService.pickUp(resourceDomain, g.getPlayer())) {
+                    ms.updateMap(g.getMap(), resourceDomain);
                     System.out.println("Risorsa aggiunta all'inventario");
                 } else {
                     System.out.println("L'inventario e' pieno, non puoi aggiungere la risorsa");

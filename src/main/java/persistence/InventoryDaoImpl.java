@@ -51,7 +51,7 @@ public class InventoryDaoImpl implements InventoryDao {
         return false;
     }
 
-    public void updateInventory(ResourceDomain res, InventoryDomain id, EntityManager em) {
+    public boolean updateInventory(ResourceDomain res, InventoryDomain id, EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
@@ -84,6 +84,8 @@ public class InventoryDaoImpl implements InventoryDao {
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
+            return false;
         }
+        return true;
     }
 }

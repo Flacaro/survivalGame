@@ -3,11 +3,13 @@ package services;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.domain.AreaDomain;
-import model.domain.MapDomain;
-import model.domain.ModeDomain;
+import jakarta.persistence.EntityManager;
+import model.domain.*;
 import model.entity.Area;
 import model.entity.Map;
+import persistence.EntityManagerSingleton;
+import persistence.InventoryDaoImpl;
+import persistence.MapDaoImpl;
 
 public class MapServices {
 
@@ -25,11 +27,10 @@ public class MapServices {
     public Map mapMapper(MapDomain mapDomain) {
         Map map = new Map();
         map.setId(mapDomain.getId());
-
-        AreaService areaService=new AreaService();
-        List<Area> list= new ArrayList<>();
-        List<AreaDomain> domainList= mapDomain.getAreas();
-        for (AreaDomain a :domainList){
+        AreaService areaService = new AreaService();
+        List<Area> list = new ArrayList<>();
+        List<AreaDomain> domainList = mapDomain.getAreas();
+        for (AreaDomain a : domainList) {
             list.add(areaService.areaMapper(a));
         }
         map.setAreas(list);
@@ -41,13 +42,19 @@ public class MapServices {
         MapDomain mapDomain1 = new MapDomain();
         mapDomain1.setId(map.getId());
 
-        AreaService areaService=new AreaService();
+        AreaService areaService = new AreaService();
         List<AreaDomain> listDomain = new ArrayList<>();
         List<Area> list = map.getAreas();
-        for (Area a : list){
+        for (Area a : list) {
             listDomain.add(areaService.areaDomainMapper(a));
         }
         mapDomain1.setAreas(listDomain);
         return mapDomain1;
+    }
+
+    public void updateMap(MapDomain map, ResourceDomain resourceDomain) {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        MapDaoImpl mapDao = new MapDaoImpl();
+        mapDao.updateMap(map, resourceDomain, em);
     }
 }

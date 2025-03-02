@@ -4,12 +4,10 @@ import jakarta.persistence.EntityManager;
 import model.domain.*;
 
 import controller.DBController;
-import jakarta.persistence.EntityManager;
 import model.entity.Enemy;
 import model.entity.Inventory;
 import model.entity.Player;
 import model.entity.Resource;
-import persistence.EntityManagerSingleton;
 import persistence.PlayerDaoImpl;
 
 public class PlayerService {
@@ -17,9 +15,9 @@ public class PlayerService {
 
     private final InventoryService inventoryService = new InventoryService();
 
-    public Player playerMapper(PlayerDomain playerDomain){
-        Player player=new Player();
-        InventoryService service= new InventoryService();
+    public Player playerMapper(PlayerDomain playerDomain) {
+        Player player = new Player();
+        InventoryService service = new InventoryService();
         player.setId(playerDomain.getId());
         player.setNickname(playerDomain.getNickname());
         player.setHealth(playerDomain.getHealth());
@@ -33,9 +31,9 @@ public class PlayerService {
 
     }
 
-    public PlayerDomain playerDomainMapper(Player player1){
-        PlayerDomain player=new PlayerDomain();
-        InventoryService service= new InventoryService();
+    public PlayerDomain playerDomainMapper(Player player1) {
+        PlayerDomain player = new PlayerDomain();
+        InventoryService service = new InventoryService();
         player.setId(player1.getId());
         player.setNickname(player1.getNickname());
         player.setHealth(player1.getHealth());
@@ -55,25 +53,11 @@ public class PlayerService {
     public boolean pickUp(ResourceDomain res, PlayerDomain player) {
         InventoryDomain id = player.getInventory();
         if (inventoryService.checkCapacity(id)) {
-            inventoryService.updateInventory(res, id);
-            return true;
+            return inventoryService.updateInventory(res, id);
         }
         return false;
     }
 
-
-    public PlayerDomain getPlayer() {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
-        PlayerDaoImpl playerDao = new PlayerDaoImpl();
-        return null;
-    }
-
-
-//
-//    public void updatePlayer(PlayerDomain player) {
-//        PlayerDaoImpl playerDaoImpl = new PlayerDaoImpl();
-//        playerDaoImpl.updatePlayerInventory(player);
-//    }
 
     public boolean pickUp(Resource res) {
         // TODO - implement Player.pickUp
@@ -87,20 +71,20 @@ public class PlayerService {
 
 
     public boolean move(int position, GameDomain g) {
-        DBController dbController=new DBController();
-        AreaService a =new AreaService();
-        PlayerDomain p= g.getPlayer();
-        int x_axis= p.getX_axis();
-        int y_axis=p.getY_axis();
+        DBController dbController = new DBController();
+        AreaService a = new AreaService();
+        PlayerDomain p = g.getPlayer();
+        int x_axis = p.getX_axis();
+        int y_axis = p.getY_axis();
         ModeDomain m = g.getMode();
-        int range= (int) (m.getTotalArea()/2);
-        switch (position){
+        int range = (int) (m.getTotalArea() / 2);
+        switch (position) {
             case 0:
                 //nord x=x y=y-1
-                if(y_axis-1>=0 && y_axis-1<=range){
-                   y_axis=y_axis-1;
+                if (y_axis - 1 >= 0 && y_axis - 1 <= range) {
+                    y_axis = y_axis - 1;
                     //update player;
-                    p.setIdArea(a.setNewIdAreayVariant(y_axis,g));
+                    p.setIdArea(a.setNewIdAreayVariant(y_axis, g));
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
                     dbController.updatePlayer(p);
@@ -108,10 +92,10 @@ public class PlayerService {
                 }
             case 1:
                 //est x=x+1 y=y
-                if(x_axis+1>=0 && x_axis+1<=range){
-                    x_axis=x_axis+1;
+                if (x_axis + 1 >= 0 && x_axis + 1 <= range) {
+                    x_axis = x_axis + 1;
                     //update player;
-                    p.setIdArea(a.setNewIdAreaxVariant(x_axis,g));
+                    p.setIdArea(a.setNewIdAreaxVariant(x_axis, g));
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
                     dbController.updatePlayer(p);
@@ -119,10 +103,10 @@ public class PlayerService {
                 }
             case 2:
                 //sud x=x y=y+1
-                if(y_axis+1>=0 && y_axis+1<=range){
-                    y_axis=y_axis+1;
+                if (y_axis + 1 >= 0 && y_axis + 1 <= range) {
+                    y_axis = y_axis + 1;
                     //update player;
-                    p.setIdArea(a.setNewIdAreayVariant(y_axis,g));
+                    p.setIdArea(a.setNewIdAreayVariant(y_axis, g));
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
                     dbController.updatePlayer(p);
@@ -130,10 +114,10 @@ public class PlayerService {
                 }
             case 3:
                 //ovest x=x-1 y=y
-                if(x_axis-1>=0 && x_axis-1<=range){
-                    x_axis=x_axis-1;
+                if (x_axis - 1 >= 0 && x_axis - 1 <= range) {
+                    x_axis = x_axis - 1;
                     //update player;
-                    p.setIdArea(a.setNewIdAreaxVariant(x_axis,g));
+                    p.setIdArea(a.setNewIdAreaxVariant(x_axis, g));
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
                     dbController.updatePlayer(p);
@@ -161,7 +145,7 @@ public class PlayerService {
     }
 
     public void updatePlayer(PlayerDomain playereDomain, EntityManager em) {
-        PlayerDaoImpl playerDao=new PlayerDaoImpl();
-        playerDao.updatePlayer(playereDomain,em);
+        PlayerDaoImpl playerDao = new PlayerDaoImpl();
+        playerDao.updatePlayer(playereDomain, em);
     }
 }

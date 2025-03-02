@@ -7,9 +7,13 @@ import model.domain.InventoryDomain;
 import model.domain.ResourceDomain;
 import model.entity.Area;
 import model.entity.Inventory;
+import model.entity.Resource;
+import services.AttackServices;
 import services.InventoryService;
+import services.ResourceService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryDaoImpl implements InventoryDao {
 
@@ -47,18 +51,36 @@ public class InventoryDaoImpl implements InventoryDao {
         return false;
     }
 
-    public void updateInventory(InventoryDomain id, EntityManager em) {
+    public void updateInventory(ResourceDomain res, InventoryDomain id, EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-            Inventory inventory = em.find(Inventory.class, id.getId()); // Trova l'oggetto con ID 1
+
+            ResourceService rs = new ResourceService();
+            Inventory inventory = em.find(Inventory.class, id.getId());
             if (inventory != null) {
-                inventory.setResources(inventoryService.inventoryMapper(id).getResources());
+                inventory.setCapacity(id.getCapacity() - 1);
+
+                boolean resourceFound = false;
+                for (Resource resource : inventory.getResources()) {
+                    if (resource.getId() == res.getId()) {
+                        resource.setQuantity(resource.getQuantity() - 1);
+                        resourceFound = true;
+                        break;
+                    }
+                }
+
+                if (!resourceFound) {
+                    Resource newResource = new Resource(res.getCategory(), rs.resourceMapper(res).getAttacks(), res.getLevel(), res.getName(), res.getQuantity(), res.getType());
+                    List<Resource> inventoryResources = inventory.getResources();
+                    inventoryResources.add(newResource);
+                }
+
+                em.merge(inventory);
             }
 
             em.getTransaction().commit();
-
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();

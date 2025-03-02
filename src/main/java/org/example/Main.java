@@ -22,17 +22,17 @@ public class Main {
         GameDomain g = sc.start();
         GameService gameService = new GameService();
         PlayerService playerService = new PlayerService();
-        PlayerDomain pd = playerService.getPlayer();
+        //PlayerDomain pd = playerService.getPlayer();
         //restituisce una risorsa dobbiamo fargliela vedere e chiedere cosa fare
-        ResourceDomain resourceDomain=gameService.triggerEvent(g.getPlayer().getIdArea(), g);
-        System.out.println("Hai trovato " + resourceDomain.getName()+ ", la vuoi prendere?\n"+ "Inserisci 1 per raccoglierla\n"+
+        ResourceDomain resourceDomain = gameService.triggerEvent(g.getPlayer().getIdArea(), g);
+        System.out.println("Hai trovato " + resourceDomain.getName() + ", la vuoi prendere?\n" + "Inserisci 1 per raccoglierla\n" +
                 "inserisci 0 per ignorarla");
-        BufferedReader bf= new BufferedReader(new InputStreamReader(System.in));
-        int choice= Integer.parseInt(bf.readLine());
-        switch (choice){
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        int choice = Integer.parseInt(bf.readLine());
+        switch (choice) {
             case 1:
                 //pickup
-                if (playerService.pickUp(resourceDomain, pd)) {
+                if (playerService.pickUp(resourceDomain, g.getPlayer())) {
                     System.out.println("Risorsa aggiunta all'inventario");
                 } else {
                     System.out.println("L'inventario e' pieno, non puoi aggiungere la risorsa");
@@ -43,8 +43,6 @@ public class Main {
                 System.out.println("Risorsa ignorata");
                 break;
         }
-
-
 
 
     }

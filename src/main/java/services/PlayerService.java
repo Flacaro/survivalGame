@@ -55,9 +55,7 @@ public class PlayerService {
     public boolean pickUp(ResourceDomain res, PlayerDomain player) {
         InventoryDomain id = player.getInventory();
         if (inventoryService.checkCapacity(id)) {
-            id.add(res);
-            id.setCapacity(id.getCapacity() - 1);
-            inventoryService.updateInventory(id);
+            inventoryService.updateInventory(res, id);
             return true;
         }
         return false;
@@ -67,7 +65,7 @@ public class PlayerService {
     public PlayerDomain getPlayer() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         PlayerDaoImpl playerDao = new PlayerDaoImpl();
-        return playerDao.getPlayer(em);
+        return null;
     }
 
 

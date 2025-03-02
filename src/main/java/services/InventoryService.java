@@ -98,9 +98,9 @@ public class InventoryService {
         throw new UnsupportedOperationException();
     }
 
-    public void updateInventory(InventoryDomain id) {
+    public void updateInventory(ResourceDomain res, InventoryDomain id) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
-        inventoryDao.updateInventory(id, em);
+        inventoryDao.updateInventory(res, id, em);
     }
 }

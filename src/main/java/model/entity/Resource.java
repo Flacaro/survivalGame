@@ -28,6 +28,18 @@ public class Resource extends Event {
 
 	private String type;
 
+	public Resource() {
+	}
+
+	public Resource(String category, List<Attack> attacks, int level, String name, int quantity, String type) {
+		this.category = category;
+		this.attacks = attacks;
+		this.level = level;
+		this.name = name;
+		this.quantity = quantity;
+		this.type = type;
+	}
+
 	public long getId() {
 		return id;
 	}

@@ -8,7 +8,6 @@ import model.domain.*;
 import model.entity.Area;
 import model.entity.Map;
 import persistence.EntityManagerSingleton;
-import persistence.InventoryDaoImpl;
 import persistence.MapDaoImpl;
 
 public class MapServices {

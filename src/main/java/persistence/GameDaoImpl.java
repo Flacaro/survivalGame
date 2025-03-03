@@ -19,8 +19,9 @@ public class GameDaoImpl implements GameDao {
     public void saveGame(GameDomain game, EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
-                em.getTransaction().begin();}
-            GameService gameService= new GameService();
+                em.getTransaction().begin();
+            }
+            GameService gameService = new GameService();
             em.persist(gameService.gameMapper(game));
             em.getTransaction().commit();
 
@@ -36,16 +37,16 @@ public class GameDaoImpl implements GameDao {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-            MapServices mapServices= new MapServices();
-            AreaService areaService=new AreaService();
-            Game game = em.find(Game.class, gameDomain.getId());// da l'oggetto nullo perchè non riaccedo al db
-            List<Area> areas= new ArrayList<>();
-            for (AreaDomain a :gameDomain.getMap().getAreas()){
+            AreaService areaService = new AreaService();
+            Game game = em.find(Game.class, gameDomain.getId());
+            List<Area> areas = new ArrayList<>();
+            for (AreaDomain a : gameDomain.getMap().getAreas()) {
                 areas.add(areaService.areaMapper(a));
             }
-            Map map=mapServices.mapMapper(gameDomain.getMap());
+            Map map = game.getMap();
             map.setAreas(areas);
-            //game.setMap(map);
+            game.setMap(map);
+            em.merge(game);
 
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -60,7 +61,7 @@ public class GameDaoImpl implements GameDao {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-            GameService gameService= new GameService();
+            GameService gameService = new GameService();
             TypedQuery<Game> query = em.createQuery("SELECT g FROM Game g", Game.class);
 
             return gameService.gameDomainMapper(query.getSingleResult());
@@ -69,7 +70,7 @@ public class GameDaoImpl implements GameDao {
             e.printStackTrace();
             em.getTransaction().rollback();
         }
-        return  null;
+        return null;
     }
 
 }

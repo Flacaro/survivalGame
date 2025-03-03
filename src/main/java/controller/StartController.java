@@ -36,11 +36,8 @@ public class StartController {
         gms.createEvent(areaDomains, modeDomain);
         dbController.updateArea(areaDomains);
         mapDomain.setAreas(areaDomains);
-        //riprendo il gioco dal db
         GameDomain gameDB = dbController.getGame();
-        gameDB.setMap(mapDomain);
-
         dbController.updateGame(gameDB);
-        return gameDB;
+        return dbController.getGame();
     }
 }

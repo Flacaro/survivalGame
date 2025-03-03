@@ -42,6 +42,7 @@ public class MapDaoImpl implements MapDao {
                     if (area.getIdEvent() == res.getId()) {
                         //eliminare la risorsa nell'area
                         area.setIdEvent(0L);
+                        area.setCategory(null);
                         break;
                     }
                 }

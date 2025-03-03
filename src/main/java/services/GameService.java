@@ -69,7 +69,6 @@ public class GameService {
     }
 
     public void updateGame(GameDomain gameDomain, EntityManager em) {
-
         gameDaoImpl.updateGame(gameDomain,em);
     }
 

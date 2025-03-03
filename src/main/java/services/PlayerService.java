@@ -146,6 +146,6 @@ public class PlayerService {
 
     public void updatePlayer(PlayerDomain playereDomain, EntityManager em) {
         PlayerDaoImpl playerDao = new PlayerDaoImpl();
-        playerDao.updatePlayer(playereDomain, em);
+        playerDao.updatePlayer(playereDomain);
     }
 }

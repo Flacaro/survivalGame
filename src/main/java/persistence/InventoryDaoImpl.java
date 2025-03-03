@@ -2,13 +2,10 @@ package persistence;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import model.domain.AreaDomain;
 import model.domain.InventoryDomain;
 import model.domain.ResourceDomain;
-import model.entity.Area;
 import model.entity.Inventory;
 import model.entity.Resource;
-import services.AttackServices;
 import services.InventoryService;
 import services.ResourceService;
 
@@ -18,12 +15,9 @@ import java.util.List;
 public class InventoryDaoImpl implements InventoryDao {
 
 
-
     @Override
     public InventoryDomain getInventory(long idInventory) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-
-        Inventory inventory;
         try {
             // Query per ottenere l'inventory selezionando l'id
             InventoryService inventoryService = new InventoryService();
@@ -46,11 +40,12 @@ public class InventoryDaoImpl implements InventoryDao {
 
     @Override
     public boolean removeResourcesFromInventory(ArrayList<ResourceDomain> selections) {
-
         return false;
     }
 
-    public boolean updateInventory(ResourceDomain res, InventoryDomain id, EntityManager em) {
+    @Override
+    public boolean updateInventory(ResourceDomain res, InventoryDomain id) {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();

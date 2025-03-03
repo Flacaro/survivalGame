@@ -19,51 +19,55 @@ public class InventoryService {
 
     public Inventory inventoryMapper(InventoryDomain id) {
         Inventory i = new Inventory();
-        ResourceService resourceService=new ResourceService();
+        ResourceService resourceService = new ResourceService();
         i.setId(id.getId());
         i.setCapacity(id.getCapacity());
-        List<Resource> list= new ArrayList<>();
-        if(id.getResources()!=null){
-        List<ResourceDomain> domainList= id.getResources();
-        for (ResourceDomain a :domainList){
+        List<Resource> list = new ArrayList<>();
+        if (id.getResources() != null) {
+            List<ResourceDomain> domainList = id.getResources();
+            for (ResourceDomain a : domainList) {
 
-            list.add(resourceService.resourceMapper(a));
+                list.add(resourceService.resourceMapper(a));
+            }
+            i.setResources(list);
         }
-        i.setResources(list);}
 
-        List<Resource> listS= new ArrayList<>();
-        if(id.getResourcesSelected()!=null){
-        List<ResourceDomain> domainListS= id.getResourcesSelected();
-        for (ResourceDomain a :domainListS){
+        List<Resource> listS = new ArrayList<>();
+        if (id.getResourcesSelected() != null) {
+            List<ResourceDomain> domainListS = id.getResourcesSelected();
+            for (ResourceDomain a : domainListS) {
 
-            list.add(resourceService.resourceMapper(a));
+                list.add(resourceService.resourceMapper(a));
+            }
+            i.setResourcesSelected(listS);
         }
-        i.setResourcesSelected(listS);}
 
         return i;
     }
 
     public InventoryDomain inventoryDomainMapper(Inventory i) {
         InventoryDomain id = new InventoryDomain();
-        ResourceService resourceService=new ResourceService();
+        ResourceService resourceService = new ResourceService();
         id.setId(i.getId());
         id.setCapacity(i.getCapacity());
-        if(i.getResources()!=null){
-        List<Resource> list= i.getResources();
-        List<ResourceDomain> domainList=new ArrayList<>() ;
-        for (Resource r :list){
+        if (i.getResources() != null) {
+            List<Resource> list = i.getResources();
+            List<ResourceDomain> domainList = new ArrayList<>();
+            for (Resource r : list) {
 
-            domainList.add(resourceService.resourceDomainMapper(r));
+                domainList.add(resourceService.resourceDomainMapper(r));
+            }
+            id.setResources(domainList);
         }
-        id.setResources(domainList);}
-        List<ResourceDomain> domainListS= new ArrayList<>();
-        if(i.getResourcesSelected()!=null){
-        List<Resource> listS=i.getResourcesSelected();
+        List<ResourceDomain> domainListS = new ArrayList<>();
+        if (i.getResourcesSelected() != null) {
+            List<Resource> listS = i.getResourcesSelected();
 
-        for (Resource a :listS){
+            for (Resource a : listS) {
 
-            domainListS.add(resourceService.resourceDomainMapper(a));
-        }}
+                domainListS.add(resourceService.resourceDomainMapper(a));
+            }
+        }
         id.setResourcesSelected(domainListS);
         return id;
     }
@@ -99,8 +103,7 @@ public class InventoryService {
     }
 
     public boolean updateInventory(ResourceDomain res, InventoryDomain id) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
         InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
-        return inventoryDao.updateInventory(res, id, em);
+        return inventoryDao.updateInventory(res, id);
     }
 }

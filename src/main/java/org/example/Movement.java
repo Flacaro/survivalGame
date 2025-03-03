@@ -1,10 +1,9 @@
 package org.example;
 
-import controller.MoveController;
+import controller.DBController;
 import controller.StartController;
 import model.domain.GameDomain;
 import model.domain.PlayerDomain;
-import services.GameService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,13 +16,13 @@ public class Movement {
         StartController sc = new StartController();
         GameDomain g = sc.start();
 
-        PlayerDomain pd=g.getPlayer();
-        System.out.println("Dove vuoi spostarti?\n"+"Inserisci 0 per andare a nord\n"+"Inserisci 1 per andare a est\n"
-                +"Inserisci 2 per andare a sud\n"+"Inserisci 3 per andare a ovest\n");
-        BufferedReader bf= new BufferedReader(new InputStreamReader(System.in));
-        int move= Integer.parseInt(bf.readLine());
-        MoveController moveController= new MoveController();
-        System.out.println(moveController.move(move,g));
+        PlayerDomain pd = g.getPlayer();
+        System.out.println("Dove vuoi spostarti?\n" + "Inserisci 0 per andare a nord\n" + "Inserisci 1 per andare a est\n"
+                + "Inserisci 2 per andare a sud\n" + "Inserisci 3 per andare a ovest\n");
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        int move = Integer.parseInt(bf.readLine());
+        DBController dbController = new DBController();
+        System.out.println(dbController.move(move, g));
 
 
     }

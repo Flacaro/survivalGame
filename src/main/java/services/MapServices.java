@@ -52,8 +52,7 @@ public class MapServices {
     }
 
     public void updateMap(MapDomain map, ResourceDomain resourceDomain) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
         MapDaoImpl mapDao = new MapDaoImpl();
-        mapDao.updateMap(map, resourceDomain, em);
+        mapDao.updateMap(map, resourceDomain);
     }
 }

@@ -1,10 +1,11 @@
 package persistence;
 
-import jakarta.persistence.EntityManager;
 import model.domain.MapDomain;
-import model.entity.Map;
+import model.domain.ResourceDomain;
 
 public interface MapDao {
 
-    void saveMap(MapDomain map, EntityManager em);
+    void updateMap(MapDomain mapDomain, ResourceDomain res);
+
+    void saveMap(MapDomain map);
 }

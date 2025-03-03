@@ -2,21 +2,19 @@ package persistence;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import model.domain.AreaDomain;
 import model.domain.InventoryDomain;
 import model.domain.PlayerDomain;
-import model.entity.Area;
 import model.entity.Inventory;
 import model.entity.Player;
-import services.AreaService;
 import services.InventoryService;
 import services.PlayerService;
 
-import java.util.ArrayList;
 
 public class PlayerDaoImpl implements PlayerDao {
 
-    public void savePlayer(PlayerDomain player, EntityManager em) {
+    @Override
+    public void savePlayer(PlayerDomain player) {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
         try {
             PlayerService playerServices=new PlayerService();
             if(!em.getTransaction().isActive()) {
@@ -34,7 +32,8 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public void updatePlayer(PlayerDomain player, EntityManager em) {
+    public void updatePlayer(PlayerDomain player) {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
             try {
 
                 if (!em.getTransaction().isActive()) {
@@ -57,7 +56,8 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public InventoryDomain getInventorytoShow(PlayerDomain pd, EntityManager em) {
+    public InventoryDomain getInventorytoShow(PlayerDomain pd) {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();

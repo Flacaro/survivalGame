@@ -19,6 +19,16 @@ public class CraftedResourceDomain {
 
     private int level = 1;
 
+    private int quantity;
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public CraftedResourceDomain() {
     }
 

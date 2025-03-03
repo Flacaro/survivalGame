@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import controller.MoveController;
+import controller.DBController;
 import model.domain.AreaDomain;
 import model.domain.GameDomain;
 import model.domain.MapDomain;
@@ -95,8 +95,9 @@ public class View {
 
     private void muovi(GameDomain gameDomain, AreaDomain currentArea) throws IOException {
         int move = leggiSceltaDirezione();
-        MoveController moveController = new MoveController();
-        boolean moved = moveController.move(move, gameDomain);
+        //MoveController moveController = new MoveController();
+        DBController dbController=new DBController();
+        boolean moved = dbController.move(move, gameDomain);
 
         if (moved) {
             PlayerDomain player = gameDomain.getPlayer();

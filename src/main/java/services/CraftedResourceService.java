@@ -3,7 +3,7 @@ package services;
 import model.domain.CraftedResourceDomain;
 import model.entity.CraftedResource;
 
-public class CraftedResourceServices {
+public class CraftedResourceService {
 
     public CraftedResource craftedResourceMapper(CraftedResourceDomain craftedResourceDomain){
         CraftedResource craftedResource=new CraftedResource();
@@ -13,6 +13,7 @@ public class CraftedResourceServices {
         craftedResource.setCategory(craftedResourceDomain.getCategory());
         craftedResource.setAttacks(craftedResourceDomain.getAttacks());
         craftedResource.setLevel(craftedResourceDomain.getLevel());
+        craftedResource.setQuantity(craftedResourceDomain.getQuantity());
         return craftedResource;
     }
 
@@ -24,6 +25,7 @@ public class CraftedResourceServices {
         craftedResourceDomain.setCategory(craftedResource.getCategory());
         craftedResourceDomain.setAttacks(craftedResource.getAttacks());
         craftedResourceDomain.setLevel(craftedResource.getLevel());
+        craftedResourceDomain.setQuantity(craftedResource.getQuantity());
         return craftedResourceDomain;
     }
 }

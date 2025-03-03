@@ -28,6 +28,17 @@ public class CraftedResource {
     @Column(name = "LEVEL", nullable = false)
     private int level = 1;
 
+    @Column(name = "QUANTITY")
+    private int quantity;
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public String getName() {
         return name;
     }

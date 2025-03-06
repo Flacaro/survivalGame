@@ -2,8 +2,14 @@ package persistence;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import model.domain.CraftedResourceDomain;
+import model.domain.InventoryDomain;
 import model.domain.ResourceDomain;
+import model.entity.CraftedResource;
+import model.entity.Inventory;
+import model.entity.Player;
 import model.entity.Resource;
+import services.CraftedResourceService;
 import services.ResourceService;
 
 import java.util.ArrayList;
@@ -31,6 +37,56 @@ public class ResourceDaoImpl implements ResourceDao {
         TypedQuery<Resource> query = em.createQuery("SELECT r FROM Resource r where r.id =:id", Resource.class);
         query.setParameter("id", id);
         return resourceService.resourceDomainMapper(query.getSingleResult());
+    }
+
+    @Override
+    public ArrayList<CraftedResourceDomain> getResourcesCrafted(EntityManager em) {
+        CraftedResourceService resourceService= new CraftedResourceService();
+        TypedQuery<CraftedResource> query = em.createQuery("SELECT r FROM CraftedResource r", CraftedResource.class);
+
+        ArrayList<CraftedResourceDomain> resourceDomains= new ArrayList<>();
+        for (CraftedResource r :query.getResultList()){
+            resourceDomains.add(resourceService.craftedResourceDomainMapper(r));
+        }
+        return resourceDomains;
+    }
+
+    @Override
+    public List<ResourceDomain> getResourceByName() {
+        ResourceService resourceService= new ResourceService();
+        List<ResourceDomain> list=new ArrayList<>();
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        TypedQuery<Resource> query = em.createQuery("SELECT r FROM Resource r where r.name =:name", Resource.class);
+        query.setParameter("name", "LEGNO");
+        list.add(resourceService.resourceDomainMapper(query.getSingleResult()));
+        TypedQuery<Resource> query1 = em.createQuery("SELECT r FROM Resource r where r.name =:name", Resource.class);
+        query1.setParameter("name", "METALLO");
+        list.add(resourceService.resourceDomainMapper(query1.getSingleResult()));
+        return list;
+    }
+
+    @Override
+    public void removeResources(InventoryDomain inventoryDomain, EntityManager em) {
+        try {
+            ResourceService resourceService=new ResourceService();
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+            Inventory inventory = em.find(Inventory.class, inventoryDomain.getId()); // Trova l'oggetto con ID 1
+            if (inventory != null) {
+                ArrayList<Resource> resources= new ArrayList<>();
+                for (ResourceDomain r : inventoryDomain.getResources()) {
+                    resources.add(resourceService.resourceMapper(r));
+                }
+                inventory.getResources().clear();
+                inventory.getResources().addAll(resources);
+            }
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
 //    @Override

@@ -61,7 +61,8 @@ public class DBController {
         close();
     }
 
-    public InventoryDomain getInventorytoShow(PlayerDomain pd) {
+
+    public InventoryDomain showInventory(PlayerDomain pd) {
         PlayerDaoImpl pdao= new PlayerDaoImpl();
         EntityManager em = EntityManagerSingleton.getEntityManager();
         InventoryDomain inventoryDomain=pdao.getInventorytoShow(pd);
@@ -69,14 +70,23 @@ public class DBController {
         return inventoryDomain;
     }
 
-    public static InventoryDomain showInventory(PlayerDomain pd) {
-        DBController dbController=new DBController();
-        return dbController.getInventorytoShow(pd);
-    }
-
     public boolean move(int move, GameDomain game){
         PlayerService playerServices= new PlayerService();
         return playerServices.move(move,game);
     }
 
+    public ArrayList<CraftedResourceDomain> getCraftedResources() {
+        ResourceDaoImpl resourceDao= new ResourceDaoImpl();
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        ArrayList<CraftedResourceDomain> getCraftedResources= resourceDao.getResourcesCrafted(em);
+        close();
+        return  getCraftedResources;
+    }
+
+    public void removeResources(ArrayList<ResourceDomain> listResSel, InventoryDomain inventoryDomain) {
+        ResourceDaoImpl resourceDao= new ResourceDaoImpl();
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        resourceDao.removeResources(inventoryDomain,em);
+        close();
+    }
 }

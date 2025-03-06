@@ -26,9 +26,18 @@ public class InventoryDomain {
     }
 
 
-    public boolean remove(model.entity.Resource[] selections, int[] qnt) {
-        // TODO - implement Inventory.remove
-        throw new UnsupportedOperationException();
+    public void remove(ArrayList<ResourceDomain> selections) {
+        for (ResourceDomain r:selections){
+            for(ResourceDomain res :this.resourceDomains){
+                if (r.getName()==res.getName()){
+                    if (res.getQuantity()!=0){
+                       res.setQuantity(res.getQuantity()-1);
+                    }else {
+                        this.resourceDomains.remove(res);
+                    }
+                }
+            }
+        }
     }
 
     public boolean checkCapacity() {

@@ -3,12 +3,17 @@ package org.example;
 import controller.DBController;
 import controller.ResourceController;
 import controller.StartController;
-import model.domain.GameDomain;
-import model.domain.InventoryDomain;
-import model.domain.PlayerDomain;
+import model.domain.*;
+import persistence.ResourceDaoImpl;
+import services.InventoryService;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class ShowInventory {
     public static void main(String[] args) throws IOException {
@@ -20,11 +25,43 @@ public class ShowInventory {
         PlayerDomain pd=g.getPlayer();
         ResourceController resourceController= new ResourceController();
         InventoryDomain inventory=dbController.showInventory(pd);
-        //add resource to inventory
-        //resourceController.addResourseToShowInventory(inventory);
+        InventoryService inventoryService=new InventoryService();
+        //add resource necessarie per il craftig nell'inventario
 
-        System.out.println(inventory.getResources().toString());
+        //add resource necessarie per il craftig nell'inventario
+        List<ResourceDomain> res= new ArrayList<>();
+        ResourceDaoImpl resourceDao= new ResourceDaoImpl();
+        res=resourceDao.getResourceByName();
+        inventory.setResources(res);
+        for(ResourceDomain r:res){
+            inventoryService.updateInventory(r,inventory);
+        }
 
+        List<CraftedResourceDomain> craft=dbController.getCraftedResources();
+        System.out.println("Combinazioni possibili");
+        for(CraftedResourceDomain r: craft){
+            System.out.println(r.getName()+ " combina "+r.getDescription());
+        }
 
+        //selezione delle risorse
+        System.out.println("Inserisci il numero delle risorse da combinare (es. 0,1)");
+        int counter=1;
+        HashMap<Integer,ResourceDomain> corrisp= new HashMap<>();
+        for(ResourceDomain r: inventory.getResources()){
+            System.out.println(counter + r.getName());
+            corrisp.put(counter,r);
+            counter=counter+1;
+        }
+        BufferedReader bf=new BufferedReader(new InputStreamReader(System.in));
+       try {
+            String input = bf.readLine();
+            String[] selections=input.split(",");
+            //se è vero checkSelections allora genera la risorsa ed aggiorna l'inventario
+            System.out.println("Hai creato: "+resourceController.checkSelections(selections,corrisp).getName());
+            resourceController.combine(selections,corrisp,pd);
+            //se è falso input non valido.
+        } catch (NumberFormatException e) {
+            System.out.println("Input non valido.");
+        }
     }
 }

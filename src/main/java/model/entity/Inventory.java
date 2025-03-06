@@ -18,7 +18,7 @@ public class Inventory {
 
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@Column(name = "RESOURCES", nullable = false)
+	@Column(name = "RESOURCES")
 	private List<Resource> resources=new ArrayList<>();
 
 	//@Column(name = "RESOURCES_SELECTED_IDS", nullable = false)

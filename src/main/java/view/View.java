@@ -1,4 +1,4 @@
-package org.example;
+package view;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,17 +32,14 @@ public class View {
         // Ottieni la mappa dal GameDomain
         MapDomain mapDomain = gameDomain.getMapDomain();
         List<AreaDomain> areas = mapDomain.getAreas();
-
+        PlayerDomain playerDomain= new PlayerDomain();
         // Imposta l'area iniziale del giocatore
-        if (!areas.isEmpty()) {
-            PlayerDomain player = gameDomain.getPlayer();
-            currentArea = areaService.areaDomainMapper(areaService.areaMapper(gameDomain.getMap().getAreas().get(0)));
-            player.setIdArea(currentArea.getId());
-            mostraMessaggio("Ti trovi in: " + currentArea.getName());
-        } else {
-            mostraMessaggio("Nessuna area trovata.");
-            return;
-        }
+        System.out.println("Ti svegli sulla spiaggia, confuso e dolorante. L’aereo è precipitato. Intorno a te, solo mare, sabbia e frammenti del relitto. Nessun segno di altri sopravvissuti.\n" +
+                "\n" +
+                "Hai bisogno di cibo, acqua e riparo. La giungla davanti a te è fitta e sconosciuta, ma non hai scelta: devi esplorare. Il tuo zaino sarà la tua salvezza. Ogni oggetto raccolto potrebbe fare la differenza.\n" +
+                "\n" +
+                "Non sei solo su quest’isola. Qualcosa si muove tra gli alberi…"+"\n" +
+                "Esplora, raccogli e sopravvivi. La tua avventura inizia ora.");
 
         boolean continuaAGiocare = true;
         while (continuaAGiocare) {
@@ -62,11 +59,12 @@ public class View {
                     continuaAGiocare = false;
                     break;
                 default:
-                    mostraMessaggio("Scelta non valida.");
+                    System.out.println("Scelta non valida.");
+                    break;
             }
         }
 
-        mostraMessaggio("Grazie per aver giocato!");
+        System.out.println("Grazie per aver giocato!");
     }
 
     private void esplora(GameDomain gameDomain, AreaDomain currentArea) throws IOException {
@@ -74,22 +72,23 @@ public class View {
 
         if (resourceDomain != null) {
             risorsaTrovata(resourceDomain.getName());
-            int choice = leggiSceltaRisorsa();
+            int choice = leggiScelta("Inserisci 1 o 0:");
 
             switch (choice) {
                 case 1:
-                    if (gameDomain.getPlayer().getInventory().add(resourceDomain)) {
-                        mostraMessaggio("Risorsa aggiunta all'inventario.");
-                    } else {
-                        mostraMessaggio("L'inventario è pieno! Non puoi raccogliere altre risorse.");
-                    }
+//                    if (gameDomain.getPlayer().getInventory().add(resourceDomain)) {
+//                        System.out.println("Risorsa aggiunta all'inventario.");
+//                    } else {
+//                        System.out.println("L'inventario è pieno! Non puoi raccogliere altre risorse.");
+//                    }
+
                     break;
                 case 0:
-                    mostraMessaggio("Risorsa ignorata.");
+                    System.out.println("Risorsa ignorata.");
                     break;
             }
         } else {
-            mostraMessaggio("Non hai trovato nulla questa volta.");
+            System.out.println("Non hai trovato nulla questa volta.");
         }
     }
 
@@ -102,18 +101,23 @@ public class View {
         if (moved) {
             PlayerDomain player = gameDomain.getPlayer();
             currentArea = areaService.areaDomainMapper(areaService.areaMapper(gameDomain.getMap().getAreas().get((int) player.getIdArea())));
-            mostraMessaggio("Ti sei spostato in: " + currentArea.getName());
+            System.out.println("Ti sei spostato in: " + currentArea.getName());
         } else {
-            mostraMessaggio("Non puoi muoverti in quella direzione.");
+            System.out.println("Non puoi muoverti in quella direzione.");
         }
     }
 
-    public void mostraMessaggio(String messaggio) {
-        System.out.println(messaggio);
-    }
+
 
     public int leggiScelta(String messaggio) throws IOException {
-        return leggiInputValido(bf, messaggio);
+            try {
+                System.out.println(messaggio);
+                String input = bf.readLine();
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Input non valido. Inserisci un numero.");
+            }
+            return 0;
     }
 
     public void mostraInventario(List<ResourceDomain> risorse) {
@@ -128,28 +132,18 @@ public class View {
     }
 
     public int mostraMenuPrincipale() throws IOException {
-        mostraMessaggio("Cosa vuoi fare?");
-        mostraMessaggio("1. Esplora");
-        mostraMessaggio("2. Inventario");
-        mostraMessaggio("3. Muoviti");
-        mostraMessaggio("4. Esci");
+        System.out.println("Cosa vuoi fare?");
+        System.out.println("1. Esplora l'area in cui ti trovi");
+        System.out.println("2. Visualizza l'inventario");
+        System.out.println("3. Muoviti");
+        System.out.println("4. Crafting risorse");
+        System.out.println("5. Esci");
         return leggiScelta("Inserisci un numero:");
     }
 
-    private int leggiInputValido(BufferedReader bf, String messaggio) throws IOException {
-        while (true) {
-            try {
-                System.out.println(messaggio);
-                String input = bf.readLine();
-                return Integer.parseInt(input);
-            } catch (NumberFormatException e) {
-                System.out.println("Input non valido. Inserisci un numero.");
-            }
-        }
-    }
 
     public int leggiSceltaDirezione() throws IOException {
-        mostraMessaggio("Dove vuoi spostarti?\n" +
+        System.out.println("Dove vuoi spostarti?\n" +
                 "Inserisci 0 per andare a nord\n" +
                 "Inserisci 1 per andare a est\n" +
                 "Inserisci 2 per andare a sud\n" +
@@ -163,12 +157,12 @@ public class View {
     }
 
     public void risorsaTrovata(String risorsa) {
-        mostraMessaggio("Hai trovato " + risorsa + ", la vuoi prendere?\n" +
+        System.out.println("Hai trovato " + risorsa + ", la vuoi prendere?\n" +
                 "Inserisci 1 per raccoglierla\n" +
                 "inserisci 0 per ignorarla");
     }
 
     public void areaCorrente(String area) {
-        mostraMessaggio("Ti sei spostato in: " + area);
+        System.out.println("Ti sei spostato in: " + area);
     }
 }

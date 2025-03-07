@@ -76,7 +76,7 @@ public class AreaService {
         List<AreaDomain> areas=g.getMap().getAreas();
         int range= (int) (g.getMode().getTotalArea()/2);
         areaxVariant=areas.subList(0,range);
-        return areaxVariant.get(x_axis).getId();
+        return areaxVariant.get(x_axis-1).getId();
     }
 
     public long setNewIdAreayVariant(int y_axis, GameDomain g) {
@@ -84,7 +84,7 @@ public class AreaService {
         List<AreaDomain> areas=g.getMap().getAreas();
         int range= (int) (g.getMode().getTotalArea()/2);
         areayVariant=areas.subList(range+1,areas.size()-1);
-        return areayVariant.get(y_axis).getId();
+        return areayVariant.get(y_axis-1).getId();
     }
 
 

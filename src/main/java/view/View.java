@@ -3,6 +3,7 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -91,14 +92,21 @@ public class View {
                 String input = bf.readLine();
             //gestire gli input sbagliati
                 String[] selections=input.split(",");
-                if (selections.length!=1){
-                    //se è vero checkSelections allora genera la risorsa ed aggiorna l'inventario
-                    System.out.println("Hai creato: "+resourceController.checkSelections(selections,corrisp).getName());
-                    resourceController.combine(selections,corrisp,g.getPlayer(),resourceController.checkSelections(selections,corrisp));}
-                else {
-                    System.out.println("Input non valido.");
-                    mostraMenuPrincipale();
+                for(String s :selections){
+                    if (Integer.parseInt(s)<1 || Integer.parseInt(s)>counter){
+                        System.out.println("Input non valido.");
+                        break;
+                    }
                 }
+                if(resourceController.compatible(selections,corrisp)){
+                    resourceController.combine(selections,corrisp,g.getPlayer(),resourceController.checkSelections(selections,corrisp));
+                    System.out.println("Hai creato: "+resourceController.checkSelections(selections,corrisp).getName());
+                }else{
+
+                    System.out.println("Input non valido.");
+                }
+
+
             }
             catch (NumberFormatException | IOException e) {
                 System.out.println("Input non valido.");

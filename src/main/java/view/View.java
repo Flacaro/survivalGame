@@ -89,6 +89,7 @@ public class View {
                 counter=counter+1;
             }
                 String input = bf.readLine();
+            //gestire gli input sbagliati
                 String[] selections=input.split(",");
                 if (selections.length!=1){
                     //se è vero checkSelections allora genera la risorsa ed aggiorna l'inventario

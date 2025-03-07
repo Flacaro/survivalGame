@@ -93,7 +93,5 @@ public class AreaService {
 
     public AreaDomain getAreaById(EntityManager em, long idArea) {
             return areaDaoImpl.getAreaById(em,idArea);
-
-
     }
 }

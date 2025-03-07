@@ -27,13 +27,18 @@ public class ResourceController {
         ArrayList<String> list=new ArrayList<>();
         ArrayList<ResourceDomain> listResSel=new ArrayList<>();
         for(String s :selections){
+            ResourceDomain rd=corrisp.get(Integer.parseInt(s));
+            if(rd!=null){
             list.add(corrisp.get(Integer.parseInt(s)).getName());
-            listResSel.add(corrisp.get(Integer.parseInt(s)));
+            listResSel.add(corrisp.get(Integer.parseInt(s)));}
+            else {
+                return false;
+            }
         }
         //prendere la descrizione della crafted resource
         ArrayList<String> descr= new ArrayList<>();
         boolean correspond=false;
-
+        int count=0;
         for(CraftedResourceDomain s :craft){
             for(String h :s.getDescription().split(",")){
                 descr.add(h.toLowerCase());
@@ -41,12 +46,17 @@ public class ResourceController {
             for (String l :list){
                 if (descr.contains(l.toLowerCase())){
                     correspond=true;
+                    count=count+1;
                 }else {
                     correspond=false;
                 }
             }
         }
-        return correspond;
+        if (correspond && count==list.size()){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public CraftedResourceDomain checkSelections(String[] selections, HashMap<Integer, ResourceDomain> corrisp){

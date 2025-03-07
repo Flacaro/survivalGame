@@ -21,7 +21,7 @@ public class ResourceController {
         return craftedResourceDomains;
     }
 
-    public CraftedResourceDomain checkSelections(String[] selections, HashMap<Integer, ResourceDomain> corrisp){
+    public boolean compatible(String[] selections, HashMap<Integer, ResourceDomain> corrisp){
         DBController dbController=new DBController();
         List<CraftedResourceDomain> craft=dbController.getCraftedResources();
         ArrayList<String> list=new ArrayList<>();
@@ -43,12 +43,36 @@ public class ResourceController {
                     correspond=true;
                 }else {
                     correspond=false;
-                    return null;
                 }
             }
-                return s;
         }
-        return null;
+        return correspond;
+    }
+
+    public CraftedResourceDomain checkSelections(String[] selections, HashMap<Integer, ResourceDomain> corrisp){
+        DBController dbController=new DBController();
+        List<CraftedResourceDomain> craft=dbController.getCraftedResources();
+        ArrayList<String> list=new ArrayList<>();
+        ArrayList<ResourceDomain> listResSel=new ArrayList<>();
+        for(String s :selections){
+            list.add(corrisp.get(Integer.parseInt(s)).getName());
+            listResSel.add(corrisp.get(Integer.parseInt(s)));
+        }
+        //prendere la descrizione della crafted resource
+        ArrayList<String> descr= new ArrayList<>();
+        CraftedResourceDomain finalR=new CraftedResourceDomain();
+        for(CraftedResourceDomain s :craft){
+            for(String h :s.getDescription().split(",")){
+                descr.add(h.toLowerCase());
+            }
+            for (String l :list){
+                if (!descr.contains(l.toLowerCase())){
+                    finalR=null;
+                }
+            }
+                finalR=s;
+        }
+        return finalR;
     }
 
     public void combine (String[] selections, HashMap<Integer, ResourceDomain> corrisp, PlayerDomain pDomain,CraftedResourceDomain s){

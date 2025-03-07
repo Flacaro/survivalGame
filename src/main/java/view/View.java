@@ -3,9 +3,9 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 import controller.DBController;
 import controller.ResourceController;
@@ -18,44 +18,43 @@ import services.PlayerService;
 
 public class View {
 
-    private BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-    ;
+    private BufferedReader bf= new BufferedReader(new InputStreamReader(System.in));;
 
 
     public View() {
     }
 
-    public void playGame() throws IOException {
+    public void avviaGioco() throws IOException {
         StartController sc = new StartController();
         GameDomain g = sc.start();
 
-        System.out.println("Ti svegli sulla spiaggia, confuso e dolorante." + "\n" + "L’aereo è precipitato. Intorno a te, solo mare, sabbia e frammenti del relitto." + "\n" + "Nessun segno di altri sopravvissuti.\n" +
+        System.out.println("Ti svegli sulla spiaggia, confuso e dolorante."+"\n"+"L’aereo è precipitato. Intorno a te, solo mare, sabbia e frammenti del relitto."+"\n"+"Nessun segno di altri sopravvissuti.\n" +
                 "\n" +
-                "Hai bisogno di cibo, acqua e riparo. La giungla davanti a te è fitta e sconosciuta, ma non hai scelta: devi esplorare." + "\n" + " Il tuo zaino sarà la tua salvezza. Ogni oggetto raccolto potrebbe fare la differenza.\n" +
+                "Hai bisogno di cibo, acqua e riparo. La giungla davanti a te è fitta e sconosciuta, ma non hai scelta: devi esplorare."+"\n"+" Il tuo zaino sarà la tua salvezza. Ogni oggetto raccolto potrebbe fare la differenza.\n" +
                 "\n" +
-                "Non sei solo su quest’isola. Qualcosa si muove tra gli alberi…" + "\n" +
+                "Non sei solo su quest’isola. Qualcosa si muove tra gli alberi…"+"\n" +
                 "Esplora, raccogli e sopravvivi. La tua avventura inizia ora.");
 
-        boolean continueToPlay = true;
+        boolean continuaAGiocare = true;
 
-        while (continueToPlay) {
-            int choice = showMainMenu();
+        while (continuaAGiocare) {
+            int scelta = mostraMenuPrincipale();
 
-            switch (choice) {
+            switch (scelta) {
                 case 1:
-                    exploreArea(g);
+                    esploraArea(g);
                     break;
                 case 2:
-                    showInventory(g);
+                    mostraInventario(g);
                     break;
                 case 3:
-                    move(g);
+                    muovi(g);
                     break;
                 case 4:
                     crafting(g);
                     break;
                 case 5:
-                    continueToPlay = false;
+                    continuaAGiocare = false;
                     System.out.println("Grazie per aver giocato!");
                     break;
                 default:
@@ -67,86 +66,91 @@ public class View {
     }
 
     private void crafting(GameDomain g) {
-        DBController dbController = new DBController();
-        ResourceController resourceController = new ResourceController();
-        PlayerDomain playerDomain = dbController.getGame().getPlayerDomain();
-        InventoryDomain inventory = playerDomain.getInventory();
-        List<CraftedResourceDomain> craft = dbController.getCraftedResources();
+        DBController dbController=new DBController();
+        ResourceController resourceController=new ResourceController();
+        PlayerDomain playerDomain=dbController.getGame().getPlayerDomain();
+        InventoryDomain inventory=playerDomain.getInventory();
+        List<CraftedResourceDomain> craft=dbController.getCraftedResources();
         System.out.println("Combinazioni possibili");
-        for (CraftedResourceDomain r : craft) {
-            System.out.println(r.getName() + " combina " + r.getDescription());
+        for(CraftedResourceDomain r: craft){
+            System.out.println(r.getName()+ " combina "+r.getDescription());
         }
 
-        if (inventory.getResources().isEmpty()) {
+        if (inventory.getResources().size()==0) {
             System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
-        } else {
+        }
+        else {
             try {
-                System.out.println("Inserisci il numero delle risorse da combinare (es. 0,1)");
-                int counter = 1;
-                HashMap<Integer, ResourceDomain> corrisp = new HashMap<>();
-                for (ResourceDomain r : inventory.getResources()) {
-                    System.out.println(counter + r.getName());
-                    corrisp.put(counter, r);
-                    counter = counter + 1;
-                }
+            System.out.println("Inserisci il numero delle risorse da combinare (es. 0,1)");
+            int counter=1;
+            HashMap<Integer,ResourceDomain> corrisp= new HashMap<>();
+            for(ResourceDomain r: inventory.getResources()){
+                System.out.println(counter + r.getName());
+                corrisp.put(counter,r);
+                counter=counter+1;
+            }
                 String input = bf.readLine();
-                //gestire gli input sbagliati
-                String[] selections = input.split(",");
-                if (selections.length != 1) {
-                    //se è vero checkSelections allora genera la risorsa ed aggiorna l'inventario
-                    System.out.println("Hai creato: " + resourceController.checkSelections(selections, corrisp).getName());
-                    resourceController.combine(selections, corrisp, g.getPlayer(), resourceController.checkSelections(selections, corrisp));
-                } else {
-                    System.out.println("Input non valido.");
-                    showMainMenu();
+            //gestire gli input sbagliati
+                String[] selections=input.split(",");
+                for(String s :selections){
+                    if (Integer.parseInt(s)<1 || Integer.parseInt(s)>counter){
+                        System.out.println("Input non valido.");
+                        break;
+                    }
                 }
-            } catch (NumberFormatException | IOException e) {
+                if(resourceController.compatible(selections,corrisp)){
+                    resourceController.combine(selections,corrisp,g.getPlayer(),resourceController.checkSelections(selections,corrisp));
+                    System.out.println("Hai creato: "+resourceController.checkSelections(selections,corrisp).getName());
+                }else{
+
+                    System.out.println("Input non valido.");
+                }
+
+
+            }
+            catch (NumberFormatException | IOException e) {
                 System.out.println("Input non valido.");
             }
         }
     }
 
-    private void exploreArea(GameDomain gameDomain) throws IOException {
-        long currentIdArea = gameDomain.getPlayer().getIdArea();
-        DBController dbController = new DBController();
-        AreaDomain currentArea = dbController.getAreasById(currentIdArea);
-        GameService gameService = new GameService();
-        ResourceDomain resourceDomain = gameService.triggerEvent(currentIdArea, gameDomain);
-        MapServices ms = new MapServices();
-        PlayerService playerService = new PlayerService();
+    private void esploraArea(GameDomain gameDomain) throws IOException {
+        long currentArea= gameDomain.getPlayer().getIdArea();
+        GameService gameService=new GameService();
+        ResourceDomain resourceDomain = gameService.triggerEvent(currentArea, gameDomain);
+        MapServices ms= new MapServices();
+        PlayerService playerService=new PlayerService();
 
         if (resourceDomain != null) {
-            if (currentArea.getIdEvent() == resourceDomain.getId()) {
-                risorsaTrovata(resourceDomain.getName());
-                int choice = leggiScelta("Inserisci 1 o 0:");
-                switch (choice) {
-                    case 1:
-                        //pickup
-                        if (playerService.pickUp(resourceDomain, gameDomain.getPlayer())) {
-                            ms.updateMap(gameDomain.getMap(), resourceDomain);
-                            System.out.println("Risorsa aggiunta all'inventario");
-                        } else {
-                            System.out.println("L'inventario e' pieno, non puoi aggiungere la risorsa");
-                        }
-
-                        break;
-                    case 2:
-                        System.out.println("Risorsa ignorata");
-                        break;
+            risorsaTrovata(resourceDomain.getName());
+            int choice = leggiScelta("Inserisci 1 o 0:");
+            switch (choice) {
+            case 1:
+                //pickup
+                if (playerService.pickUp(resourceDomain, gameDomain.getPlayer())) {
+                    ms.updateMap(gameDomain.getMap(), resourceDomain);
+                    System.out.println("Risorsa aggiunta all'inventario");
+                } else {
+                    System.out.println("L'inventario e' pieno, non puoi aggiungere la risorsa");
                 }
-            } else {
-                System.out.println("Non hai trovato nulla questa volta.");
+                break;
+            case 2:
+                System.out.println("Risorsa ignorata");
+                break;
             }
+        }
+         else {
+            System.out.println("Non hai trovato nulla questa volta.");
         }
     }
 
-    private void move(GameDomain gameDomain) throws IOException {
+    private void muovi(GameDomain gameDomain) throws IOException {
         PlayerDomain pd = gameDomain.getPlayer();
         int move = leggiSceltaDirezione();
         //MoveController moveController = new MoveController();
-        DBController dbController = new DBController();
+        DBController dbController=new DBController();
         boolean moved = dbController.move(move, gameDomain);
-        AreaDomain areaDomain = dbController.getAreasById(pd.getIdArea());
+        AreaDomain areaDomain=dbController.getAreasById(pd.getIdArea());
         if (moved) {
             System.out.println("Ti sei spostato in: " + areaDomain.getName());
         } else {
@@ -155,31 +159,30 @@ public class View {
     }
 
     public int leggiScelta(String messaggio) throws IOException {
-        try {
-            System.out.println(messaggio);
-            String input = bf.readLine();
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            System.out.println("Input non valido. Inserisci un numero.");
-        }
-        return 0;
+            try {
+                System.out.println(messaggio);
+                String input =bf.readLine();
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Input non valido. Inserisci un numero.");
+            }
+            return 0;
     }
 
-    public void showInventory(GameDomain g) {
-        DBController dbController = new DBController();
-        PlayerDomain pd = g.getPlayer();
-        InventoryDomain inventory = dbController.showInventory(pd);
+    public void mostraInventario(GameDomain g) {
+        DBController dbController=new DBController();
+        PlayerDomain pd=g.getPlayer();
+        InventoryDomain inventory=dbController.showInventory(pd);
 
-        if (inventory.getResources() == null && inventory.getResourcesSelected() == null) {
+        if (inventory.getResources()== null && inventory.getResourcesSelected()==null) {
             System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
         } else {
             System.out.println("Contenuto dell'inventario:");
-            if (inventory.getResources() != null) {
-                for (ResourceDomain r : inventory.getResources()) {
-                    System.out.println("-" + r.getName());
-                }
-            }
-            if (inventory.getResourcesSelected() != null) {
+            if(inventory.getResources()!= null){
+            for (ResourceDomain r : inventory.getResources()) {
+                System.out.println("-" + r.getName());
+            }}
+            if(inventory.getResourcesSelected()!=null){
                 for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
                     System.out.println("-" + r.getName());
                 }
@@ -187,7 +190,7 @@ public class View {
         }
     }
 
-    public int showMainMenu() throws IOException {
+    public int mostraMenuPrincipale() throws IOException {
         System.out.println("Cosa vuoi fare?");
         System.out.println("1. Esplora l'area in cui ti trovi");
         System.out.println("2. Visualizza l'inventario");

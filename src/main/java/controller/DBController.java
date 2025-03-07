@@ -89,4 +89,11 @@ public class DBController {
         resourceDao.removeResources(inventoryDomain,em);
         close();
     }
+
+    public AreaDomain getAreasById(long idArea) {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        AreaDomain areaDomains = areaService.getAreaById(em,idArea);
+        close();
+        return areaDomains;
+    }
 }

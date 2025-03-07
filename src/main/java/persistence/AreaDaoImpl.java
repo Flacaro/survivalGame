@@ -6,6 +6,7 @@ import jakarta.persistence.TypedQuery;
 import model.domain.AreaDomain;
 import model.domain.ResourceDomain;
 import model.entity.Area;
+import model.entity.Player;
 import model.entity.Resource;
 import services.AreaService;
 
@@ -74,6 +75,22 @@ public class AreaDaoImpl implements AreaDao {
             em.getTransaction().rollback();
         }
         return  null;
+    }
+
+    @Override
+    public AreaDomain getAreaById(EntityManager em, long idArea) {
+        try {
+            AreaService as=new AreaService();
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+            Area area = em.find(Area.class, idArea); // Trova l'oggetto con ID 1
+            return as.areaDomainMapper(area);
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
+return null;
     }
 
 

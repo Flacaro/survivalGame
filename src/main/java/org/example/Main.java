@@ -9,8 +9,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        StartController sc = new StartController();
-        GameDomain g = sc.start();
+
 
 //        GameService gameService = new GameService();
 //        PlayerService playerService = new PlayerService();
@@ -41,6 +40,6 @@ public class Main {
 //    }
 
     View view = new View();
-        view.avviaGioco(g);
+        view.avviaGioco();
 
 }}

@@ -12,4 +12,6 @@ public interface AreaDao {
     void updateArea(List<AreaDomain> areas, EntityManager em);
 
     ArrayList<AreaDomain> getAreas(EntityManager em);
+
+    AreaDomain getAreaById(EntityManager em, long idArea);
 }

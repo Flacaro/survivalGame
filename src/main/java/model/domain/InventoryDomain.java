@@ -1,6 +1,8 @@
 package model.domain;
 
 
+import model.entity.CraftedResource;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class InventoryDomain {
 
     private List<ResourceDomain> resourceDomains;
 
-    private List<ResourceDomain> resourcesSelected;
+    private List<CraftedResourceDomain> resourcesSelected;
 
     private PlayerDomain playerDomain;
 
@@ -23,21 +25,6 @@ public class InventoryDomain {
 
     public boolean add(ResourceDomain res) {
         return resourceDomains.add(res);
-    }
-
-
-    public void remove(ArrayList<ResourceDomain> selections) {
-        for (ResourceDomain r:selections){
-            for(ResourceDomain res :this.resourceDomains){
-                if (r.getName()==res.getName()){
-                    if (res.getQuantity()!=0){
-                       res.setQuantity(res.getQuantity()-1);
-                    }else {
-                        this.resourceDomains.remove(res);
-                    }
-                }
-            }
-        }
     }
 
     public boolean checkCapacity() {
@@ -81,11 +68,11 @@ public class InventoryDomain {
         this.playerDomain = playerDomain;
     }
 
-    public List<ResourceDomain> getResourcesSelected() {
+    public List<CraftedResourceDomain> getResourcesSelected() {
         return resourcesSelected;
     }
 
-    public void setResourcesSelected(List<ResourceDomain> resourcesSelected) {
+    public void setResourcesSelected(List<CraftedResourceDomain> resourcesSelected) {
         this.resourcesSelected = resourcesSelected;
     }
 

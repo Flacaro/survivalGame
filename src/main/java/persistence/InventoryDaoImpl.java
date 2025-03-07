@@ -2,10 +2,14 @@ package persistence;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import model.domain.CraftedResourceDomain;
 import model.domain.InventoryDomain;
 import model.domain.ResourceDomain;
+import model.entity.CraftedResource;
 import model.entity.Inventory;
 import model.entity.Resource;
+import services.CraftedResourceService;
+import services.CraftingServices;
 import services.InventoryService;
 import services.ResourceService;
 
@@ -68,6 +72,43 @@ public class InventoryDaoImpl implements InventoryDao {
                 if (!resourceFound) {
                     Resource newResource = new Resource(res.getId(), res.getCategory(), rs.resourceMapper(res).getAttacks(), res.getLevel(), res.getName(), res.getQuantity(), res.getType());
                     List<Resource> inventoryResources = inventory.getResources();
+                    inventoryResources.add(newResource);
+                }
+                em.merge(inventory);
+            }
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateInventoryCraft(CraftedResourceDomain res, InventoryDomain id) {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        try {
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+
+            CraftedResourceService craftedResourceService = new CraftedResourceService();
+            Inventory inventory = em.find(Inventory.class, id.getId());
+            if (inventory != null) {
+                inventory.setCapacity(id.getCapacity() - 1);
+                boolean resourceFound = false;
+                for (CraftedResource resource : inventory.getResourcesSelected()) {
+                    if (resource.getId() == res.getId()) {
+                        resource.setQuantity(resource.getQuantity() +1);
+                        resourceFound = true;
+                        break;
+                    }
+                }
+                if (!resourceFound) {
+                    CraftedResource newResource = new CraftedResource(res.getId(),res.getName(),res.getDescription(),res.getCategory(),res.getAttacks(),res.getLevel(),res.getLevel(),res.getType());
+                    List<CraftedResource> inventoryResources = inventory.getResourcesSelected();
                     inventoryResources.add(newResource);
                 }
                 em.merge(inventory);

@@ -57,8 +57,14 @@ public class ShowInventory {
             String input = bf.readLine();
             String[] selections=input.split(",");
             //se è vero checkSelections allora genera la risorsa ed aggiorna l'inventario
-            System.out.println("Hai creato: "+resourceController.checkSelections(selections,corrisp).getName());
-            resourceController.combine(selections,corrisp,pd);
+           CraftedResourceDomain cf=resourceController.checkSelections(selections,corrisp);
+           if(cf!=null){
+            System.out.println("Hai creato: "+cf.getName());
+            resourceController.combine(selections,corrisp,pd,cf);}
+           else{
+
+               System.out.println("Combinazione non valida.");
+           }
             //se è falso input non valido.
         } catch (NumberFormatException e) {
             System.out.println("Input non valido.");

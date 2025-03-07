@@ -58,7 +58,6 @@ public class GameService {
                 }
             }
         }
-        System.out.println("Nessuna risorsa è presente nell'area in cui ti trovi");
         return null;
     }
 

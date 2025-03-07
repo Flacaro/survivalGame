@@ -42,10 +42,8 @@ public class MapDaoImpl implements MapDao {
                         //eliminare la risorsa nell'area
                         area.setIdEvent(0L);
                         area.setCategory(null);
-                        break;
                     }
                 }
-
                 em.merge(map);
             }
 

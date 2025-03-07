@@ -81,7 +81,7 @@ public class PlayerService {
         switch (position) {
             case 0:
                 //nord x=x y=y-1
-                if (y_axis - 1 >= 0 && y_axis - 1 <= range) {
+                if (y_axis - 1 >= 0 && y_axis - 1 < range) {
                     y_axis = y_axis - 1;
                     //update player;
                     p.setIdArea(a.setNewIdAreayVariant(y_axis, g));
@@ -92,7 +92,7 @@ public class PlayerService {
                 }
             case 1:
                 //est x=x+1 y=y
-                if (x_axis + 1 >= 0 && x_axis + 1 <= range) {
+                if (x_axis + 1 >= 0 && x_axis + 1 < range) {
                     x_axis = x_axis + 1;
                     //update player;
                     p.setIdArea(a.setNewIdAreaxVariant(x_axis, g));
@@ -103,7 +103,7 @@ public class PlayerService {
                 }
             case 2:
                 //sud x=x y=y+1
-                if (y_axis + 1 >= 0 && y_axis + 1 <= range) {
+                if (y_axis + 1 >= 0 && y_axis + 1 < range) {
                     y_axis = y_axis + 1;
                     //update player;
                     p.setIdArea(a.setNewIdAreayVariant(y_axis, g));
@@ -114,7 +114,7 @@ public class PlayerService {
                 }
             case 3:
                 //ovest x=x-1 y=y
-                if (x_axis - 1 >= 0 && x_axis - 1 <= range) {
+                if (x_axis - 1 >= 0 && x_axis - 1 < range) {
                     x_axis = x_axis - 1;
                     //update player;
                     p.setIdArea(a.setNewIdAreaxVariant(x_axis, g));

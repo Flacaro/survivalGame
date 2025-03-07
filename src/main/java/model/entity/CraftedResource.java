@@ -30,6 +30,31 @@ public class CraftedResource {
 
     @Column(name = "QUANTITY")
     private int quantity;
+    @Column(name = "TYPE")
+    private String type;
+
+    public CraftedResource(long id, String name, String description, String category, List<Attack> attacks, int level, int quantity, String type) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.attacks = attacks;
+        this.level = level;
+        this.quantity = quantity;
+        this.type = type;
+    }
+
+    public CraftedResource() {
+
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public int getQuantity() {
         return quantity;

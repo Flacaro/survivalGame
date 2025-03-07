@@ -2,9 +2,11 @@ package services;
 
 import jakarta.persistence.EntityManager;
 import model.domain.AttackDomain;
+import model.domain.CraftedResourceDomain;
 import model.domain.InventoryDomain;
 import model.domain.ResourceDomain;
 import model.entity.Attack;
+import model.entity.CraftedResource;
 import model.entity.Inventory;
 import model.entity.Resource;
 import persistence.EntityManagerSingleton;
@@ -32,12 +34,12 @@ public class InventoryService {
             i.setResources(list);
         }
 
-        List<Resource> listS = new ArrayList<>();
+        CraftedResourceService cs=new CraftedResourceService();
+        List<CraftedResource> listS = new ArrayList<>();
         if (id.getResourcesSelected() != null) {
-            List<ResourceDomain> domainListS = id.getResourcesSelected();
-            for (ResourceDomain a : domainListS) {
-
-                list.add(resourceService.resourceMapper(a));
+            List<CraftedResourceDomain> domainListS = id.getResourcesSelected();
+            for (CraftedResourceDomain a : domainListS) {
+                listS.add(cs.craftedResourceMapper(a));
             }
             i.setResourcesSelected(listS);
         }
@@ -59,13 +61,13 @@ public class InventoryService {
             }
             id.setResources(domainList);
         }
-        List<ResourceDomain> domainListS = new ArrayList<>();
+        CraftedResourceService cs=new CraftedResourceService();
+        List<CraftedResourceDomain> domainListS = new ArrayList<>();
         if (i.getResourcesSelected() != null) {
-            List<Resource> listS = i.getResourcesSelected();
+            List<CraftedResource> listS = i.getResourcesSelected();
 
-            for (Resource a : listS) {
-
-                domainListS.add(resourceService.resourceDomainMapper(a));
+            for (CraftedResource a : listS) {
+                domainListS.add(cs.craftedResourceDomainMapper(a));
             }
         }
         id.setResourcesSelected(domainListS);
@@ -82,10 +84,19 @@ public class InventoryService {
         throw new UnsupportedOperationException();
     }
 
-
-    public boolean remove(Resource[] selections, int[] qnt) {
-        // TODO - implement Inventory.remove
-        throw new UnsupportedOperationException();
+    public InventoryDomain remove(ArrayList<ResourceDomain> selections, InventoryDomain inventoryDomain) {
+        for (ResourceDomain r:selections){
+            for(ResourceDomain res :inventoryDomain.getResources()){
+                if (r.getName()==res.getName()){
+                    if (res.getQuantity()!=0){
+                        res.setQuantity(res.getQuantity()-1);
+                    }else {
+                        inventoryDomain.getResources().remove(res);
+                    }
+                }
+            }
+        }
+        return inventoryDomain;
     }
 
     public boolean checkCapacity(InventoryDomain inventoryDomain) {
@@ -105,5 +116,9 @@ public class InventoryService {
     public boolean updateInventory(ResourceDomain res, InventoryDomain id) {
         InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
         return inventoryDao.updateInventory(res, id);
+    }
+    public boolean updateInventoryCraft(CraftedResourceDomain res, InventoryDomain id) {
+        InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
+        return inventoryDao.updateInventoryCraft(res, id);
     }
 }

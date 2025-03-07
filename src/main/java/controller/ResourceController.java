@@ -43,33 +43,31 @@ public class ResourceController {
                     correspond=true;
                 }else {
                     correspond=false;
+                    return null;
                 }
             }
-            if (correspond){
                 return s;
-            }
         }
         return null;
     }
 
-    public void combine (String[] selections, HashMap<Integer, ResourceDomain> corrisp, PlayerDomain pDomain){
+    public void combine (String[] selections, HashMap<Integer, ResourceDomain> corrisp, PlayerDomain pDomain,CraftedResourceDomain s){
         ArrayList<ResourceDomain> listResSel=new ArrayList<>();
         InventoryDomain inventoryDomain;
+        InventoryService inventoryService=new InventoryService();
         inventoryDomain=pDomain.getInventory();
 
-        for(String s :selections){
-            listResSel.add(corrisp.get(Integer.parseInt(s)));
+        for(String k :selections){
+            listResSel.add(corrisp.get(Integer.parseInt(k)));
         }
-        inventoryDomain.remove(listResSel);
+        inventoryService.remove(listResSel,inventoryDomain);
         DBController dbController=new DBController();
         dbController.removeResources(listResSel,inventoryDomain);
+        inventoryService.updateInventoryCraft(s,inventoryDomain);
 
     }
 
-    public void addResourseToShowInventory(InventoryDomain inventory) {
-        InventoryService inventoryService=new InventoryService();
 
-    }
     //deve tenere traccia delle quantita' delle risorse (esempio se le rimuove o le usa)
 
     //    public CraftedResource craftingResources(ArrayList<Long> selections) {

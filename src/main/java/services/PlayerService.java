@@ -71,58 +71,57 @@ public class PlayerService {
 
 
     public boolean move(int position, GameDomain g) {
-        DBController dbController = new DBController();
-        AreaService a = new AreaService();
-        PlayerDomain p = g.getPlayer();
-        int x_axis = p.getX_axis();
-        int y_axis = p.getY_axis();
+        DBController dbController=new DBController();
+        PlayerDomain p= g.getPlayer();
+        int x_axis= p.getX_axis();
+        int y_axis=p.getY_axis();
         ModeDomain m = g.getMode();
-        int range = (int) (m.getTotalArea() / 2);
-        switch (position) {
+        int range= (int) (m.getTotalArea()/2);
+        switch (position){
             case 0:
                 //nord x=x y=y-1
-                if (y_axis - 1 > 0 && y_axis - 1 < range) {
-                    y_axis = y_axis - 1;
+                if(y_axis-1>=0 && y_axis-1<=range){
+                    y_axis=y_axis-1;
                     //update player;
-                    p.setIdArea(a.setNewIdAreayVariant(y_axis, g));
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
                     dbController.updatePlayer(p);
                     return true;
                 }
+                return false;
             case 1:
                 //est x=x+1 y=y
-                if (x_axis + 1 > 0 && x_axis + 1 < range) {
-                    x_axis = x_axis + 1;
+                if(x_axis+1>=0 && x_axis+1<=range){
+                    x_axis=x_axis+1;
                     //update player;
-                    p.setIdArea(a.setNewIdAreaxVariant(x_axis, g));
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
                     dbController.updatePlayer(p);
                     return true;
                 }
+                return false;
             case 2:
                 //sud x=x y=y+1
-                if (y_axis + 1 > 0 && y_axis + 1 < range) {
-                    y_axis = y_axis + 1;
+                if(y_axis+1>=0 && y_axis+1<=range){
+                    y_axis=y_axis+1;
                     //update player;
-                    p.setIdArea(a.setNewIdAreayVariant(y_axis, g));
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
                     dbController.updatePlayer(p);
                     return true;
                 }
+                return false;
             case 3:
                 //ovest x=x-1 y=y
-                if (x_axis - 1 > 0 && x_axis - 1 < range) {
-                    x_axis = x_axis - 1;
+                if(x_axis-1>=0 && x_axis-1<=range){
+                    x_axis=x_axis-1;
                     //update player;
-                    p.setIdArea(a.setNewIdAreaxVariant(x_axis, g));
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
                     dbController.updatePlayer(p);
                     return true;
                 }
+                return false;
         }
         return false;
     }

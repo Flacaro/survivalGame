@@ -1,7 +1,5 @@
 package org.example;
 
-import controller.StartController;
-import model.domain.GameDomain;
 import view.View;
 
 import java.io.IOException;
@@ -40,6 +38,6 @@ public class Main {
 //    }
 
     View view = new View();
-        view.avviaGioco();
+        view.playGame();
 
 }}

@@ -1,10 +1,12 @@
 package services;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import model.domain.AreaDomain;
 import model.domain.GameDomain;
 import model.entity.Area;
 import persistence.AreaDaoImpl;
+import persistence.EntityManagerSingleton;
 
 import java.util.ArrayList;
 import java.util.List;

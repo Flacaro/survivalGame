@@ -1,6 +1,7 @@
 package model.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -16,7 +17,8 @@ public class Area implements Serializable {
 	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@Column(name = "ID_EVENT", nullable = false)
+	@Column(name = "ID_EVENT")
+	@ColumnDefault("0")
 	private long idEvent;
 
 	@Column(name = "DESCRIPTION", nullable = false)

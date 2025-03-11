@@ -9,3 +9,13 @@ INSERT INTO mode (DESCRIPTION,NUM_RESOURCES,NUM_ENEMY,TOTAL_AREA) VALUES ("Mediu
 INSERT INTO mode (DESCRIPTION,NUM_RESOURCES,NUM_ENEMY,TOTAL_AREA) VALUES ("Hard",12,0,36);
 INSERT INTO crafted_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME) VALUES (1, 0, "RISORSA","Legno,Metallo","Lancia");
 INSERT INTO crafted_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME) VALUES (1, 0, "RISORSA","Paglia,Corda,Legno","Rifugio");
+INSERT INTO area (NAME,DESCRIPTION) VALUES ("Spiaggia del Relitto","La zona dove sei atterrato. Tra la sabbia e i rottami si trovano oggetti utili… ma anche pericoli nascosti.");
+INSERT INTO area (NAME,DESCRIPTION) VALUES ("Foresta densa","Una giungla fitta e umida. È facile perdersi, ma qui si possono trovare piante medicinali e legname.");
+INSERT INTO area (NAME,DESCRIPTION) VALUES ("Cascata della Nebbia","Una cascata che cade in una piccola laguna. Acqua potabile e pesci, ma occhio agli animali che si abbeverano.");
+INSERT INTO area (NAME,DESCRIPTION) VALUES ("Scogliera dei Corvi","Alte rocce a picco sul mare, con una vista mozzafiato. I venti forti possono essere pericolosi… o utili.");
+INSERT INTO area (NAME,DESCRIPTION) VALUES ("Palude Silenziosa","Una zona fangosa e insidiosa. Difficile da attraversare, ma nasconde piante rare e materiali preziosi.");
+INSERT INTO area (NAME,DESCRIPTION) VALUES ("Villaggio Abbandonato","Capanni di legno ormai in rovina. Segni di vita passata, forse indizi… o minacce ancora presenti.");
+INSERT INTO area (NAME,DESCRIPTION) VALUES ("Caverna dell’Eco","Una grotta profonda che si estende sottoterra. Buona per ripararsi, ma alcuni dicono che non sia vuota.");
+INSERT INTO area (NAME,DESCRIPTION) VALUES ("Campo degli Antichi","Un altopiano con strane incisioni su pietre enormi. Un luogo misterioso, forse utile per scoprire qualcosa sull’isola.");
+INSERT INTO area (NAME,DESCRIPTION) VALUES ("Spiaggia delle Ossa","Resti di barche e animali lungo la riva. Un posto inquietante, ma pieno di risorse dimenticate");
+INSERT INTO area (NAME,DESCRIPTION) VALUES ("Fiume Serpente","Un corso d’acqua che si snoda tra le rocce. Seguirlo può portare a nuove zone, ma occhio ai predatori che lo frequentano");

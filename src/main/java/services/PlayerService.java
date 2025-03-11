@@ -72,19 +72,22 @@ public class PlayerService {
 
     public boolean move(int position, GameDomain g) {
         DBController dbController=new DBController();
+        AreaService a =new AreaService();
         PlayerDomain p= g.getPlayer();
         int x_axis= p.getX_axis();
         int y_axis=p.getY_axis();
         ModeDomain m = g.getMode();
-        int range= (int) (m.getTotalArea()/2);
+        int range= (int) (m.getTotalArea()/2)-1;
+        int rangey=1;
         switch (position){
             case 0:
                 //nord x=x y=y-1
-                if(y_axis-1>=0 && y_axis-1<=range){
+                if(y_axis-1>=0 && y_axis-1<=rangey){
                     y_axis=y_axis-1;
                     //update player;
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
+                    p.setIdArea(a.setNewIdAreayVariant(y_axis,g));
                     dbController.updatePlayer(p);
                     return true;
                 }
@@ -96,17 +99,19 @@ public class PlayerService {
                     //update player;
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
+                    p.setIdArea(a.setNewIdAreaxVariant(x_axis,g));
                     dbController.updatePlayer(p);
                     return true;
                 }
                 return false;
             case 2:
                 //sud x=x y=y+1
-                if(y_axis+1>=0 && y_axis+1<=range){
+                if(y_axis+1>=0 && y_axis+1<=rangey){
                     y_axis=y_axis+1;
                     //update player;
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
+                    p.setIdArea(a.setNewIdAreayVariant(y_axis,g));
                     dbController.updatePlayer(p);
                     return true;
                 }
@@ -118,6 +123,7 @@ public class PlayerService {
                     //update player;
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
+                    p.setIdArea(a.setNewIdAreaxVariant(x_axis,g));
                     dbController.updatePlayer(p);
                     return true;
                 }

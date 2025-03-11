@@ -13,7 +13,7 @@ public class Map {
     @GeneratedValue
     private long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.DETACH)
     private List<Area> areas = new ArrayList<>();
 
     public long getId() {

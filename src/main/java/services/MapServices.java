@@ -3,6 +3,7 @@ package services;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.DBController;
 import jakarta.persistence.EntityManager;
 import model.domain.*;
 import model.entity.Area;
@@ -14,12 +15,15 @@ public class MapServices {
 
     public List<AreaDomain> setTotalMapArea(ModeDomain modeDomain) {
 
+//        List<AreaDomain> areaDomains=new ArrayList<>();
         int totalArea = (int) modeDomain.getTotalArea();
-        List<AreaDomain> areaDomains = new ArrayList<>();
-        for (int c = 0; c < totalArea; c++) {
-            AreaDomain a = new AreaDomain("area", "deserto");
-            areaDomains.add(a);
-        }
+        DBController dbController=new DBController();
+        List<AreaDomain> areadb=dbController.getAreas();
+        List<AreaDomain> areaDomains =areadb.subList(0,totalArea-1);
+//        for (int c = 0; c < totalArea; c++) {
+//            AreaDomain a = new AreaDomain("area", "deserto");
+//            areaDomains.add(a);
+//        }
         return areaDomains;
     }
 

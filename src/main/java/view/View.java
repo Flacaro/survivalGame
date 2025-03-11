@@ -17,7 +17,7 @@ import services.PlayerService;
 public class View {
 
     private BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-    ;
+
 
 
     public View() {
@@ -149,7 +149,6 @@ public class View {
     private void move(GameDomain gameDomain) throws IOException {
         PlayerDomain pd = gameDomain.getPlayer();
         int move = readDirectionChoice();
-        //MoveController moveController = new MoveController();
         DBController dbController = new DBController();
         boolean moved = dbController.move(move, gameDomain);
         AreaDomain areaDomain = dbController.getAreasById(pd.getIdArea());

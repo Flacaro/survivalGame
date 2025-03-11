@@ -1,6 +1,8 @@
 package model.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,6 +25,7 @@ public class Player {
 	private int level = 1;
 
 	@Column(name = "ID_AREA")
+	@ColumnDefault("1")
 	private long idArea;
 
 	@Column(name = "X_AXIS")

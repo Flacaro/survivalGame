@@ -11,6 +11,7 @@ import controller.ResourceController;
 import controller.StartController;
 import model.domain.*;
 import services.GameService;
+import services.InventoryService;
 import services.MapServices;
 import services.PlayerService;
 
@@ -74,20 +75,22 @@ public class View {
         PlayerDomain playerDomain = dbController.getGame().getPlayerDomain();
         InventoryDomain inventory = playerDomain.getInventory();
         List<CraftedResourceDomain> craft = dbController.getCraftedResources();
-        System.out.println("Combinazioni possibili");
+        System.out.println("Combinazioni possibili per il crafting degli oggetti");
+        System.out.println("-----------------------------------------------------");
         for (CraftedResourceDomain r : craft) {
-            System.out.println(r.getName() + " combina " + r.getDescription());
+            System.out.println("Per creare " + r.getName() + " seleziona " + r.getDescription());
+            System.out.println("-----------------------------------------------------");
         }
         if (inventory.getResources().isEmpty()) {
             System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
             return false;
         } else {
             try {
-                System.out.println("Inserisci il numero delle risorse da combinare (es. 0,1)");
+                System.out.println("Inserisci l'indice delle risorse da combinare separate tramite virgola (es. 0,1)");
                 int counter = 1;
                 HashMap<Integer, ResourceDomain> corrisp = new HashMap<>();
                 for (ResourceDomain r : inventory.getResources()) {
-                    System.out.println(counter +" "+ r.getName());
+                    System.out.println("Inserire l'indice " + counter +" per selezionare la risorsa: "+ r.getName());
                     corrisp.put(counter, r);
                     counter = counter + 1;
                 }
@@ -100,7 +103,9 @@ public class View {
                     }
                 }
                 if (resourceController.compatible(selections, corrisp)) {
-                    resourceController.combine(selections, corrisp, g.getPlayer(), resourceController.checkSelections(selections, corrisp));
+                    CraftedResourceDomain resD = resourceController.checkSelections(selections, corrisp);
+                    resourceController.combine(selections, corrisp, g.getPlayer(), resD);
+                    InventoryService inventoryService = new InventoryService();
                     System.out.println("Hai creato: " + resourceController.checkSelections(selections, corrisp).getName());
                     showInventory(g);
                     return true;
@@ -178,20 +183,20 @@ public class View {
         PlayerDomain pd = g.getPlayer();
         InventoryDomain inventory = dbController.showInventory(pd);
 
-        if (inventory.getResources().size()!=0 ) {
+        if (!inventory.getResources().isEmpty()) {
             System.out.println("Contenuto dell'inventario:");
             for (ResourceDomain r : inventory.getResources()) {
-                System.out.println("-" + r.getName());
+                System.out.println("-" + r.getName() + " " + r.getQuantity());
             }
-            if (inventory.getResourcesSelected().size()!=0) {
+            if (!inventory.getResourcesSelected().isEmpty()) {
                 for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
                     System.out.println("-" + r.getName());
                 }
             }
         }
         else {
-        if (inventory.getResources().size()==0) {
-            if(inventory.getResourcesSelected().size()!=0){
+        if (inventory.getResources().isEmpty()) {
+            if(!inventory.getResourcesSelected().isEmpty()){
                 System.out.println("Contenuto dell'inventario:");
                 for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
                     System.out.println("-" + r.getName());

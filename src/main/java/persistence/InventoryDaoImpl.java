@@ -1,6 +1,5 @@
 package persistence;
 
-import controller.DBController;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import model.domain.CraftedResourceDomain;
@@ -9,8 +8,6 @@ import model.domain.ResourceDomain;
 import model.entity.CraftedResource;
 import model.entity.Inventory;
 import model.entity.Resource;
-import services.CraftedResourceService;
-import services.CraftingServices;
 import services.InventoryService;
 import services.ResourceService;
 
@@ -64,7 +61,11 @@ public class InventoryDaoImpl implements InventoryDao {
                 boolean resourceFound = false;
                 for (Resource resource : inventory.getResources()) {
                     if (resource.getId() == res.getId()) {
-                        resource.setQuantity(resource.getQuantity() - 1);
+                        if (resource.getQuantity() == 0) {
+                            deleteResourceFromInventory(resource, id);
+                        } else {
+                            resource.setQuantity(resource.getQuantity() - 1);
+                        }
                         resourceFound = true;
                         break;
                     }
@@ -87,31 +88,33 @@ public class InventoryDaoImpl implements InventoryDao {
         return true;
     }
 
+
     @Override
-    public boolean updateInventoryCraft(CraftedResourceDomain res,List<ResourceDomain> list, InventoryDomain id) {
+    public void updateInventoryCraft(CraftedResourceDomain res, List<ResourceDomain> resourcesToDelete, InventoryDomain id) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-            DBController dbController=new DBController();
-            CraftedResourceService craftedResourceService = new CraftedResourceService();
             Inventory inventory = em.find(Inventory.class, id.getId());
             if (inventory != null) {
-                inventory.setCapacity(id.getCapacity() - 1);
                 boolean resourceFound = false;
                 for (CraftedResource resource : inventory.getResourcesSelected()) {
                     if (resource.getId() == res.getId()) {
-                        resource.setQuantity(resource.getQuantity() +1);
+                        resource.setQuantity(resource.getQuantity() + 1);
                         resourceFound = true;
+                        inventory.setCapacity(id.getCapacity() - 1);
                         break;
                     }
                 }
                 if (!resourceFound) {
-                    CraftedResource newResource = new CraftedResource(res.getId(),res.getName(),res.getDescription(),res.getCategory(),res.getAttacks(),res.getLevel(),res.getLevel(),res.getType());
+                    CraftedResource newResource = new CraftedResource(res.getId(), res.getName(), res.getDescription(), res.getCategory(), res.getAttacks(), res.getLevel(), res.getLevel(), res.getType());
                     List<CraftedResource> inventoryResources = inventory.getResourcesSelected();
                     inventoryResources.add(newResource);
+                    inventory.setCapacity(id.getCapacity() - 1);
                 }
+
+
                 em.merge(inventory);
             }
 
@@ -119,8 +122,23 @@ public class InventoryDaoImpl implements InventoryDao {
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
-            return false;
         }
-        return true;
+    }
+
+    @Override
+    public void deleteResourceFromInventory(Resource res, InventoryDomain id) {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        try {
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+            TypedQuery<Inventory> query = em.createQuery("DELETE c FROM Inventory c WHERE c.resource_id= :resourceId", Inventory.class);
+            query.setParameter("resourceId", res.getId());
+
+        } catch (
+                Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 }

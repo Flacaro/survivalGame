@@ -32,4 +32,6 @@ public class CraftingCatalogDaoImpl implements CraftingCatalogDao {
 
         return null;
     }
+
+
 }

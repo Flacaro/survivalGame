@@ -1,19 +1,16 @@
 package services;
 
-import jakarta.persistence.EntityManager;
-import model.domain.AttackDomain;
 import model.domain.CraftedResourceDomain;
 import model.domain.InventoryDomain;
 import model.domain.ResourceDomain;
-import model.entity.Attack;
 import model.entity.CraftedResource;
 import model.entity.Inventory;
 import model.entity.Resource;
-import persistence.EntityManagerSingleton;
 import persistence.InventoryDaoImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class InventoryService {
 
@@ -87,7 +84,7 @@ public class InventoryService {
     public InventoryDomain remove(ArrayList<ResourceDomain> selections, InventoryDomain inventoryDomain) {
         for (ResourceDomain r:selections){
             for(ResourceDomain res :inventoryDomain.getResources()){
-                if (r.getName()==res.getName()){
+                if (Objects.equals(r.getName(), res.getName())){
                     if (res.getQuantity()!=0){
                         res.setQuantity(res.getQuantity()-1);
                     }else {
@@ -117,8 +114,8 @@ public class InventoryService {
         InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
         return inventoryDao.updateInventory(res, id);
     }
-    public boolean updateInventoryCraft(CraftedResourceDomain res, InventoryDomain id, List<ResourceDomain> list) {
+    public void updateInventoryCraft(CraftedResourceDomain res, InventoryDomain id, List<ResourceDomain> list) {
         InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
-        return inventoryDao.updateInventoryCraft(res,list, id);
+        inventoryDao.updateInventoryCraft(res,list, id);
     }
 }

@@ -94,7 +94,6 @@ public class ResourceController {
             listResSel.add(corrisp.get(Integer.parseInt(k)));
         }
         inventoryDomain=inventoryService.remove(listResSel,inventoryDomain);
-        DBController dbController=new DBController();
         inventoryService.updateInventoryCraft(s,inventoryDomain,listResSel);
     }
 

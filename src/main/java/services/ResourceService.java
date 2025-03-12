@@ -58,4 +58,5 @@ public class ResourceService {
     public ResourceDomain getResourceById(long id) {
         return resourceDaoImpl.getResourceById(id);
     }
+
 }

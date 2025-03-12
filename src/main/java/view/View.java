@@ -50,7 +50,11 @@ public class View {
                     move(g);
                     break;
                 case 4:
-                    crafting(g);
+//                    crafting(g);
+                    if (crafting(g)){
+                        System.out.println("Demo completata!");
+                        continueToPlay = false;
+                    }
                     break;
                 case 5:
                     continueToPlay = false;
@@ -64,7 +68,7 @@ public class View {
 
     }
 
-    private void crafting(GameDomain g) {
+    private boolean crafting(GameDomain g) {
         DBController dbController = new DBController();
         ResourceController resourceController = new ResourceController();
         PlayerDomain playerDomain = dbController.getGame().getPlayerDomain();
@@ -77,6 +81,7 @@ public class View {
 
         if (inventory.getResources().isEmpty()) {
             System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
+            return false;
         } else {
             try {
                 System.out.println("Inserisci il numero delle risorse da combinare (es. 0,1)");
@@ -88,7 +93,6 @@ public class View {
                     counter = counter + 1;
                 }
                 String input = bf.readLine();
-                //gestire gli input sbagliati
                 String[] selections = input.split(",");
                 for (String s : selections) {
                     if (Integer.parseInt(s) < 1 || Integer.parseInt(s) > counter) {
@@ -99,14 +103,14 @@ public class View {
                 if (resourceController.compatible(selections, corrisp)) {
                     resourceController.combine(selections, corrisp, g.getPlayer(), resourceController.checkSelections(selections, corrisp));
                     System.out.println("Hai creato: " + resourceController.checkSelections(selections, corrisp).getName());
+                    return true;
                 } else {
-
                     System.out.println("Input non valido.");
+                    return false;
                 }
-
-
             } catch (NumberFormatException | IOException e) {
                 System.out.println("Input non valido.");
+                return false;
             }
         }
     }
@@ -175,20 +179,28 @@ public class View {
         PlayerDomain pd = g.getPlayer();
         InventoryDomain inventory = dbController.showInventory(pd);
 
-        if (inventory.getResources() == null && inventory.getResourcesSelected() == null) {
-            System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
-        } else {
+        if (inventory.getResources().size()!=0 ) {
             System.out.println("Contenuto dell'inventario:");
-            if (inventory.getResources() != null) {
-                for (ResourceDomain r : inventory.getResources()) {
-                    System.out.println("-" + r.getName());
-                }
+            for (ResourceDomain r : inventory.getResources()) {
+                System.out.println("-" + r.getName());
             }
-            if (inventory.getResourcesSelected() != null) {
+            if (inventory.getResourcesSelected().size()!=0) {
                 for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
                     System.out.println("-" + r.getName());
                 }
             }
+        }
+        else {
+        if (inventory.getResources().size()==0) {
+            if(inventory.getResourcesSelected().size()!=0){
+                System.out.println("Contenuto dell'inventario:");
+                for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
+                    System.out.println("-" + r.getName());
+                }
+                return;
+            }
+            System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
+        }
         }
     }
 

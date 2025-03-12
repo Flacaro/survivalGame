@@ -41,7 +41,6 @@ public class GameFactorySingleton {
 		for (int i = 0; i < numRes; i++){
 			subListAreaDomain.get(i).setIdEvent(subListResources.get(i).getId());
 			subListAreaDomain.get(i).setCategory(subListResources.get(i).getCategory());
-			System.out.println(subListAreaDomain.get(i).getIdEvent());
 		}
 		
 	}

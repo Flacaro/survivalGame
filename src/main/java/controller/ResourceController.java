@@ -25,14 +25,12 @@ public class ResourceController {
         DBController dbController=new DBController();
         List<CraftedResourceDomain> craft=dbController.getCraftedResources();
         ArrayList<String> list=new ArrayList<>();
-        ArrayList<ResourceDomain> listResSel=new ArrayList<>();
+//        ArrayList<ResourceDomain> listResSel=new ArrayList<>();
         for(String s :selections){
             ResourceDomain rd=corrisp.get(Integer.parseInt(s));
             if(rd!=null){
             list.add(corrisp.get(Integer.parseInt(s)).getName());
-            listResSel.add(corrisp.get(Integer.parseInt(s)));}
-            else {
-                return false;
+//            listResSel.add(corrisp.get(Integer.parseInt(s)));
             }
         }
         //prendere la descrizione della crafted resource
@@ -79,7 +77,7 @@ public class ResourceController {
                 if (!descr.contains(l.toLowerCase())){
                     finalR=null;
                 }else{
-                    finalR=s;
+                    return s;
                 }
             }
         }
@@ -97,8 +95,9 @@ public class ResourceController {
         }
         inventoryService.remove(listResSel,inventoryDomain);
         DBController dbController=new DBController();
-        dbController.removeResources(listResSel,inventoryDomain);
         inventoryService.updateInventoryCraft(s,inventoryDomain);
+
+        //dbController.removeResources(listResSel,inventoryDomain);
 
     }
 

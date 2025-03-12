@@ -143,11 +143,10 @@ public class View {
                         break;
                 }
             }
-            else {
-                System.out.println("Non hai trovato nulla questa volta.");
-            }
         }
-
+        else {
+            System.out.println("Non hai trovato nulla questa volta.");
+        }
     }
 
     private void move(GameDomain gameDomain) throws IOException {

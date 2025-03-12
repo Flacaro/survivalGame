@@ -2,9 +2,12 @@ package controller;
 
 import model.GameFactorySingleton;
 import model.domain.*;
+import persistence.ResourceDaoImpl;
+import services.InventoryService;
 import services.MapServices;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StartController {
 
@@ -38,6 +41,16 @@ public class StartController {
         mapDomain.setAreas(areaDomains);
         GameDomain gameDB = dbController.getGame();
         dbController.updateGame(gameDB);
+        //add resource necessarie per il craftig nell'inventario
+        InventoryDomain inventory=dbController.showInventory(playerDomain);
+        InventoryService inventoryService=new InventoryService();
+        List<ResourceDomain> res= new ArrayList<>();
+        ResourceDaoImpl resourceDao= new ResourceDaoImpl();
+        res=resourceDao.getResourceByName();
+        inventory.setResources(res);
+        for(ResourceDomain r:res){
+            inventoryService.updateInventory(r,inventory);
+        }
         return dbController.getGame();
     }
 }

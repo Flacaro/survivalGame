@@ -117,8 +117,8 @@ public class InventoryService {
         InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
         return inventoryDao.updateInventory(res, id);
     }
-    public boolean updateInventoryCraft(CraftedResourceDomain res, InventoryDomain id) {
+    public boolean updateInventoryCraft(CraftedResourceDomain res, InventoryDomain id, List<ResourceDomain> list) {
         InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
-        return inventoryDao.updateInventoryCraft(res, id);
+        return inventoryDao.updateInventoryCraft(res,list, id);
     }
 }

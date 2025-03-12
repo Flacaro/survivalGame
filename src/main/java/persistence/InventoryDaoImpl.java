@@ -1,5 +1,6 @@
 package persistence;
 
+import controller.DBController;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import model.domain.CraftedResourceDomain;
@@ -87,13 +88,13 @@ public class InventoryDaoImpl implements InventoryDao {
     }
 
     @Override
-    public boolean updateInventoryCraft(CraftedResourceDomain res, InventoryDomain id) {
+    public boolean updateInventoryCraft(CraftedResourceDomain res,List<ResourceDomain> list, InventoryDomain id) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-
+            DBController dbController=new DBController();
             CraftedResourceService craftedResourceService = new CraftedResourceService();
             Inventory inventory = em.find(Inventory.class, id.getId());
             if (inventory != null) {

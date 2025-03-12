@@ -80,9 +80,8 @@ public class ResourceDaoImpl implements ResourceDao {
                 }
                 inventory.getResources().clear();
                 inventory.getResources().addAll(resources);
-                em.getTransaction().commit();
             }
-            //em.getTransaction().commit();
+            em.getTransaction().commit();
 
         } catch (Exception e) {
             e.printStackTrace();

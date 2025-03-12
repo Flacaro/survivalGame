@@ -102,6 +102,7 @@ public class View {
                 if (resourceController.compatible(selections, corrisp)) {
                     resourceController.combine(selections, corrisp, g.getPlayer(), resourceController.checkSelections(selections, corrisp));
                     System.out.println("Hai creato: " + resourceController.checkSelections(selections, corrisp).getName());
+                    showInventory(g);
                     return true;
                 } else {
                     System.out.println("Input non valido.");

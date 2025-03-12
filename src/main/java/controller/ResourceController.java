@@ -25,12 +25,10 @@ public class ResourceController {
         DBController dbController=new DBController();
         List<CraftedResourceDomain> craft=dbController.getCraftedResources();
         ArrayList<String> list=new ArrayList<>();
-//        ArrayList<ResourceDomain> listResSel=new ArrayList<>();
         for(String s :selections){
             ResourceDomain rd=corrisp.get(Integer.parseInt(s));
             if(rd!=null){
             list.add(corrisp.get(Integer.parseInt(s)).getName());
-//            listResSel.add(corrisp.get(Integer.parseInt(s)));
             }
         }
         //prendere la descrizione della crafted resource
@@ -43,6 +41,7 @@ public class ResourceController {
             }
             for (String l :list){
                 if (descr.contains(l.toLowerCase())){
+                    descr.remove(l.toLowerCase());
                     correspond=true;
                     count=count+1;
                 }else {
@@ -61,14 +60,13 @@ public class ResourceController {
         DBController dbController=new DBController();
         List<CraftedResourceDomain> craft=dbController.getCraftedResources();
         ArrayList<String> list=new ArrayList<>();
-        ArrayList<ResourceDomain> listResSel=new ArrayList<>();
         for(String s :selections){
             list.add(corrisp.get(Integer.parseInt(s)).getName());
-            listResSel.add(corrisp.get(Integer.parseInt(s)));
         }
         //prendere la descrizione della crafted resource
         ArrayList<String> descr= new ArrayList<>();
         CraftedResourceDomain finalR=new CraftedResourceDomain();
+        int counter=0;
         for(CraftedResourceDomain s :craft){
             for(String h :s.getDescription().split(",")){
                 descr.add(h.toLowerCase());
@@ -77,9 +75,11 @@ public class ResourceController {
                 if (!descr.contains(l.toLowerCase())){
                     finalR=null;
                 }else{
-                    return s;
+                    counter=counter+1;
                 }
             }
+            if (counter==selections.length){
+                return finalR;}
         }
         return finalR;
     }
@@ -93,12 +93,9 @@ public class ResourceController {
         for(String k :selections){
             listResSel.add(corrisp.get(Integer.parseInt(k)));
         }
-        inventoryService.remove(listResSel,inventoryDomain);
+        inventoryDomain=inventoryService.remove(listResSel,inventoryDomain);
         DBController dbController=new DBController();
-        inventoryService.updateInventoryCraft(s,inventoryDomain);
-
-        //dbController.removeResources(listResSel,inventoryDomain);
-
+        inventoryService.updateInventoryCraft(s,inventoryDomain,listResSel);
     }
 
 

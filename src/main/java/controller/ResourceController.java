@@ -49,14 +49,14 @@ public class ResourceController {
                     count=count+1;
                 }else {
                     correspond=false;
+                    return correspond;
                 }
             }
+            if (correspond && count==list.size()){
+                return correspond;
+            }
         }
-        if (correspond && count==list.size()){
-            return true;
-        }else {
-            return false;
-        }
+    return correspond;
     }
 
     public CraftedResourceDomain checkSelections(String[] selections, HashMap<Integer, ResourceDomain> corrisp){
@@ -78,9 +78,10 @@ public class ResourceController {
             for (String l :list){
                 if (!descr.contains(l.toLowerCase())){
                     finalR=null;
+                }else{
+                    finalR=s;
                 }
             }
-                finalR=s;
         }
         return finalR;
     }

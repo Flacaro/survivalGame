@@ -78,7 +78,6 @@ public class View {
         for (CraftedResourceDomain r : craft) {
             System.out.println(r.getName() + " combina " + r.getDescription());
         }
-
         if (inventory.getResources().isEmpty()) {
             System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
             return false;
@@ -88,7 +87,7 @@ public class View {
                 int counter = 1;
                 HashMap<Integer, ResourceDomain> corrisp = new HashMap<>();
                 for (ResourceDomain r : inventory.getResources()) {
-                    System.out.println(counter + r.getName());
+                    System.out.println(counter +" "+ r.getName());
                     corrisp.put(counter, r);
                     counter = counter + 1;
                 }

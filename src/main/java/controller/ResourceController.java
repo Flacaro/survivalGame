@@ -21,16 +21,29 @@ public class ResourceController {
         return craftedResourceDomains;
     }
 
-    public boolean compatible(String[] selections, HashMap<Integer, ResourceDomain> corrisp){
-        DBController dbController=new DBController();
-        List<CraftedResourceDomain> craft=dbController.getCraftedResources();
+    public ArrayList<String> inputTranslator(String[] selections, HashMap<Integer, ResourceDomain> corrisp) {
         ArrayList<String> list=new ArrayList<>();
+        //codifica dell'input
         for(String s :selections){
             ResourceDomain rd=corrisp.get(Integer.parseInt(s));
             if(rd!=null){
-            list.add(corrisp.get(Integer.parseInt(s)).getName());
+                list.add(corrisp.get(Integer.parseInt(s)).getName());
+            }else {
+                return null;
             }
         }
+        return list;
+    }
+
+    public boolean compatible(String[] selections, HashMap<Integer, ResourceDomain> corrisp){
+        DBController dbController=new DBController();
+        List<CraftedResourceDomain> craft=dbController.getCraftedResources();
+
+        ArrayList<String> list=inputTranslator(selections,corrisp);
+        if (list==null){
+            return false;
+        }
+
         //prendere la descrizione della crafted resource
         ArrayList<String> descr= new ArrayList<>();
         boolean correspond=false;
@@ -39,18 +52,29 @@ public class ResourceController {
             for(String h :s.getDescription().split(",")){
                 descr.add(h.toLowerCase());
             }
+            //se il numero di risorse selezionate non corrisponde alle risorse necessarie
+            //passa alla risorsa successiva
+            if (selections.length < descr.size()|| selections.length < descr.size()){
+                break;
+            }
+            //check se gli elementi selezionati corrispondono ad una risorsa craftabile
             for (String l :list){
                 if (descr.contains(l.toLowerCase())){
                     descr.remove(l.toLowerCase());
                     correspond=true;
                     count=count+1;
-                }else {
+                }
+                else {
                     correspond=false;
-                    return correspond;
                 }
             }
-            if (correspond && count==list.size()){
+            //se tutti gli elementi delle selezioni corrispondono alle risorse necessarie c'è un match
+            if (correspond && count==s.getDescription().split(",").length){
                 return correspond;
+            }else{
+                descr.clear();
+                count=0;
+                correspond=false;
             }
         }
     return correspond;
@@ -59,10 +83,9 @@ public class ResourceController {
     public CraftedResourceDomain checkSelections(String[] selections, HashMap<Integer, ResourceDomain> corrisp){
         DBController dbController=new DBController();
         List<CraftedResourceDomain> craft=dbController.getCraftedResources();
-        ArrayList<String> list=new ArrayList<>();
-        for(String s :selections){
-            list.add(corrisp.get(Integer.parseInt(s)).getName());
-        }
+
+        ArrayList<String> list=inputTranslator(selections,corrisp);
+
         //prendere la descrizione della crafted resource
         ArrayList<String> descr= new ArrayList<>();
         CraftedResourceDomain finalR=new CraftedResourceDomain();
@@ -72,14 +95,14 @@ public class ResourceController {
                 descr.add(h.toLowerCase());
             }
             for (String l :list){
-                if (!descr.contains(l.toLowerCase())){
-                    finalR=null;
-                }else{
+                if (descr.contains(l.toLowerCase())){
                     counter=counter+1;
+                    if (counter==selections.length){
+                        finalR=s;}
+                }else{
+                    finalR=null;
                 }
             }
-            if (counter==selections.length){
-                return finalR;}
         }
         return finalR;
     }

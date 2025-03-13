@@ -97,9 +97,9 @@ public class View {
                 String input = bf.readLine();
                 String[] selections = input.split(",");
                 for (String s : selections) {
-                    if (Integer.parseInt(s) < 1 || Integer.parseInt(s) > counter) {
+                    if (Integer.parseInt(s) < 1 || selections.length>counter || Integer.parseInt(s) > counter) {
                         System.out.println("Input non valido.");
-                        break;
+                        return false;
                     }
                 }
                 if (resourceController.compatible(selections, corrisp)) {

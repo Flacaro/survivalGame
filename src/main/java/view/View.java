@@ -105,8 +105,7 @@ public class View {
                 if (resourceController.compatible(selections, corrisp)) {
                     CraftedResourceDomain resD = resourceController.checkSelections(selections, corrisp);
                     resourceController.combine(selections, corrisp, g.getPlayer(), resD);
-                    InventoryService inventoryService = new InventoryService();
-                    System.out.println("Hai creato: " + resourceController.checkSelections(selections, corrisp).getName());
+                    System.out.println("Hai creato: " + resD.getName());
                     showInventory(g);
                     return true;
                 } else {

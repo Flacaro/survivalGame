@@ -8,6 +8,7 @@ import model.domain.ResourceDomain;
 import model.entity.CraftedResource;
 import model.entity.Inventory;
 import model.entity.Resource;
+import services.CraftedResourceService;
 import services.InventoryService;
 import services.ResourceService;
 
@@ -90,39 +91,39 @@ public class InventoryDaoImpl implements InventoryDao {
 
 
     @Override
-    public void updateInventoryCraft(CraftedResourceDomain res, List<ResourceDomain> resourcesToDelete, InventoryDomain id) {
+    public void updateInventoryCraft(InventoryDomain id) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-            Inventory inventory = em.find(Inventory.class, id.getId());
+            Inventory inventory = em.find(Inventory.class, id.getId()); // Trova l'oggetto con ID 1
             if (inventory != null) {
-                boolean resourceFound = false;
-                for (CraftedResource resource : inventory.getResourcesSelected()) {
-                    if (resource.getId() == res.getId()) {
-                        resource.setQuantity(resource.getQuantity() + 1);
-                        resourceFound = true;
-                        inventory.setCapacity(id.getCapacity() - 1);
-                        break;
-                    }
+                ResourceService rs=new ResourceService();
+                ArrayList<Resource> list=new ArrayList<>();
+                for (ResourceDomain r :id.getResources()){
+                    list.add(rs.resourceMapper(r));
                 }
-                if (!resourceFound) {
-                    CraftedResource newResource = new CraftedResource(res.getId(), res.getName(), res.getDescription(), res.getCategory(), res.getAttacks(), res.getLevel(), res.getLevel(), res.getType());
-                    List<CraftedResource> inventoryResources = inventory.getResourcesSelected();
-                    inventoryResources.add(newResource);
-                    inventory.setCapacity(id.getCapacity() - 1);
+                inventory.getResources().clear();
+                inventory.getResources().addAll(list);
+
+                CraftedResourceService crs= new CraftedResourceService();
+                ArrayList<CraftedResource> lists=new ArrayList<>();
+                for (CraftedResourceDomain r :id.getResourcesSelected()){
+                    lists.add(crs.craftedResourceMapper(r));
                 }
-
-
-                em.merge(inventory);
+                inventory.getResourcesSelected().clear();
+                inventory.getResourcesSelected().addAll(lists);
             }
-
+            em.merge(inventory);
             em.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         }
+
+
     }
 
     @Override

@@ -18,7 +18,7 @@ public interface InventoryDao {
 
     boolean updateInventory(ResourceDomain res, InventoryDomain id);
 
-    void updateInventoryCraft(CraftedResourceDomain res, List<ResourceDomain> resourceToDelete, InventoryDomain id);
+    void updateInventoryCraft(InventoryDomain id);
 
     void deleteResourceFromInventory(Resource res, InventoryDomain id);
 }

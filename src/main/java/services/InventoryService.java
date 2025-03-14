@@ -14,8 +14,6 @@ import java.util.Objects;
 
 public class InventoryService {
 
-    private ResourceService rs;
-
     public Inventory inventoryMapper(InventoryDomain id) {
         Inventory i = new Inventory();
         ResourceService resourceService = new ResourceService();
@@ -25,7 +23,6 @@ public class InventoryService {
         if (id.getResources() != null) {
             List<ResourceDomain> domainList = id.getResources();
             for (ResourceDomain a : domainList) {
-
                 list.add(resourceService.resourceMapper(a));
             }
             i.setResources(list);
@@ -40,7 +37,6 @@ public class InventoryService {
             }
             i.setResourcesSelected(listS);
         }
-
         return i;
     }
 
@@ -71,28 +67,23 @@ public class InventoryService {
         return id;
     }
 
-    public Resource combine(Resource[] selections) {
-        // TODO - implement Inventory.combine
-        throw new UnsupportedOperationException();
-    }
-
-    public boolean add(Resource res) {
-        // TODO - implement Inventory.add
-        throw new UnsupportedOperationException();
-    }
-
     public InventoryDomain remove(ArrayList<ResourceDomain> selections, InventoryDomain inventoryDomain) {
+        ArrayList<ResourceDomain> toRemove=new ArrayList<>();
         for (ResourceDomain r:selections){
             for(ResourceDomain res :inventoryDomain.getResources()){
                 if (Objects.equals(r.getName(), res.getName())){
                     if (res.getQuantity()!=0){
                         res.setQuantity(res.getQuantity()-1);
+                        if (res.getQuantity()==0){
+                            toRemove.add(res);
+                        }
                     }else {
-                        inventoryDomain.getResources().remove(res);
+                        toRemove.add(res);
                     }
                 }
             }
         }
+        inventoryDomain.getResources().removeAll(toRemove);
         return inventoryDomain;
     }
 
@@ -114,8 +105,8 @@ public class InventoryService {
         InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
         return inventoryDao.updateInventory(res, id);
     }
-    public void updateInventoryCraft(CraftedResourceDomain res, InventoryDomain id, List<ResourceDomain> list) {
+    public void updateInventoryCraft(InventoryDomain id) {
         InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
-        inventoryDao.updateInventoryCraft(res,list, id);
+        inventoryDao.updateInventoryCraft(id);
     }
 }

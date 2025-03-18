@@ -7,17 +7,22 @@ import model.domain.ResourceDomain;
 import services.InventoryService;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 public class ResourceController {
 
 
-    public ArrayList<CraftedResourceDomain> getCraftedResource() {
+    public ArrayList<String> getCombinations() {
         DBController dbController= new DBController();
-        ArrayList<CraftedResourceDomain> craftedResourceDomains=dbController.getCraftedResources();
-        return craftedResourceDomains;
+        ArrayList<CraftedResourceDomain> craft=dbController.getCraftedResources();
+        ArrayList<String> descr= new ArrayList<>();
+        for(CraftedResourceDomain s :craft){
+            for(String h :s.getDescription().split(",")){
+                descr.add(h.toLowerCase());
+            }
+        }
+        return descr;
     }
 
     public ArrayList<String> inputTranslator(String[] selections, HashMap<Integer, ResourceDomain> corrisp) {
@@ -34,28 +39,14 @@ public class ResourceController {
         return list;
     }
 
-    public boolean compatible(String[] selections, HashMap<Integer, ResourceDomain> corrisp){
+    public CraftedResourceDomain pairs(ArrayList<String> list,ArrayList<String> descr) {
         DBController dbController=new DBController();
         List<CraftedResourceDomain> craft=dbController.getCraftedResources();
 
-        ArrayList<String> list=inputTranslator(selections,corrisp);
-        if (list==null){
-            return false;
-        }
-
-        //prendere la descrizione della crafted resource
-        ArrayList<String> descr= new ArrayList<>();
         boolean correspond=false;
         int count=0;
         for(CraftedResourceDomain s :craft){
-            for(String h :s.getDescription().split(",")){
-                descr.add(h.toLowerCase());
-            }
-            //se il numero di risorse selezionate non corrisponde alle risorse necessarie
-            //passa alla risorsa successiva
-            if (selections.length < descr.size()|| selections.length < descr.size()){
-                break;
-            }
+
             //check se gli elementi selezionati corrispondono ad una risorsa craftabile
             for (String l :list){
                 if (descr.contains(l.toLowerCase())){
@@ -69,42 +60,28 @@ public class ResourceController {
             }
             //se tutti gli elementi delle selezioni corrispondono alle risorse necessarie c'è un match
             if (correspond && count==s.getDescription().split(",").length){
-                return correspond;
+                return s;
             }else{
                 descr.clear();
                 count=0;
                 correspond=false;
             }
         }
-    return correspond;
+        return null;
     }
 
-    public CraftedResourceDomain checkSelections(String[] selections, HashMap<Integer, ResourceDomain> corrisp){
-        DBController dbController=new DBController();
-        List<CraftedResourceDomain> craft=dbController.getCraftedResources();
-
+    public CraftedResourceDomain compatible(String[] selections, HashMap<Integer, ResourceDomain> corrisp){
         ArrayList<String> list=inputTranslator(selections,corrisp);
-
-        //prendere la descrizione della crafted resource
-        ArrayList<String> descr= new ArrayList<>();
-        CraftedResourceDomain finalR=new CraftedResourceDomain();
-        int counter=0;
-        for(CraftedResourceDomain s :craft){
-            for(String h :s.getDescription().split(",")){
-                descr.add(h.toLowerCase());
-            }
-            for (String l :list){
-                if (descr.contains(l.toLowerCase())){
-                    counter=counter+1;
-                    if (counter==selections.length){
-                        finalR=s;}
-                }else{
-                    finalR=null;
-                }
-            }
+        if (list==null){
+            return null;
         }
-        return finalR;
+        //prendere la descrizione della crafted resource
+        ArrayList<String> descr= getCombinations();
+        CraftedResourceDomain pairs= new CraftedResourceDomain();
+        pairs=pairs(list,descr);
+        return pairs;
     }
+
 
     public void combine (String[] selections, HashMap<Integer, ResourceDomain> corrisp, PlayerDomain pDomain,CraftedResourceDomain s){
         ArrayList<ResourceDomain> listResSel=new ArrayList<>();
@@ -118,6 +95,7 @@ public class ResourceController {
         List<CraftedResourceDomain> add = new ArrayList<>(inventoryDomain.getResourcesSelected());
         add.add(s);
         inventoryDomain.setResourcesSelected(add);
+        inventoryDomain.setCapacity(inventoryDomain.getCapacity()-1);
         inventoryService.updateInventoryCraft(inventoryDomain);
     }
 

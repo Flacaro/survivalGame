@@ -5,13 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
-
 import controller.DBController;
 import controller.ResourceController;
 import controller.StartController;
 import model.domain.*;
 import services.GameService;
-import services.InventoryService;
 import services.MapServices;
 import services.PlayerService;
 
@@ -35,6 +33,7 @@ public class View {
                 "Non sei solo su quest’isola. Qualcosa si muove tra gli alberi…" + "\n" +
                 "Esplora, raccogli e sopravvivi. La tua avventura inizia ora.");
 
+        System.out.println("Benvenuto nella demo! Crafta una risorsa per completarla e passare al gioco.");
         boolean continueToPlay = true;
 
         while (continueToPlay) {
@@ -51,7 +50,6 @@ public class View {
                     move(g);
                     break;
                 case 4:
-//                    crafting(g);
                     if (crafting(g)){
                         System.out.println("Demo completata!");
                         continueToPlay = false;
@@ -102,10 +100,11 @@ public class View {
                         return false;
                     }
                 }
-                if (resourceController.compatible(selections, corrisp)) {
-                    CraftedResourceDomain resD = resourceController.checkSelections(selections, corrisp);
-                    resourceController.combine(selections, corrisp, g.getPlayer(), resD);
-                    System.out.println("Hai creato: " + resD.getName());
+                CraftedResourceDomain pair=new CraftedResourceDomain();
+                pair=resourceController.compatible(selections,corrisp);
+                if (pair!=null) {
+                    resourceController.combine(selections, corrisp, g.getPlayer(), pair);
+                    System.out.println("Hai creato: " +pair.getName());
                     showInventory(g);
                     return true;
                 } else {
@@ -185,11 +184,11 @@ public class View {
         if (!inventory.getResources().isEmpty()) {
             System.out.println("Contenuto dell'inventario:");
             for (ResourceDomain r : inventory.getResources()) {
-                System.out.println("-" + r.getName() + " " + r.getQuantity());
+                System.out.println("-" + r.getName() + "  quantità:" + r.getQuantity());
             }
             if (!inventory.getResourcesSelected().isEmpty()) {
                 for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
-                    System.out.println("-" + r.getName());
+                    System.out.println("-" + r.getName()+ "  quantità:" + r.getQuantity());
                 }
             }
         }

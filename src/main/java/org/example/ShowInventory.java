@@ -57,7 +57,7 @@ public class ShowInventory {
             String input = bf.readLine();
             String[] selections=input.split(",");
             //se è vero checkSelections allora genera la risorsa ed aggiorna l'inventario
-           CraftedResourceDomain cf=resourceController.checkSelections(selections,corrisp);
+           CraftedResourceDomain cf=resourceController.compatible(selections,corrisp);
            if(cf!=null){
             System.out.println("Hai creato: "+cf.getName());
             resourceController.combine(selections,corrisp,pd,cf);}

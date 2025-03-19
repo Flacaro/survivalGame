@@ -7,9 +7,9 @@ import model.entity.Player;
 
 public interface PlayerDao {
 
-    void savePlayer(PlayerDomain player);
+    void savePlayer(PlayerDomain player,EntityManager em);
 
-    void updatePlayer(PlayerDomain player);
+    void updatePlayer(PlayerDomain player,EntityManager em);
 
-    InventoryDomain getInventorytoShow(PlayerDomain pd);
+    InventoryDomain getInventorytoShow(PlayerDomain pd,EntityManager em);
 }

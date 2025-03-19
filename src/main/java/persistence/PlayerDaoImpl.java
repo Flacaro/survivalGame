@@ -13,8 +13,7 @@ import services.PlayerService;
 public class PlayerDaoImpl implements PlayerDao {
 
     @Override
-    public void savePlayer(PlayerDomain player) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
+    public void savePlayer(PlayerDomain player,EntityManager em) {
         try {
             PlayerService playerServices=new PlayerService();
             if(!em.getTransaction().isActive()) {
@@ -32,8 +31,7 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public void updatePlayer(PlayerDomain player) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
+    public void updatePlayer(PlayerDomain player,EntityManager em) {
             try {
 
                 if (!em.getTransaction().isActive()) {
@@ -56,8 +54,7 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public InventoryDomain getInventorytoShow(PlayerDomain pd) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
+    public InventoryDomain getInventorytoShow(PlayerDomain pd,EntityManager em ) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();

@@ -4,10 +4,7 @@ import jakarta.persistence.EntityManager;
 import model.domain.*;
 
 import controller.DBController;
-import model.entity.Enemy;
-import model.entity.Inventory;
 import model.entity.Player;
-import model.entity.Resource;
 import persistence.PlayerDaoImpl;
 
 public class PlayerService {
@@ -57,18 +54,6 @@ public class PlayerService {
         }
         return false;
     }
-
-
-    public boolean pickUp(Resource res) {
-        // TODO - implement Player.pickUp
-        throw new UnsupportedOperationException();
-    }
-
-    public boolean attack(Enemy enemy, Resource res) {
-        // TODO - implement Player.attack
-        throw new UnsupportedOperationException();
-    }
-
 
     public boolean move(int position, GameDomain g) {
         DBController dbController=new DBController();
@@ -132,25 +117,8 @@ public class PlayerService {
         return false;
     }
 
-
-    public void openInventory(Inventory inv) {
-        // TODO - implement Player.openInventory
-        throw new UnsupportedOperationException();
-    }
-
-    public boolean combineResources() {
-        // TODO - implement Player.combineResources
-        throw new UnsupportedOperationException();
-    }
-
-
-    public void useSkill(String skill) {
-        // TODO - implement Player.useSkill
-        throw new UnsupportedOperationException();
-    }
-
     public void updatePlayer(PlayerDomain playereDomain, EntityManager em) {
         PlayerDaoImpl playerDao = new PlayerDaoImpl();
-        playerDao.updatePlayer(playereDomain);
+        playerDao.updatePlayer(playereDomain,em);
     }
 }

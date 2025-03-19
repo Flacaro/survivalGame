@@ -17,8 +17,6 @@ public class View {
 
     private BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 
-
-
     public View() {
     }
 
@@ -33,7 +31,7 @@ public class View {
                 "Non sei solo su quest’isola. Qualcosa si muove tra gli alberi…" + "\n" +
                 "Esplora, raccogli e sopravvivi. La tua avventura inizia ora.");
 
-        System.out.println("Benvenuto nella demo! Crafta una risorsa per completarla e passare al gioco.");
+        System.out.println("Benvenuto nella demo! Esplora le aree, raccogli le risorse e crafta una risorsa per completarla e passare al gioco.");
         boolean continueToPlay = true;
 
         while (continueToPlay) {
@@ -127,7 +125,7 @@ public class View {
         DBController dbController = new DBController();
         AreaDomain currentArea = dbController.getAreasById(currentIdArea);
 
-        if (resourceDomain != null) {
+        if (resourceDomain!= null) {
             if (currentArea.getIdEvent() == resourceDomain.getId()) {
                 foundedResource(resourceDomain.getName());
                 int choice = readChoice("Inserisci 1 o 0:");
@@ -141,10 +139,12 @@ public class View {
                             System.out.println("L'inventario e' pieno, non puoi aggiungere la risorsa");
                         }
                         break;
-                    case 2:
+                    case 0:
                         System.out.println("Risorsa ignorata");
                         break;
                 }
+            }else {
+                System.out.println("Non hai trovato nulla questa volta.");
             }
         }
         else {

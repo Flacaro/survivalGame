@@ -57,7 +57,7 @@ public class DBController {
     public void updatePlayer(PlayerDomain p) {
         PlayerDaoImpl pd= new PlayerDaoImpl();
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        pd.updatePlayer(p);
+        pd.updatePlayer(p, em);
         close();
     }
 
@@ -65,7 +65,7 @@ public class DBController {
     public InventoryDomain showInventory(PlayerDomain pd) {
         PlayerDaoImpl pdao= new PlayerDaoImpl();
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        InventoryDomain inventoryDomain=pdao.getInventorytoShow(pd);
+        InventoryDomain inventoryDomain=pdao.getInventorytoShow(pd,em);
         close();
         return inventoryDomain;
     }

@@ -1,6 +1,7 @@
 package model.domain;
 
 public class ModeDomain {
+
     private long id;
 
     private String description;
@@ -20,15 +21,13 @@ public class ModeDomain {
     }
 
     public void setResourcesAndArea(long id) {
-        if(id == 1) {
+        if (id == 1) {
             totalArea = 9;
             numResources = 4;
-        }
-        else if(id == 2) {
+        } else if (id == 2) {
             totalArea = 18;
             numResources = 8;
-        }
-        else if(id == 3) {
+        } else if (id == 3) {
             totalArea = 36;
             numResources = 12;
         }

@@ -3,7 +3,6 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +11,6 @@ import controller.DBController;
 import controller.ResourceController;
 import controller.StartController;
 import model.domain.*;
-import org.hibernate.type.descriptor.java.ObjectArrayJavaType;
 import services.GameService;
 import services.MapServices;
 import services.PlayerService;
@@ -20,6 +18,7 @@ import services.PlayerService;
 public class View {
 
     private BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
 
     public View() {
     }
@@ -52,7 +51,7 @@ public class View {
                     move(g);
                     break;
                 case 4:
-                    if (crafting(g)){
+                    if (crafting(g)) {
                         System.out.println("Demo completata!");
                         continueToPlay = false;
                     }
@@ -60,7 +59,7 @@ public class View {
                 case 5:
                     continueToPlay = false;
                     System.out.println("Grazie per aver giocato!");
-                    DBController dbController=new DBController();
+                    DBController dbController = new DBController();
                     dbController.close();
                     break;
                 default:
@@ -92,23 +91,22 @@ public class View {
                 int counter = 1;
                 HashMap<Integer, ResourceDomain> corrisp = new HashMap<>();
                 for (ResourceDomain r : inventory.getResources()) {
-                    System.out.println("Inserire l'indice " + counter +" per selezionare la risorsa: "+ r.getName());
+                    System.out.println("Inserire l'indice " + counter + " per selezionare la risorsa: " + r.getName());
                     corrisp.put(counter, r);
                     counter = counter + 1;
                 }
                 String input = bf.readLine();
                 String[] selections = input.split(",");
                 for (String s : selections) {
-                    if (Integer.parseInt(s) < 1 || selections.length>counter || Integer.parseInt(s) > counter) {
+                    if (Integer.parseInt(s) < 1 || selections.length > counter || Integer.parseInt(s) > counter) {
                         System.out.println("Input non valido.");
                         return false;
                     }
                 }
-                CraftedResourceDomain pair=new CraftedResourceDomain();
-                pair=resourceController.compatible(selections,corrisp);
-                if (pair!=null) {
+                CraftedResourceDomain pair = resourceController.compatible(selections, corrisp);
+                if (pair != null) {
                     resourceController.combine(selections, corrisp, g.getPlayer(), pair);
-                    System.out.println("Hai creato: " +pair.getName());
+                    System.out.println("Hai creato: " + pair.getName());
                     showInventory(g);
                     return true;
                 } else {
@@ -131,7 +129,7 @@ public class View {
         DBController dbController = new DBController();
         AreaDomain currentArea = dbController.getAreasById(currentIdArea);
 
-        if (resourceDomain!= null) {
+        if (resourceDomain != null) {
             if (currentArea.getIdEvent() == resourceDomain.getId()) {
                 foundedResource(resourceDomain.getName());
                 int choice = readChoice("Inserisci 1 o 0:");
@@ -149,11 +147,10 @@ public class View {
                         System.out.println("Risorsa ignorata");
                         break;
                 }
-            }else {
+            } else {
                 System.out.println("Non hai trovato nulla questa volta.");
             }
-        }
-        else {
+        } else {
             System.out.println("Non hai trovato nulla questa volta.");
         }
     }
@@ -192,29 +189,28 @@ public class View {
         if (!inventory.getResources().isEmpty()) {
             System.out.println("Contenuto dell'inventario:");
             for (ResourceDomain r : inventory.getResources()) {
-                for (ResourceQuantityInvDomain rqid :resourcesQuantity){
-                    if (Objects.equals(r.getName(),rqid.getResource().getName())){
+                for (ResourceQuantityInvDomain rqid : resourcesQuantity) {
+                    if (Objects.equals(r.getName(), rqid.getResource().getName())) {
                         System.out.println("-" + r.getName() + "  quantità:" + rqid.getQuantity());
                     }
                 }
             }
             if (!inventory.getResourcesSelected().isEmpty()) {
                 for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
-                    System.out.println("-" + r.getName()+ "  quantità:" + r.getQuantity());
+                    System.out.println("-" + r.getName() + "  quantità:" + r.getQuantity());
                 }
             }
-        }
-        else {
-        if (inventory.getResources().isEmpty()) {
-            if(!inventory.getResourcesSelected().isEmpty()){
-                System.out.println("Contenuto dell'inventario:");
-                for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
-                    System.out.println("-" + r.getName()+ " quantità: "+r.getQuantity());
+        } else {
+            if (inventory.getResources().isEmpty()) {
+                if (!inventory.getResourcesSelected().isEmpty()) {
+                    System.out.println("Contenuto dell'inventario:");
+                    for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
+                        System.out.println("-" + r.getName() + " quantità: " + r.getQuantity());
+                    }
+                    return;
                 }
-                return;
+                System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
             }
-            System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
-        }
         }
     }
 
@@ -245,6 +241,7 @@ public class View {
                 "Inserisci 1 per raccoglierla\n" +
                 "inserisci 0 per ignorarla");
     }
+
 
 }
 

@@ -1,28 +1,20 @@
 package model.domain;
 
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
-import model.entity.CraftedResource;
-import model.entity.Resource;
-import model.entity.ResourceQuantityInv;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class InventoryDomain {
 
     private long id;
 
-    private int capacity=10;
+    private int capacity = 10;
 
     private List<ResourceDomain> resourceDomains;
 
     private List<CraftedResourceDomain> resourcesSelected;
 
-    private List<ResourceQuantityInvDomain> resources_quantity= new ArrayList<>();;
+    private List<ResourceQuantityInvDomain> resources_quantity = new ArrayList<>();
 
     private PlayerDomain playerDomain;
 

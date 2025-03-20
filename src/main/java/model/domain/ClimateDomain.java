@@ -6,6 +6,8 @@ public class ClimateDomain {
     private long id;
 
     private String type;
+    private String name;
+    private String description;
 
     private double damage;
 
@@ -37,6 +39,22 @@ public class ClimateDomain {
 
     public int getLevel() {
         return level;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setLevel(int level) {

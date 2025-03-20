@@ -195,22 +195,23 @@ public class View {
                     }
                 }
             }
-            if (!inventory.getResourcesSelected().isEmpty()) {
-                for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
-                    System.out.println("-" + r.getName() + "  quantità:" + r.getQuantity());
+            if (!inventory.getCraftedResourceDomainList().isEmpty()) {
+                for (CraftedResourceDomain r : inventory.getCraftedResourceDomainList()) {
+                    System.out.println("-" + r.getName()+ "  quantità:" + r.getQuantity());
                 }
             }
-        } else {
-            if (inventory.getResources().isEmpty()) {
-                if (!inventory.getResourcesSelected().isEmpty()) {
-                    System.out.println("Contenuto dell'inventario:");
-                    for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
-                        System.out.println("-" + r.getName() + " quantità: " + r.getQuantity());
-                    }
-                    return;
+        }
+        else {
+        if (inventory.getResources().isEmpty()) {
+            if(!inventory.getCraftedResourceDomainList().isEmpty()){
+                System.out.println("Contenuto dell'inventario:");
+                for (CraftedResourceDomain r : inventory.getCraftedResourceDomainList()) {
+                    System.out.println("-" + r.getName()+ " quantità: "+r.getQuantity());
                 }
-                System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
+                return;
             }
+            System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
+        }
         }
     }
 

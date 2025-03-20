@@ -30,12 +30,12 @@ public class InventoryService {
 
         CraftedResourceService cs=new CraftedResourceService();
         List<CraftedResource> listS = new ArrayList<>();
-        if (id.getResourcesSelected() != null) {
-            List<CraftedResourceDomain> domainListS = id.getResourcesSelected();
+        if (id.getCraftedResourceDomainList() != null) {
+            List<CraftedResourceDomain> domainListS = id.getCraftedResourceDomainList();
             for (CraftedResourceDomain a : domainListS) {
                 listS.add(cs.craftedResourceMapper(a));
             }
-            i.setResourcesSelected(listS);
+            i.setCraftedResourceList(listS);
         }
         ResourceQuantityInvService resourceQuantityInvService=new ResourceQuantityInvService();
         List<ResourceQuantityInv> res_quant = new ArrayList<>();
@@ -62,14 +62,14 @@ public class InventoryService {
         }
         CraftedResourceService cs=new CraftedResourceService();
         List<CraftedResourceDomain> domainListS = new ArrayList<>();
-        if (i.getResourcesSelected() != null) {
-            List<CraftedResource> listS = i.getResourcesSelected();
+        if (i.getCraftedResourceList() != null) {
+            List<CraftedResource> listS = i.getCraftedResourceList();
 
             for (CraftedResource a : listS) {
                 domainListS.add(cs.craftedResourceDomainMapper(a));
             }
         }
-        id.setResourcesSelected(domainListS);
+        id.setCraftedResourceDomainList(domainListS);
         ResourceQuantityInvService resourceQuantityInvService=new ResourceQuantityInvService();
         List<ResourceQuantityInvDomain> res_quant = new ArrayList<>();
         for(ResourceQuantityInv r :i.getResources_quantity()){

@@ -12,7 +12,7 @@ public class InventoryDomain {
 
     private List<ResourceDomain> resourceDomains;
 
-    private List<CraftedResourceDomain> resourcesSelected;
+    private List<CraftedResourceDomain> craftedResourceDomainList;
 
     private List<ResourceQuantityInvDomain> resources_quantity = new ArrayList<>();
 
@@ -54,12 +54,12 @@ public class InventoryDomain {
         this.playerDomain = playerDomain;
     }
 
-    public List<CraftedResourceDomain> getResourcesSelected() {
-        return resourcesSelected;
+    public List<CraftedResourceDomain> getCraftedResourceDomainList() {
+        return craftedResourceDomainList;
     }
 
-    public void setResourcesSelected(List<CraftedResourceDomain> resourcesSelected) {
-        this.resourcesSelected = resourcesSelected;
+    public void setCraftedResourceDomainList(List<CraftedResourceDomain> craftedResourceDomainList) {
+        this.craftedResourceDomainList = craftedResourceDomainList;
     }
 
     public long getId() {
@@ -92,7 +92,7 @@ public class InventoryDomain {
                 "id=" + id +
                 ", capacity=" + capacity +
                 ", resourceDomains=" + resourceDomains +
-                ", resourcesSelected=" + resourcesSelected +
+                ", craftedResourceDomainList=" + craftedResourceDomainList +
                 ", playerDomain=" + playerDomain +
                 '}';
     }

@@ -3,7 +3,6 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +11,6 @@ import controller.DBController;
 import controller.ResourceController;
 import controller.StartController;
 import model.domain.*;
-import org.hibernate.type.descriptor.java.ObjectArrayJavaType;
 import services.GameService;
 import services.MapServices;
 import services.PlayerService;
@@ -198,17 +196,17 @@ public class View {
                     }
                 }
             }
-            if (!inventory.getResourcesSelected().isEmpty()) {
-                for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
+            if (!inventory.getCraftedResourceDomainList().isEmpty()) {
+                for (CraftedResourceDomain r : inventory.getCraftedResourceDomainList()) {
                     System.out.println("-" + r.getName()+ "  quantità:" + r.getQuantity());
                 }
             }
         }
         else {
         if (inventory.getResources().isEmpty()) {
-            if(!inventory.getResourcesSelected().isEmpty()){
+            if(!inventory.getCraftedResourceDomainList().isEmpty()){
                 System.out.println("Contenuto dell'inventario:");
-                for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
+                for (CraftedResourceDomain r : inventory.getCraftedResourceDomainList()) {
                     System.out.println("-" + r.getName()+ " quantità: "+r.getQuantity());
                 }
                 return;

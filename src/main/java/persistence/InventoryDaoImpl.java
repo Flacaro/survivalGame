@@ -14,7 +14,6 @@ import services.InventoryService;
 import services.ResourceService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class InventoryDaoImpl implements InventoryDao {
@@ -117,11 +116,11 @@ public class InventoryDaoImpl implements InventoryDao {
 
                 CraftedResourceService crs= new CraftedResourceService();
                 ArrayList<CraftedResource> lists=new ArrayList<>();
-                for (CraftedResourceDomain r :id.getResourcesSelected()){
+                for (CraftedResourceDomain r :id.getCraftedResourceDomainList()){
                     lists.add(crs.craftedResourceMapper(r));
                 }
-                inventory.getResourcesSelected().clear();
-                inventory.getResourcesSelected().addAll(lists);
+                inventory.getCraftedResourceList().clear();
+                inventory.getCraftedResourceList().addAll(lists);
             }
             em.merge(inventory);
             em.getTransaction().commit();

@@ -10,7 +10,9 @@ import model.entity.Resource;
 import model.entity.ResourceQuantityInv;
 import persistence.InventoryDaoImpl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class InventoryService {
 
@@ -28,7 +30,7 @@ public class InventoryService {
             i.setResources(list);
         }
 
-        CraftedResourceService cs=new CraftedResourceService();
+        CraftedResourceService cs = new CraftedResourceService();
         List<CraftedResource> listS = new ArrayList<>();
         if (id.getCraftedResourceDomainList() != null) {
             List<CraftedResourceDomain> domainListS = id.getCraftedResourceDomainList();
@@ -37,9 +39,9 @@ public class InventoryService {
             }
             i.setCraftedResourceList(listS);
         }
-        ResourceQuantityInvService resourceQuantityInvService=new ResourceQuantityInvService();
+        ResourceQuantityInvService resourceQuantityInvService = new ResourceQuantityInvService();
         List<ResourceQuantityInv> res_quant = new ArrayList<>();
-        for(ResourceQuantityInvDomain r :id.getResources_quantity()){
+        for (ResourceQuantityInvDomain r : id.getResources_quantity()) {
             res_quant.add(resourceQuantityInvService.resourceQuantityInvMapper(r));
         }
         i.setResources_quantity(res_quant);
@@ -60,7 +62,7 @@ public class InventoryService {
             }
             id.setResources(domainList);
         }
-        CraftedResourceService cs=new CraftedResourceService();
+        CraftedResourceService cs = new CraftedResourceService();
         List<CraftedResourceDomain> domainListS = new ArrayList<>();
         if (i.getCraftedResourceList() != null) {
             List<CraftedResource> listS = i.getCraftedResourceList();
@@ -70,9 +72,9 @@ public class InventoryService {
             }
         }
         id.setCraftedResourceDomainList(domainListS);
-        ResourceQuantityInvService resourceQuantityInvService=new ResourceQuantityInvService();
+        ResourceQuantityInvService resourceQuantityInvService = new ResourceQuantityInvService();
         List<ResourceQuantityInvDomain> res_quant = new ArrayList<>();
-        for(ResourceQuantityInv r :i.getResources_quantity()){
+        for (ResourceQuantityInv r : i.getResources_quantity()) {
             res_quant.add(resourceQuantityInvService.resourceQuantityInvDomainMapper(r));
         }
         id.setResources_quantity(res_quant);
@@ -80,31 +82,31 @@ public class InventoryService {
     }
 
     public InventoryDomain remove(ArrayList<ResourceDomain> selections, InventoryDomain inventoryDomain) {
-        ArrayList<ResourceDomain> toRemove=new ArrayList<>();
-        ArrayList<ResourceQuantityInvDomain> rqiToRemove= new ArrayList<>();
+        ArrayList<ResourceDomain> toRemove = new ArrayList<>();
+        ArrayList<ResourceQuantityInvDomain> rqiToRemove = new ArrayList<>();
         List<ResourceQuantityInvDomain> resourcesQuantity = inventoryDomain.getResources_quantity();
-        ResourceQuantityInvService resourceQuantityInvService= new ResourceQuantityInvService();
-        for (ResourceDomain r:selections){
-            for(ResourceDomain res :inventoryDomain.getResources()){
-                for (ResourceQuantityInvDomain rqi : resourcesQuantity){
-                    if (Objects.equals(r.getName(), res.getName())&& Objects.equals(r.getName(),rqi.getResource().getName())){
-                        if (rqi.getQuantity()!=0){
-                        rqi.setQuantity(rqi.getQuantity()-1);
-                            if (rqi.getQuantity()==0){
+        ResourceQuantityInvService resourceQuantityInvService = new ResourceQuantityInvService();
+        for (ResourceDomain r : selections) {
+            for (ResourceDomain res : inventoryDomain.getResources()) {
+                for (ResourceQuantityInvDomain rqi : resourcesQuantity) {
+                    if (Objects.equals(r.getName(), res.getName()) && Objects.equals(r.getName(), rqi.getResource().getName())) {
+                        if (rqi.getQuantity() != 0) {
+                            rqi.setQuantity(rqi.getQuantity() - 1);
+                            if (rqi.getQuantity() == 0) {
                                 rqiToRemove.add(rqi);
                                 toRemove.add(res);
 
                             }
-                        }else {
-                        toRemove.add(res);
-                        rqiToRemove.add(rqi);
+                        } else {
+                            toRemove.add(res);
+                            rqiToRemove.add(rqi);
                         }
                     }
                 }
             }
-       }
-        for (ResourceQuantityInvDomain r: rqiToRemove){
-          resourceQuantityInvService.remove(r);
+        }
+        for (ResourceQuantityInvDomain r : rqiToRemove) {
+            resourceQuantityInvService.remove(r);
         }
         inventoryDomain.getResources().removeAll(toRemove);
         return inventoryDomain;
@@ -118,6 +120,7 @@ public class InventoryService {
         InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
         return inventoryDao.updateInventory(res, id);
     }
+
     public void updateInventoryCraft(InventoryDomain id) {
         InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
         inventoryDao.updateInventoryCraft(id);

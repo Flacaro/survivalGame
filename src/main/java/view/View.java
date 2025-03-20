@@ -1,12 +1,5 @@
 package view;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-
 import controller.DBController;
 import controller.ResourceController;
 import controller.StartController;
@@ -14,6 +7,13 @@ import model.domain.*;
 import services.GameService;
 import services.MapServices;
 import services.PlayerService;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 public class View {
 
@@ -197,21 +197,20 @@ public class View {
             }
             if (!inventory.getCraftedResourceDomainList().isEmpty()) {
                 for (CraftedResourceDomain r : inventory.getCraftedResourceDomainList()) {
-                    System.out.println("-" + r.getName()+ "  quantità:" + r.getQuantity());
+                    System.out.println("-" + r.getName() + "  quantità:" + r.getQuantity());
                 }
             }
-        }
-        else {
-        if (inventory.getResources().isEmpty()) {
-            if(!inventory.getCraftedResourceDomainList().isEmpty()){
-                System.out.println("Contenuto dell'inventario:");
-                for (CraftedResourceDomain r : inventory.getCraftedResourceDomainList()) {
-                    System.out.println("-" + r.getName()+ " quantità: "+r.getQuantity());
+        } else {
+            if (inventory.getResources().isEmpty()) {
+                if (!inventory.getCraftedResourceDomainList().isEmpty()) {
+                    System.out.println("Contenuto dell'inventario:");
+                    for (CraftedResourceDomain r : inventory.getCraftedResourceDomainList()) {
+                        System.out.println("-" + r.getName() + " quantità: " + r.getQuantity());
+                    }
+                    return;
                 }
-                return;
+                System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
             }
-            System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
-        }
         }
     }
 

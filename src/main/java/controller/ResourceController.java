@@ -87,12 +87,12 @@ public class ResourceController {
         for (String k : selections) {
             listResSel.add(corrisp.get(Integer.parseInt(k)));
         }
-        inventoryDomain=inventoryService.remove(listResSel,inventoryDomain);
-        s.setQuantity(s.getQuantity()+1);
+        inventoryDomain = inventoryService.remove(listResSel, inventoryDomain);
+        s.setQuantity(s.getQuantity() + 1);
         List<CraftedResourceDomain> add = new ArrayList<>(inventoryDomain.getCraftedResourceDomainList());
         add.add(s);
         inventoryDomain.setCraftedResourceDomainList(add);
-        inventoryDomain.setCapacity(inventoryDomain.getCapacity()-1);
+        inventoryDomain.setCapacity(inventoryDomain.getCapacity() - 1);
         inventoryService.updateInventoryCraft(inventoryDomain);
     }
 

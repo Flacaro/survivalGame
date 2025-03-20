@@ -169,6 +169,7 @@ public class View {
             System.out.println(areaDomain.getDescription());
         } else {
             System.out.println("Non puoi muoverti in quella direzione.");
+            move(gameDomain);
         }
     }
 

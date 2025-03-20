@@ -3,14 +3,14 @@ package services;
 import model.domain.CraftedResourceDomain;
 import model.domain.InventoryDomain;
 import model.domain.ResourceDomain;
+import model.domain.ResourceQuantityInvDomain;
 import model.entity.CraftedResource;
 import model.entity.Inventory;
 import model.entity.Resource;
+import model.entity.ResourceQuantityInv;
 import persistence.InventoryDaoImpl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class InventoryService {
 
@@ -37,6 +37,12 @@ public class InventoryService {
             }
             i.setResourcesSelected(listS);
         }
+        ResourceQuantityInvService resourceQuantityInvService=new ResourceQuantityInvService();
+        List<ResourceQuantityInv> res_quant = new ArrayList<>();
+        for(ResourceQuantityInvDomain r :id.getResources_quantity()){
+            res_quant.add(resourceQuantityInvService.resourceQuantityInvMapper(r));
+        }
+        i.setResources_quantity(res_quant);
         return i;
     }
 
@@ -64,41 +70,56 @@ public class InventoryService {
             }
         }
         id.setResourcesSelected(domainListS);
+        ResourceQuantityInvService resourceQuantityInvService=new ResourceQuantityInvService();
+        List<ResourceQuantityInvDomain> res_quant = new ArrayList<>();
+        for(ResourceQuantityInv r :i.getResources_quantity()){
+            res_quant.add(resourceQuantityInvService.resourceQuantityInvDomainMapper(r));
+        }
+        id.setResources_quantity(res_quant);
         return id;
     }
 
     public InventoryDomain remove(ArrayList<ResourceDomain> selections, InventoryDomain inventoryDomain) {
         ArrayList<ResourceDomain> toRemove=new ArrayList<>();
+        ArrayList<ResourceQuantityInvDomain> rqiToRemove= new ArrayList<>();
+        List<ResourceQuantityInvDomain> resourcesQuantity = inventoryDomain.getResources_quantity();
+        ResourceQuantityInvService resourceQuantityInvService= new ResourceQuantityInvService();
         for (ResourceDomain r:selections){
             for(ResourceDomain res :inventoryDomain.getResources()){
-                if (Objects.equals(r.getName(), res.getName())){
-                    if (res.getQuantity()!=0){
-                        res.setQuantity(res.getQuantity()-1);
-                        if (res.getQuantity()==0){
-                            toRemove.add(res);
-                        }
-                    }else {
+                for (ResourceQuantityInvDomain rqi : resourcesQuantity){
+                    if (Objects.equals(r.getName(), res.getName())&& Objects.equals(r.getName(),rqi.getResource().getName())){
+                        if (rqi.getQuantity()!=0){
+                        rqi.setQuantity(rqi.getQuantity()-1);
+                        //res.setQuantity(res.getQuantity()-1);
+                            if (rqi.getQuantity()==0){
+                                rqiToRemove.add(rqi);
+                                toRemove.add(res);
+//                            resourcesQuantity.remove(rqi);
+                            //resourceQuantityInvService.remove(rqi);
+                            }
+                        }else {
                         toRemove.add(res);
+                        rqiToRemove.add(rqi);
+//                        resourceQuantityInvService.remove(rqi);
+//                        resourcesQuantity.remove(rqi);
+                        }
                     }
                 }
             }
+       }
+        for (ResourceQuantityInvDomain r: rqiToRemove){
+          resourceQuantityInvService.remove(r);
         }
+//        inventoryDomain.getResources_quantity().removeAll(rqiToRemove);
         inventoryDomain.getResources().removeAll(toRemove);
+//        for (ResourceQuantityInvDomain r: rqiToRemove){
+//            resourceQuantityInvService.remove(r);
+//        }
         return inventoryDomain;
     }
 
     public boolean checkCapacity(InventoryDomain inventoryDomain) {
         return inventoryDomain.getCapacity() > 0;
-    }
-
-    public void addSelections(Resource res) {
-        // TODO - implement Inventory.addSelections
-        throw new UnsupportedOperationException();
-    }
-
-    public void useResource(Resource resource) {
-        // TODO - implement Inventory.useResource
-        throw new UnsupportedOperationException();
     }
 
     public boolean updateInventory(ResourceDomain res, InventoryDomain id) {

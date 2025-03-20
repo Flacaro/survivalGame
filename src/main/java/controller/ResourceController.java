@@ -75,7 +75,7 @@ public class ResourceController {
         if (list==null){
             return null;
         }
-        //prendere la descrizione della crafted resource
+
         ArrayList<String> descr= getCombinations();
         CraftedResourceDomain pairs= new CraftedResourceDomain();
         pairs=pairs(list,descr);

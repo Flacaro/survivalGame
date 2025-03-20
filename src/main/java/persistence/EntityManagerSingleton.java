@@ -18,7 +18,6 @@ public class EntityManagerSingleton {
         if (em == null || !em.isOpen()) {
             em = entityManagerFactory.createEntityManager();
         }
-
         return em;
     }
 

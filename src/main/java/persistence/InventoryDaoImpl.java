@@ -8,11 +8,13 @@ import model.domain.ResourceDomain;
 import model.entity.CraftedResource;
 import model.entity.Inventory;
 import model.entity.Resource;
+import model.entity.ResourceQuantityInv;
 import services.CraftedResourceService;
 import services.InventoryService;
 import services.ResourceService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class InventoryDaoImpl implements InventoryDao {
@@ -56,26 +58,32 @@ public class InventoryDaoImpl implements InventoryDao {
 
             ResourceService rs = new ResourceService();
             Inventory inventory = em.find(Inventory.class, id.getId());
+            List<ResourceQuantityInv> resourcesQuantity = inventory.getResources_quantity();
             if (inventory != null) {
                 inventory.setCapacity(id.getCapacity() - 1);
 
                 boolean resourceFound = false;
                 for (Resource resource : inventory.getResources()) {
+                    for (ResourceQuantityInv rqi :resourcesQuantity){
                     if (resource.getId() == res.getId()) {
-                        if (resource.getQuantity() == 0) {
-                            deleteResourceFromInventory(resource, id);
-                        } else {
-                            resource.setQuantity(resource.getQuantity() - 1);
-                        }
+                        if (resource.getId() == rqi.getResource().getId()) {
+                           rqi.setQuantity(rqi.getQuantity()+1);
                         resourceFound = true;
                         break;
+////                        } else {
+//                        resourcesQuantity.add((int)resource.getId(),resourcesQuantity.get((int)resource.getId())+1);
+//                            //resource.setQuantity(resource.getQuantity() + 1);
+////                        }
+//                        resourceFound = true;
+//                        break;
                     }
-                }
-
+                    }
+                }}
                 if (!resourceFound) {
                     Resource newResource = new Resource(res.getId(), res.getCategory(), rs.resourceMapper(res).getAttacks(), res.getLevel(), res.getName(), res.getQuantity(), res.getType());
                     List<Resource> inventoryResources = inventory.getResources();
                     inventoryResources.add(newResource);
+                    resourcesQuantity.add(new ResourceQuantityInv(inventory,newResource,1));
                 }
                 em.merge(inventory);
             }

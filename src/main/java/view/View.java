@@ -3,12 +3,16 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
+
 import controller.DBController;
 import controller.ResourceController;
 import controller.StartController;
 import model.domain.*;
+import org.hibernate.type.descriptor.java.ObjectArrayJavaType;
 import services.GameService;
 import services.MapServices;
 import services.PlayerService;
@@ -56,6 +60,8 @@ public class View {
                 case 5:
                     continueToPlay = false;
                     System.out.println("Grazie per aver giocato!");
+                    DBController dbController=new DBController();
+                    dbController.close();
                     break;
                 default:
                     System.out.println("Scelta non valida.");
@@ -160,6 +166,7 @@ public class View {
         AreaDomain areaDomain = dbController.getAreasById(pd.getIdArea());
         if (moved) {
             System.out.println("Ti sei spostato in: " + areaDomain.getName());
+            System.out.println(areaDomain.getDescription());
         } else {
             System.out.println("Non puoi muoverti in quella direzione.");
         }
@@ -180,11 +187,15 @@ public class View {
         DBController dbController = new DBController();
         PlayerDomain pd = g.getPlayer();
         InventoryDomain inventory = dbController.showInventory(pd);
-
+        List<ResourceQuantityInvDomain> resourcesQuantity = inventory.getResources_quantity();
         if (!inventory.getResources().isEmpty()) {
             System.out.println("Contenuto dell'inventario:");
             for (ResourceDomain r : inventory.getResources()) {
-                System.out.println("-" + r.getName() + "  quantità:" + r.getQuantity());
+                for (ResourceQuantityInvDomain rqid :resourcesQuantity){
+                    if (Objects.equals(r.getName(),rqid.getResource().getName())){
+                        System.out.println("-" + r.getName() + "  quantità:" + rqid.getQuantity());
+                    }
+                }
             }
             if (!inventory.getResourcesSelected().isEmpty()) {
                 for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
@@ -197,7 +208,7 @@ public class View {
             if(!inventory.getResourcesSelected().isEmpty()){
                 System.out.println("Contenuto dell'inventario:");
                 for (CraftedResourceDomain r : inventory.getResourcesSelected()) {
-                    System.out.println("-" + r.getName());
+                    System.out.println("-" + r.getName()+ " quantità: "+r.getQuantity());
                 }
                 return;
             }
@@ -207,7 +218,8 @@ public class View {
     }
 
     public int showMainMenu() throws IOException {
-        System.out.println("Cosa vuoi fare?");
+        System.out.println("");
+        System.out.println(" Cosa vuoi fare?");
         System.out.println("1. Esplora l'area in cui ti trovi");
         System.out.println("2. Visualizza l'inventario");
         System.out.println("3. Muoviti");
@@ -226,9 +238,6 @@ public class View {
         return readChoice("Inserisci un numero:");
     }
 
-    public int leggiSceltaRisorsa() throws IOException {
-        return readChoice("Inserisci 1 o 0:");
-    }
 
     public void foundedResource(String risorsa) {
         System.out.println("Hai trovato " + risorsa + ", la vuoi prendere?\n" +
@@ -236,9 +245,6 @@ public class View {
                 "inserisci 0 per ignorarla");
     }
 
-    public void areaCorrente(String area) {
-        System.out.println("Ti sei spostato in: " + area);
-    }
 }
 
 

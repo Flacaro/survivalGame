@@ -96,4 +96,11 @@ public class DBController {
         close();
         return areaDomains;
     }
+
+    public void removeQuantity(ResourceQuantityInvDomain resourceQuantityInvDomain) {
+        ResourceDaoImpl resourceDao= new ResourceDaoImpl();
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        resourceDao.removeQuantity(resourceQuantityInvDomain,em);
+        close();
+    }
 }

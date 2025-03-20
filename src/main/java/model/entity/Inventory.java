@@ -2,6 +2,7 @@ package model.entity;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -21,12 +22,20 @@ public class Inventory {
 	@Column(name = "RESOURCES")
 	private List<Resource> resources=new ArrayList<>();
 
-	//@Column(name = "RESOURCES_SELECTED_IDS", nullable = false)
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@Column(name = "RESOURCES_SELECTED")
-	//@JoinColumn(name = "inventory_id")
 	private List<CraftedResource> resourcesSelected= new ArrayList<>();
 
+	@OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ResourceQuantityInv> resources_quantity= new ArrayList<>();
+
+	public List<ResourceQuantityInv> getResources_quantity() {
+		return resources_quantity;
+	}
+
+	public void setResources_quantity(List<ResourceQuantityInv> resources_quantity) {
+		this.resources_quantity = resources_quantity;
+	}
 
 	public long getId() {
 		return id;
@@ -59,5 +68,4 @@ public class Inventory {
 	public void setResourcesSelected(List<CraftedResource> resourcesSelected) {
 		this.resourcesSelected = resourcesSelected;
 	}
-
 }

@@ -1,9 +1,15 @@
 package model.domain;
 
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.OneToMany;
 import model.entity.CraftedResource;
+import model.entity.Resource;
+import model.entity.ResourceQuantityInv;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class InventoryDomain {
@@ -16,32 +22,20 @@ public class InventoryDomain {
 
     private List<CraftedResourceDomain> resourcesSelected;
 
+    private List<ResourceQuantityInvDomain> resources_quantity= new ArrayList<>();;
+
     private PlayerDomain playerDomain;
 
-    public model.entity.Resource combine(model.entity.Resource[] selections) {
-        // TODO - implement Inventory.combine
-        throw new UnsupportedOperationException();
+    public List<ResourceQuantityInvDomain> getResources_quantity() {
+        return resources_quantity;
+    }
+
+    public void setResources_quantity(List<ResourceQuantityInvDomain> resources_quantity) {
+        this.resources_quantity = resources_quantity;
     }
 
     public boolean add(ResourceDomain res) {
         return resourceDomains.add(res);
-    }
-
-    public boolean checkCapacity() {
-        // TODO - implement Inventory.checkCapacity
-        throw new UnsupportedOperationException();
-    }
-
-
-    public void addSelections(model.entity.Resource res) {
-        // TODO - implement Inventory.addSelections
-        throw new UnsupportedOperationException();
-    }
-
-
-    public void useResource(model.entity.Resource resource) {
-        // TODO - implement Inventory.useResource
-        throw new UnsupportedOperationException();
     }
 
     public int getCapacity() {

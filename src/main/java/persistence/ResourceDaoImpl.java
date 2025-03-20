@@ -5,11 +5,10 @@ import jakarta.persistence.TypedQuery;
 import model.domain.CraftedResourceDomain;
 import model.domain.InventoryDomain;
 import model.domain.ResourceDomain;
-import model.entity.CraftedResource;
-import model.entity.Inventory;
-import model.entity.Player;
-import model.entity.Resource;
+import model.domain.ResourceQuantityInvDomain;
+import model.entity.*;
 import services.CraftedResourceService;
+import services.ResourceQuantityInvService;
 import services.ResourceService;
 
 import java.util.ArrayList;
@@ -86,6 +85,25 @@ public class ResourceDaoImpl implements ResourceDao {
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
+        }
+    }
+
+    @Override
+    public void removeQuantity(ResourceQuantityInvDomain resourceQuantityInvDomain,EntityManager em) {
+        ResourceQuantityInvService resourceQuantityInvService=new ResourceQuantityInvService();
+        try {
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+            ResourceQuantityInv resourceQuantity = em.find(ResourceQuantityInv.class, resourceQuantityInvDomain.getId());
+            if (resourceQuantity != null) {
+                em.remove(resourceQuantity);
+            } else {
+                System.out.println("Nessuna entità trovata con ID");
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

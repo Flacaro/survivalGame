@@ -68,15 +68,5 @@ public class StartController {
         return dbController.getGame();
     }
 
-//    public void readPlayerNickname(PlayerDomain playerDomain) throws IOException {
-//        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-//        System.out.println("scegli un nickname\n");
-//        String nickname = bf.readLine();
-//        DBController dbController = new DBController();
-//        playerDomain.setNickname(nickname);
-//        playerDomain.setHealth(5);
-//        playerDomain.setLevel(1);
-//        dbController.insertPlayer(playerDomain);
-//    }
 
 }

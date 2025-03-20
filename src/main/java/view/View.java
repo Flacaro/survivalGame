@@ -27,14 +27,14 @@ public class View {
         StartController sc = new StartController();
         GameDomain g = sc.start();
 
-        System.out.println("Ti svegli sulla spiaggia, confuso e dolorante." + "\n" + "L’aereo è precipitato. Intorno a te, solo mare, sabbia e frammenti del relitto." + "\n" + "Nessun segno di altri sopravvissuti.\n" +
+        System.out.println("\nTi svegli sulla spiaggia, confuso e dolorante." + "\n" + "L’aereo è precipitato. Intorno a te, solo mare, sabbia e frammenti del relitto." + "\n" + "Nessun segno di altri sopravvissuti.\n" +
                 "\n" +
                 "Hai bisogno di cibo, acqua e riparo. La giungla davanti a te è fitta e sconosciuta, ma non hai scelta: devi esplorare." + "\n" + " Il tuo zaino sarà la tua salvezza. Ogni oggetto raccolto potrebbe fare la differenza.\n" +
                 "\n" +
                 "Non sei solo su quest’isola. Qualcosa si muove tra gli alberi…" + "\n" +
                 "Esplora, raccogli e sopravvivi. La tua avventura inizia ora.");
 
-        System.out.println("Benvenuto nella demo! Esplora le aree, raccogli le risorse e crafta una risorsa per completarla e passare al gioco.");
+        System.out.println("Benvenuto nella demo! Esplora le aree, raccogli le risorse e crafta una risorsa per completarla e passare al gioco.\n");
         boolean continueToPlay = true;
 
         while (continueToPlay) {

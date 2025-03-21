@@ -89,17 +89,15 @@ public class InventoryService {
         for (ResourceDomain r : selections) {
             for (ResourceDomain res : inventoryDomain.getResources()) {
                 for (ResourceQuantityInvDomain rqi : resourcesQuantity) {
-                    if (Objects.equals(r.getName(), res.getName()) && Objects.equals(r.getName(), rqi.getResource().getName())) {
-                        if (rqi.getQuantity() != 0) {
-                            rqi.setQuantity(rqi.getQuantity() - 1);
-                            if (rqi.getQuantity() == 0) {
-                                rqiToRemove.add(rqi);
-                                toRemove.add(res);
-
+                    if (r.getId()==res.getId()) {
+                        if ( r.getId()== rqi.getResource().getId()){
+                            if (rqi.getQuantity() != 0) {
+                                rqi.setQuantity(rqi.getQuantity() - 1);
+                                if (rqi.getQuantity() == 0) {
+                                    rqiToRemove.add(rqi);
+                                }
                             }
-                        } else {
                             toRemove.add(res);
-                            rqiToRemove.add(rqi);
                         }
                     }
                 }
@@ -108,7 +106,9 @@ public class InventoryService {
         for (ResourceQuantityInvDomain r : rqiToRemove) {
             resourceQuantityInvService.remove(r);
         }
-        inventoryDomain.getResources().removeAll(toRemove);
+        for (ResourceDomain r:toRemove){
+            inventoryDomain.getResources().remove(r);
+        }
         return inventoryDomain;
     }
 

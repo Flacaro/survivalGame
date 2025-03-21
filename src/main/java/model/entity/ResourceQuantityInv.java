@@ -14,6 +14,7 @@ public class ResourceQuantityInv {
     private Inventory inventory;
 
     @ManyToOne
+    @JoinColumn(name = "resource_id")
     private Resource resource;
 
     @Column(name = "quantity")

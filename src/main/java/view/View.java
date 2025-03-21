@@ -107,7 +107,7 @@ public class View {
                 if (pair != null) {
                     resourceController.combine(selections, corrisp, g.getPlayer(), pair);
                     System.out.println("Hai creato: " + pair.getName());
-                    showInventory(g);
+                    //showInventory(g);
                     return true;
                 } else {
                     System.out.println("Input non valido.");

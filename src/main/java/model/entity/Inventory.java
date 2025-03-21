@@ -17,15 +17,15 @@ public class Inventory {
 	private int capacity=10;
 
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL)
 	@Column(name = "RESOURCES")
 	private List<Resource> resources=new ArrayList<>();
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL)
 	@Column(name = "CRAFTEDRESOURCELIST")
 	private List<CraftedResource> craftedResourceList = new ArrayList<>();
 
-	@OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
 	private List<ResourceQuantityInv> resources_quantity= new ArrayList<>();
 
 	public List<ResourceQuantityInv> getResources_quantity() {

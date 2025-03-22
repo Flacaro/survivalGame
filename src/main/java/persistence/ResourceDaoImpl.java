@@ -97,7 +97,9 @@ public class ResourceDaoImpl implements ResourceDao {
             }
             ResourceQuantityInv resourceQuantity = em.find(ResourceQuantityInv.class, resourceQuantityInvDomain.getId());
             if (resourceQuantity != null) {
-                em.remove(resourceQuantity);
+                Inventory inv = resourceQuantity.getInventory();
+                inv.getResources_quantity().remove(resourceQuantity);
+                em.merge(inv);
             } else {
                 System.out.println("Nessuna entità trovata con ID");
             }

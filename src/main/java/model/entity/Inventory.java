@@ -25,7 +25,7 @@ public class Inventory {
 	@Column(name = "CRAFTEDRESOURCELIST")
 	private List<CraftedResource> craftedResourceList = new ArrayList<>();
 
-	@OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
+	@OneToMany
 	private List<ResourceQuantityInv> resources_quantity= new ArrayList<>();
 
 	public List<ResourceQuantityInv> getResources_quantity() {

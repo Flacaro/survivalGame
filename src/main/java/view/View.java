@@ -4,6 +4,7 @@ import controller.DBController;
 import controller.ResourceController;
 import controller.StartController;
 import model.domain.*;
+import model.entity.Game;
 import services.GameService;
 import services.MapServices;
 import services.PlayerService;
@@ -36,10 +37,10 @@ public class View {
 
         System.out.println("Benvenuto nella demo! Esplora le aree, raccogli le risorse e crafta una risorsa per completarla e passare al gioco.\n");
         boolean continueToPlay = true;
-
+        DBController dbController= new DBController();
         while (continueToPlay) {
             int choice = showMainMenu();
-
+            g=dbController.getGame();
             switch (choice) {
                 case 1:
                     exploreArea(g);
@@ -59,7 +60,6 @@ public class View {
                 case 5:
                     continueToPlay = false;
                     System.out.println("Grazie per aver giocato!");
-                    DBController dbController = new DBController();
                     dbController.close();
                     break;
                 default:
@@ -73,8 +73,8 @@ public class View {
     private boolean crafting(GameDomain g) {
         DBController dbController = new DBController();
         ResourceController resourceController = new ResourceController();
-        PlayerDomain playerDomain = dbController.getGame().getPlayerDomain();
-        InventoryDomain inventory = playerDomain.getInventory();
+        PlayerDomain playerDomain = g.getPlayerDomain();
+        InventoryDomain inventory = dbController.showInventory(playerDomain);
         List<CraftedResourceDomain> craft = dbController.getCraftedResources();
         System.out.println("Combinazioni possibili per il crafting degli oggetti");
         System.out.println("-----------------------------------------------------");
@@ -88,26 +88,30 @@ public class View {
         } else {
             try {
                 System.out.println("Inserisci l'indice delle risorse da combinare separate tramite virgola (es. 0,1)");
-                int counter = 1;
+                int counter = 0;
                 HashMap<Integer, ResourceDomain> corrisp = new HashMap<>();
                 for (ResourceDomain r : inventory.getResources()) {
+                    counter=counter+1;
                     System.out.println("Inserire l'indice " + counter + " per selezionare la risorsa: " + r.getName());
                     corrisp.put(counter, r);
-                    counter = counter + 1;
+
                 }
                 String input = bf.readLine();
                 String[] selections = input.split(",");
                 for (String s : selections) {
-                    if (Integer.parseInt(s) < 1 || selections.length > counter || Integer.parseInt(s) > counter) {
+                    if (Integer.parseInt(s) < 1 || selections.length > corrisp.size() || Integer.parseInt(s) > corrisp.size()) {
                         System.out.println("Input non valido.");
                         return false;
                     }
                 }
                 CraftedResourceDomain pair = resourceController.compatible(selections, corrisp);
                 if (pair != null) {
-                    resourceController.combine(selections, corrisp, g.getPlayer(), pair);
+                    playerDomain.setInventory(resourceController.combine(selections, corrisp, inventory, pair));
                     System.out.println("Hai creato: " + pair.getName());
-                    //showInventory(g);
+                    dbController.updatePlayer(playerDomain);
+                    g.setPlayer(playerDomain);
+                    dbController.updateGame(g);
+                    showInventory(g);
                     return true;
                 } else {
                     System.out.println("Input non valido.");
@@ -184,7 +188,7 @@ public class View {
     public void showInventory(GameDomain g) {
         DBController dbController = new DBController();
         PlayerDomain pd = g.getPlayer();
-        InventoryDomain inventory = dbController.showInventory(pd);
+        InventoryDomain inventory =dbController.showInventory(pd);
         List<ResourceQuantityInvDomain> resourcesQuantity = inventory.getResources_quantity();
         if (!inventory.getResources().isEmpty()) {
             System.out.println("Contenuto dell'inventario:");

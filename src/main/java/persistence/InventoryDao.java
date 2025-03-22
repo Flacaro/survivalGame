@@ -3,6 +3,7 @@ package persistence;
 import model.domain.CraftedResourceDomain;
 import model.domain.InventoryDomain;
 import model.domain.ResourceDomain;
+import model.entity.Inventory;
 import model.entity.Resource;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public interface InventoryDao {
 
     boolean updateInventory(ResourceDomain res, InventoryDomain id);
 
-    void updateInventoryCraft(InventoryDomain id);
+    InventoryDomain updateInventoryCraft(InventoryDomain id);
 
     void deleteResourceFromInventory(Resource res, InventoryDomain id);
 }

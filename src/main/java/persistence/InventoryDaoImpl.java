@@ -71,24 +71,22 @@ public class InventoryDaoImpl implements InventoryDao {
                            rqi.setQuantity(rqi.getQuantity()+1);
                         resourceFound = true;
                         break;
-////                        } else {
-//                        resourcesQuantity.add((int)resource.getId(),resourcesQuantity.get((int)resource.getId())+1);
-//                            //resource.setQuantity(resource.getQuantity() + 1);
-////                        }
-//                        resourceFound = true;
-//                        break;
                     }
                     }
-                }}
+                    }}
                 if (!resourceFound) {
-                    Resource newResource = new Resource(res.getId(), res.getCategory(), rs.resourceMapper(res).getAttacks(), res.getLevel(), res.getName(), res.getQuantity(), res.getType());
-                    List<Resource> inventoryResources = inventory.getResources();
-                    inventoryResources.add(newResource);
-                    resourcesQuantity.add(new ResourceQuantityInv(inventory,newResource,1));
+                    Resource newResource = em.find(Resource.class, res.getId());
+                    if (newResource == null) {
+                        newResource = new Resource(res.getId(), res.getCategory(), rs.resourceMapper(res).getAttacks(), res.getLevel(), res.getName(), res.getQuantity(), res.getType());
+                        em.persist(newResource);
+                    }
+                    inventory.getResources().add(newResource);
+                    ResourceQuantityInv newResourceq=new ResourceQuantityInv(inventory, newResource, 1);
+                    resourcesQuantity.add(newResourceq);
+                    em.persist(newResourceq);
                 }
-                em.merge(inventory);
             }
-
+            em.merge(inventory);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,13 +98,13 @@ public class InventoryDaoImpl implements InventoryDao {
 
 
     @Override
-    public void updateInventoryCraft(InventoryDomain id) {
+    public InventoryDomain updateInventoryCraft(InventoryDomain id) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-            Inventory inventory = em.find(Inventory.class, id.getId()); // Trova l'oggetto con ID 1
+            Inventory inventory = em.find(Inventory.class, id.getId());
             if (inventory != null) {
                 ResourceService rs=new ResourceService();
                 ResourceQuantityInvService service= new ResourceQuantityInvService();
@@ -120,8 +118,8 @@ public class InventoryDaoImpl implements InventoryDao {
                 }
                 inventory.getResources_quantity().clear();
                 inventory.getResources().clear();
-                inventory.setResources(list);
-                inventory.setResources_quantity(qnt);
+                inventory.getResources().addAll(list);
+                inventory.getResources_quantity().addAll(qnt);
                 CraftedResourceService crs= new CraftedResourceService();
                 ArrayList<CraftedResource> lists=new ArrayList<>();
                 for (CraftedResourceDomain r :id.getCraftedResourceDomainList()){
@@ -131,13 +129,15 @@ public class InventoryDaoImpl implements InventoryDao {
                 inventory.getCraftedResourceList().addAll(lists);
             }
             em.merge(inventory);
-
+            em.getTransaction().commit();
+            InventoryService service= new InventoryService();
+            return service.inventoryDomainMapper(inventory);
 
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         }
-        em.getTransaction().commit();
+        return null;
 
     }
 

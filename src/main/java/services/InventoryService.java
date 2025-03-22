@@ -1,5 +1,6 @@
 package services;
 
+import controller.DBController;
 import model.domain.CraftedResourceDomain;
 import model.domain.InventoryDomain;
 import model.domain.ResourceDomain;
@@ -82,33 +83,25 @@ public class InventoryService {
     }
 
     public InventoryDomain remove(ArrayList<ResourceDomain> selections, InventoryDomain inventoryDomain) {
-        ArrayList<ResourceDomain> toRemove = new ArrayList<>();
+        List<ResourceQuantityInvDomain> quantity=inventoryDomain.getResources_quantity();
         ArrayList<ResourceQuantityInvDomain> rqiToRemove = new ArrayList<>();
-        List<ResourceQuantityInvDomain> resourcesQuantity = inventoryDomain.getResources_quantity();
-        ResourceQuantityInvService resourceQuantityInvService = new ResourceQuantityInvService();
-        for (ResourceDomain r : selections) {
-            for (ResourceDomain res : inventoryDomain.getResources()) {
-                for (ResourceQuantityInvDomain rqi : resourcesQuantity) {
-                    if (r.getId()==res.getId()) {
-                        if ( r.getId()== rqi.getResource().getId()){
-                            if (rqi.getQuantity() != 0) {
-                                rqi.setQuantity(rqi.getQuantity() - 1);
-                                if (rqi.getQuantity() == 0) {
-                                    rqiToRemove.add(rqi);
-                                }
-                            }
-                            toRemove.add(res);
-                        }
+        ArrayList<ResourceDomain> toRemove = new ArrayList<>();
+        for (ResourceQuantityInvDomain q : quantity){
+            for (ResourceDomain r :selections){
+                if (q.getResource().getId()== r.getId()){
+                    q.setQuantity(q.getQuantity()-1);
+                    if (q.getQuantity()==0){
+                        inventoryDomain.setCapacity(inventoryDomain.getCapacity()+1);
+                        rqiToRemove.add(q);
+                        toRemove.add(r);
                     }
+                    break;
                 }
             }
         }
-        for (ResourceQuantityInvDomain r : rqiToRemove) {
-            resourceQuantityInvService.remove(r);
-        }
-        for (ResourceDomain r:toRemove){
-            inventoryDomain.getResources().remove(r);
-        }
+        inventoryDomain.getResources().removeAll(toRemove);
+        quantity.removeAll(rqiToRemove);
+        inventoryDomain.setResources_quantity(quantity);
         return inventoryDomain;
     }
 
@@ -121,8 +114,8 @@ public class InventoryService {
         return inventoryDao.updateInventory(res, id);
     }
 
-    public void updateInventoryCraft(InventoryDomain id) {
+    public InventoryDomain updateInventoryCraft(InventoryDomain id) {
         InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
-        inventoryDao.updateInventoryCraft(id);
+        return inventoryDao.updateInventoryCraft(id);
     }
 }

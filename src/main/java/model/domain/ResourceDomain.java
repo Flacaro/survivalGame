@@ -2,6 +2,7 @@ package model.domain;
 
 
 import java.util.List;
+import java.util.Objects;
 
 public class ResourceDomain {
 
@@ -93,6 +94,18 @@ public class ResourceDomain {
     }
 
     public void setUp(String type, ModeDomain mode) {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ResourceDomain that = (ResourceDomain) o;
+        return id == that.id && level == that.level && quantity == that.quantity && Objects.equals(category, that.category) && Objects.equals(attacks, that.attacks) && Objects.equals(name, that.name) && Objects.equals(type, that.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, category, attacks, level, name, quantity, type);
     }
 
     @Override

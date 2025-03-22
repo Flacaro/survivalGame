@@ -80,20 +80,21 @@ public class ResourceController {
     }
 
 
-    public void combine(String[] selections, HashMap<Integer, ResourceDomain> corrisp, PlayerDomain pDomain, CraftedResourceDomain s) {
+    public InventoryDomain combine(String[] selections, HashMap<Integer, ResourceDomain> corrisp, InventoryDomain inventoryDomain, CraftedResourceDomain s) {
         ArrayList<ResourceDomain> listResSel = new ArrayList<>();
-        InventoryDomain inventoryDomain = pDomain.getInventory();
         InventoryService inventoryService = new InventoryService();
+        //aggiunge la risorsa selezionata attraverso l'input inserito
         for (String k : selections) {
             listResSel.add(corrisp.get(Integer.parseInt(k)));
         }
-        inventoryDomain = inventoryService.remove(listResSel, inventoryDomain);
+        //rimozone delle risorse dall'inventario
+        InventoryDomain id = inventoryService.remove(listResSel, inventoryDomain);
         s.setQuantity(s.getQuantity() + 1);
         List<CraftedResourceDomain> add = new ArrayList<>(inventoryDomain.getCraftedResourceDomainList());
         add.add(s);
-        inventoryDomain.setCraftedResourceDomainList(add);
-        inventoryDomain.setCapacity(inventoryDomain.getCapacity() - 1);
-        inventoryService.updateInventoryCraft(inventoryDomain);
+        id.setCraftedResourceDomainList(add);
+        id.setCapacity(inventoryDomain.getCapacity() - 1);
+        return inventoryService.updateInventoryCraft(id);
     }
 
 

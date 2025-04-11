@@ -1,27 +1,27 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
-import model.domain.CraftedResourceDomain;
-import model.domain.InventoryDomain;
-import model.domain.ResourceDomain;
-import model.domain.ResourceQuantityInvDomain;
+import model.entity.CraftedResource;
+import model.entity.Inventory;
+import model.entity.Resource;
+import model.entity.ResourceQuantityInv;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public interface ResourceDao {
 
-    ArrayList<ResourceDomain> getResources();
+    ArrayList<Resource> getResources(EntityManager em);
 
-    void saveResource(ResourceDomain resource);
+    void saveResource(Resource resource,EntityManager em);
 
-    ResourceDomain getResourceById(long id);
+    Resource getResourceById(long id,EntityManager em);
 
-    ArrayList<CraftedResourceDomain> getResourcesCrafted(EntityManager em);
+    ArrayList<CraftedResource> getResourcesCrafted(EntityManager em);
 
-    List<ResourceDomain> getResourceByName();
+    List<Resource> getResourceByName(EntityManager em);
 
-    void removeResources(InventoryDomain inventoryDomain, EntityManager em);
+    void removeResources(Inventory inventoryDomain, EntityManager em);
 
-    void removeQuantity(ResourceQuantityInvDomain resourceQuantityInvDomain,EntityManager em);
+    void removeQuantity(ResourceQuantityInv resourceQuantityInvDomain, EntityManager em);
 }

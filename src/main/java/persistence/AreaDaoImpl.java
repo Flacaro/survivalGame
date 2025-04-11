@@ -1,14 +1,8 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
-import model.domain.AreaDomain;
-import model.domain.ResourceDomain;
 import model.entity.Area;
-import model.entity.Player;
-import model.entity.Resource;
-import services.AreaService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +10,13 @@ import java.util.List;
 public class AreaDaoImpl implements AreaDao {
 
     @Override
-    public void saveTotalMapArea(List<AreaDomain> areaDomain, EntityManager em) {
+    public void saveTotalMapArea(List<Area> areaDomain, EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-            AreaService areaService=new AreaService();
-            for (AreaDomain value : areaDomain) {
-                em.persist(areaService.areaMapper(value));
+            for (Area value : areaDomain) {
+                em.persist(value);
             }
             em.getTransaction().commit();
 
@@ -34,12 +27,12 @@ public class AreaDaoImpl implements AreaDao {
     }
 
     @Override
-    public void updateArea(List<AreaDomain> areas, EntityManager em) {
+    public void updateArea(List<Area> areas, EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-            for (AreaDomain value : areas) {
+            for (Area value : areas) {
                 Area area = em.find(Area.class, value.getId()); // Trova l'oggetto con ID 1
                 if (area != null) {
                     area.setIdEvent(value.getIdEvent());
@@ -56,17 +49,16 @@ public class AreaDaoImpl implements AreaDao {
     }
 
     @Override
-    public ArrayList<AreaDomain> getAreas(EntityManager em) {
+    public ArrayList<Area> getAreas(EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-            AreaService areaService= new AreaService();
             TypedQuery<Area> query = em.createQuery("SELECT a FROM Area a", Area.class);
 
-            ArrayList<AreaDomain> areaDomains= new ArrayList<>();
+            ArrayList<Area> areaDomains= new ArrayList<>();
             for (Area a :query.getResultList()){
-                areaDomains.add(areaService.areaDomainMapper(a));
+                areaDomains.add(a);
             }
             return areaDomains;
 
@@ -78,14 +70,13 @@ public class AreaDaoImpl implements AreaDao {
     }
 
     @Override
-    public AreaDomain getAreaById(EntityManager em, long idArea) {
+    public Area getAreaById(EntityManager em, long idArea) {
         try {
-            AreaService as=new AreaService();
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
             Area area = em.find(Area.class, idArea); // Trova l'oggetto con ID 1
-            return as.areaDomainMapper(area);
+            return area;
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();

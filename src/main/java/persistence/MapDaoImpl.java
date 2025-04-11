@@ -1,24 +1,20 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
-import model.domain.MapDomain;
-import model.domain.ResourceDomain;
 import model.entity.Area;
 import model.entity.Map;
-import services.MapServices;
+import model.entity.Resource;
 
 
 public class MapDaoImpl implements MapDao {
 
     @Override
-    public void saveMap(MapDomain map) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
+    public void saveMap(Map map,EntityManager em) {
         try {
-            MapServices mapServices = new MapServices();
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
-            em.persist(mapServices.mapMapper(map));
+            em.persist(map);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -28,8 +24,7 @@ public class MapDaoImpl implements MapDao {
     }
 
     @Override
-    public void updateMap(MapDomain mapDomain, ResourceDomain res) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
+    public void updateMap(Map mapDomain, Resource res,EntityManager em ) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();

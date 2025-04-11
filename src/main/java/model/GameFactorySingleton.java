@@ -4,17 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import model.domain.AreaDomain;
-import model.domain.ModeDomain;
-import model.domain.ResourceDomain;
+import controller.DBController;
+import model.entity.Area;
 import model.entity.Inventory;
+import model.entity.Mode;
+import model.entity.Resource;
 import persistence.AreaDaoImpl;
-import persistence.ResourceDaoImpl;
-import services.ResourceService;
 
 public class GameFactorySingleton {
 	private static GameFactorySingleton instance;
-	private ResourceService rs = new ResourceService();
 
 	public static GameFactorySingleton getInstance() {
 		if (instance==null){
@@ -23,20 +21,20 @@ public class GameFactorySingleton {
 		return instance;
 	}
 
-	public void createEvent(List<AreaDomain> totalMapAreaDomain, ModeDomain modeDomain) {
+	public void createEvent(List<Area> totalMapAreaDomain, Mode modeDomain) {
 		int numRes= modeDomain.getNumResources();
-
+		DBController dbController=new DBController();
 		//devo recuperare le risorse nel db, posizionarle nelle caselle ed aggiornare la quantità
-		ArrayList<ResourceDomain> resources= new ArrayList<>();
-		resources = rs.getResources();
+		ArrayList<Resource> resources= new ArrayList<>();
+		resources = dbController.getResources();
 		AreaDaoImpl areaDao= new AreaDaoImpl();
 
 		//Collections.shuffle(totalMapAreaDomain);
 		Collections.shuffle(resources);
 		//id delle caselle contenenti le risorse
 		// 0 index per 4 aree
-		List<AreaDomain> subListAreaDomain = totalMapAreaDomain.subList(0, numRes);
-		List<ResourceDomain> subListResources= resources.subList(0,numRes);
+		List<Area> subListAreaDomain = totalMapAreaDomain.subList(0, numRes);
+		List<Resource> subListResources= resources.subList(0,numRes);
 
 		for (int i = 0; i < numRes; i++){
 			subListAreaDomain.get(i).setIdEvent(subListResources.get(i).getId());
@@ -46,7 +44,7 @@ public class GameFactorySingleton {
 	}
 
 
-	public void createClimate(ModeDomain modeDomain) {
+	public void createClimate(Mode modeDomain) {
 		// TODO - implement GameFactorySingleton.createClimate
 		throw new UnsupportedOperationException();
 	}

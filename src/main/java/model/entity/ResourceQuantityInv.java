@@ -1,5 +1,6 @@
 package model.entity;
 
+import controller.DBController;
 import jakarta.persistence.*;
 
 @Entity
@@ -59,5 +60,10 @@ public class ResourceQuantityInv {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public void remove(ResourceQuantityInv resourceQuantityInvDomain) {
+        DBController dbController = new DBController();
+        dbController.removeQuantity(resourceQuantityInvDomain);
     }
 }

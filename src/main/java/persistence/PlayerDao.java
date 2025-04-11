@@ -1,12 +1,13 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
-import model.domain.InventoryDomain;
-import model.domain.PlayerDomain;
+import model.entity.Inventory;
+import model.entity.Player;
+
 
 public interface PlayerDao {
 
-    void updatePlayer(PlayerDomain player,EntityManager em);
+    void updatePlayer(Player player, EntityManager em);
 
-    InventoryDomain getInventoryToShow(PlayerDomain pd, EntityManager em);
+    Inventory getInventoryToShow(Player pd, EntityManager em);
 }

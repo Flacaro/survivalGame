@@ -1,6 +1,8 @@
 package model.entity;
 
 import jakarta.persistence.*;
+import persistence.InventoryDaoImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,4 +69,33 @@ public class Inventory {
 	public void setCraftedResourceList(List<CraftedResource> craftedResourceList) {
 		this.craftedResourceList = craftedResourceList;
 	}
+
+	public Inventory remove(ArrayList<Resource> selections, Inventory inventoryDomain) {
+		List<ResourceQuantityInv> quantity=inventoryDomain.getResources_quantity();
+		ArrayList<ResourceQuantityInv> rqiToRemove = new ArrayList<>();
+		ArrayList<Resource> toRemove = new ArrayList<>();
+		for (ResourceQuantityInv q : quantity){
+			for (Resource r :selections){
+				if (q.getResource().getId()== r.getId()){
+					q.setQuantity(q.getQuantity()-1);
+					inventoryDomain.setCapacity(inventoryDomain.getCapacity()+1);
+					if (q.getQuantity()==0){
+						inventoryDomain.setCapacity(inventoryDomain.getCapacity()+1);
+						rqiToRemove.add(q);
+						toRemove.add(r);
+					}
+					break;
+				}
+			}
+		}
+		inventoryDomain.getResources().removeAll(toRemove);
+		quantity.removeAll(rqiToRemove);
+		inventoryDomain.setResources_quantity(quantity);
+		return inventoryDomain;
+	}
+
+	public boolean checkCapacity(Inventory inventoryDomain) {
+		return inventoryDomain.getCapacity() > 0;
+	}
+
 }

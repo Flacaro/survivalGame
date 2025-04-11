@@ -79,4 +79,25 @@ public class Mode {
 	public void setTotalArea(long totalArea) {
 		this.totalArea = totalArea;
 	}
+
+
+	public Mode(long id) {
+		this.id = id;
+		setResourcesAndArea(id);
+	}
+
+	public void setResourcesAndArea(long id) {
+		if(id == 1) {
+			totalArea = 9;
+			numResources = 4;
+		}
+		else if(id == 2) {
+			totalArea = 18;
+			numResources = 8;
+		}
+		else if(id == 3) {
+			totalArea = 36;
+			numResources = 12;
+		}
+	}
 }

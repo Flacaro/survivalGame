@@ -2,8 +2,11 @@ package model.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
+import persistence.AreaDaoImpl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -93,4 +96,5 @@ public class Area implements Serializable {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+
 }

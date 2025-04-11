@@ -2,6 +2,7 @@ package model.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -96,4 +97,5 @@ public class Resource extends Event {
 	public void setType(String type) {
 		this.type = type;
 	}
+
 }

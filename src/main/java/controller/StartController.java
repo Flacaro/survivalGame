@@ -1,10 +1,8 @@
 package controller;
 
 import model.GameFactorySingleton;
-import model.domain.*;
+import model.entity.*;
 import persistence.ResourceDaoImpl;
-import services.InventoryService;
-import services.MapServices;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,29 +17,28 @@ public class StartController {
     private GameFactorySingleton gms = GameFactorySingleton.getInstance();
 
     //start game with easy mode and single player
-    public GameDomain start() throws IOException {
+    public Game start() throws IOException {
 
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("scegli una modalita'\n");
         System.out.println("Scegli 1 per la modalita' facile, 2 per quella media, 3 per quella difficile'\n");
         int choice = Integer.parseInt(bf.readLine());
 
-        ModeDomain modeDomain = new ModeDomain(choice);
+        Mode modeDomain =dbController.getModeById(choice);
 
-        PlayerDomain playerDomain = new PlayerDomain();
+        Player playerDomain = new Player();
         System.out.println("scegli un nickname\n");
         String nickname = bf.readLine();
         playerDomain.setNickname(nickname);
         playerDomain.setHealth(5);
         playerDomain.setLevel(1);
 
-        InventoryDomain id = new InventoryDomain();
+        Inventory id = new Inventory();
         playerDomain.setInventory(id);
-        MapDomain mapDomain = new MapDomain();
-        MapServices mapServices = new MapServices();
-        mapDomain.setAreas(mapServices.setTotalMapArea(modeDomain));
+        Map mapDomain = new Map();
+        mapDomain.setAreas(mapDomain.setTotalMapArea(modeDomain));
 
-        GameDomain gameDomain = new GameDomain(
+        Game gameDomain = new Game(
                 1,
                 modeDomain,
                 playerDomain,
@@ -49,21 +46,21 @@ public class StartController {
         );
         dbController.insertGame(gameDomain);
 
-        ArrayList<AreaDomain> areaDomains = dbController.getAreas();
+        ArrayList<Area> areaDomains = dbController.getAreas();
         gms.createEvent(areaDomains, modeDomain);
         dbController.updateArea(areaDomains);
         mapDomain.setAreas(areaDomains);
-        GameDomain gameDB = dbController.getGame();
+        Game gameDB = dbController.getGame();
         dbController.updateGame(gameDB);
         //add resource necessarie per il craftig nell'inventario
-        InventoryDomain inventory = dbController.showInventory(playerDomain);
-        InventoryService inventoryService = new InventoryService();
-        List<ResourceDomain> res = new ArrayList<>();
+        Inventory inventory = dbController.showInventory(playerDomain);
+        List<Resource> res = new ArrayList<>();
         ResourceDaoImpl resourceDao = new ResourceDaoImpl();
-        res = resourceDao.getResourceByName();
+
+        res = dbController.getResourcesByName();
         inventory.setResources(res);
-        for (ResourceDomain r : res) {
-            inventoryService.updateInventory(r, inventory);
+        for (Resource r : res) {
+            dbController.updateInventory(r,inventory);
         }
         return dbController.getGame();
     }

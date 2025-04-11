@@ -1,10 +1,7 @@
 package controller;
-
-import model.domain.CraftedResourceDomain;
-import model.domain.InventoryDomain;
-import model.domain.PlayerDomain;
-import model.domain.ResourceDomain;
-import services.InventoryService;
+import model.entity.CraftedResource;
+import model.entity.Inventory;
+import model.entity.Resource;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,9 +12,9 @@ public class ResourceController {
 
     public ArrayList<String> getCombinations() {
         DBController dbController = new DBController();
-        ArrayList<CraftedResourceDomain> craft = dbController.getCraftedResources();
+        ArrayList<CraftedResource> craft = dbController.getCraftedResources();
         ArrayList<String> descr = new ArrayList<>();
-        for (CraftedResourceDomain s : craft) {
+        for (CraftedResource s : craft) {
             for (String h : s.getDescription().split(",")) {
                 descr.add(h.toLowerCase());
             }
@@ -25,11 +22,11 @@ public class ResourceController {
         return descr;
     }
 
-    public ArrayList<String> inputIndexTranslatorToResources(String[] selections, HashMap<Integer, ResourceDomain> corrisp) {
+    public ArrayList<String> inputIndexTranslatorToResources(String[] selections, HashMap<Integer, Resource> corrisp) {
         ArrayList<String> list = new ArrayList<>();
         //codifica dell'input
         for (String s : selections) {
-            ResourceDomain rd = corrisp.get(Integer.parseInt(s));
+            Resource rd = corrisp.get(Integer.parseInt(s));
             if (rd != null) {
                 list.add(corrisp.get(Integer.parseInt(s)).getName());
             } else {
@@ -39,13 +36,13 @@ public class ResourceController {
         return list;
     }
 
-    public CraftedResourceDomain pairsSelectedResourcesToCraftResource(ArrayList<String> list, ArrayList<String> descr) {
+    public CraftedResource pairsSelectedResourcesToCraftResource(ArrayList<String> list, ArrayList<String> descr) {
         DBController dbController = new DBController();
-        List<CraftedResourceDomain> craft = dbController.getCraftedResources();
+        List<CraftedResource> craft = dbController.getCraftedResources();
 
         boolean correspond = false;
         int count = 0;
-        for (CraftedResourceDomain s : craft) {
+        for (CraftedResource s : craft) {
 
             //check se gli elementi selezionati corrispondono ad una risorsa craftabile
             for (String l : list) {
@@ -69,7 +66,7 @@ public class ResourceController {
         return null;
     }
 
-    public CraftedResourceDomain compatible(String[] selections, HashMap<Integer, ResourceDomain> corrisp) {
+    public CraftedResource compatible(String[] selections, HashMap<Integer, Resource> corrisp) {
         ArrayList<String> list = inputIndexTranslatorToResources(selections, corrisp);
         if (list == null) {
             return null;
@@ -80,21 +77,21 @@ public class ResourceController {
     }
 
 
-    public InventoryDomain combine(String[] selections, HashMap<Integer, ResourceDomain> corrisp, InventoryDomain inventoryDomain, CraftedResourceDomain s) {
-        ArrayList<ResourceDomain> listResSel = new ArrayList<>();
-        InventoryService inventoryService = new InventoryService();
+    public Inventory combine(String[] selections, HashMap<Integer, Resource> corrisp, Inventory inventoryDomain, CraftedResource s) {
+        ArrayList<Resource> listResSel = new ArrayList<>();
         //aggiunge la risorsa selezionata attraverso l'input inserito
         for (String k : selections) {
             listResSel.add(corrisp.get(Integer.parseInt(k)));
         }
         //rimozone delle risorse dall'inventario
-        InventoryDomain id = inventoryService.remove(listResSel, inventoryDomain);
+        Inventory id = inventoryDomain.remove(listResSel, inventoryDomain);
         s.setQuantity(s.getQuantity() + 1);
-        List<CraftedResourceDomain> add = new ArrayList<>(inventoryDomain.getCraftedResourceDomainList());
+        List<CraftedResource> add = new ArrayList<>(inventoryDomain.getCraftedResourceList());
         add.add(s);
-        id.setCraftedResourceDomainList(add);
+        id.setCraftedResourceList(add);
         id.setCapacity(inventoryDomain.getCapacity() - 1);
-        return inventoryService.updateInventoryCraft(id);
+        DBController dbController=new DBController();
+        return dbController.updateInventoryCraft(id);
     }
 
 

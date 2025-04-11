@@ -1,17 +1,17 @@
 package persistence;
 
 import jakarta.persistence.EntityManager;
-import model.domain.AreaDomain;
+import model.entity.Area;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public interface AreaDao {
-    void saveTotalMapArea(List<AreaDomain> areaDomain, EntityManager em);
+    void saveTotalMapArea(List<Area> areaDomain, EntityManager em);
 
-    void updateArea(List<AreaDomain> areas, EntityManager em);
+    void updateArea(List<Area> areas, EntityManager em);
 
-    ArrayList<AreaDomain> getAreas(EntityManager em);
+    ArrayList<Area> getAreas(EntityManager em);
 
-    AreaDomain getAreaById(EntityManager em, long idArea);
+    Area getAreaById(EntityManager em, long idArea);
 }

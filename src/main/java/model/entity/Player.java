@@ -1,5 +1,6 @@
 package model.entity;
 
+import controller.DBController;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -113,5 +114,22 @@ public class Player {
 
 	public void setX_axis(int x_axis) {
 		this.x_axis = x_axis;
+	}
+
+
+	public long setNewIdAreaxVariant(int x_axis, Game g) {
+		List<Area> areaxVariant= new ArrayList<>();
+		List<Area> areas=g.getMap().getAreas();
+		int range= (int) (g.getMode().getTotalArea()/2);
+		areaxVariant=areas.subList(0,range);
+		return areaxVariant.get(x_axis).getId();
+	}
+
+	public long setNewIdAreayVariant(int y_axis, Game g) {
+		List<Area> areayVariant= new ArrayList<>();
+		List<Area> areas=g.getMap().getAreas();
+		int range= (int) (g.getMode().getTotalArea()/2);
+		areayVariant=areas.subList(range+1,areas.size()-1);
+		return areayVariant.get(y_axis).getId();
 	}
 }

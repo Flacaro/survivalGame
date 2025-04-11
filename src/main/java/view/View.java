@@ -3,11 +3,7 @@ package view;
 import controller.DBController;
 import controller.ResourceController;
 import controller.StartController;
-import model.domain.*;
-import model.entity.Game;
-import services.GameService;
-import services.MapServices;
-import services.PlayerService;
+import model.entity.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,7 +22,7 @@ public class View {
 
     public void playGame() throws IOException {
         StartController sc = new StartController();
-        GameDomain g = sc.start();
+        Game g = sc.start();
 
         System.out.println("\nTi svegli sulla spiaggia, confuso e dolorante." + "\n" + "L’aereo è precipitato. Intorno a te, solo mare, sabbia e frammenti del relitto." + "\n" + "Nessun segno di altri sopravvissuti.\n" +
                 "\n" +
@@ -70,15 +66,15 @@ public class View {
 
     }
 
-    private boolean crafting(GameDomain g) {
+    private boolean crafting(Game g) {
         DBController dbController = new DBController();
         ResourceController resourceController = new ResourceController();
-        PlayerDomain playerDomain = g.getPlayerDomain();
-        InventoryDomain inventory = dbController.showInventory(playerDomain);
-        List<CraftedResourceDomain> craft = dbController.getCraftedResources();
+        Player playerDomain = g.getPlayer();
+        Inventory inventory = dbController.showInventory(playerDomain);
+        List<CraftedResource> craft = dbController.getCraftedResources();
         System.out.println("Combinazioni possibili per il crafting degli oggetti");
         System.out.println("-----------------------------------------------------");
-        for (CraftedResourceDomain r : craft) {
+        for (CraftedResource r : craft) {
             System.out.println("Per creare " + r.getName() + " seleziona " + r.getDescription());
             System.out.println("-----------------------------------------------------");
         }
@@ -89,8 +85,8 @@ public class View {
             try {
                 System.out.println("Inserisci l'indice delle risorse da combinare separate tramite virgola (es. 0,1)");
                 int counter = 0;
-                HashMap<Integer, ResourceDomain> corrisp = new HashMap<>();
-                for (ResourceDomain r : inventory.getResources()) {
+                HashMap<Integer, Resource> corrisp = new HashMap<>();
+                for (Resource r : inventory.getResources()) {
                     counter=counter+1;
                     System.out.println("Inserire l'indice " + counter + " per selezionare la risorsa: " + r.getName());
                     corrisp.put(counter, r);
@@ -104,7 +100,7 @@ public class View {
                         return false;
                     }
                 }
-                CraftedResourceDomain pair = resourceController.compatible(selections, corrisp);
+                CraftedResource pair = resourceController.compatible(selections, corrisp);
                 if (pair != null) {
                     playerDomain.setInventory(resourceController.combine(selections, corrisp, inventory, pair));
                     System.out.println("Hai creato: " + pair.getName());
@@ -124,14 +120,11 @@ public class View {
         }
     }
 
-    private void exploreArea(GameDomain gameDomain) throws IOException {
+    private void exploreArea(Game gameDomain) throws IOException {
         long currentIdArea = gameDomain.getPlayer().getIdArea();
-        GameService gameService = new GameService();
-        ResourceDomain resourceDomain = gameService.triggerEvent(currentIdArea, gameDomain);
-        MapServices ms = new MapServices();
-        PlayerService playerService = new PlayerService();
+        Resource resourceDomain = gameDomain.triggerEvent(currentIdArea, gameDomain);
         DBController dbController = new DBController();
-        AreaDomain currentArea = dbController.getAreasById(currentIdArea);
+        Area currentArea = dbController.getAreasById(currentIdArea);
 
         if (resourceDomain != null) {
             if (currentArea.getIdEvent() == resourceDomain.getId()) {
@@ -140,8 +133,8 @@ public class View {
                 switch (choice) {
                     case 1:
                         //pickup
-                        if (playerService.pickUp(resourceDomain, gameDomain.getPlayer())) {
-                            ms.updateMap(gameDomain.getMap(), resourceDomain);
+                        if (gameDomain.pickUp(resourceDomain, gameDomain.getPlayer())) {
+                            dbController.updateMap(gameDomain.getMap(), resourceDomain);
                             System.out.println("Risorsa aggiunta all'inventario");
                         } else {
                             System.out.println("L'inventario e' pieno, non puoi aggiungere la risorsa");
@@ -159,12 +152,13 @@ public class View {
         }
     }
 
-    private void move(GameDomain gameDomain) throws IOException {
-        PlayerDomain pd = gameDomain.getPlayer();
+    private void move(Game gameDomain) throws IOException {
+        Player pd = gameDomain.getPlayer();
         int move = readDirectionChoice();
         DBController dbController = new DBController();
+        //non so dove mettere il move qua non sta bene nel dbController
         boolean moved = dbController.move(move, gameDomain);
-        AreaDomain areaDomain = dbController.getAreasById(pd.getIdArea());
+        Area areaDomain = dbController.getAreasById(pd.getIdArea());
         if (moved) {
             System.out.println("Ti sei spostato in: " + areaDomain.getName());
             System.out.println(areaDomain.getDescription());
@@ -185,30 +179,30 @@ public class View {
         return 0;
     }
 
-    public void showInventory(GameDomain g) {
+    public void showInventory(Game g) {
         DBController dbController = new DBController();
-        PlayerDomain pd = g.getPlayer();
-        InventoryDomain inventory =dbController.showInventory(pd);
-        List<ResourceQuantityInvDomain> resourcesQuantity = inventory.getResources_quantity();
+        Player pd = g.getPlayer();
+        Inventory inventory =dbController.showInventory(pd);
+        List<ResourceQuantityInv> resourcesQuantity = inventory.getResources_quantity();
         if (!inventory.getResources().isEmpty()) {
             System.out.println("Contenuto dell'inventario:");
-            for (ResourceDomain r : inventory.getResources()) {
-                for (ResourceQuantityInvDomain rqid : resourcesQuantity) {
+            for (Resource r : inventory.getResources()) {
+                for (ResourceQuantityInv rqid : resourcesQuantity) {
                     if (Objects.equals(r.getName(), rqid.getResource().getName())) {
                         System.out.println("-" + r.getName() + "  quantità:" + rqid.getQuantity());
                     }
                 }
             }
-            if (!inventory.getCraftedResourceDomainList().isEmpty()) {
-                for (CraftedResourceDomain r : inventory.getCraftedResourceDomainList()) {
+            if (!inventory.getCraftedResourceList().isEmpty()) {
+                for (CraftedResource r : inventory.getCraftedResourceList()) {
                     System.out.println("-" + r.getName() + "  quantità:" + r.getQuantity());
                 }
             }
         } else {
             if (inventory.getResources().isEmpty()) {
-                if (!inventory.getCraftedResourceDomainList().isEmpty()) {
+                if (!inventory.getCraftedResourceList().isEmpty()) {
                     System.out.println("Contenuto dell'inventario:");
-                    for (CraftedResourceDomain r : inventory.getCraftedResourceDomainList()) {
+                    for (CraftedResource r : inventory.getCraftedResourceList()) {
                         System.out.println("-" + r.getName() + " quantità: " + r.getQuantity());
                     }
                     return;

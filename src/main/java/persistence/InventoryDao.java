@@ -1,26 +1,21 @@
 package persistence;
-
-import model.domain.CraftedResourceDomain;
-import model.domain.InventoryDomain;
-import model.domain.ResourceDomain;
+import jakarta.persistence.EntityManager;
 import model.entity.Inventory;
 import model.entity.Resource;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public interface InventoryDao {
 
-    InventoryDomain getInventory(long idInventory);
+    Inventory getInventory(long idInventory, EntityManager em);
 
     String getNameResource();
 
-    boolean removeResourcesFromInventory(ArrayList<ResourceDomain> selections);
+    boolean removeResourcesFromInventory(ArrayList<Resource> selections,EntityManager em);
 
-    boolean updateInventory(ResourceDomain res, InventoryDomain id);
+    boolean updateInventory(Resource res, Inventory id,EntityManager em);
 
-    InventoryDomain updateInventoryCraft(InventoryDomain id);
+    Inventory updateInventoryCraft(Inventory id,EntityManager em);
 
-    void deleteResourceFromInventory(Resource res, InventoryDomain id);
+    void deleteResourceFromInventory(Resource res, Inventory id,EntityManager em);
 }
 

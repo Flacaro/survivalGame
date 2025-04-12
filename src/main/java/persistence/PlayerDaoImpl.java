@@ -5,7 +5,6 @@ import jakarta.persistence.TypedQuery;
 import model.entity.Inventory;
 import model.entity.Player;
 
-
 public class PlayerDaoImpl implements PlayerDao {
 
 

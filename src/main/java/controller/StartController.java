@@ -45,12 +45,12 @@ public class StartController {
         dbController.updateGame(gameDB);
         //add resource necessarie per il craftig nell'inventario
         Inventory inventory = dbController.showInventory(player);
-        List<Resource> res = new ArrayList<>();
+        List<SimpleResource> res = new ArrayList<>();
         ResourceDaoImpl resourceDao = new ResourceDaoImpl();
 
         res = dbController.getResourcesByName();
         inventory.setResources(res);
-        for (Resource r : res) {
+        for (SimpleResource r : res) {
             dbController.updateInventory(r, inventory);
         }
         return dbController.getGame();

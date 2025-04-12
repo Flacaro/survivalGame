@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import model.entity.Area;
 import model.entity.Map;
 import model.entity.Resource;
+import model.entity.SimpleResource;
 
 
 public class MapDaoImpl implements MapDao {
@@ -24,7 +25,7 @@ public class MapDaoImpl implements MapDao {
     }
 
     @Override
-    public void updateMap(Map mapDomain, Resource res,EntityManager em ) {
+    public void updateMap(Map mapDomain, SimpleResource res, EntityManager em ) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();

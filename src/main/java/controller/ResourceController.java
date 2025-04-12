@@ -2,6 +2,7 @@ package controller;
 import model.entity.CraftedResource;
 import model.entity.Inventory;
 import model.entity.Resource;
+import model.entity.SimpleResource;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,11 +23,11 @@ public class ResourceController {
         return descr;
     }
 
-    public ArrayList<String> inputIndexTranslatorToResources(String[] selections, HashMap<Integer, Resource> corrisp) {
+    public ArrayList<String> inputIndexTranslatorToResources(String[] selections, HashMap<Integer, SimpleResource> corrisp) {
         ArrayList<String> list = new ArrayList<>();
         //codifica dell'input
         for (String s : selections) {
-            Resource rd = corrisp.get(Integer.parseInt(s));
+            SimpleResource rd = corrisp.get(Integer.parseInt(s));
             if (rd != null) {
                 list.add(corrisp.get(Integer.parseInt(s)).getName());
             } else {
@@ -66,7 +67,7 @@ public class ResourceController {
         return null;
     }
 
-    public CraftedResource compatible(String[] selections, HashMap<Integer, Resource> corrisp) {
+    public CraftedResource compatible(String[] selections, HashMap<Integer, SimpleResource> corrisp) {
         ArrayList<String> list = inputIndexTranslatorToResources(selections, corrisp);
         if (list == null) {
             return null;
@@ -77,8 +78,8 @@ public class ResourceController {
     }
 
 
-    public Inventory combine(String[] selections, HashMap<Integer, Resource> corrisp, Inventory inventoryDomain, CraftedResource s) {
-        ArrayList<Resource> listResSel = new ArrayList<>();
+    public Inventory combine(String[] selections, HashMap<Integer, SimpleResource> corrisp, Inventory inventoryDomain, CraftedResource s) {
+        ArrayList<SimpleResource> listResSel = new ArrayList<>();
         //aggiunge la risorsa selezionata attraverso l'input inserito
         for (String k : selections) {
             listResSel.add(corrisp.get(Integer.parseInt(k)));

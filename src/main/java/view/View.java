@@ -93,8 +93,8 @@ public class View {
             try {
                 System.out.println("Inserisci l'indice delle risorse da combinare separate tramite virgola (es. 0,1)");
                 int counter = 0;
-                HashMap<Integer, Resource> corrisp = new HashMap<>();
-                for (Resource r : inventory.getResources()) {
+                HashMap<Integer, SimpleResource> corrisp = new HashMap<>();
+                for (SimpleResource r : inventory.getResources()) {
                     counter = counter + 1;
                     System.out.println("Inserire l'indice " + counter + " per selezionare la risorsa: " + r.getName());
                     corrisp.put(counter, r);
@@ -130,7 +130,7 @@ public class View {
 
     private void exploreArea(Game game) throws IOException {
         long currentIdArea = game.getPlayer().getIdArea();
-        Resource resource = game.triggerEvent(currentIdArea, game);
+        SimpleResource resource = game.triggerEvent(currentIdArea, game);
         DBController dbController = new DBController();
         Area currentArea = dbController.getAreasById(currentIdArea);
 
@@ -194,7 +194,7 @@ public class View {
         List<ResourceQuantityInv> resourcesQuantity = inventory.getResources_quantity();
         if (!inventory.getResources().isEmpty()) {
             System.out.println("Contenuto dell'inventario:");
-            for (Resource r : inventory.getResources()) {
+            for (SimpleResource r : inventory.getResources()) {
                 for (ResourceQuantityInv rqid : resourcesQuantity) {
                     if (Objects.equals(r.getName(), rqid.getResource().getName())) {
                         System.out.println("-" + r.getName() + "  quantità:" + rqid.getQuantity());

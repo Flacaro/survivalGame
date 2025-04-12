@@ -10,7 +10,7 @@ import java.util.List;
 public class ResourceDaoImpl implements ResourceDao {
 
     @Override
-    public void saveResource(Resource resource, EntityManager em) {
+    public void saveResource(SimpleResource resource, EntityManager em) {
         try {
             em.getTransaction().begin();
             em.persist(resource); // Salva nel database
@@ -23,8 +23,8 @@ public class ResourceDaoImpl implements ResourceDao {
     }
 
     @Override
-    public Resource getResourceById(long id, EntityManager em) {
-        TypedQuery<Resource> query = em.createQuery("SELECT r FROM Resource r where r.id =:id", Resource.class);
+    public SimpleResource getResourceById(long id, EntityManager em) {
+        TypedQuery<SimpleResource> query = em.createQuery("SELECT r FROM SimpleResource r where r.id =:id", SimpleResource.class);
         query.setParameter("id", id);
         return query.getSingleResult();
     }
@@ -33,20 +33,20 @@ public class ResourceDaoImpl implements ResourceDao {
     public ArrayList<CraftedResource> getResourcesCrafted(EntityManager em) {
         TypedQuery<CraftedResource> query = em.createQuery("SELECT r FROM CraftedResource r", CraftedResource.class);
 
-        ArrayList<CraftedResource> resourceDomains= new ArrayList<>();
-        for (CraftedResource r :query.getResultList()){
+        ArrayList<CraftedResource> resourceDomains = new ArrayList<>();
+        for (CraftedResource r : query.getResultList()) {
             resourceDomains.add(r);
         }
         return resourceDomains;
     }
 
     @Override
-    public List<Resource> getResourceByName(EntityManager em) {
-        List<Resource> list=new ArrayList<>();
-        TypedQuery<Resource> query = em.createQuery("SELECT r FROM Resource r where r.name =:name", Resource.class);
+    public List<SimpleResource> getResourceByName(EntityManager em) {
+        List<SimpleResource> list = new ArrayList<>();
+        TypedQuery<SimpleResource> query = em.createQuery("SELECT r FROM SimpleResource r where r.name =:name", SimpleResource.class);
         query.setParameter("name", "LEGNO");
         list.add(query.getSingleResult());
-        TypedQuery<Resource> query1 = em.createQuery("SELECT r FROM Resource r where r.name =:name", Resource.class);
+        TypedQuery<SimpleResource> query1 = em.createQuery("SELECT r FROM SimpleResource r where r.name =:name", SimpleResource.class);
         query1.setParameter("name", "METALLO");
         list.add(query1.getSingleResult());
         return list;
@@ -60,8 +60,8 @@ public class ResourceDaoImpl implements ResourceDao {
             }
             Inventory inventory = em.find(Inventory.class, inventoryDomain.getId()); // Trova l'oggetto con ID 1
             if (inventory != null) {
-                ArrayList<Resource> resources= new ArrayList<>();
-                for (Resource r : inventoryDomain.getResources()) {
+                ArrayList<SimpleResource> resources = new ArrayList<>();
+                for (SimpleResource r : inventoryDomain.getResources()) {
                     resources.add(r);
                 }
                 inventory.getResources().clear();
@@ -76,7 +76,7 @@ public class ResourceDaoImpl implements ResourceDao {
     }
 
     @Override
-    public void removeQuantity(ResourceQuantityInv resourceQuantityInvDomain,EntityManager em) {
+    public void removeQuantity(ResourceQuantityInv resourceQuantityInvDomain, EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
@@ -110,11 +110,11 @@ public class ResourceDaoImpl implements ResourceDao {
 //    }
 
     @Override
-    public ArrayList<Resource> getResources( EntityManager em) {
-        TypedQuery<Resource> query = em.createQuery("SELECT r FROM Resource r", Resource.class);
+    public ArrayList<SimpleResource> getResources(EntityManager em) {
+        TypedQuery<SimpleResource> query = em.createQuery("SELECT r FROM SimpleResource r", SimpleResource.class);
 
-        ArrayList<Resource> resourceDomains= new ArrayList<>();
-        for (Resource r :query.getResultList()){
+        ArrayList<SimpleResource> resourceDomains = new ArrayList<>();
+        for (SimpleResource r : query.getResultList()) {
             resourceDomains.add(r);
         }
         return resourceDomains;

@@ -1,7 +1,6 @@
 package model.entity;
 
 import jakarta.persistence.*;
-import persistence.InventoryDaoImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class Inventory {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@Column(name = "RESOURCES")
-	private List<Resource> resources=new ArrayList<>();
+	private List<SimpleResource> resources=new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@Column(name = "CRAFTEDRESOURCELIST")
@@ -54,11 +53,11 @@ public class Inventory {
 		this.capacity = capacity;
 	}
 
-	public List<Resource> getResources() {
+	public List<SimpleResource> getResources() {
 		return resources;
 	}
 
-	public void setResources(List<Resource> resources) {
+	public void setResources(List<SimpleResource> resources) {
 		this.resources = resources;
 	}
 
@@ -70,12 +69,12 @@ public class Inventory {
 		this.craftedResourceList = craftedResourceList;
 	}
 
-	public Inventory remove(ArrayList<Resource> selections, Inventory inventoryDomain) {
+	public Inventory remove(ArrayList<SimpleResource> selections, Inventory inventoryDomain) {
 		List<ResourceQuantityInv> quantity=inventoryDomain.getResources_quantity();
 		ArrayList<ResourceQuantityInv> rqiToRemove = new ArrayList<>();
-		ArrayList<Resource> toRemove = new ArrayList<>();
+		ArrayList<SimpleResource> toRemove = new ArrayList<>();
 		for (ResourceQuantityInv q : quantity){
-			for (Resource r :selections){
+			for (SimpleResource r :selections){
 				if (q.getResource().getId()== r.getId()){
 					q.setQuantity(q.getQuantity()-1);
 					inventoryDomain.setCapacity(inventoryDomain.getCapacity()+1);

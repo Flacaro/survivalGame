@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "CRAFTED_RESOURCE")
-public class CraftedResource {
+public class CraftedResource implements Resource {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class CraftedResource {
     private String category;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Attack> attacks=new ArrayList<>();
+    private List<Attack> attacks = new ArrayList<>();
 
     @Column(name = "LEVEL", nullable = false)
     private int level = 1;
@@ -58,6 +58,11 @@ public class CraftedResource {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    @Override
+    public void use() {
+
     }
 
     public void setQuantity(int quantity) {

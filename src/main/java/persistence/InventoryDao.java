@@ -2,6 +2,8 @@ package persistence;
 import jakarta.persistence.EntityManager;
 import model.entity.Inventory;
 import model.entity.Resource;
+import model.entity.SimpleResource;
+
 import java.util.ArrayList;
 
 public interface InventoryDao {
@@ -10,12 +12,12 @@ public interface InventoryDao {
 
     String getNameResource();
 
-    boolean removeResourcesFromInventory(ArrayList<Resource> selections,EntityManager em);
+    boolean removeResourcesFromInventory(ArrayList<SimpleResource> selections, EntityManager em);
 
-    boolean updateInventory(Resource res, Inventory id,EntityManager em);
+    boolean updateInventory(SimpleResource res, Inventory id,EntityManager em);
 
     Inventory updateInventoryCraft(Inventory id,EntityManager em);
 
-    void deleteResourceFromInventory(Resource res, Inventory id,EntityManager em);
+    void deleteResourceFromInventory(SimpleResource res, Inventory id,EntityManager em);
 }
 

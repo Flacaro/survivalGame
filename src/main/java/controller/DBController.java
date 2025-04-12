@@ -95,36 +95,36 @@ public class DBController {
         close();
     }
 
-    public void updateMap(Map map, Resource resource) {
+    public void updateMap(Map map, SimpleResource resource) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         mapDaoImpl.updateMap(map, resource, em);
         close();
     }
 
 
-    public ArrayList<Resource> getResources() {
+    public ArrayList<SimpleResource> getResources() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        ArrayList<Resource> resources = resourceDao.getResources(em);
+        ArrayList<SimpleResource> resources = resourceDao.getResources(em);
         close();
         return resources;
     }
 
-    public Resource getResourceById(long id) {
+    public SimpleResource getResourceById(long id) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        Resource resource = resourceDao.getResourceById(id, em);
+        SimpleResource resource = resourceDao.getResourceById(id, em);
         close();
         return resource;
     }
 
-    public List<Resource> getResourcesByName() {
+    public List<SimpleResource> getResourcesByName() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        List<Resource> resources = resourceDao.getResourceByName(em);
+        List<SimpleResource> resources = resourceDao.getResourceByName(em);
         close();
         return resources;
     }
 
 
-    public boolean updateInventory(Resource res, Inventory id) {
+    public boolean updateInventory(SimpleResource res, Inventory id) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         boolean updated = inventoryDao.updateInventory(res, id, em);
         close();

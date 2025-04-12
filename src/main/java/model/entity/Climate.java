@@ -68,8 +68,4 @@ public class Climate extends Event{
 		this.level = level;
 	}
 
-	@Override
-	public void getEvent() {
-		System.out.println("In questa area c'e' un clima avverso! " + getName() + " causa " + damage + " danni.");
-	}
 }

@@ -16,7 +16,7 @@ public class ResourceQuantityInv {
 
     @ManyToOne
     @JoinColumn(name = "resource_id")
-    private Resource resource;
+    private SimpleResource resource;
 
     @Column(name = "quantity")
     private int quantity;
@@ -24,7 +24,7 @@ public class ResourceQuantityInv {
     public ResourceQuantityInv() {
     }
 
-    public ResourceQuantityInv(Inventory inventory, Resource resource, int quantity) {
+    public ResourceQuantityInv(Inventory inventory, SimpleResource resource, int quantity) {
         this.inventory = inventory;
         this.resource = resource;
         this.quantity = quantity;
@@ -46,11 +46,11 @@ public class ResourceQuantityInv {
         this.inventory = inventory;
     }
 
-    public Resource getResource() {
+    public SimpleResource getResource() {
         return resource;
     }
 
-    public void setResource(Resource resource) {
+    public void setResource(SimpleResource resource) {
         this.resource = resource;
     }
 

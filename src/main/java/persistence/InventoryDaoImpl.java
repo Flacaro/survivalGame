@@ -4,8 +4,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import model.entity.CraftedResource;
 import model.entity.Inventory;
-import model.entity.Resource;
 import model.entity.ResourceQuantityInv;
+import model.entity.SimpleResource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +35,12 @@ public class InventoryDaoImpl implements InventoryDao {
     }
 
     @Override
-    public boolean removeResourcesFromInventory(ArrayList<Resource> selections,EntityManager em) {
+    public boolean removeResourcesFromInventory(ArrayList<SimpleResource> selections, EntityManager em) {
         return false;
     }
 
     @Override
-    public boolean updateInventory(Resource res, Inventory id,EntityManager em) {
+    public boolean updateInventory(SimpleResource res, Inventory id,EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
@@ -52,7 +52,7 @@ public class InventoryDaoImpl implements InventoryDao {
                 inventory.setCapacity(id.getCapacity() - 1);
 
                 boolean resourceFound = false;
-                for (Resource resource : inventory.getResources()) {
+                for (SimpleResource resource : inventory.getResources()) {
                     for (ResourceQuantityInv rqi :resourcesQuantity){
                     if (resource.getId() == res.getId()) {
                         if (resource.getId() == rqi.getResource().getId()) {
@@ -63,9 +63,9 @@ public class InventoryDaoImpl implements InventoryDao {
                     }
                     }}
                 if (!resourceFound) {
-                    Resource newResource = em.find(Resource.class, res.getId());
+                    SimpleResource newResource = em.find(SimpleResource.class, res.getId());
                     if (newResource == null) {
-                        newResource = new Resource(res.getId(), res.getCategory(), res.getAttacks(), res.getLevel(), res.getName(), res.getQuantity(), res.getType());
+                        newResource = new SimpleResource(res.getId(), res.getCategory(), res.getAttacks(), res.getLevel(), res.getName(), res.getQuantity(), res.getType());
                         em.persist(newResource);
                     }
                     inventory.getResources().add(newResource);
@@ -93,9 +93,9 @@ public class InventoryDaoImpl implements InventoryDao {
             }
             Inventory inventory = em.find(Inventory.class, id.getId());
             if (inventory != null) {
-                ArrayList<Resource> list=new ArrayList<>();
+                ArrayList<SimpleResource> list=new ArrayList<>();
                 ArrayList<ResourceQuantityInv> qnt=new ArrayList<>();
-                for (Resource r :id.getResources()){
+                for (SimpleResource r :id.getResources()){
                     list.add(r);
                 }
                 for (ResourceQuantityInv r :id.getResources_quantity()){
@@ -125,7 +125,7 @@ public class InventoryDaoImpl implements InventoryDao {
     }
 
     @Override
-    public void deleteResourceFromInventory(Resource res, Inventory id,EntityManager em) {
+    public void deleteResourceFromInventory(SimpleResource res, Inventory id,EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();

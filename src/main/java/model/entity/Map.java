@@ -12,7 +12,7 @@ import java.util.List;
 public class Map {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @OneToMany(cascade = CascadeType.DETACH)

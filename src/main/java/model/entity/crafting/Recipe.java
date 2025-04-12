@@ -18,6 +18,29 @@ public class Recipe {
     private CraftedResource craftedResource;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "INGREDIENT")
     private List<Ingredient> ingredient = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public CraftedResource getCraftedResource() {
+        return craftedResource;
+    }
+
+    public void setCraftedResource(CraftedResource craftedResource) {
+        this.craftedResource = craftedResource;
+    }
+
+    public List<Ingredient> getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(List<Ingredient> ingredient) {
+        this.ingredient = ingredient;
+    }
 }

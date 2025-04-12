@@ -7,10 +7,13 @@ INSERT INTO simple_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME, TYPE)
 INSERT INTO mode (DESCRIPTION,NUM_RESOURCES,NUM_ENEMY,TOTAL_AREA) VALUES ("Easy",4,0,8);
 INSERT INTO mode (DESCRIPTION,NUM_RESOURCES,NUM_ENEMY,TOTAL_AREA) VALUES ("Medium",8,0,18);
 INSERT INTO mode (DESCRIPTION,NUM_RESOURCES,NUM_ENEMY,TOTAL_AREA) VALUES ("Hard",12,0,36);
-INSERT INTO crafted_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME) VALUES (1, 0, "RISORSA","Legno,Metallo","Lancia");
-INSERT INTO crafted_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME) VALUES (1, 0, "RISORSA","Paglia,Corda,Legno","Rifugio");
-INSERT INTO craftedResource_components (resource, component) VALUES ("Lancia", "Legno");
-INSERT INTO craftedResource_components (resource, component) VALUES ("Lancia", "Metallo");
+INSERT INTO crafted_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME) VALUES (1, 0, "RISORSA","Legno,Metallo","LANCIA");
+INSERT INTO crafted_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME) VALUES (1, 0, "RISORSA","Paglia,Corda,Legno","RIFUGIO");
+INSERT INTO craftedResource_components (resource, component) SELECT rc.id, sr.id FROM simple_resource sr, crafted_resource rc WHERE rc.NAME="LANCIA" AND sr.name="LEGNO";
+INSERT INTO craftedResource_components (resource, component) SELECT rc.id, sr.id FROM simple_resource sr, crafted_resource rc WHERE rc.NAME="LANCIA" AND sr.name="METALLO";
+INSERT INTO recipe (craftedResource_id) SELECT id FROM crafted_resource WHERE name="LANCIA"
+INSERT INTO ingredient (RESOURCE_ID,RECIPE_ID,quantity) SELECT sr.id,r.id , 1 FROM recipe r, simple_resource sr WHERE r.craftedResource_id=(SELECT id FROM crafted_resource WHERE NAME="LANCIA") AND sr.name="LEGNO";
+INSERT INTO ingredient (RESOURCE_ID,RECIPE_ID,quantity) SELECT sr.id,r.id , 1 FROM recipe r, simple_resource sr WHERE r.craftedResource_id=(SELECT id FROM crafted_resource WHERE NAME="LANCIA") AND sr.name="METALLO";
 INSERT INTO area (NAME,DESCRIPTION) VALUES ("Spiaggia del Relitto","La zona dove sei atterrato. Tra la sabbia e i rottami si trovano oggetti utili… ma anche pericoli nascosti.");
 INSERT INTO area (NAME,DESCRIPTION) VALUES ("Foresta densa","Una giungla fitta e umida. È facile perdersi, ma qui si possono trovare piante medicinali e legname.");
 INSERT INTO area (NAME,DESCRIPTION) VALUES ("Cascata della Nebbia","Una cascata che cade in una piccola laguna. Acqua potabile e pesci, ma occhio agli animali che si abbeverano.");

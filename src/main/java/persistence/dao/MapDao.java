@@ -1,4 +1,4 @@
-package persistence;
+package persistence.dao;
 
 import jakarta.persistence.EntityManager;
 import model.entity.Map;

@@ -33,6 +33,15 @@ public class CraftedResource implements Resource {
     @Column(name = "TYPE")
     private String type;
 
+    @ManyToMany
+    @JoinTable(
+            name = "craftedResource_components",
+            joinColumns = @JoinColumn(name = "resource",referencedColumnName ="name" ),
+            inverseJoinColumns = @JoinColumn(name = "component",referencedColumnName ="name")
+    )
+    private List<SimpleResource> components = new ArrayList<>();
+
+
     public CraftedResource(long id, String name, String description, String category, List<Attack> attacks, int level, int quantity, String type) {
         this.id = id;
         this.name = name;

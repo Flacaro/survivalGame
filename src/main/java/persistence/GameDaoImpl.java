@@ -5,6 +5,8 @@ import jakarta.persistence.TypedQuery;
 import model.entity.Area;
 import model.entity.Game;
 import model.entity.Map;
+import persistence.dao.GameDao;
+
 import java.util.ArrayList;
 import java.util.List;
 

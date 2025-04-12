@@ -2,8 +2,9 @@ package persistence;
 
 import jakarta.persistence.EntityManager;
 import model.entity.Mode;
+import persistence.dao.ModeDao;
 
-public class ModeDaoImpl implements ModeDao{
+public class ModeDaoImpl implements ModeDao {
 
     @Override
     public Mode getModeById(long id, EntityManager em) {

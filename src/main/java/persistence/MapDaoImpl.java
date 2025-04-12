@@ -3,8 +3,8 @@ package persistence;
 import jakarta.persistence.EntityManager;
 import model.entity.Area;
 import model.entity.Map;
-import model.entity.Resource;
 import model.entity.SimpleResource;
+import persistence.dao.MapDao;
 
 
 public class MapDaoImpl implements MapDao {

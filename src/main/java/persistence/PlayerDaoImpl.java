@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import model.entity.Inventory;
 import model.entity.Player;
+import persistence.dao.PlayerDao;
 
 public class PlayerDaoImpl implements PlayerDao {
 

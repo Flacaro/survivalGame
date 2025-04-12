@@ -1,7 +1,6 @@
-package persistence;
+package persistence.dao;
 import jakarta.persistence.EntityManager;
 import model.entity.Inventory;
-import model.entity.Resource;
 import model.entity.SimpleResource;
 
 import java.util.ArrayList;

@@ -3,6 +3,7 @@ package persistence;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import model.entity.*;
+import persistence.dao.ResourceDao;
 
 import java.util.ArrayList;
 import java.util.List;

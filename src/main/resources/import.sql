@@ -9,6 +9,8 @@ INSERT INTO mode (DESCRIPTION,NUM_RESOURCES,NUM_ENEMY,TOTAL_AREA) VALUES ("Mediu
 INSERT INTO mode (DESCRIPTION,NUM_RESOURCES,NUM_ENEMY,TOTAL_AREA) VALUES ("Hard",12,0,36);
 INSERT INTO crafted_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME) VALUES (1, 0, "RISORSA","Legno,Metallo","Lancia");
 INSERT INTO crafted_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME) VALUES (1, 0, "RISORSA","Paglia,Corda,Legno","Rifugio");
+INSERT INTO craftedResource_components (resource, component) VALUES ("Lancia", "Legno");
+INSERT INTO craftedResource_components (resource, component) VALUES ("Lancia", "Metallo");
 INSERT INTO area (NAME,DESCRIPTION) VALUES ("Spiaggia del Relitto","La zona dove sei atterrato. Tra la sabbia e i rottami si trovano oggetti utili… ma anche pericoli nascosti.");
 INSERT INTO area (NAME,DESCRIPTION) VALUES ("Foresta densa","Una giungla fitta e umida. È facile perdersi, ma qui si possono trovare piante medicinali e legname.");
 INSERT INTO area (NAME,DESCRIPTION) VALUES ("Cascata della Nebbia","Una cascata che cade in una piccola laguna. Acqua potabile e pesci, ma occhio agli animali che si abbeverano.");

@@ -6,6 +6,7 @@ import model.entity.CraftedResource;
 import model.entity.Inventory;
 import model.entity.ResourceQuantityInv;
 import model.entity.SimpleResource;
+import persistence.dao.InventoryDao;
 
 import java.util.ArrayList;
 import java.util.List;

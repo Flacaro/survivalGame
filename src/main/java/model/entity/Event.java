@@ -13,4 +13,5 @@ public abstract class Event implements Serializable {
 
     private String description;
 
+    public abstract void getEvent();
 }

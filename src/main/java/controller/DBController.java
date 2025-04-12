@@ -3,6 +3,7 @@ package controller;
 import jakarta.persistence.EntityManager;
 import model.entity.*;
 import persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,10 +11,10 @@ import java.util.List;
 public class DBController {
 
 
-    GameDaoImpl gameDaoImpl= new GameDaoImpl();
-    AreaDaoImpl areaDaoImpl= new AreaDaoImpl();
-    PlayerDaoImpl playerDaoImpl= new PlayerDaoImpl();
-    MapDaoImpl mapDaoImpl=new MapDaoImpl();
+    GameDaoImpl gameDaoImpl = new GameDaoImpl();
+    AreaDaoImpl areaDaoImpl = new AreaDaoImpl();
+    PlayerDaoImpl playerDaoImpl = new PlayerDaoImpl();
+    MapDaoImpl mapDaoImpl = new MapDaoImpl();
     ResourceDaoImpl resourceDao = new ResourceDaoImpl();
     InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
 
@@ -36,22 +37,22 @@ public class DBController {
 
     public ArrayList<Area> getAreas() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        ArrayList<Area> areaDomains = areaDaoImpl.getAreas(em);
+        ArrayList<Area> areas = areaDaoImpl.getAreas(em);
         close();
-        return areaDomains;
+        return areas;
     }
 
     public void updateGame(Game gameDomain) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        gameDaoImpl.updateGame(gameDomain,em);
+        gameDaoImpl.updateGame(gameDomain, em);
         close();
     }
 
     public Game getGame() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        Game gameDomain = gameDaoImpl.getGame(em);
+        Game game = gameDaoImpl.getGame(em);
         close();
-        return gameDomain;
+        return game;
     }
 
     public void updatePlayer(Player p) {
@@ -61,11 +62,11 @@ public class DBController {
     }
 
 
-    public Inventory showInventory(Player pd) {
+    public Inventory showInventory(Player p) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        Inventory inventoryDomain = playerDaoImpl.getInventoryToShow(pd, em);
+        Inventory inventory = playerDaoImpl.getInventoryToShow(p, em);
         close();
-        return inventoryDomain;
+        return inventory;
     }
 
     public boolean move(int move, Game game) {
@@ -83,41 +84,41 @@ public class DBController {
 
     public Area getAreasById(long idArea) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        Area areaDomains = areaDaoImpl.getAreaById(em,idArea);
+        Area area = areaDaoImpl.getAreaById(em, idArea);
         close();
-        return areaDomains;
+        return area;
     }
 
-    public void removeQuantity(ResourceQuantityInv resourceQuantityInvDomain) {
+    public void removeQuantity(ResourceQuantityInv resourceQuantityInv) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        resourceDao.removeQuantity(resourceQuantityInvDomain, em);
+        resourceDao.removeQuantity(resourceQuantityInv, em);
         close();
     }
 
-    public void updateMap(Map map, Resource resourceDomain) {
+    public void updateMap(Map map, Resource resource) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        mapDaoImpl.updateMap(map, resourceDomain,em);
+        mapDaoImpl.updateMap(map, resource, em);
         close();
     }
 
 
     public ArrayList<Resource> getResources() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        ArrayList<Resource> resources=resourceDao.getResources(em);
+        ArrayList<Resource> resources = resourceDao.getResources(em);
         close();
         return resources;
     }
 
     public Resource getResourceById(long id) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        Resource resource=resourceDao.getResourceById(id,em);
+        Resource resource = resourceDao.getResourceById(id, em);
         close();
         return resource;
     }
 
     public List<Resource> getResourcesByName() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        List<Resource> resources=resourceDao.getResourceByName(em);
+        List<Resource> resources = resourceDao.getResourceByName(em);
         close();
         return resources;
     }
@@ -125,22 +126,22 @@ public class DBController {
 
     public boolean updateInventory(Resource res, Inventory id) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        boolean updated=inventoryDao.updateInventory(res, id,em);
+        boolean updated = inventoryDao.updateInventory(res, id, em);
         close();
-        return updated ;
+        return updated;
     }
 
     public Inventory updateInventoryCraft(Inventory id) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        Inventory inventory=inventoryDao.updateInventoryCraft(id,em);
+        Inventory inventory = inventoryDao.updateInventoryCraft(id, em);
         close();
         return inventory;
     }
 
     public Mode getModeById(int choice) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        ModeDaoImpl modeDao=new ModeDaoImpl();
-        Mode mode = modeDao.getModeById(choice,em);
+        ModeDaoImpl modeDao = new ModeDaoImpl();
+        Mode mode = modeDao.getModeById(choice, em);
         close();
         return mode;
     }

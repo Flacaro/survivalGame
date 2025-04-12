@@ -98,4 +98,8 @@ public class Resource extends Event {
 		this.type = type;
 	}
 
+	@Override
+	public void getEvent() {
+		System.out.println("In questa area c'e' una risorsa! " + getName() + " di livello " + level );
+	}
 }

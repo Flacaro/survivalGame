@@ -80,4 +80,9 @@ public class Enemy extends Event {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	@Override
+	public void getEvent() {
+		System.out.println("In questa area c'e' un nemico! " + getName() + " di livello " + level);
+	}
 }

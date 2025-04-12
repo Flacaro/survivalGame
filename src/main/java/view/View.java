@@ -22,7 +22,15 @@ public class View {
 
     public void playGame() throws IOException {
         StartController sc = new StartController();
-        Game g = sc.start();
+
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("scegli una modalita'\n");
+        System.out.println("Scegli 1 per la modalita' facile, 2 per quella media, 3 per quella difficile'\n");
+        int mode = Integer.parseInt(bf.readLine());
+        System.out.println("scegli un nickname\n");
+        String nickname = bf.readLine();
+
+        Game g = sc.start(mode, nickname);
 
         System.out.println("\nTi svegli sulla spiaggia, confuso e dolorante." + "\n" + "L’aereo è precipitato. Intorno a te, solo mare, sabbia e frammenti del relitto." + "\n" + "Nessun segno di altri sopravvissuti.\n" +
                 "\n" +
@@ -33,10 +41,10 @@ public class View {
 
         System.out.println("Benvenuto nella demo! Esplora le aree, raccogli le risorse e crafta una risorsa per completarla e passare al gioco.\n");
         boolean continueToPlay = true;
-        DBController dbController= new DBController();
+        DBController dbController = new DBController();
         while (continueToPlay) {
             int choice = showMainMenu();
-            g=dbController.getGame();
+            g = dbController.getGame();
             switch (choice) {
                 case 1:
                     exploreArea(g);
@@ -69,8 +77,8 @@ public class View {
     private boolean crafting(Game g) {
         DBController dbController = new DBController();
         ResourceController resourceController = new ResourceController();
-        Player playerDomain = g.getPlayer();
-        Inventory inventory = dbController.showInventory(playerDomain);
+        Player player = g.getPlayer();
+        Inventory inventory = dbController.showInventory(player);
         List<CraftedResource> craft = dbController.getCraftedResources();
         System.out.println("Combinazioni possibili per il crafting degli oggetti");
         System.out.println("-----------------------------------------------------");
@@ -87,7 +95,7 @@ public class View {
                 int counter = 0;
                 HashMap<Integer, Resource> corrisp = new HashMap<>();
                 for (Resource r : inventory.getResources()) {
-                    counter=counter+1;
+                    counter = counter + 1;
                     System.out.println("Inserire l'indice " + counter + " per selezionare la risorsa: " + r.getName());
                     corrisp.put(counter, r);
 
@@ -102,10 +110,10 @@ public class View {
                 }
                 CraftedResource pair = resourceController.compatible(selections, corrisp);
                 if (pair != null) {
-                    playerDomain.setInventory(resourceController.combine(selections, corrisp, inventory, pair));
+                    player.setInventory(resourceController.combine(selections, corrisp, inventory, pair));
                     System.out.println("Hai creato: " + pair.getName());
-                    dbController.updatePlayer(playerDomain);
-                    g.setPlayer(playerDomain);
+                    dbController.updatePlayer(player);
+                    g.setPlayer(player);
                     dbController.updateGame(g);
                     showInventory(g);
                     return true;
@@ -120,21 +128,21 @@ public class View {
         }
     }
 
-    private void exploreArea(Game gameDomain) throws IOException {
-        long currentIdArea = gameDomain.getPlayer().getIdArea();
-        Resource resourceDomain = gameDomain.triggerEvent(currentIdArea, gameDomain);
+    private void exploreArea(Game game) throws IOException {
+        long currentIdArea = game.getPlayer().getIdArea();
+        Resource resource = game.triggerEvent(currentIdArea, game);
         DBController dbController = new DBController();
         Area currentArea = dbController.getAreasById(currentIdArea);
 
-        if (resourceDomain != null) {
-            if (currentArea.getIdEvent() == resourceDomain.getId()) {
-                foundedResource(resourceDomain.getName());
+        if (resource != null) {
+            if (currentArea.getIdEvent() == resource.getId()) {
+                foundedResource(resource.getName());
                 int choice = readChoice("Inserisci 1 o 0:");
                 switch (choice) {
                     case 1:
                         //pickup
-                        if (gameDomain.pickUp(resourceDomain, gameDomain.getPlayer())) {
-                            dbController.updateMap(gameDomain.getMap(), resourceDomain);
+                        if (game.pickUp(resource, game.getPlayer())) {
+                            dbController.updateMap(game.getMap(), resource);
                             System.out.println("Risorsa aggiunta all'inventario");
                         } else {
                             System.out.println("L'inventario e' pieno, non puoi aggiungere la risorsa");
@@ -152,19 +160,19 @@ public class View {
         }
     }
 
-    private void move(Game gameDomain) throws IOException {
-        Player pd = gameDomain.getPlayer();
+    private void move(Game game) throws IOException {
+        Player pd = game.getPlayer();
         int move = readDirectionChoice();
         DBController dbController = new DBController();
         //non so dove mettere il move qua non sta bene nel dbController
-        boolean moved = dbController.move(move, gameDomain);
-        Area areaDomain = dbController.getAreasById(pd.getIdArea());
+        boolean moved = dbController.move(move, game);
+        Area area = dbController.getAreasById(pd.getIdArea());
         if (moved) {
-            System.out.println("Ti sei spostato in: " + areaDomain.getName());
-            System.out.println(areaDomain.getDescription());
+            System.out.println("Ti sei spostato in: " + area.getName());
+            System.out.println(area.getDescription());
         } else {
             System.out.println("Non puoi muoverti in quella direzione.");
-            move(gameDomain);
+            move(game);
         }
     }
 
@@ -182,7 +190,7 @@ public class View {
     public void showInventory(Game g) {
         DBController dbController = new DBController();
         Player pd = g.getPlayer();
-        Inventory inventory =dbController.showInventory(pd);
+        Inventory inventory = dbController.showInventory(pd);
         List<ResourceQuantityInv> resourcesQuantity = inventory.getResources_quantity();
         if (!inventory.getResources().isEmpty()) {
             System.out.println("Contenuto dell'inventario:");

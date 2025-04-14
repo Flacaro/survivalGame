@@ -6,6 +6,7 @@ import model.entity.*;
 import persistence.dao.ResourceDao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ResourceDaoImpl implements ResourceDao {
@@ -33,7 +34,6 @@ public class ResourceDaoImpl implements ResourceDao {
     @Override
     public ArrayList<CraftedResource> getResourcesCrafted(EntityManager em) {
         TypedQuery<CraftedResource> query = em.createQuery("SELECT r FROM CraftedResource r", CraftedResource.class);
-
         ArrayList<CraftedResource> resourceDomains = new ArrayList<>();
         for (CraftedResource r : query.getResultList()) {
             resourceDomains.add(r);

@@ -125,4 +125,12 @@ public class CraftedResource implements Resource {
     public void setLevel(int level) {
         this.level = level;
     }
+
+    public List<SimpleResource> getComponents() {
+        return components;
+    }
+
+    public void setComponents(List<SimpleResource> components) {
+        this.components = components;
+    }
 }

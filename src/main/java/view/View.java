@@ -83,8 +83,9 @@ public class View {
         System.out.println("Combinazioni possibili per il crafting degli oggetti");
         System.out.println("-----------------------------------------------------");
         for (CraftedResource r : craft) {
-            System.out.println("Per creare " + r.getName() + " seleziona " + r.getComponents());
-            System.out.println("-----------------------------------------------------");
+            for (SimpleResource s : r.getComponents()){
+            System.out.println("Per creare " + r.getName() + " seleziona " + s.getName());
+            System.out.println("-----------------------------------------------------");}
         }
         if (inventory.getResources().isEmpty()) {
             System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");

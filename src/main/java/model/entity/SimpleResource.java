@@ -90,6 +90,19 @@ public class SimpleResource extends Event implements Resource {
 
     }
 
+    @Override
+    public String toString() {
+        return "SimpleResource{" +
+                "id=" + id +
+                ", category='" + category + '\'' +
+                ", attacks=" + attacks +
+                ", level=" + level +
+                ", name='" + name + '\'' +
+                ", quantity=" + quantity +
+                ", type='" + type + '\'' +
+                '}';
+    }
+
     public void setQuantity(int quantity) {
             this.quantity = quantity;
         }

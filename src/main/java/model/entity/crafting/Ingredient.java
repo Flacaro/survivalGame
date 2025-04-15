@@ -21,6 +21,16 @@ public class Ingredient {
     @JoinColumn(name="RECIPE_ID")
     private Recipe recipe;
 
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "id=" + id +
+                ", resource=" + resource +
+                ", quantity=" + quantity +
+                ", recipe=" + recipe +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }

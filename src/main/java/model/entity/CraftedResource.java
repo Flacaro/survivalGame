@@ -36,8 +36,8 @@ public class CraftedResource implements Resource {
     @ManyToMany
     @JoinTable(
             name = "craftedResource_components",
-            joinColumns = @JoinColumn(name = "resource",referencedColumnName ="name" ),
-            inverseJoinColumns = @JoinColumn(name = "component",referencedColumnName ="name")
+            joinColumns = @JoinColumn(name = "resource",referencedColumnName ="id" ),
+            inverseJoinColumns = @JoinColumn(name = "component",referencedColumnName ="id")
     )
     private List<SimpleResource> components = new ArrayList<>();
 

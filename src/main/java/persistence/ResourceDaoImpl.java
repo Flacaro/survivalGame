@@ -33,11 +33,12 @@ public class ResourceDaoImpl implements ResourceDao {
 
     @Override
     public ArrayList<CraftedResource> getResourcesCrafted(EntityManager em) {
-        TypedQuery<CraftedResource> query = em.createQuery("SELECT r FROM CraftedResource r", CraftedResource.class);
+        TypedQuery<CraftedResource> query = em.createQuery("SELECT r FROM CraftedResource r LEFT JOIN FETCH r.components", CraftedResource.class);
         ArrayList<CraftedResource> resourceDomains = new ArrayList<>();
         for (CraftedResource r : query.getResultList()) {
             resourceDomains.add(r);
         }
+
         return resourceDomains;
     }
 

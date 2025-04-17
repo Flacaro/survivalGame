@@ -10,4 +10,5 @@ public interface State {
     public void enemyFightsBack(Enemy enemy);
     public void playerWins(Player player);
     public void playerLoses(Player player);
+
 }

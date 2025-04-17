@@ -1,5 +1,4 @@
 package model.entity.fight;
-
 import model.entity.Enemy;
 import model.entity.Player;
 

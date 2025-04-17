@@ -77,6 +77,7 @@ public class Inventory {
 			for (SimpleResource r :selections){
 				if (q.getResource().getId()== r.getId()){
 					q.setQuantity(q.getQuantity()-1);
+					r.setQuantity(r.getQuantity()-1);
 					inventoryDomain.setCapacity(inventoryDomain.getCapacity()+1);
 					if (q.getQuantity()==0){
 						inventoryDomain.setCapacity(inventoryDomain.getCapacity()+1);

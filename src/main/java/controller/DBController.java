@@ -25,40 +25,40 @@ public class DBController {
     public void insertGame(Game g) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         gameDaoImpl.saveGame(g, em);
-        close();
+        //close();
     }
 
 
     public void updateArea(List<Area> areas) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         areaDaoImpl.updateArea(areas, em);
-        close();
+        //close();
     }
 
     public ArrayList<Area> getAreas() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         ArrayList<Area> areas = areaDaoImpl.getAreas(em);
-        close();
+        //close();
         return areas;
     }
 
     public void updateGame(Game gameDomain) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         gameDaoImpl.updateGame(gameDomain, em);
-        close();
+        //close();
     }
 
     public Game getGame() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         Game game = gameDaoImpl.getGame(em);
-        close();
+        //close();
         return game;
     }
 
     public void updatePlayer(Player p) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         playerDaoImpl.updatePlayer(p, em);
-        close();
+        //close();
     }
 
 

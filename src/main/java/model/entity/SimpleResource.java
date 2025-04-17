@@ -3,6 +3,7 @@ package model.entity;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "SIMPLE_RESOURCE")
@@ -90,6 +91,18 @@ public class SimpleResource extends Event implements Resource {
 
     }
 
+    public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
     @Override
     public String toString() {
         return "SimpleResource{" +
@@ -103,16 +116,15 @@ public class SimpleResource extends Event implements Resource {
                 '}';
     }
 
-    public void setQuantity(int quantity) {
-            this.quantity = quantity;
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        SimpleResource that = (SimpleResource) o;
+        return id == that.id && level == that.level && quantity == that.quantity && Objects.equals(category, that.category) && Objects.equals(attacks, that.attacks) && Objects.equals(name, that.name) && Objects.equals(type, that.type);
+    }
 
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, category, attacks, level, name, quantity, type);
+    }
 }

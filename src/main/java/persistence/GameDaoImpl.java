@@ -20,7 +20,6 @@ public class GameDaoImpl implements GameDao {
             }
             em.merge(game);
             em.getTransaction().commit();
-
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
@@ -57,7 +56,6 @@ public class GameDaoImpl implements GameDao {
                 em.getTransaction().begin();
             }
             TypedQuery<Game> query = em.createQuery("SELECT g FROM Game g", Game.class);
-
             return query.getSingleResult();
 
         } catch (Exception e) {

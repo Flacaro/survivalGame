@@ -8,6 +8,7 @@ import model.entity.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -79,27 +80,30 @@ public class View {
         ResourceController resourceController = new ResourceController();
         Player player = g.getPlayer();
         Inventory inventory = dbController.showInventory(player);
-        List<CraftedResource> craft = dbController.getCraftedResources();
+        ArrayList<CraftedResource> craft = dbController.getCraftedResources();
         System.out.println("Combinazioni possibili per il crafting degli oggetti");
         System.out.println("-----------------------------------------------------");
         for (CraftedResource r : craft) {
+            String recipe="Per creare " + r.getName() + " seleziona ";
             for (SimpleResource s : r.getComponents()){
-            System.out.println("Per creare " + r.getName() + " seleziona " + s.getName());
-            System.out.println("-----------------------------------------------------");}
+                recipe+=s.getName()+ " ";
+            }
+            System.out.println(recipe);
+            System.out.println("-----------------------------------------------------");
         }
+
         if (inventory.getResources().isEmpty()) {
             System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
             return false;
         } else {
             try {
-                System.out.println("Inserisci l'indice delle risorse da combinare separate tramite virgola (es. 0,1)");
+                System.out.println("Inserisci l'indice delle risorse da combinare separate tramite virgola (es. 1,2)");
                 int counter = 0;
                 HashMap<Integer, SimpleResource> corrisp = new HashMap<>();
                 for (SimpleResource r : inventory.getResources()) {
                     counter = counter + 1;
                     System.out.println("Inserire l'indice " + counter + " per selezionare la risorsa: " + r.getName());
                     corrisp.put(counter, r);
-
                 }
                 String input = bf.readLine();
                 String[] selections = input.split(",");
@@ -109,7 +113,7 @@ public class View {
                         return false;
                     }
                 }
-                CraftedResource pair = resourceController.compatible(selections, corrisp);
+                CraftedResource pair = resourceController.compatible(selections, corrisp, craft);
                 if (pair != null) {
                     player.setInventory(resourceController.combine(selections, corrisp, inventory, pair));
                     System.out.println("Hai creato: " + pair.getName());

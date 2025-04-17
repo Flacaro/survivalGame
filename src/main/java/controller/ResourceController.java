@@ -10,26 +10,13 @@ import java.util.List;
 
 public class ResourceController {
 
-
-    public ArrayList<String> getCombinations() {
-        DBController dbController = new DBController();
-        ArrayList<CraftedResource> craft = dbController.getCraftedResources();
-        ArrayList<String> descr = new ArrayList<>();
-        for (CraftedResource s : craft) {
-            for (String h : s.getDescription().split(",")) {
-                descr.add(h.toLowerCase());
-            }
-        }
-        return descr;
-    }
-
-    public ArrayList<String> inputIndexTranslatorToResources(String[] selections, HashMap<Integer, SimpleResource> corrisp) {
-        ArrayList<String> list = new ArrayList<>();
+    public ArrayList<SimpleResource> inputIndexTranslatorToResources(String[] selections, HashMap<Integer, SimpleResource> corrisp) {
+        ArrayList<SimpleResource> list = new ArrayList<>();
         //codifica dell'input
         for (String s : selections) {
             SimpleResource rd = corrisp.get(Integer.parseInt(s));
             if (rd != null) {
-                list.add(corrisp.get(Integer.parseInt(s)).getName());
+                list.add(rd);
             } else {
                 return null;
             }
@@ -37,44 +24,40 @@ public class ResourceController {
         return list;
     }
 
-    public CraftedResource pairsSelectedResourcesToCraftResource(ArrayList<String> list, ArrayList<String> descr) {
-        DBController dbController = new DBController();
-        List<CraftedResource> craft = dbController.getCraftedResources();
-
+    public CraftedResource pairsSelectedResourcesToCraftResource(ArrayList<SimpleResource> list, ArrayList<CraftedResource> craftedResources) {
         boolean correspond = false;
         int count = 0;
-        for (CraftedResource s : craft) {
-
+        for (SimpleResource l : list) {
             //check se gli elementi selezionati corrispondono ad una risorsa craftabile
-            for (String l : list) {
-                if (descr.contains(l.toLowerCase())) {
-                    descr.remove(l.toLowerCase());
-                    correspond = true;
-                    count = count + 1;
-                } else {
-                    correspond = false;
-                }
-            }
+           for (CraftedResource s : craftedResources) {
+               for (SimpleResource sr : s.getComponents()) {
+                   if (l.getId()==sr.getId()){
+                       list.remove(l);
+                       correspond = true;
+                       count = count + 1;
+                   } else{
+                       correspond = false;
+                   }
+               }if (correspond && count == s.getComponents().size()) {
+                   return s;
+               } else {
+                   list.clear();
+                   count = 0;
+                   correspond = false;
+               }
+           }
             //se tutti gli elementi delle selezioni corrispondono alle risorse necessarie c'è un match
-            if (correspond && count == s.getDescription().split(",").length) {
-                return s;
-            } else {
-                descr.clear();
-                count = 0;
-                correspond = false;
-            }
+
         }
         return null;
     }
 
-    public CraftedResource compatible(String[] selections, HashMap<Integer, SimpleResource> corrisp) {
-        ArrayList<String> list = inputIndexTranslatorToResources(selections, corrisp);
+    public CraftedResource compatible(String[] selections, HashMap<Integer, SimpleResource> corrisp, ArrayList<CraftedResource> craftedResources) {
+        ArrayList<SimpleResource> list = inputIndexTranslatorToResources(selections, corrisp);
         if (list == null) {
             return null;
         }
-
-        ArrayList<String> descr = getCombinations();
-        return pairsSelectedResourcesToCraftResource(list, descr);
+        return pairsSelectedResourcesToCraftResource(list,craftedResources);
     }
 
 

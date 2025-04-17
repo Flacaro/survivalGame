@@ -5,8 +5,10 @@ import model.entity.Resource;
 import model.entity.SimpleResource;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ResourceController {
 
@@ -24,33 +26,58 @@ public class ResourceController {
         return list;
     }
 
-    public CraftedResource pairsSelectedResourcesToCraftResource(ArrayList<SimpleResource> list, ArrayList<CraftedResource> craftedResources) {
-        boolean correspond = false;
-        int count = 0;
-        for (SimpleResource l : list) {
-            //check se gli elementi selezionati corrispondono ad una risorsa craftabile
-           for (CraftedResource s : craftedResources) {
-               for (SimpleResource sr : s.getComponents()) {
-                   if (l.getId()==sr.getId()){
-                       list.remove(l);
-                       correspond = true;
-                       count = count + 1;
-                   } else{
-                       correspond = false;
-                   }
-               }if (correspond && count == s.getComponents().size()) {
-                   return s;
-               } else {
-                   list.clear();
-                   count = 0;
-                   correspond = false;
-               }
-           }
-            //se tutti gli elementi delle selezioni corrispondono alle risorse necessarie c'è un match
+//    public CraftedResource pairsSelectedResourcesToCraftResource(ArrayList<SimpleResource> list, ArrayList<CraftedResource> craftedResources) {
+//        boolean correspond = false;
+//        int count = 0;
+//        for (SimpleResource l : list) {
+//            //check se gli elementi selezionati corrispondono ad una risorsa craftabile
+//           for (CraftedResource s : craftedResources) {
+//               for (SimpleResource sr : s.getComponents()) {
+//                   if (l.getId()==sr.getId()){
+//                       list.remove(l);
+//                       correspond = true;
+//                       count = count + 1;
+//                   } else{
+//                       correspond = false;
+//                   }
+//               }if (correspond && count == s.getComponents().size()) {
+//                   return s;
+//               } else {
+//                   list.clear();
+//                   count = 0;
+//                   correspond = false;
+//               }
+//           }
+//            //se tutti gli elementi delle selezioni corrispondono alle risorse necessarie c'è un match
+//
+//        }
+//        return null;
+//    }
 
+    public CraftedResource pairsSelectedResourcesToCraftResource(ArrayList<SimpleResource> selected, ArrayList<CraftedResource> craftedResources) {
+        ArrayList<Long> selectedIds = new ArrayList<>();
+        for (SimpleResource s : selected) {
+            selectedIds.add(s.getId());
+        }
+        //li ordino
+        Collections.sort(selectedIds);
+
+        for (CraftedResource crafted : craftedResources) {
+            ArrayList<Long> componentIds = new ArrayList<>();
+            for (SimpleResource c : crafted.getComponents()) {
+                componentIds.add(c.getId());
+            }
+            Collections.sort(componentIds);
+
+            //confronto le due liste
+            if (selectedIds.equals(componentIds)) {
+                return crafted;
+            }
         }
         return null;
     }
+
+
 
     public CraftedResource compatible(String[] selections, HashMap<Integer, SimpleResource> corrisp, ArrayList<CraftedResource> craftedResources) {
         ArrayList<SimpleResource> list = inputIndexTranslatorToResources(selections, corrisp);

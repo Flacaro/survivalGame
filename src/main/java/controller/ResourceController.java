@@ -1,14 +1,13 @@
 package controller;
+
 import model.entity.CraftedResource;
 import model.entity.Inventory;
-import model.entity.Resource;
 import model.entity.SimpleResource;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ResourceController {
 
@@ -25,34 +24,6 @@ public class ResourceController {
         }
         return list;
     }
-
-//    public CraftedResource pairsSelectedResourcesToCraftResource(ArrayList<SimpleResource> list, ArrayList<CraftedResource> craftedResources) {
-//        boolean correspond = false;
-//        int count = 0;
-//        for (SimpleResource l : list) {
-//            //check se gli elementi selezionati corrispondono ad una risorsa craftabile
-//           for (CraftedResource s : craftedResources) {
-//               for (SimpleResource sr : s.getComponents()) {
-//                   if (l.getId()==sr.getId()){
-//                       list.remove(l);
-//                       correspond = true;
-//                       count = count + 1;
-//                   } else{
-//                       correspond = false;
-//                   }
-//               }if (correspond && count == s.getComponents().size()) {
-//                   return s;
-//               } else {
-//                   list.clear();
-//                   count = 0;
-//                   correspond = false;
-//               }
-//           }
-//            //se tutti gli elementi delle selezioni corrispondono alle risorse necessarie c'è un match
-//
-//        }
-//        return null;
-//    }
 
     public CraftedResource pairsSelectedResourcesToCraftResource(ArrayList<SimpleResource> selected, ArrayList<CraftedResource> craftedResources) {
         ArrayList<Long> selectedIds = new ArrayList<>();
@@ -78,13 +49,12 @@ public class ResourceController {
     }
 
 
-
     public CraftedResource compatible(String[] selections, HashMap<Integer, SimpleResource> corrisp, ArrayList<CraftedResource> craftedResources) {
         ArrayList<SimpleResource> list = inputIndexTranslatorToResources(selections, corrisp);
         if (list == null) {
             return null;
         }
-        return pairsSelectedResourcesToCraftResource(list,craftedResources);
+        return pairsSelectedResourcesToCraftResource(list, craftedResources);
     }
 
 
@@ -101,7 +71,7 @@ public class ResourceController {
         add.add(s);
         id.setCraftedResourceList(add);
         id.setCapacity(inventoryDomain.getCapacity() - 1);
-        DBController dbController=new DBController();
+        DBController dbController = new DBController();
         return dbController.updateInventoryCraft(id);
     }
 

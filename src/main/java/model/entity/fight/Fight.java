@@ -8,43 +8,43 @@ public class Fight {
     private PlayerTurn playerTurn;
     private StandBy standBy;
     private Victory victory;
-
     private State currentState;
 
-    private Enemy enemy;
-    private Player player;
 
     private Observer observerUI;
 
-    public Fight(Enemy enemy, Player player) {
+    public Fight() {
         this.enemyTurn= new EnemyTurn(this);
         this.playerTurn=new PlayerTurn(this);
         this.standBy=new StandBy(this);
         this.victory=new Victory(this);
         this.currentState=standBy;
-        this.enemy=enemy;
-        this.player=player;
         observerUI=new ObserverUI();
     }
 
-    public void playerFightsBack(Player player){
-        currentState.playerFightsBack(player);
+    public void playerFightsBack(){
+        currentState.playerFightsBack();
         observerUI.update(currentState);
     }
-    public void playerRunsAway(Player player){
-        currentState.playerRunsAway(player);
+    public void playerRunsAway(){
+        currentState.playerRunsAway();
         observerUI.update(currentState);
     }
-    public void enemyFightsBack(Enemy enemy){
-        currentState.enemyFightsBack(enemy);
+    public void enemyFightsBack(){
+        currentState.enemyFightsBack();
         observerUI.update(currentState);
     }
-    public void playerWins(Player player){
-        currentState.playerWins(player);
+    public void playerWins(){
+        currentState.playerWins();
         observerUI.update(currentState);
     }
-    public void playerLoses(Player player){
-        currentState.playerLoses(player);
+    public void playerLoses(){
+        currentState.playerLoses();
+        observerUI.update(currentState);
+    }
+
+    public void playerChoses(){
+        currentState.playerChooses();
         observerUI.update(currentState);
     }
 

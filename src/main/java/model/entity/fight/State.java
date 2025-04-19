@@ -5,10 +5,11 @@ import model.entity.Player;
 
 public interface State {
 
-    public void playerFightsBack(Player player);
-    public void playerRunsAway(Player player);
-    public void enemyFightsBack(Enemy enemy);
-    public void playerWins(Player player);
-    public void playerLoses(Player player);
+    public void playerChooses();
+    public void playerFightsBack();
+    public void playerRunsAway();
+    public void enemyFightsBack();
+    public void playerWins();
+    public void playerLoses();
 
 }

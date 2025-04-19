@@ -1,7 +1,5 @@
 package model.entity.fight;
 
-import model.entity.Enemy;
-import model.entity.Player;
 
 public class Victory implements State {
     Fight fight;
@@ -11,27 +9,31 @@ public class Victory implements State {
     }
 
     @Override
-    public void playerFightsBack(Player player) {
+    public void playerChooses() {
+    }
+
+    @Override
+    public void playerFightsBack() {
 
     }
 
     @Override
-    public void playerRunsAway(Player player) {
+    public void playerRunsAway() {
 
     }
 
     @Override
-    public void enemyFightsBack(Enemy enemy) {
+    public void enemyFightsBack() {
 
     }
 
     @Override
-    public void playerWins(Player player) {
+    public void playerWins() {
 
     }
 
     @Override
-    public void playerLoses(Player player) {
+    public void playerLoses() {
 
     }
 }

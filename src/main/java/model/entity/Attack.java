@@ -21,6 +21,16 @@ public class Attack {
     @Column(name = "TYPE", nullable = false)
     private String type;
 
+    public Attack() {
+    }
+
+    public Attack(long id, String name, double damage, String type) {
+        this.id = id;
+        this.name = name;
+        this.damage = damage;
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

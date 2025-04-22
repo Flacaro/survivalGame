@@ -69,8 +69,8 @@ public class Inventory {
 		this.craftedResourceList = craftedResourceList;
 	}
 
-	public Inventory remove(ArrayList<SimpleResource> selections, Inventory inventoryDomain) {
-		List<ResourceQuantityInv> quantity=inventoryDomain.getResources_quantity();
+	public void remove(ArrayList<SimpleResource> selections) {
+		List<ResourceQuantityInv> quantity=this.getResources_quantity();
 		ArrayList<ResourceQuantityInv> rqiToRemove = new ArrayList<>();
 		ArrayList<SimpleResource> toRemove = new ArrayList<>();
 		for (ResourceQuantityInv q : quantity){
@@ -78,9 +78,8 @@ public class Inventory {
 				if (q.getResource().getId()== r.getId()){
 					q.setQuantity(q.getQuantity()-1);
 					r.setQuantity(r.getQuantity()-1);
-					inventoryDomain.setCapacity(inventoryDomain.getCapacity()+1);
+					this.setCapacity(this.getCapacity()+1);
 					if (q.getQuantity()==0){
-						inventoryDomain.setCapacity(inventoryDomain.getCapacity()+1);
 						rqiToRemove.add(q);
 						toRemove.add(r);
 					}
@@ -88,10 +87,26 @@ public class Inventory {
 				}
 			}
 		}
-		inventoryDomain.getResources().removeAll(toRemove);
+		this.getResources().removeAll(toRemove);
 		quantity.removeAll(rqiToRemove);
-		inventoryDomain.setResources_quantity(quantity);
-		return inventoryDomain;
+		this.setResources_quantity(quantity);
+	}
+
+	public void removeCraftedResource(ArrayList<CraftedResource> selections){
+		List<CraftedResource> craftedResources= this.getCraftedResourceList();
+		for (CraftedResource cr : craftedResources){
+			for (CraftedResource resource: selections){
+				if (resource.getId()==cr.getId()){
+					cr.setQuantity(cr.getQuantity()-1);
+					this.setCapacity(this.getCapacity()+1);
+				}
+				if (resource.getQuantity()==0){
+					craftedResources.remove(cr);
+				}
+				break;
+			}
+		}
+		this.setCraftedResourceList(craftedResources);
 	}
 
 	public boolean checkCapacity(Inventory inventoryDomain) {

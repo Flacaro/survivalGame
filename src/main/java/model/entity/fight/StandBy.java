@@ -1,5 +1,7 @@
 package model.entity.fight;
 
+import model.entity.Attack;
+
 public class StandBy implements State {
     Fight fight;
 
@@ -8,19 +10,14 @@ public class StandBy implements State {
     }
 
     @Override
-    public void playerChooses() {
+    public void playerChooses(int choise) {
         //controllore che richiama la view e che chiede al giocatore per poi utilizzare questo metodo
         //ed aggiornare gli stati
     }
 
     @Override
-    public void playerFightsBack() {
+    public void playerFightsBack(Attack attack) {
         //il controllore richiama il giocatore che deve scegliere l'arma da usare
-    }
-
-    @Override
-    public void playerRunsAway() {
-
     }
 
     @Override

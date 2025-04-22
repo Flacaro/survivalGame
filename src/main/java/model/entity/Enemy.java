@@ -18,11 +18,20 @@ public class Enemy extends Event {
 	@Column(name = "LEVEL", nullable = false)
 	private int level = 1;
 
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "id_mode", referencedColumnName = "id")
+	private Mode mode;
+
+	@Column(name = "HEALTH", nullable = false)
+	private double health;
+
 	private String name;
 
 	private String description;
 
 	private String type;
+
+	private int quantity;
 
 	public Enemy() {
 	}
@@ -81,4 +90,27 @@ public class Enemy extends Event {
 		this.type = type;
 	}
 
+	public Mode getMode() {
+		return mode;
+	}
+
+	public void setMode(Mode mode) {
+		this.mode = mode;
+	}
+
+	public double getHealth() {
+		return health;
+	}
+
+	public void setHealth(double health) {
+		this.health = health;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 }

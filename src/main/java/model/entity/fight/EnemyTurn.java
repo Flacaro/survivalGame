@@ -1,33 +1,46 @@
 package model.entity.fight;
 
+import model.entity.Attack;
 import model.entity.Enemy;
 import model.entity.Player;
 
+import java.util.List;
+import java.util.Random;
+
 public class EnemyTurn implements State {
     Fight fight;
+
+    Player player=fight.getGame().getPlayer();
+    Enemy enemy= fight.getEnemy();
 
     public EnemyTurn(Fight fight) {
         this.fight=fight;
     }
 
     @Override
-    public void playerChooses() {
+    public void playerChooses(int choise) {
 
     }
 
     @Override
-    public void playerFightsBack() {
-        //implementare il meto
-    }
-
-    @Override
-    public void playerRunsAway() {
-
+    public void playerFightsBack(Attack attack) {
     }
 
     @Override
     public void enemyFightsBack() {
-
+        List<Attack> attacks= enemy.getAttacks();
+        //implementare una funzione che sceglie l'attacco del nemico
+        Attack attack=attacks.get(0);
+        if (enemy.getHealth()!=0 && enemy.getHealth()>=0){
+            if (player.getHealth()>0){
+                player.setHealth(player.getHealth()-attack.getDamage());
+            }
+        }
+        if (player.getHealth()==0||player.getHealth()<0){
+            fight.playerLoses();
+        }else {
+            fight.getObserverUI().playersTurn(player);
+        }
     }
 
     @Override

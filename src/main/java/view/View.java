@@ -1,4 +1,4 @@
-package view;
+/*package view;
 
 import controller.DBController;
 import controller.ResourceController;
@@ -254,7 +254,7 @@ public class View {
     }
 
 
-}
+}*/
 
 
 

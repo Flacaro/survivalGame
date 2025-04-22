@@ -1,4 +1,4 @@
-package org.example;
+/*package org.example;
 
 import view.View;
 
@@ -14,4 +14,17 @@ public class Main {
         View view = new View();
         view.playGame();
     }
+}*/
+package org.example;
+
+//import view.View;
+import controller.GameController; // Importa GameController se è in un package diverso
+
+public class Main {
+
+    public static void main(String[] args) {
+        GameController gameController = new GameController();
+        gameController.playGame();
+    }
+
 }

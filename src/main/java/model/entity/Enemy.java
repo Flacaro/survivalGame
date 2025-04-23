@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Enemy extends Event {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	//test 1 a molti con attack

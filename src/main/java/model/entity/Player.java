@@ -20,10 +20,13 @@ public class Player {
 	private String nickname;
 
 	@Column(name = "HEALTH", nullable = false)
-	private float health;
+	private double health;
 
 	@Column(name = "LEVEL", nullable = false)
 	private int level = 1;
+
+	@Column(name = "exp", nullable = true)
+	private int exp = 0;
 
 	@Column(name = "ID_AREA")
 	@ColumnDefault("1")
@@ -60,11 +63,11 @@ public class Player {
 		this.nickname = nickname;
 	}
 
-	public float getHealth() {
+	public double getHealth() {
 		return health;
 	}
 
-	public void setHealth(float health) {
+	public void setHealth(double health) {
 		this.health = health;
 	}
 
@@ -131,5 +134,13 @@ public class Player {
 		int range= (int) (g.getMode().getTotalArea()/2);
 		areayVariant=areas.subList(range+1,areas.size()-1);
 		return areayVariant.get(y_axis).getId();
+	}
+
+	public int getExp() {
+		return exp;
+	}
+
+	public void setExp(int exp) {
+		this.exp = exp;
 	}
 }

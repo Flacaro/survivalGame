@@ -1,13 +1,12 @@
 package model.entity.fight;
 
-import model.entity.Enemy;
-import model.entity.Player;
+import model.entity.Attack;
+import model.entity.SimpleResource;
 
 public interface State {
 
-    public void playerChooses();
-    public void playerFightsBack();
-    public void playerRunsAway();
+    public void playerChooses(int choise);
+    public void playerFightsBack(Attack attack);
     public void enemyFightsBack();
     public void playerWins();
     public void playerLoses();

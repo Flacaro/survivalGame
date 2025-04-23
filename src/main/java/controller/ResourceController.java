@@ -65,14 +65,14 @@ public class ResourceController {
             listResSel.add(corrisp.get(Integer.parseInt(k)));
         }
         //rimozone delle risorse dall'inventario
-        Inventory id = inventoryDomain.remove(listResSel, inventoryDomain);
+        inventoryDomain.remove(listResSel);
         s.setQuantity(s.getQuantity() + 1);
         List<CraftedResource> add = new ArrayList<>(inventoryDomain.getCraftedResourceList());
         add.add(s);
-        id.setCraftedResourceList(add);
-        id.setCapacity(inventoryDomain.getCapacity() - 1);
+        inventoryDomain.setCraftedResourceList(add);
+        inventoryDomain.setCapacity(inventoryDomain.getCapacity() - 1);
         DBController dbController = new DBController();
-        return dbController.updateInventoryCraft(id);
+        return dbController.updateInventoryCraft(inventoryDomain);
     }
 
 

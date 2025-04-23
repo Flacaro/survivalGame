@@ -1,10 +1,11 @@
 INSERT INTO attack (DAMAGE, NAME, TYPE) VALUES (1,"morso","nemico");
+INSERT INTO attack (DAMAGE, NAME, TYPE) VALUES (1,"veleno","nemico");
 INSERT INTO attack (DAMAGE, NAME, TYPE) VALUES (3,"affonda","risorsa");
 INSERT INTO attack (DAMAGE, NAME, TYPE) VALUES (1,"taglia","risorsa");
-INSERT INTO enemy (LEVEL, description, name, type) VALUES (1,"ragno","ragno","NEMICO");
-INSERT INTO enemy (LEVEL, description, name, type) VALUES (1,"serpente","serpente","NEMICO");
-INSERT INTO enemy_attack (Enemy_id, attacks_id) SELECT e.id, a.id FROM enemy e, attack a WHERE a.NAME="morso" AND e.name="ragno");
-INSERT INTO enemy_attack (Enemy_id, attacks_id) SELECT e.id, a.id FROM enemy e, attack a WHERE a.NAME="morso" AND e.name="serpente");
+INSERT INTO enemy (HEALTH, quantity, LEVEL, description, name, type) VALUES (3, 1, 1,"ragno","ragno","NEMICO");
+INSERT INTO enemy (HEALTH, quantity, LEVEL, description, name, type) VALUES (3, 1, 1,"serpente","serpente","NEMICO");
+INSERT INTO enemy_attack (Enemy_id, attacks_id) SELECT e.id, a.id FROM enemy e, attack a WHERE a.NAME="morso" AND e.name="ragno";
+INSERT INTO enemy_attack (Enemy_id, attacks_id) SELECT e.id, a.id FROM enemy e, attack a WHERE a.NAME="veleno" AND e.name="serpente";
 INSERT INTO simple_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME, TYPE) VALUES (1, 1, "RISORSA","COLTELLO","COLTELLO","ARMA");
 INSERT INTO simple_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME, TYPE) VALUES (1, 1, "RISORSA","RESTO AEREO","RESTO AEREO","ARMA");
 INSERT INTO simple_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME, TYPE) VALUES (2, 2, "RISORSA","ACQUA","ACQUA","CIBO");
@@ -13,9 +14,9 @@ INSERT INTO simple_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME, TYPE)
 INSERT INTO simple_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME, TYPE) VALUES (1, 1, "RISORSA","METALLO","METALLO","COSTRUZIONE");
 INSERT INTO simple_resource_attack (SimpleResource_id, attacks_id) SELECT s.id, a.id FROM simple_resource s, attack a WHERE s.NAME = "COLTELLO" AND a.NAME="taglia");
 INSERT INTO simple_resource_attack (SimpleResource_id, attacks_id) SELECT s.id, a.id FROM simple_resource s, attack a WHERE s.NAME = "RESTO AEREO" AND a.NAME="taglia");
-INSERT INTO mode (DESCRIPTION,NUM_RESOURCES,NUM_ENEMY,TOTAL_AREA) VALUES ("Easy",4,0,8);
-INSERT INTO mode (DESCRIPTION,NUM_RESOURCES,NUM_ENEMY,TOTAL_AREA) VALUES ("Medium",8,0,18);
-INSERT INTO mode (DESCRIPTION,NUM_RESOURCES,NUM_ENEMY,TOTAL_AREA) VALUES ("Hard",12,0,36);
+INSERT INTO mode (DESCRIPTION,NUM_RESOURCES,NUM_ENEMY,TOTAL_AREA) VALUES ("Easy",4,2,8);
+INSERT INTO mode (DESCRIPTION,NUM_RESOURCES,NUM_ENEMY,TOTAL_AREA) VALUES ("Medium",8,6,18);
+INSERT INTO mode (DESCRIPTION,NUM_RESOURCES,NUM_ENEMY,TOTAL_AREA) VALUES ("Hard",12,10,36);
 INSERT INTO crafted_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME) VALUES (1, 0, "RISORSA","Legno,Metallo","LANCIA");
 INSERT INTO crafted_resource (LEVEL, QUANTITY, CATEGORY, DESCRIPTION, NAME) VALUES (1, 0, "RISORSA","Paglia,Corda,Legno","RIFUGIO");
 INSERT INTO craftedResource_components (resource, component) SELECT rc.id, sr.id FROM simple_resource sr, crafted_resource rc WHERE rc.NAME="LANCIA" AND sr.name="LEGNO";

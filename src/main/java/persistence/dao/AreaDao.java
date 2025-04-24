@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface AreaDao {
+
     void saveTotalMapArea(List<Area> areaDomain, EntityManager em);
 
     void updateArea(List<Area> areas, EntityManager em);

@@ -2,18 +2,19 @@ package model.entity;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ENEMY")
 public class Enemy extends Event {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	//test 1 a molti con attack
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private ArrayList<Attack> attacks= new ArrayList<>();
+	private List<Attack> attacks;
 
 	@Column(name = "LEVEL", nullable = false)
 	private int level = 1;
@@ -50,7 +51,7 @@ public class Enemy extends Event {
 		this.id = id;
 	}
 
-	public ArrayList<Attack> getAttacks() {
+	public List<Attack> getAttacks() {
 		return attacks;
 	}
 

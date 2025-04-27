@@ -1,49 +1,3 @@
-/*package view;
-
-import controller.DBController;
-import model.entity.Game;
-import model.entity.Inventory;
-import model.entity.ResourceQuantityInv;
-import model.entity.SimpleResource;
-import model.entity.CraftedResource;  // <-- Add this import
-
-import java.util.List;
-import java.util.Objects;
-
-public class InventoryView {
-    public void showInventory(Game g) {
-        DBController dbController = new DBController();
-        Inventory inventory = dbController.showInventory(g.getPlayer());
-        List<ResourceQuantityInv> resourcesQuantity = inventory.getResources_quantity();
-
-        if (!inventory.getResources().isEmpty()) {
-            System.out.println("Contenuto dell'inventario:");
-            for (SimpleResource r : inventory.getResources()) {
-                for (ResourceQuantityInv rqid : resourcesQuantity) {
-                    if (Objects.equals(r.getName(), rqid.getResource().getName())) {
-                        System.out.println("-" + r.getName() + "  quantità:" + rqid.getQuantity());
-                    }
-                }
-            }
-            if (!inventory.getCraftedResourceList().isEmpty()) {
-                for (CraftedResource r : inventory.getCraftedResourceList()) {  // <-- Use CraftedResource
-                    System.out.println("-" + r.getName() + "  quantità:" + r.getQuantity());
-                }
-            }
-        } else {
-            if (inventory.getResources().isEmpty()) {
-                if (!inventory.getCraftedResourceList().isEmpty()) {
-                    System.out.println("Contenuto dell'inventario:");
-                    for (CraftedResource r : inventory.getCraftedResourceList()) {  // <-- Use CraftedResource
-                        System.out.println("-" + r.getName() + " quantità: " + r.getQuantity());
-                    }
-                    return;
-                }
-                System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
-            }
-        }
-    }
-}*/
 package view;
 import java.util.HashMap;
 import model.entity.CraftedResource;
@@ -61,8 +15,8 @@ public class InventoryView {
         }
 
         List<SimpleResource> simpleResources = inventory.getResources();
-        List<CraftedResource> craftedResources = inventory.getCraftedResourceList(); // Assumendo esista questo metodo
-        List<ResourceQuantityInv> quantities = inventory.getResources_quantity(); // Assumendo esista
+        List<CraftedResource> craftedResources = inventory.getCraftedResourceList();
+        List<ResourceQuantityInv> quantities = inventory.getResources_quantity();
 
         boolean simpleIsEmpty = simpleResources == null || simpleResources.isEmpty();
         boolean craftedIsEmpty = craftedResources == null || craftedResources.isEmpty();
@@ -88,7 +42,7 @@ public class InventoryView {
 
             for (SimpleResource r : simpleResources) {
                 if (r != null) {
-                    int quantity = quantityMap.getOrDefault(r.getId(), 0); // Default a 0 se non trovata (improbabile)
+                    int quantity = quantityMap.getOrDefault(r.getId(), 0);
                     CommonViewUtils.displayMessage("- " + r.getName() + "  quantità: " + quantity);
                 }
             }
@@ -104,7 +58,6 @@ public class InventoryView {
         if (!craftedIsEmpty) {
             for (CraftedResource cr : craftedResources) {
                 if (cr != null) {
-                    // Assumendo che CraftedResource abbia un campo quantity o un modo per ottenerlo
                     CommonViewUtils.displayMessage("- " + cr.getName() + "  quantità: " + cr.getQuantity()); // Modificare se il campo quantità ha nome diverso
                 }
             }

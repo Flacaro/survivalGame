@@ -1,84 +1,3 @@
-/*package view;
-
-import controller.DBController;
-import controller.ResourceController;
-import model.entity.Game;
-import model.entity.CraftedResource;
-import model.entity.Inventory;
-import model.entity.Player;
-import model.entity.SimpleResource;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-public class CraftingView {
-    private final BufferedReader bf;
-
-    public CraftingView(BufferedReader bf) {
-        this.bf = bf;
-    }
-
-    public boolean crafting(Game g) {
-        DBController dbController = new DBController();
-        ResourceController resourceController = new ResourceController();
-        Player player = g.getPlayer();
-        Inventory inventory = dbController.showInventory(player);
-        ArrayList<CraftedResource> craft = dbController.getCraftedResources();
-        System.out.println("Combinazioni possibili per il crafting degli oggetti");
-        System.out.println("-----------------------------------------------------");
-        for (CraftedResource r : craft) {
-            String recipe="Per creare " + r.getName() + " seleziona ";
-            for (SimpleResource s : r.getComponents()){
-                recipe+=s.getName()+ " ";
-            }
-            System.out.println(recipe);
-            System.out.println("-----------------------------------------------------");
-        }
-
-        if (inventory.getResources().isEmpty()) {
-            System.out.println("L'inventario è vuoto, esplora le aree per trovare delle risorse");
-            return false;
-        } else {
-            try {
-                System.out.println("Inserisci l'indice delle risorse da combinare separate tramite virgola (es. 1,2)");
-                int counter = 0;
-                HashMap<Integer, SimpleResource> corrisp = new HashMap<>();
-                for (SimpleResource r : inventory.getResources()) {
-                    counter = counter + 1;
-                    System.out.println("Inserire l'indice " + counter + " per selezionare la risorsa: " + r.getName());
-                    corrisp.put(counter, r);
-                }
-                String input = bf.readLine();
-                String[] selections = input.split(",");
-                for (String s : selections) {
-                    if (Integer.parseInt(s) < 1 || selections.length > corrisp.size() || Integer.parseInt(s) > corrisp.size()) {
-                        System.out.println("Input non valido.");
-                        return false;
-                    }
-                }
-                CraftedResource pair = resourceController.compatible(selections, corrisp, craft);
-                if (pair != null) {
-                    player.setInventory(resourceController.combine(selections, corrisp, inventory, pair));
-                    System.out.println("Hai creato: " + pair.getName());
-                    dbController.updatePlayer(player);
-                    g.setPlayer(player);
-                    dbController.updateGame(g);
-                    return true;
-                } else {
-                    System.out.println("Input non valido.");
-                    return false;
-                }
-            } catch (NumberFormatException | IOException e) {
-                System.out.println("Input non valido.");
-                return false;
-            }
-        }
-    }
-}
-*/
 package view;
 
 import model.entity.CraftedResource;
@@ -124,7 +43,7 @@ public class CraftingView {
                 }
             }
         } else {
-            CommonViewUtils.displayMessage("Non hai risorse semplici nell'inventario per il crafting.");
+            CommonViewUtils.displayMessage("Non hai risorse nell'inventario.");
         }
         CommonViewUtils.displaySeparator();
         return correspondence;
@@ -145,7 +64,7 @@ public class CraftingView {
         if (success && craftedItem != null) {
             CommonViewUtils.displayMessage("Hai creato con successo: " + craftedItem.getName());
         } else {
-            CommonViewUtils.displayMessage("Combinazione non valida o fallita.");
+            CommonViewUtils.displayMessage("Combinazione non valida.");
         }
     }
 
@@ -154,6 +73,6 @@ public class CraftingView {
     }
 
     public void displayInventoryEmpty() {
-        CommonViewUtils.displayMessage("L'inventario è vuoto o non contiene risorse semplici, esplora le aree per trovarne.");
+        CommonViewUtils.displayMessage("L'inventario è vuoto, esplora le aree per trovarne.");
     }
 }

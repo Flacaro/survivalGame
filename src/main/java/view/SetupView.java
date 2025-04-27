@@ -1,14 +1,5 @@
 package view;
-
-import model.entity.*;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
 
 public class SetupView {
     public int getDifficultyChoice() throws IOException {
@@ -16,8 +7,13 @@ public class SetupView {
         CommonViewUtils.displayMessage("1. Facile");
         CommonViewUtils.displayMessage("2. Media");
         CommonViewUtils.displayMessage("3. Difficile");
-        // Aggiungere validazione per assicurarsi che sia 1, 2 o 3
-        return CommonViewUtils.readIntChoice("Inserisci 1, 2 o 3:");
+        int choice=CommonViewUtils.readIntChoice("Inserisci 1, 2 o 3:");
+        //solo la modalità facile è stata implementata
+        while (choice<=0 || choice>3 || choice!=1){
+            System.out.println("Errore: Inserisci un numero valido.");
+            choice=CommonViewUtils.readIntChoice("Inserisci 1, 2 o 3:");
+        }
+        return choice;
     }
 
     public String getNickname() throws IOException {

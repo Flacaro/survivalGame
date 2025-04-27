@@ -234,9 +234,4 @@ public class GameController {
         }
     }
 
-    // Metodo principale per avviare il gioco (esempio)
-    public static void main(String[] args) {
-        GameController gameController = new GameController();
-        gameController.playGame();
-    }
 }

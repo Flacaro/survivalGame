@@ -1,15 +1,8 @@
 package view;
 
-import model.entity.*;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-
 // Classe di utilità per input e output comuni
 public class CommonViewUtils {
     private static final BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -26,7 +19,6 @@ public class CommonViewUtils {
             } catch (NumberFormatException e) {
                 System.out.println("Errore: Inserisci un numero valido.");
             }
-
         }
     }
 

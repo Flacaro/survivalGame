@@ -18,7 +18,7 @@ public class EnemyTurn implements State {
     }
 
     @Override
-    public void playerChooses(int choise) {
+    public void playerChooses(int choice) {
 
     }
 

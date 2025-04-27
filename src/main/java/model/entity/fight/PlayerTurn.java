@@ -14,14 +14,14 @@ public class PlayerTurn implements State {
     }
 
     @Override
-    public void playerChooses(int choise) {
+    public void playerChooses(int choice) {
         //viene richiamato dal controllore per modificare lo stato del
         //player, se sceglie di scappare modifica la posizione
 
         //choise=0 -> runaway
         //choise=1 -> fight
         boolean runaway=false;
-        switch (choise){
+        switch (choice){
             case 0:
                 if (fight.getEnemy().getLevel()>=fight.getGame().getPlayer().getLevel()){
                     //comunicare al player che non può scappare

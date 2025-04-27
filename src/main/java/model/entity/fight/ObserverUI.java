@@ -57,6 +57,6 @@ public class ObserverUI extends Observer{
     public void playersTurn(Player player) {
         //nel paramentro c'è il player con la salute aggiornata dopo l'attacco
         //del nemico, chiedere al giocatore cosa vuole fare e richiamare in caso di attacco
-        //ripetuto i metodi playerFightsBack(SimpleResource sr) o playerChoses(int choise)
+        //ripetuto i metodi playerFightsBack(SimpleResource sr) o playerChoses(int choice)
     }
 }

@@ -8,4 +8,6 @@ import java.util.ArrayList;
 public interface EnemyDao {
 
     ArrayList<Enemy> getEnemies(EntityManager em);
+
+    Enemy getEnemyById(long id, EntityManager em);
 }

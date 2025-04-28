@@ -1,13 +1,8 @@
 package model.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
-import persistence.AreaDaoImpl;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "AREA")
@@ -20,9 +15,9 @@ public class Area implements Serializable {
 	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@Column(name = "ID_EVENT")
-	@ColumnDefault("0")
-	private long idEvent;
+	@OneToOne
+	@JoinColumn(name = "id_event",referencedColumnName = "id")
+	private Event event;
 
 	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
@@ -36,10 +31,6 @@ public class Area implements Serializable {
 	//nome colonna fk id_checkpoint, usa la colonna id della classe Checkpoint
 	private Checkpoint checkpoint;
 
-	//test uno ad uno con climate, però climate non ne tiene traccia
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "id_climate",referencedColumnName = "id")
-	private Climate climate;
 
 	public long getId() {
 		return id;
@@ -57,13 +48,6 @@ public class Area implements Serializable {
 		this.name = name;
 	}
 
-	public long getIdEvent() {
-		return idEvent;
-	}
-
-	public void setIdEvent(long idEvent) {
-		this.idEvent = idEvent;
-	}
 
 	public String getDescription() {
 		return description;
@@ -81,14 +65,6 @@ public class Area implements Serializable {
 		this.checkpoint = checkpoint;
 	}
 
-	public Climate getClimate() {
-		return climate;
-	}
-
-	public void setClimate(Climate climate) {
-		this.climate = climate;
-	}
-
 	public String getCategory() {
 		return category;
 	}
@@ -97,4 +73,11 @@ public class Area implements Serializable {
 		this.category = category;
 	}
 
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
 }

@@ -4,8 +4,13 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Event implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     private String type;
 
@@ -14,4 +19,10 @@ public abstract class Event implements Serializable {
     private String description;
 
     private int quantity;
+
+    private String category;
+
+    public abstract long getId();
+
+    public abstract String getCategory();
 }

@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
+
 public class GameController {
 
     // Controllers di Logica/Dati
@@ -63,9 +65,11 @@ public class GameController {
 
             // 2. Game Loop Principale
             boolean continueToPlay = true;
+
             while (continueToPlay) {
-                // Ricarica lo stato corrente se necessario (opzionale, dipende da come gestisci lo stato)
-                // this.game = dbController.getGame(); // Potrebbe non essere necessario ad ogni ciclo
+                //controlla se c'è un nemico nell'area
+                //se c'è fai scegliere al player se combatterlo oppure scappare
+
 
                 int choice = mainMenuView.showMainMenu();
 
@@ -114,22 +118,25 @@ public class GameController {
         long currentAreaId = player.getIdArea();
 
         // Logica di gioco per l'evento
-        SimpleResource resource = game.triggerEvent(currentAreaId, game);
+        Event event = game.triggerEvent(currentAreaId, game);
         Area currentArea = dbController.getAreasById(currentAreaId); // Ottieni l'area per contesto
 
-        if (resource != null && currentArea != null && currentArea.getIdEvent() == resource.getId()) {
-            explorationView.displayFoundResource(resource.getName());
-            int pickupChoice = explorationView.getPickupChoice();
-            if (pickupChoice == 1) {
-                if (game.pickUp(resource, player)) { // La logica di pickup aggiorna il player
-                    dbController.updateMap(game.getMap(), resource); // Aggiorna la mappa nel DB
-                    dbController.updatePlayer(player); // Salva lo stato aggiornato del player (inventario)
-                    explorationView.displayResourcePickedUp();
+        if (Objects.equals(event.getCategory(), "RISORSA")) {
+            SimpleResource resource = (SimpleResource) event;
+            if (currentArea != null && currentArea.getEvent() == resource) {
+                explorationView.displayFoundResource(resource.getName());
+                int pickupChoice = explorationView.getPickupChoice();
+                if (pickupChoice == 1) {
+                    if (game.pickUp(resource, player)) { // La logica di pickup aggiorna il player
+                        dbController.updateMap(game.getMap(), resource); // Aggiorna la mappa nel DB
+                        dbController.updatePlayer(player); // Salva lo stato aggiornato del player (inventario)
+                        explorationView.displayResourcePickedUp();
+                    } else {
+                        explorationView.displayInventoryFull();
+                    }
                 } else {
-                    explorationView.displayInventoryFull();
+                    explorationView.displayResourceIgnored();
                 }
-            } else {
-                explorationView.displayResourceIgnored();
             }
         } else {
             explorationView.displayNothingFound();

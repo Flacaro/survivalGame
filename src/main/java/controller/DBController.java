@@ -153,4 +153,12 @@ public class DBController {
         close();
         return enemies;
     }
+
+    public Enemy getEnemyById(long id) {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        EnemyDaoImpl enemyDao = new EnemyDaoImpl();
+        Enemy enemy = enemyDao.getEnemyById(id, em);
+        close();
+        return enemy;
+    }
 }

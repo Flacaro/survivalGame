@@ -88,17 +88,17 @@ public class Game {
 
 
     //viene chiamato ogni volta che il giocatore si muove
-    public SimpleResource triggerEvent(long idArea, Game gd) {
+    public Event triggerEvent(long idArea, Game gd) {
         DBController dbController = new DBController();
         List<Area> mapAreas = gd.getMap().getAreas();
         for (Area areas : mapAreas) {
             if (areas.getId() == idArea) {
-                long idEvent = areas.getIdEvent();
+                long idEvent = areas.getEvent().getId();
                 String category = areas.getCategory();
                 if (Objects.equals(category, "RISORSA")) {
                     return dbController.getResourceById(idEvent);
                 } else {
-                    //dbController.getEnemyById(idEvent);
+                    return dbController.getEnemyById(idEvent);
                 }
             }
         }

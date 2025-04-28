@@ -3,6 +3,7 @@ package persistence;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import model.entity.Enemy;
+import model.entity.Mode;
 import persistence.dao.EnemyDao;
 
 import java.util.ArrayList;
@@ -23,6 +24,20 @@ public class EnemyDaoImpl implements EnemyDao {
             }
             return enemies;
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
+        return null;
+    }
+
+    @Override
+    public Enemy getEnemyById(long id, EntityManager em) {
+        try {
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+            return em.find(Enemy.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();

@@ -1,71 +1,71 @@
 package model.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "CLIMATE")
-public class Climate extends Event{
+public class Climate extends Event {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+    private long id;
+    private String type;
+    private String name;
+    private String description;
 
-	private String type;
-	private String name;
-	private String description;
+    @Column(name = "DAMAGE", nullable = false)
+    private double damage;
 
-	@Column(name = "DAMAGE", nullable = false)
-	private double damage;
+    @Column(name = "LEVEL", nullable = false)
+    private int level = 1;
 
-	@Column(name = "LEVEL", nullable = false)
-	private int level = 1;
+    public String getDescription() {
+        return description;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public double getDamage() {
+        return damage;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public void setDamage(double damage) {
+        this.damage = damage;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public int getLevel() {
+        return level;
+    }
 
-	public double getDamage() {
-		return damage;
-	}
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
-	public void setDamage(double damage) {
-		this.damage = damage;
-	}
+    @Override
+    public long getId() {
+        return id;
+    }
 
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
+    @Override
+    public String getCategory() {
+        return "CLIMATE";
+    }
 }

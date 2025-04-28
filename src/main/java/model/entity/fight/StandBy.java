@@ -10,7 +10,7 @@ public class StandBy implements State {
     }
 
     @Override
-    public void playerChooses(int choise) {
+    public void playerChooses(int choice) {
         //controllore che richiama la view e che chiede al giocatore per poi utilizzare questo metodo
         //ed aggiornare gli stati
     }

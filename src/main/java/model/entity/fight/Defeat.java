@@ -15,7 +15,7 @@ public class Defeat implements State{
         this.fight=fight;
     }
     @Override
-    public void playerChooses(int choise) {
+    public void playerChooses(int choice) {
 
     }
 

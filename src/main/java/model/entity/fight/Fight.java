@@ -42,9 +42,9 @@ public class Fight {
     }
 
 
-    public void playerChoses(int choise){
+    public void playerChoses(int choice){
         currentState=playerTurn;
-        currentState.playerChooses(choise);
+        currentState.playerChooses(choice);
     }
 
     public void playerWins(){

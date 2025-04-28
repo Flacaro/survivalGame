@@ -5,7 +5,7 @@ import model.entity.SimpleResource;
 
 public interface State {
 
-    public void playerChooses(int choise);
+    public void playerChooses(int choice);
     public void playerFightsBack(Attack attack);
     public void enemyFightsBack();
     public void playerWins();

@@ -36,7 +36,7 @@ public class AreaDaoImpl implements AreaDao {
             for (Area value : areas) {
                 Area area = em.find(Area.class, value.getId()); // Trova l'oggetto con ID 1
                 if (area != null) {
-                    area.setIdEvent(value.getIdEvent());
+                    area.setEvent_id(value.getEvent_id());
                     area.setCategory(value.getCategory());
                 }
             }

@@ -18,15 +18,20 @@ public class Fight {
     private Enemy enemy;
 
     public Fight(Game game, Enemy enemy) {
+        this.game= game;
+        this.enemy=enemy;
         this.enemyTurn= new EnemyTurn(this);
         this.playerTurn=new PlayerTurn(this);
         this.standBy=new StandBy(this);
         this.victory=new Victory(this);
         this.defeat=new Defeat(this);
         this.currentState=standBy;
-        this.game= game;
-        this.enemy=enemy;
+
         observerUI=new ObserverUI();
+    }
+
+    public Fight() {
+
     }
 
     public void standBy(){

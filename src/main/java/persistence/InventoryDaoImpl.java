@@ -65,10 +65,11 @@ public class InventoryDaoImpl implements InventoryDao {
                     }}
                 if (!resourceFound) {
                     SimpleResource newResource = em.find(SimpleResource.class, res.getId());
-                    if (newResource == null) {
-                        newResource = new SimpleResource(res.getId(), res.getCategory(), res.getAttacks(), res.getLevel(), res.getName(), res.getQuantity(), res.getType());
-                        em.persist(newResource);
-                    }
+//                    if (newResource == null) {
+//
+//                        newResource = new SimpleResource(res.getId(), res.getCategory(), res.getAttacks(), res.getLevel(), res.getName(), res.getQuantity(), res.getType());
+//                        em.persist(newResource);
+//                    }
                     inventory.getResources().add(newResource);
                     ResourceQuantityInv newResourceq=new ResourceQuantityInv(inventory, newResource, 1);
                     resourcesQuantity.add(newResourceq);

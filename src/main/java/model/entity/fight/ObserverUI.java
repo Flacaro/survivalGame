@@ -1,11 +1,14 @@
 package model.entity.fight;
 
+import controller.FightController;
 import model.entity.Enemy;
 import model.entity.Player;
 
 public class ObserverUI extends Observer{
 
     private State state;
+
+    private FightController fightController=new FightController();
 
     @Override
     public void update(State state) {
@@ -24,6 +27,7 @@ public class ObserverUI extends Observer{
     @Override
     public void updateRunaway(Boolean result) {
         //richiama il controllore che gestisce questo caso
+        fightController.updateRunaway(result);
         //per result=true -> il player può scappare
         //(decidere come aggiornare la posizione)
         //result=false -> combatte

@@ -2,24 +2,20 @@ package controller;
 
 import model.entity.*;
 
-import view.MainMenuView;
-import view.SetupView; // Aggiungi import per tutte le view che usi
-import view.ExplorationView;
-import view.InventoryView;
-import view.MovementView;
-import view.CraftingView;
-import view.CommonViewUtils; // Anche per le classi di utilità se necessario
+import model.entity.fight.Fight;
+import view.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
 public class GameController {
 
     // Controllers di Logica/Dati
     private final StartController startController;
     private final DBController dbController;
     private final ResourceController resourceController;
+    private final FightController fightController;
 
     // Views
     private final SetupView setupView;
@@ -35,8 +31,9 @@ public class GameController {
     public GameController() {
         // Istanzia i controller necessari
         this.startController = new StartController();
-        this.dbController = new DBController(); // Assicurati che gestisca la connessione/chiusura
+        this.dbController = new DBController();
         this.resourceController = new ResourceController();
+        this.fightController=new FightController();
 
         // Istanzia le view
         this.setupView = new SetupView();
@@ -103,8 +100,8 @@ public class GameController {
             CommonViewUtils.displayMessage("Si è verificato un errore imprevisto: " + e.getMessage());
             e.printStackTrace(); // Utile per il debug
         } finally {
-            // 3. Cleanup
-            dbController.close(); // Assicurati che il DBController abbia un metodo close()
+//            // 3. Cleanup
+            dbController.close();
             CommonViewUtils.displayMessage("Gioco terminato.");
         }
     }
@@ -114,23 +111,32 @@ public class GameController {
         long currentAreaId = player.getIdArea();
 
         // Logica di gioco per l'evento
-        SimpleResource resource = game.triggerEvent(currentAreaId, game);
+        Event event = game.triggerEvent(currentAreaId, game);
         Area currentArea = dbController.getAreasById(currentAreaId); // Ottieni l'area per contesto
 
-        if (resource != null && currentArea != null && currentArea.getIdEvent() == resource.getId()) {
-            explorationView.displayFoundResource(resource.getName());
-            int pickupChoice = explorationView.getPickupChoice();
-            if (pickupChoice == 1) {
-                if (game.pickUp(resource, player)) { // La logica di pickup aggiorna il player
-                    dbController.updateMap(game.getMap(), resource); // Aggiorna la mappa nel DB
-                    dbController.updatePlayer(player); // Salva lo stato aggiornato del player (inventario)
-                    explorationView.displayResourcePickedUp();
-                } else {
-                    explorationView.displayInventoryFull();
-                }
-            } else {
-                explorationView.displayResourceIgnored();
+        if (event != null && currentArea != null ) {
+            switch (currentArea.getCategory()){
+                case "RISORSA":
+                    SimpleResource resource= (SimpleResource) event;
+                    explorationView.displayFoundResource(resource.getName());
+                    int pickupChoice = explorationView.getPickupChoice();
+                    if (pickupChoice == 1) {
+                        if (game.pickUp(resource, player)) { // La logica di pickup aggiorna il player
+                            dbController.updateMap(game.getMap(), resource); // Aggiorna la mappa nel DB
+                            dbController.updatePlayer(player); // Salva lo stato aggiornato del player (inventario)
+                            explorationView.displayResourcePickedUp();
+                        } else {
+                            explorationView.displayInventoryFull();
+                        }
+                    } else {
+                        explorationView.displayResourceIgnored();
+                    }
+                case "NEMICO":
+                    Enemy enemy= (Enemy) event;
+                    Fight fight=new Fight();
+                    fightController.startFight(fight);
             }
+
         } else {
             explorationView.displayNothingFound();
         }

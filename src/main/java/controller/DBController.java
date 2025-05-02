@@ -17,6 +17,7 @@ public class DBController {
     MapDaoImpl mapDaoImpl = new MapDaoImpl();
     ResourceDaoImpl resourceDao = new ResourceDaoImpl();
     InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
+    EnemyDaoImpl enemyDao = new EnemyDaoImpl();
 
     public void close() {
         EntityManagerSingleton.closeEntityManager();
@@ -116,6 +117,13 @@ public class DBController {
         return resource;
     }
 
+    public Enemy getEnemyById(long id) {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        Enemy enemy = enemyDao.getEnemyById(id, em);
+        close();
+        return enemy;
+    }
+
     public List<SimpleResource> getResourcesByName() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         List<SimpleResource> resources = resourceDao.getResourceByName(em);
@@ -148,9 +156,16 @@ public class DBController {
 
     public ArrayList<Enemy> getEnemies() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        EnemyDaoImpl enemyDao = new EnemyDaoImpl();
         ArrayList<Enemy> enemies = enemyDao.getEnemies(em);
         close();
         return enemies;
     }
+
+    public void getClimateById(Long id) {
+//        EntityManager em = EntityManagerSingleton.getEntityManager();
+//        Climate climate = climateDao.getClimateById(id, em);
+//        close();
+//        return climate;
+    }
+
 }

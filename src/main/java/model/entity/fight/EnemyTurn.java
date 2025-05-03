@@ -5,16 +5,17 @@ import model.entity.Enemy;
 import model.entity.Player;
 
 import java.util.List;
-import java.util.Random;
 
 public class EnemyTurn implements State {
     Fight fight;
 
-    Player player=fight.getGame().getPlayer();
-    Enemy enemy= fight.getEnemy();
+    Player player;
+    Enemy enemy;
 
     public EnemyTurn(Fight fight) {
         this.fight=fight;
+        this.player=fight.getGame().getPlayer();
+        this.enemy=enemy= fight.getEnemy();
     }
 
     @Override

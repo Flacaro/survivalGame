@@ -6,11 +6,13 @@ public class PlayerTurn implements State {
 
     Fight fight;
 
-    Player player=fight.getGame().getPlayer();
-    Enemy enemy= fight.getEnemy();
+    Player player;
+    Enemy enemy;
 
     public PlayerTurn(Fight fight) {
         this.fight=fight;
+        this.player=fight.getGame().getPlayer();
+        this.enemy= fight.getEnemy();
     }
 
     @Override
@@ -33,7 +35,7 @@ public class PlayerTurn implements State {
                 }
             case 1:
                 //ha scelto di combattere, deve scegliere la risorsa
-                fight.getObserverUI().updateRunaway(runaway);
+                fight.getObserverUI().notifyFight();
         }
 
     }
@@ -54,6 +56,7 @@ public class PlayerTurn implements State {
                     //possiamo implementare una funzione che decide di quanto far
                     //aumentare l'attacco
                     enemy.setHealth(enemy.getHealth()-(attack.getDamage())*1.5);
+                    System.out.println("attacco andato a buon fine "+ enemy.getHealth());
                     fight.getObserverUI().updateEnemy(enemy);
                 }
             }

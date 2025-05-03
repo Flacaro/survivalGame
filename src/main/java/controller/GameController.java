@@ -133,8 +133,10 @@ public class GameController {
                     }
                 case "NEMICO":
                     Enemy enemy= (Enemy) event;
-                    Fight fight=new Fight();
-                    fightController.startFight(fight);
+                    Fight fight=new Fight(game,enemy);
+                    fightController.setFight(fight);
+                    fight.setObserverUI(fightController);
+                    fightController.startFight();
             }
 
         } else {

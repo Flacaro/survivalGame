@@ -4,8 +4,7 @@ import model.entity.Enemy;
 import model.entity.Player;
 
 public abstract class Observer {
-    public abstract void update(State state);
-    public abstract State getState();
+    public abstract void notifyFight();
 
     public abstract void updateRunaway(Boolean result);
 

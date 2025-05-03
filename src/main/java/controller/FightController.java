@@ -1,28 +1,84 @@
 package controller;
 
+import model.entity.Attack;
+import model.entity.Enemy;
+import model.entity.Player;
 import model.entity.fight.Fight;
+import model.entity.fight.Observer;
 import view.FightView;
 
 import java.io.IOException;
 
-public class FightController {
-    private Fight fight;
-    private FightView fightView;
+public class FightController extends Observer {
 
-    public void startFight(Fight fight) throws IOException {
-        this.fight=fight;
+    private Fight fight;
+    private FightView fightView=new FightView();
+
+    public FightController() {
+    }
+
+    public void startFight() throws IOException {
         fightView.displayFoundEnemy(fight.getEnemy().getName());
         int choice=fightView.getFightChoice();
         fight.playerChoses(choice);
     }
 
-    public void updateRunaway(boolean runaway){
-        if (runaway){
-            System.out.println("sei riuscito a scappare");
+    public void choseWeapons(){
+        System.out.println("Scegli l'arma");
+        Attack attack=fightView.displayWeapons(fight);
+        fight.playerFightsBack(attack);
+    }
+
+    public void setFight(Fight fight) {
+        this.fight=fight;
+    }
+
+    @Override
+    public void notifyFight() {
+        choseWeapons();
+    }
+
+    @Override
+    public void updateRunaway(Boolean result) {
+        if (result){
+            System.out.println("Sei riuscito a scappare");
         }
         else {
-            System.out.println("non sei riuscito a scappare");
+            System.out.println("Non sei riuscito a scappare");
+            choseWeapons();
         }
+
+    }
+
+    @Override
+    public void updateEnemy(Enemy enemy) {
+        //nel parametro c'è l'enemy dopo che ha subito l'attacco dal giocatore
+        //richiamare il controllore per far mostrare alla view la salute
+        //danneggiata del nemico
+    }
+
+    @Override
+    public void notifyVictory(Player player) {
+        //nel parametro c'è il giocatore dopo che ha vinto il combattimento
+        //modificati punti exp e livello
+        //mostrarli al giocatore ed andare avanti
+
+    }
+
+    @Override
+    public void notifyDefeat(Player player) {
+        //nel parametro c'è il player dopo essere stato sconfitto
+        //salute a 0
+        //inventario vuoto
+        //notificarlo al giocatore aggiornare il db e interrompere la partita
+
+    }
+
+    @Override
+    public void playersTurn(Player player) {
+        //nel paramentro c'è il player con la salute aggiornata dopo l'attacco
+        //del nemico, chiedere al giocatore cosa vuole fare e richiamare in caso di attacco
+        //ripetuto i metodi playerFightsBack(SimpleResource sr) o playerChoses(int choice)
 
     }
     //chiede gli input alla view

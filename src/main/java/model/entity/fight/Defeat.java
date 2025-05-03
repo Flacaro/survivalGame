@@ -8,11 +8,13 @@ public class Defeat implements State{
 
     Fight fight;
 
-    Player player=fight.getGame().getPlayer();
-    Enemy enemy= fight.getEnemy();
+    Player player;
+    Enemy enemy;
 
     public Defeat(Fight fight) {
         this.fight=fight;
+        this.player=fight.getGame().getPlayer();
+        this.enemy= fight.getEnemy();
     }
     @Override
     public void playerChooses(int choice) {

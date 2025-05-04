@@ -15,7 +15,7 @@ public class EnemyTurn implements State {
     public EnemyTurn(Fight fight) {
         this.fight=fight;
         this.player=fight.getGame().getPlayer();
-        this.enemy=enemy= fight.getEnemy();
+        this.enemy=fight.getEnemy();
     }
 
     @Override
@@ -32,14 +32,12 @@ public class EnemyTurn implements State {
         List<Attack> attacks= enemy.getAttacks();
         //implementare una funzione che sceglie l'attacco del nemico
         Attack attack=attacks.get(0);
-        if (enemy.getHealth()!=0 && enemy.getHealth()>=0){
-            if (player.getHealth()>0){
+        if (enemy.getHealth()>0.1){
+            if (player.getHealth()>0.1){
                 player.setHealth(player.getHealth()-attack.getDamage());
             }
         }
-        if (player.getHealth()==0||player.getHealth()<0){
-            fight.playerLoses();
-        }else {
+        if (player.getHealth()>0.1){
             fight.getObserverUI().playersTurn(player);
         }
     }

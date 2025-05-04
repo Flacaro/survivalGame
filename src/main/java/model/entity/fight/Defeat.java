@@ -3,6 +3,7 @@ package model.entity.fight;
 import model.entity.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Defeat implements State{
 
@@ -39,8 +40,9 @@ public class Defeat implements State{
     @Override
     public void playerLoses() {
         Inventory inventory= player.getInventory();
-        inventory.remove((ArrayList<SimpleResource>) inventory.getResources());
-        inventory.removeCraftedResource((ArrayList<CraftedResource>) inventory.getCraftedResourceList());
+        inventory.setResources(null);
+        inventory.setCraftedResourceList(null);
+        fight.standBy();
         fight.getObserverUI().notifyDefeat(player);
     }
 }

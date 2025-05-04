@@ -46,8 +46,8 @@ public class PlayerTurn implements State {
         //il palyer deve combattere quindi deve selezionare una risorsa e un attacco
         //viene richiamato dal controllore quando l'esito della scelta è 1
         //riceve come parametro l'attacco
-        if (player.getHealth()!=0){
-            if (enemy.getHealth()!=0){
+        while (player.getHealth()>0.1){
+            while (enemy.getHealth()>0.1){
                 if (enemy.getLevel()==player.getLevel()){
                     enemy.setHealth(enemy.getHealth()-attack.getDamage());
                     fight.getObserverUI().updateEnemy(enemy);
@@ -56,16 +56,21 @@ public class PlayerTurn implements State {
                     //possiamo implementare una funzione che decide di quanto far
                     //aumentare l'attacco
                     enemy.setHealth(enemy.getHealth()-(attack.getDamage())*1.5);
-                    System.out.println("attacco andato a buon fine "+ enemy.getHealth());
                     fight.getObserverUI().updateEnemy(enemy);
+                }
+                if (enemy.getHealth()<=0.1) {
+                    fight.playerWins();
+                    return;
+                }else{
+                    fight.enemyFightsBack();
+                    if (player.getHealth()<=0.1){
+                        fight.playerLoses();
+                        return;
+                    }
                 }
             }
         }
-        if (enemy.getHealth()==0 || enemy.getHealth()<0) {
-            fight.playerWins();
-        }else {
-            fight.enemyFightsBack();
-        }
+
     }
 
     @Override

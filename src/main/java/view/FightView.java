@@ -1,8 +1,6 @@
 package view;
 
 import model.entity.Attack;
-import model.entity.CraftedResource;
-import model.entity.Inventory;
 import model.entity.SimpleResource;
 import model.entity.fight.Fight;
 

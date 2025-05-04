@@ -69,6 +69,7 @@ public class GameController {
                 switch (choice) {
                     case 1:
                         handleExplore();
+                        continueToPlay=handleEndFight();
                         break;
                     case 2:
                         handleShowInventory();
@@ -146,6 +147,13 @@ public class GameController {
         // e dbController salva le modifiche persistenti.
     }
 
+    private boolean handleEndFight(){
+        if (game.getPlayer().getHealth()==0.0){
+            return false;
+        }else {
+            return true;
+        }
+    }
     private void handleShowInventory() {
         Player player = game.getPlayer();
         Inventory inventory = dbController.showInventory(player); // Ottiene l'inventario aggiornato

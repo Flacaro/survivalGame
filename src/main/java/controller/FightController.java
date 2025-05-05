@@ -63,7 +63,11 @@ public class FightController extends Observer {
         //nel parametro c'è il giocatore dopo che ha vinto il combattimento
         //modificati punti exp e livello
         //mostrarli al giocatore ed andare avanti
-        System.out.println("Hai sconfitto il  nemico");
+        System.out.println("Hai sconfitto il  nemico.Ora hai "+player.getExp()+"di esperienza");
+        //eliminare il nemico dall'area e settare la sua quantità a 0
+        DBController dbController=new DBController();
+        dbController.updatePlayer(player);
+
     }
 
     @Override
@@ -73,7 +77,6 @@ public class FightController extends Observer {
         //inventario vuoto
 
         System.out.println("Il nemico ti ha sconfitto");
-        //notificarlo al giocatore aggiornare il db e interrompere la partita
 
 
     }

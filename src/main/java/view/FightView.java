@@ -26,7 +26,7 @@ public class FightView {
 
     public Attack displayWeapons(Fight fight) {
         System.out.println("Con cosa vuoi affrontare il nemico?");
-        Attack attack=new Attack(2L, "Distrugge tutto",3, "attacco diretto");
+        Attack attack=new Attack(2L, "Distrugge tutto",1, "attacco diretto");
         SimpleResource res=fight.getGame().getPlayer().getInventory().getResources().get(0);
         List<Attack>attacks=new ArrayList<>();
         attacks.add(attack);

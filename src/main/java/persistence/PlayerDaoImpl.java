@@ -21,6 +21,7 @@ public class PlayerDaoImpl implements PlayerDao {
                 player1.setIdArea(player.getIdArea());
                 player1.setX_axis(player.getX_axis());
                 player1.setY_axis(player.getY_axis());
+                player1.setExp(player.getExp());
             }
             em.getTransaction().commit();
 

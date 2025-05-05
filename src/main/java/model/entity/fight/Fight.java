@@ -10,6 +10,7 @@ public class Fight {
     private StandBy standBy;
     private Victory victory;
     private Defeat defeat;
+
     private State currentState;
     private Observer observerUI;
 

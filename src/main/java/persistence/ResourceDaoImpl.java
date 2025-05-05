@@ -113,11 +113,12 @@ public class ResourceDaoImpl implements ResourceDao {
 
     @Override
     public ArrayList<SimpleResource> getResources(EntityManager em) {
-        TypedQuery<SimpleResource> query = em.createQuery("SELECT r FROM SimpleResource r", SimpleResource.class);
+        TypedQuery<Event> query = em.createQuery("SELECT e FROM Event e WHERE e.type='RISORSA'", Event.class);
 
         ArrayList<SimpleResource> resourceDomains = new ArrayList<>();
-        for (SimpleResource r : query.getResultList()) {
-            resourceDomains.add(r);
+
+        for (Event r : query.getResultList()) {
+                resourceDomains.add((SimpleResource) r);
         }
         return resourceDomains;
     }

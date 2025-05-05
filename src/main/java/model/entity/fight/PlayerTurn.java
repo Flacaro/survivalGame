@@ -6,11 +6,13 @@ public class PlayerTurn implements State {
 
     Fight fight;
 
-    Player player=fight.getGame().getPlayer();
-    Enemy enemy= fight.getEnemy();
+    Player player;
+    Enemy enemy;
 
     public PlayerTurn(Fight fight) {
         this.fight=fight;
+        this.player=fight.getGame().getPlayer();
+        this.enemy= fight.getEnemy();
     }
 
     @Override
@@ -33,7 +35,7 @@ public class PlayerTurn implements State {
                 }
             case 1:
                 //ha scelto di combattere, deve scegliere la risorsa
-                fight.getObserverUI().updateRunaway(runaway);
+                fight.getObserverUI().notifyFight();
         }
 
     }
@@ -44,8 +46,8 @@ public class PlayerTurn implements State {
         //il palyer deve combattere quindi deve selezionare una risorsa e un attacco
         //viene richiamato dal controllore quando l'esito della scelta è 1
         //riceve come parametro l'attacco
-        if (player.getHealth()!=0){
-            if (enemy.getHealth()!=0){
+        while (player.getHealth()>0.1){
+            while (enemy.getHealth()>0.1){
                 if (enemy.getLevel()==player.getLevel()){
                     enemy.setHealth(enemy.getHealth()-attack.getDamage());
                     fight.getObserverUI().updateEnemy(enemy);
@@ -56,13 +58,19 @@ public class PlayerTurn implements State {
                     enemy.setHealth(enemy.getHealth()-(attack.getDamage())*1.5);
                     fight.getObserverUI().updateEnemy(enemy);
                 }
+                if (enemy.getHealth()<=0.1) {
+                    fight.playerWins();
+                    return;
+                }else{
+                    fight.enemyFightsBack();
+                    if (player.getHealth()<=0.1){
+                        fight.playerLoses();
+                        return;
+                    }
+                }
             }
         }
-        if (enemy.getHealth()==0 || enemy.getHealth()<0) {
-            fight.playerWins();
-        }else {
-            fight.enemyFightsBack();
-        }
+
     }
 
     @Override

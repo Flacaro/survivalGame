@@ -4,7 +4,6 @@ import controller.DBController;
 import jakarta.persistence.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "GAME")
@@ -89,27 +88,16 @@ public class Game {
 
     //viene chiamato ogni volta che il giocatore si muove
     public Event triggerEvent(long idArea, Game gd) {
-        DBController dbController = new DBController();
         List<Area> mapAreas = gd.getMap().getAreas();
         for (Area areas : mapAreas) {
             if (areas.getId() == idArea) {
-                long idEvent = areas.getEvent().getId();
-                String category = areas.getCategory();
-                if (Objects.equals(category, "RISORSA")) {
-                    return dbController.getResourceById(idEvent);
-                } else {
-                    return dbController.getEnemyById(idEvent);
-                }
+                Event event=areas.getEvent_id();
+                return event;
             }
         }
         return null;
     }
 
-
-    public boolean verifyAnswer(Event event, boolean answer) {
-        // TODO - implement Game.verifyAnswer
-        throw new UnsupportedOperationException();
-    }
 
     public boolean move(int position) {
         DBController dbController = new DBController();

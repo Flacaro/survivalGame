@@ -2,19 +2,12 @@ package controller;
 
 import model.entity.*;
 
-import view.MainMenuView;
-import view.SetupView; // Aggiungi import per tutte le view che usi
-import view.ExplorationView;
-import view.InventoryView;
-import view.MovementView;
-import view.CraftingView;
-import view.CommonViewUtils; // Anche per le classi di utilità se necessario
+import model.entity.fight.Fight;
+import view.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
 
 public class GameController {
 
@@ -22,6 +15,7 @@ public class GameController {
     private final StartController startController;
     private final DBController dbController;
     private final ResourceController resourceController;
+    private final FightController fightController;
 
     // Views
     private final SetupView setupView;
@@ -37,8 +31,9 @@ public class GameController {
     public GameController() {
         // Istanzia i controller necessari
         this.startController = new StartController();
-        this.dbController = new DBController(); // Assicurati che gestisca la connessione/chiusura
+        this.dbController = new DBController();
         this.resourceController = new ResourceController();
+        this.fightController=new FightController();
 
         // Istanzia le view
         this.setupView = new SetupView();
@@ -65,17 +60,16 @@ public class GameController {
 
             // 2. Game Loop Principale
             boolean continueToPlay = true;
-
             while (continueToPlay) {
-                //controlla se c'è un nemico nell'area
-                //se c'è fai scegliere al player se combatterlo oppure scappare
-
+                // Ricarica lo stato corrente se necessario (opzionale, dipende da come gestisci lo stato)
+                // this.game = dbController.getGame(); // Potrebbe non essere necessario ad ogni ciclo
 
                 int choice = mainMenuView.showMainMenu();
 
                 switch (choice) {
                     case 1:
                         handleExplore();
+                        continueToPlay=handleEndFight();
                         break;
                     case 2:
                         handleShowInventory();
@@ -107,8 +101,8 @@ public class GameController {
             CommonViewUtils.displayMessage("Si è verificato un errore imprevisto: " + e.getMessage());
             e.printStackTrace(); // Utile per il debug
         } finally {
-            // 3. Cleanup
-            dbController.close(); // Assicurati che il DBController abbia un metodo close()
+//            // 3. Cleanup
+            dbController.close();
             CommonViewUtils.displayMessage("Gioco terminato.");
         }
     }
@@ -121,23 +115,31 @@ public class GameController {
         Event event = game.triggerEvent(currentAreaId, game);
         Area currentArea = dbController.getAreasById(currentAreaId); // Ottieni l'area per contesto
 
-        if (Objects.equals(event.getCategory(), "RISORSA")) {
-            SimpleResource resource = (SimpleResource) event;
-            if (currentArea != null && currentArea.getEvent() == resource) {
-                explorationView.displayFoundResource(resource.getName());
-                int pickupChoice = explorationView.getPickupChoice();
-                if (pickupChoice == 1) {
-                    if (game.pickUp(resource, player)) { // La logica di pickup aggiorna il player
-                        dbController.updateMap(game.getMap(), resource); // Aggiorna la mappa nel DB
-                        dbController.updatePlayer(player); // Salva lo stato aggiornato del player (inventario)
-                        explorationView.displayResourcePickedUp();
+        if (event != null && currentArea != null ) {
+            switch (currentArea.getCategory()){
+                case "RISORSA":
+                    SimpleResource resource= (SimpleResource) event;
+                    explorationView.displayFoundResource(resource.getName());
+                    int pickupChoice = explorationView.getPickupChoice();
+                    if (pickupChoice == 1) {
+                        if (game.pickUp(resource, player)) { // La logica di pickup aggiorna il player
+                            dbController.updateMap(game.getMap(), resource); // Aggiorna la mappa nel DB
+                            dbController.updatePlayer(player); // Salva lo stato aggiornato del player (inventario)
+                            explorationView.displayResourcePickedUp();
+                        } else {
+                            explorationView.displayInventoryFull();
+                        }
                     } else {
-                        explorationView.displayInventoryFull();
+                        explorationView.displayResourceIgnored();
                     }
-                } else {
-                    explorationView.displayResourceIgnored();
-                }
+                case "NEMICO":
+                    Enemy enemy= (Enemy) event;
+                    Fight fight=new Fight(game,enemy);
+                    fightController.setFight(fight);
+                    fight.setObserverUI(fightController);
+                    fightController.startFight();
             }
+
         } else {
             explorationView.displayNothingFound();
         }
@@ -145,6 +147,13 @@ public class GameController {
         // e dbController salva le modifiche persistenti.
     }
 
+    private boolean handleEndFight(){
+        if (game.getPlayer().getHealth()==0.0){
+            return false;
+        }else {
+            return true;
+        }
+    }
     private void handleShowInventory() {
         Player player = game.getPlayer();
         Inventory inventory = dbController.showInventory(player); // Ottiene l'inventario aggiornato

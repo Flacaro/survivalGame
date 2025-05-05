@@ -34,9 +34,9 @@ public class MapDaoImpl implements MapDao {
             Map map = em.find(Map.class, mapDomain.getId());
             if (map != null) {
                 for (Area area : map.getAreas()) {
-                    if (area.getEvent().getId() == res.getId()) {
+                    if (area.getEvent_id() == res) {
                         //eliminare la risorsa nell'area
-                        area.setEvent(null);
+                        area.setEvent_id(null);
                         area.setCategory(null);
                         em.merge(map);
                         break;

@@ -6,8 +6,6 @@ import java.util.List;
 
 import controller.DBController;
 import model.entity.*;
-import persistence.AreaDaoImpl;
-import persistence.EnemyDaoImpl;
 
 public class GameFactorySingleton {
     private static GameFactorySingleton instance;
@@ -37,18 +35,16 @@ public class GameFactorySingleton {
         List<Enemy> subListEnemies = enemies.subList(0, numEnemy);
 
         for (int j = 0; j < numEnemy; j++) {
-            subListAreaDomain.get(j).setEvent(subListEnemies.get(j));
+            subListAreaDomain.get(j).setEvent_id(subListEnemies.get(j));
             subListAreaDomain.get(j).setCategory(subListEnemies.get(j).getType());
         }
 
         int resourceIndex = 0;
         for (int i = numEnemy; i < subListAreaDomain.size(); i++) {
-            subListAreaDomain.get(i).setEvent(subListResources.get(resourceIndex));
-            subListAreaDomain.get(i).setCategory(subListResources.get(resourceIndex).getCategory());
+            subListAreaDomain.get(i).setEvent_id(subListResources.get(resourceIndex));
+            subListAreaDomain.get(i).setCategory(subListResources.get(resourceIndex).getType());
             resourceIndex ++;
         }
-
-
 
     }
 

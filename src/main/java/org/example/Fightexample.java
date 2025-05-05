@@ -25,23 +25,23 @@ public class Fightexample {
         System.out.println("scegli un nickname\n");
         String nickname = bf.readLine();
         sc.start(mode, nickname);
-        DBController dbController= new DBController();
-        Game g = dbController.getGame();
-
-        Inventory inventory=g.getPlayer().getInventory();
-        List<SimpleResource> risorse=inventory.getResources();
-        SimpleResource res=risorse.get(0);
-        List<Attack> attacks1=new ArrayList<>();
-        attacks1.add(new Attack(2L, "Distrugge tutto",3, "attacco diretto"));
-        res.setAttacks(attacks1);
-
-        ArrayList<Attack> attacks=new ArrayList<>();
-        attacks.add(new Attack(1L, "graffio", 1.5, "attacco diretto"));
-        Enemy  enemy= new Enemy(attacks, 1, "orso");
-
-        Fight fight=new Fight(g,enemy);
-
-        fight.playerChoses(1);
+//        DBController dbController= new DBController();
+//        Game g = dbController.getGame();
+//
+//        Inventory inventory=g.getPlayer().getInventory();
+//        List<SimpleResource> risorse=inventory.getResources();
+//        SimpleResource res=risorse.get(0);
+//        List<Attack> attacks1=new ArrayList<>();
+//        attacks1.add(new Attack(2L, "Distrugge tutto",3, "attacco diretto"));
+//        res.setAttacks(attacks1);
+//
+//        ArrayList<Attack> attacks=new ArrayList<>();
+//        attacks.add(new Attack(1L, "graffio", 1.5, "attacco diretto"));
+//        Enemy  enemy= new Enemy(attacks, 1, "orso");
+//
+//        Fight fight=new Fight(g,enemy);
+//
+//        fight.playerChoses(1);
 
     }
 }

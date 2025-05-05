@@ -64,4 +64,6 @@ public class InventoryView {
         }
         CommonViewUtils.displaySeparator();
     }
+
+
 }

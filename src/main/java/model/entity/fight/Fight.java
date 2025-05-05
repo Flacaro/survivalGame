@@ -3,7 +3,6 @@ package model.entity.fight;
 import model.entity.Attack;
 import model.entity.Enemy;
 import model.entity.Game;
-import model.entity.SimpleResource;
 
 public class Fight {
     private EnemyTurn  enemyTurn;
@@ -18,20 +17,26 @@ public class Fight {
     private Enemy enemy;
 
     public Fight(Game game, Enemy enemy) {
+        this.game= game;
+        this.enemy=enemy;
         this.enemyTurn= new EnemyTurn(this);
         this.playerTurn=new PlayerTurn(this);
         this.standBy=new StandBy(this);
         this.victory=new Victory(this);
         this.defeat=new Defeat(this);
         this.currentState=standBy;
-        this.game= game;
-        this.enemy=enemy;
-        observerUI=new ObserverUI();
+
+
+    }
+
+    public Fight() {
+
     }
 
     public void standBy(){
         currentState=standBy;
     }
+
     public void playerFightsBack(Attack attack){
         currentState.playerFightsBack(attack);
     }
@@ -79,4 +84,7 @@ public class Fight {
         return observerUI;
     }
 
+    public void setObserverUI(Observer observerUI) {
+        this.observerUI = observerUI;
+    }
 }

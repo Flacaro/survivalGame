@@ -5,114 +5,51 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
 @Table(name = "ENEMY")
 public class Enemy extends Event {
+	//test 1 a molti con attack
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Attack> attacks;
 
-    //test 1 a molti con attack
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Attack> attacks;
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "id_mode", referencedColumnName = "id")
+	private Mode mode;
 
-    @Column(name = "LEVEL", nullable = false)
-    private int level = 1;
+	@Column(name = "HEALTH", nullable = false)
+	private double health;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_mode", referencedColumnName = "id")
-    private Mode mode;
+	public Enemy() {
+	}
 
-    @Column(name = "HEALTH", nullable = false)
-    private double health;
+	public Enemy(ArrayList<Attack> attacks, int level, String name) {
+		this.attacks = attacks;
+	}
 
-    private long id;
 
-    private String name;
+	public List<Attack> getAttacks() {
+		return attacks;
+	}
 
-    private String description;
+	public void setAttacks(ArrayList<Attack> attacks) {
+		this.attacks = attacks;
+	}
 
-    private String type;
+	public Mode getMode() {
+		return mode;
+	}
 
-    private int quantity;
+	public void setMode(Mode mode) {
+		this.mode = mode;
+	}
 
-    public Enemy() {
-    }
+	public double getHealth() {
+		return health;
+	}
 
-    public Enemy(ArrayList<Attack> attacks, int level, String name) {
-        this.attacks = attacks;
-        this.level = level;
-        this.name = name;
-    }
+	public void setHealth(double health) {
+		this.health = health;
+	}
 
-    public List<Attack> getAttacks() {
-        return attacks;
-    }
-
-    public void setAttacks(ArrayList<Attack> attacks) {
-        this.attacks = attacks;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Mode getMode() {
-        return mode;
-    }
-
-    public void setMode(Mode mode) {
-        this.mode = mode;
-    }
-
-    public double getHealth() {
-        return health;
-    }
-
-    public void setHealth(double health) {
-        this.health = health;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public String getCategory() {
-        return "ENEMY";
-    }
 }

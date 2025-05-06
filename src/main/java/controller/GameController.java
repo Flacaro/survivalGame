@@ -8,6 +8,7 @@ import view.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class GameController {
 
@@ -64,6 +65,7 @@ public class GameController {
                 // Ricarica lo stato corrente se necessario (opzionale, dipende da come gestisci lo stato)
                 // this.game = dbController.getGame(); // Potrebbe non essere necessario ad ogni ciclo
 
+                handleEnemy();
                 int choice = mainMenuView.showMainMenu();
 
                 switch (choice) {
@@ -98,7 +100,6 @@ public class GameController {
             CommonViewUtils.displayMessage("Si è verificato un errore di input/output: " + e.getMessage());
             // Potresti voler loggare l'errore
         } catch (Exception e) {
-            CommonViewUtils.displayMessage("Si è verificato un errore imprevisto: " + e.getMessage());
             e.printStackTrace(); // Utile per il debug
         } finally {
 //            // 3. Cleanup
@@ -107,6 +108,24 @@ public class GameController {
         }
     }
 
+    private void handleEnemy() throws IOException {
+        Player player = game.getPlayer();
+        long currentAreaId = player.getIdArea();
+
+        // Logica di gioco per l'evento
+        Event event = game.triggerEvent(currentAreaId, game);
+        Area currentArea = dbController.getAreasById(currentAreaId);
+        if (event!=null && currentArea!=null){
+            if (Objects.equals(currentArea.getCategory(), "NEMICO")){
+                Enemy enemy= (Enemy) event;
+                Fight fight=new Fight(game,enemy);
+                fightController.setFight(fight);
+                fight.setObserverUI(fightController);
+                fightController.startFight();
+            }
+        }
+
+    }
     private void handleExplore() throws IOException {
         Player player = game.getPlayer();
         long currentAreaId = player.getIdArea();
@@ -133,11 +152,7 @@ public class GameController {
                         explorationView.displayResourceIgnored();
                     }
                 case "NEMICO":
-                    Enemy enemy= (Enemy) event;
-                    Fight fight=new Fight(game,enemy);
-                    fightController.setFight(fight);
-                    fight.setObserverUI(fightController);
-                    fightController.startFight();
+                    handleEnemy();
             }
 
         } else {

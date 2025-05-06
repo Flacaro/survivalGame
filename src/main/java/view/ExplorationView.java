@@ -11,7 +11,7 @@ public class ExplorationView {
 
     public int getPickupChoice() throws IOException {
         int choice=CommonViewUtils.readIntChoice("Inserisci 1 o 0:");
-        while (choice!=0 || choice!=1){
+        while (choice < 0 || choice > 1){
             System.out.println("Errore: Inserisci un numero valido.");
             choice=CommonViewUtils.readIntChoice("Inserisci 1 o 0:");
         }

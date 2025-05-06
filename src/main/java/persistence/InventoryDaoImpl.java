@@ -15,7 +15,7 @@ public class InventoryDaoImpl implements InventoryDao {
 
 
     @Override
-    public Inventory getInventory(long idInventory,EntityManager em) {
+    public Inventory getInventory(long idInventory, EntityManager em) {
         try {
             // Query per ottenere l'inventory selezionando l'id
             TypedQuery<Inventory> query = em.createQuery("SELECT c FROM Inventory c WHERE c.id= :idInventory", Inventory.class);
@@ -41,7 +41,7 @@ public class InventoryDaoImpl implements InventoryDao {
     }
 
     @Override
-    public boolean updateInventory(SimpleResource res, Inventory id,EntityManager em) {
+    public boolean updateInventory(SimpleResource res, Inventory id, EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
@@ -54,24 +54,20 @@ public class InventoryDaoImpl implements InventoryDao {
 
                 boolean resourceFound = false;
                 for (SimpleResource resource : inventory.getResources()) {
-                    for (ResourceQuantityInv rqi :resourcesQuantity){
-                    if (resource.getId() == res.getId()) {
-                        if (resource.getId() == rqi.getResource().getId()) {
-                           rqi.setQuantity(rqi.getQuantity()+1);
-                        resourceFound = true;
-                        break;
+                    for (ResourceQuantityInv rqi : resourcesQuantity) {
+                        if (resource.getId() == res.getId()) {
+                            if (resource.getId() == rqi.getResource().getId()) {
+                                rqi.setQuantity(rqi.getQuantity() + 1);
+                                resourceFound = true;
+                                break;
+                            }
+                        }
                     }
-                    }
-                    }}
+                }
                 if (!resourceFound) {
                     SimpleResource newResource = em.find(SimpleResource.class, res.getId());
-//                    if (newResource == null) {
-//
-//                        newResource = new SimpleResource(res.getId(), res.getCategory(), res.getAttacks(), res.getLevel(), res.getName(), res.getQuantity(), res.getType());
-//                        em.persist(newResource);
-//                    }
                     inventory.getResources().add(newResource);
-                    ResourceQuantityInv newResourceq=new ResourceQuantityInv(inventory, newResource, 1);
+                    ResourceQuantityInv newResourceq = new ResourceQuantityInv(inventory, newResource, 1);
                     resourcesQuantity.add(newResourceq);
                     em.persist(newResourceq);
                 }
@@ -88,27 +84,27 @@ public class InventoryDaoImpl implements InventoryDao {
 
 
     @Override
-    public Inventory updateInventoryCraft(Inventory id,EntityManager em) {
+    public Inventory updateInventoryCraft(Inventory id, EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
             Inventory inventory = em.find(Inventory.class, id.getId());
             if (inventory != null) {
-                ArrayList<SimpleResource> list=new ArrayList<>();
-                ArrayList<ResourceQuantityInv> qnt=new ArrayList<>();
-                for (SimpleResource r :id.getResources()){
+                ArrayList<SimpleResource> list = new ArrayList<>();
+                ArrayList<ResourceQuantityInv> qnt = new ArrayList<>();
+                for (SimpleResource r : id.getResources()) {
                     list.add(r);
                 }
-                for (ResourceQuantityInv r :id.getResources_quantity()){
+                for (ResourceQuantityInv r : id.getResources_quantity()) {
                     qnt.add(r);
                 }
                 inventory.getResources_quantity().clear();
                 inventory.getResources().clear();
                 inventory.getResources().addAll(list);
                 inventory.getResources_quantity().addAll(qnt);
-                ArrayList<CraftedResource> lists=new ArrayList<>();
-                for (CraftedResource r :id.getCraftedResourceList()){
+                ArrayList<CraftedResource> lists = new ArrayList<>();
+                for (CraftedResource r : id.getCraftedResourceList()) {
                     lists.add(r);
                 }
                 inventory.getCraftedResourceList().clear();
@@ -127,7 +123,7 @@ public class InventoryDaoImpl implements InventoryDao {
     }
 
     @Override
-    public void deleteResourceFromInventory(SimpleResource res, Inventory id,EntityManager em) {
+    public void deleteResourceFromInventory(SimpleResource res, Inventory id, EntityManager em) {
         try {
             if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();

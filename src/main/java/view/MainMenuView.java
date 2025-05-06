@@ -10,10 +10,10 @@ public class MainMenuView {
         CommonViewUtils.displayMessage("3. Muoviti");
         CommonViewUtils.displayMessage("4. Crafting risorse");
         CommonViewUtils.displayMessage("5. Esci");
-        int choice=CommonViewUtils.readIntChoice("Inserisci un numero (1-5):");
-        while (choice<=0 || choice>5){
+        int choice = CommonViewUtils.readIntChoice("Inserisci un numero (1-5):");
+        while (choice <= 0 || choice > 5) {
             System.out.println("Errore: Inserisci un numero valido.");
-            choice=CommonViewUtils.readIntChoice("Inserisci un numero (1-5):");
+            choice = CommonViewUtils.readIntChoice("Inserisci un numero (1-5):");
         }
         return choice;
     }

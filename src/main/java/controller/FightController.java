@@ -12,38 +12,42 @@ import java.io.IOException;
 public class FightController extends Observer {
 
     private Fight fight;
-    private FightView fightView=new FightView();
+    private final FightView fightView = new FightView();
 
     public FightController() {
     }
 
     public void startFight() throws IOException {
         fightView.displayFoundEnemy(fight.getEnemy().getName());
-        int choice=fightView.getFightChoice();
+        int choice = fightView.getFightChoice();
         fight.playerChoses(choice);
     }
 
-    public void choseWeapons(){
+    public void choseWeapons() throws IOException {
         System.out.println("Scegli l'arma");
-        Attack attack=fightView.displayWeapons(fight);
-        fight.playerFightsBack(attack);
+        Attack attack = fightView.displayWeapons(fight);
+        if (attack == null) {
+            fight.playerLoses();
+        } else {
+            fight.playerFightsBack(attack);
+        }
+
     }
 
     public void setFight(Fight fight) {
-        this.fight=fight;
+        this.fight = fight;
     }
 
     @Override
-    public void notifyFight() {
+    public void notifyFight() throws IOException {
         choseWeapons();
     }
 
     @Override
-    public void updateRunaway(Boolean result) {
-        if (result){
+    public void updateRunaway(Boolean result) throws IOException {
+        if (result) {
             System.out.println("Sei riuscito a scappare");
-        }
-        else {
+        } else {
             System.out.println("Non sei riuscito a scappare");
             choseWeapons();
         }
@@ -55,7 +59,7 @@ public class FightController extends Observer {
         //nel parametro c'è l'enemy dopo che ha subito l'attacco dal giocatore
         //richiamare il controllore per far mostrare alla view la salute
         //danneggiata del nemico
-        System.out.println("attacco andato a buon fine.Il nemico ha "+ enemy.getHealth()+ "di vita");
+        System.out.println("attacco andato a buon fine.Il nemico ha " + enemy.getHealth() + "di vita");
     }
 
     @Override
@@ -63,9 +67,9 @@ public class FightController extends Observer {
         //nel parametro c'è il giocatore dopo che ha vinto il combattimento
         //modificati punti exp e livello
         //mostrarli al giocatore ed andare avanti
-        System.out.println("Hai sconfitto il  nemico.Ora hai "+player.getExp()+"di esperienza");
+        System.out.println("Hai sconfitto il  nemico.Ora hai " + player.getExp() + "di esperienza");
         //eliminare il nemico dall'area e settare la sua quantità a 0
-        DBController dbController=new DBController();
+        DBController dbController = new DBController();
         dbController.updatePlayer(player);
 
     }
@@ -82,11 +86,11 @@ public class FightController extends Observer {
     }
 
     @Override
-    public void playersTurn(Player player) {
+    public void playersTurn(Player player) throws IOException {
         //nel paramentro c'è il player con la salute aggiornata dopo l'attacco
         //del nemico, chiedere al giocatore cosa vuole fare e richiamare in caso di attacco
         //ripetuto i metodi playerFightsBack(SimpleResource sr) o playerChoses(int choice)
-        System.out.println("Hai subito un attacco.Ora hai "+ player.getHealth()+ "di vita");
+        System.out.println("Hai subito un attacco.Ora hai " + player.getHealth() + "di vita");
         choseWeapons();
 
     }

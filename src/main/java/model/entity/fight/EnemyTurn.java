@@ -4,6 +4,7 @@ import model.entity.Attack;
 import model.entity.Enemy;
 import model.entity.Player;
 
+import java.io.IOException;
 import java.util.List;
 
 public class EnemyTurn implements State {
@@ -13,9 +14,9 @@ public class EnemyTurn implements State {
     Enemy enemy;
 
     public EnemyTurn(Fight fight) {
-        this.fight=fight;
-        this.player=fight.getGame().getPlayer();
-        this.enemy=fight.getEnemy();
+        this.fight = fight;
+        this.player = fight.getGame().getPlayer();
+        this.enemy = fight.getEnemy();
     }
 
     @Override
@@ -28,16 +29,16 @@ public class EnemyTurn implements State {
     }
 
     @Override
-    public void enemyFightsBack() {
-        List<Attack> attacks= enemy.getAttacks();
+    public void enemyFightsBack() throws IOException {
+        List<Attack> attacks = enemy.getAttacks();
         //implementare una funzione che sceglie l'attacco del nemico
-        Attack attack=attacks.get(0);
-        if (enemy.getHealth()>0.1){
-            if (player.getHealth()>0.1){
-                player.setHealth(player.getHealth()-attack.getDamage());
+        Attack attack = attacks.get(0);
+        if (enemy.getHealth() > 0.1) {
+            if (player.getHealth() > 0.1) {
+                player.setHealth(player.getHealth() - attack.getDamage());
             }
         }
-        if (player.getHealth()>0.1){
+        if (player.getHealth() > 0.1) {
             fight.getObserverUI().playersTurn(player);
         }
     }

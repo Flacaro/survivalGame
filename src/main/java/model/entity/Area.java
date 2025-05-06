@@ -1,13 +1,8 @@
 package model.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
-import persistence.AreaDaoImpl;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "AREA")
@@ -20,9 +15,12 @@ public class Area implements Serializable {
 	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@Column(name = "ID_EVENT")
-	@ColumnDefault("0")
-	private long idEvent;
+	@OneToOne(optional = true)
+	@JoinColumn(name = "event_id")
+	private Event idEvent;
+
+	@Column(name = "type")
+	private String type;
 
 	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
@@ -36,10 +34,14 @@ public class Area implements Serializable {
 	//nome colonna fk id_checkpoint, usa la colonna id della classe Checkpoint
 	private Checkpoint checkpoint;
 
-	//test uno ad uno con climate, però climate non ne tiene traccia
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "id_climate",referencedColumnName = "id")
-	private Climate climate;
+	public Area(Event idEvent) {
+		this.idEvent = idEvent;
+	}
+
+//	//test uno ad uno con climate, però climate non ne tiene traccia
+//	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+//	@JoinColumn(name = "id_climate",referencedColumnName = "id")
+//	private Climate climate;
 
 	public long getId() {
 		return id;
@@ -55,14 +57,6 @@ public class Area implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public long getIdEvent() {
-		return idEvent;
-	}
-
-	public void setIdEvent(long idEvent) {
-		this.idEvent = idEvent;
 	}
 
 	public String getDescription() {
@@ -81,12 +75,20 @@ public class Area implements Serializable {
 		this.checkpoint = checkpoint;
 	}
 
-	public Climate getClimate() {
-		return climate;
+	public Event getIdEvent() {
+		return idEvent;
 	}
 
-	public void setClimate(Climate climate) {
-		this.climate = climate;
+	public void setIdEvent(Event idEvent) {
+		this.idEvent = idEvent;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getCategory() {
@@ -97,4 +99,6 @@ public class Area implements Serializable {
 		this.category = category;
 	}
 
+	public Area() {
+	}
 }

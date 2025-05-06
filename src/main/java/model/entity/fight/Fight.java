@@ -4,8 +4,10 @@ import model.entity.Attack;
 import model.entity.Enemy;
 import model.entity.Game;
 
+import java.io.IOException;
+
 public class Fight {
-    private EnemyTurn  enemyTurn;
+    private EnemyTurn enemyTurn;
     private PlayerTurn playerTurn;
     private StandBy standBy;
     private Victory victory;
@@ -18,14 +20,14 @@ public class Fight {
     private Enemy enemy;
 
     public Fight(Game game, Enemy enemy) {
-        this.game= game;
-        this.enemy=enemy;
-        this.enemyTurn= new EnemyTurn(this);
-        this.playerTurn=new PlayerTurn(this);
-        this.standBy=new StandBy(this);
-        this.victory=new Victory(this);
-        this.defeat=new Defeat(this);
-        this.currentState=standBy;
+        this.game = game;
+        this.enemy = enemy;
+        this.enemyTurn = new EnemyTurn(this);
+        this.playerTurn = new PlayerTurn(this);
+        this.standBy = new StandBy(this);
+        this.victory = new Victory(this);
+        this.defeat = new Defeat(this);
+        this.currentState = standBy;
 
 
     }
@@ -34,33 +36,33 @@ public class Fight {
 
     }
 
-    public void standBy(){
-        currentState=standBy;
+    public void standBy() {
+        currentState = standBy;
     }
 
-    public void playerFightsBack(Attack attack){
+    public void playerFightsBack(Attack attack) throws IOException {
         currentState.playerFightsBack(attack);
     }
 
-    public void enemyFightsBack(){
-        currentState=enemyTurn;
+    public void enemyFightsBack() throws IOException {
+        currentState = enemyTurn;
         currentState.enemyFightsBack();
     }
 
 
-    public void playerChoses(int choice){
-        currentState=playerTurn;
+    public void playerChoses(int choice) throws IOException {
+        currentState = playerTurn;
         currentState.playerChooses(choice);
     }
 
-    public void playerWins(){
-        currentState=victory;
+    public void playerWins() {
+        currentState = victory;
         currentState.playerWins();
         standBy();
     }
 
-    public void playerLoses(){
-        currentState=defeat;
+    public void playerLoses() {
+        currentState = defeat;
         currentState.playerLoses();
         standBy();
     }

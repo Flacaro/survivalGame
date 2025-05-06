@@ -1,9 +1,9 @@
 package model.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
-import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,17 +13,11 @@ public class SimpleResource extends Event implements Resource {
     @Column(name = "CATEGORY", nullable = false)
     private String category;
 
-    //test 1 a molti con attack
-    @OneToMany
-    private List<Attack> attacks;
-
-
     public SimpleResource() {
     }
 
-    public SimpleResource(String category, List<Attack> attacks, int level, String name, int quantity, String type) {
+    public SimpleResource(String category, int level, String name, int quantity, String type) {
         this.category = category;
-        this.attacks = attacks;
     }
 
 
@@ -33,14 +27,6 @@ public class SimpleResource extends Event implements Resource {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public List<Attack> getAttacks() {
-        return attacks;
-    }
-
-    public void setAttacks(List<Attack> attacks) {
-        this.attacks = attacks;
     }
 
 
@@ -71,11 +57,11 @@ public class SimpleResource extends Event implements Resource {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         SimpleResource that = (SimpleResource) o;
-        return Objects.equals(category, that.category) && Objects.equals(attacks, that.attacks);
+        return Objects.equals(category, that.category);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(category, attacks);
+        return Objects.hash(category);
     }
 }

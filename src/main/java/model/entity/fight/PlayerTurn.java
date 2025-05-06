@@ -2,6 +2,8 @@ package model.entity.fight;
 
 import model.entity.*;
 
+import java.io.IOException;
+
 public class PlayerTurn implements State {
 
     Fight fight;
@@ -16,7 +18,7 @@ public class PlayerTurn implements State {
     }
 
     @Override
-    public void playerChooses(int choice) {
+    public void playerChooses(int choice) throws IOException {
         //viene richiamato dal controllore per modificare lo stato del
         //player, se sceglie di scappare modifica la posizione
 
@@ -42,7 +44,7 @@ public class PlayerTurn implements State {
 
 
     @Override
-    public void playerFightsBack(Attack attack) {
+    public void playerFightsBack(Attack attack) throws IOException {
         //il palyer deve combattere quindi deve selezionare una risorsa e un attacco
         //viene richiamato dal controllore quando l'esito della scelta è 1
         //riceve come parametro l'attacco

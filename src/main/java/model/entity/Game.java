@@ -91,8 +91,7 @@ public class Game {
         List<Area> mapAreas = gd.getMap().getAreas();
         for (Area areas : mapAreas) {
             if (areas.getId() == idArea) {
-                Event event=areas.getEvent_id();
-                return event;
+                return areas.getIdEvent();
             }
         }
         return null;

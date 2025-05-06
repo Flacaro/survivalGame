@@ -3,6 +3,8 @@ package model.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -24,6 +26,10 @@ public abstract class Event{
     private int quantity;
     @Column(name = "level", nullable = false)
     private int level;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "event_attack", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "attack_id"))
+    private List<Attack> attacks;
 
     public Long getId() {
         return id;
@@ -71,5 +77,13 @@ public abstract class Event{
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public List<Attack> getAttacks() {
+        return attacks;
+    }
+
+    public void setAttacks(List<Attack> attacks) {
+        this.attacks = attacks;
     }
 }

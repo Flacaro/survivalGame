@@ -35,13 +35,13 @@ public class GameFactorySingleton {
         List<Enemy> subListEnemies = enemies.subList(0, numEnemy);
 
         for (int j = 0; j < numEnemy; j++) {
-            subListAreaDomain.get(j).setEvent_id(subListEnemies.get(j));
+            subListAreaDomain.get(j).setIdEvent(subListEnemies.get(j));
             subListAreaDomain.get(j).setCategory(subListEnemies.get(j).getType());
         }
 
         int resourceIndex = 0;
         for (int i = numEnemy; i < subListAreaDomain.size(); i++) {
-            subListAreaDomain.get(i).setEvent_id(subListResources.get(resourceIndex));
+            subListAreaDomain.get(i).setIdEvent(subListResources.get(resourceIndex));
             subListAreaDomain.get(i).setCategory(subListResources.get(resourceIndex).getType());
             resourceIndex ++;
         }

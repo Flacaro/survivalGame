@@ -42,6 +42,7 @@ public class Defeat implements State{
         Inventory inventory= player.getInventory();
         inventory.setResources(null);
         inventory.setCraftedResourceList(null);
+        player.setHealth(0.0);
         fight.standBy();
         fight.getObserverUI().notifyDefeat(player);
     }

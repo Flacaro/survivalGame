@@ -1,8 +1,11 @@
 package model.entity.fight;
 
+import controller.DBController;
 import model.entity.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerTurn implements State {
 
@@ -12,9 +15,9 @@ public class PlayerTurn implements State {
     Enemy enemy;
 
     public PlayerTurn(Fight fight) {
-        this.fight=fight;
-        this.player=fight.getGame().getPlayer();
-        this.enemy= fight.getEnemy();
+        this.fight = fight;
+        this.player = fight.getGame().getPlayer();
+        this.enemy = fight.getEnemy();
     }
 
     @Override
@@ -24,15 +27,15 @@ public class PlayerTurn implements State {
 
         //choise=0 -> runaway
         //choise=1 -> fight
-        boolean runaway=false;
-        switch (choice){
+        boolean runaway = false;
+        switch (choice) {
             case 0:
-                if (fight.getEnemy().getLevel()>=fight.getGame().getPlayer().getLevel()){
+                if (fight.getEnemy().getLevel() >= fight.getGame().getPlayer().getLevel()) {
                     //comunicare al player che non può scappare
                     fight.getObserverUI().updateRunaway(runaway);
-                }else{
+                } else {
                     //scegliere come modificare la posizione
-                    runaway=true;
+                    runaway = true;
                     fight.getObserverUI().updateRunaway(runaway);
                 }
             case 1:
@@ -48,24 +51,26 @@ public class PlayerTurn implements State {
         //il palyer deve combattere quindi deve selezionare una risorsa e un attacco
         //viene richiamato dal controllore quando l'esito della scelta è 1
         //riceve come parametro l'attacco
-        while (player.getHealth()>0.1){
-            while (enemy.getHealth()>0.1){
-                if (enemy.getLevel()==player.getLevel()){
-                    enemy.setHealth(enemy.getHealth()-attack.getDamage());
+        while (player.getHealth() > 0.1) {
+            while (enemy.getHealth() > 0.1) {
+                if (enemy.getLevel() == player.getLevel()) {
+                    enemy.setHealth(enemy.getHealth() - attack.getDamage());
                     fight.getObserverUI().updateEnemy(enemy);
-                } else if (enemy.getLevel()<player.getLevel()) {
+                } else if (enemy.getLevel() < player.getLevel()) {
                     //il danno dell'attacco varia in base al livello del nemico
                     //possiamo implementare una funzione che decide di quanto far
                     //aumentare l'attacco
-                    enemy.setHealth(enemy.getHealth()-(attack.getDamage())*1.5);
+                    enemy.setHealth(enemy.getHealth() - (attack.getDamage()) * 1.5);
                     fight.getObserverUI().updateEnemy(enemy);
                 }
-                if (enemy.getHealth()<=0.1) {
+                if (enemy.getHealth() <= 0.1) {
                     fight.playerWins();
+                    DBController dbController = new DBController();
+                    dbController.updateMap(dbController.getGame().getMap(), null, enemy);
                     return;
-                }else{
+                } else {
                     fight.enemyFightsBack();
-                    if (player.getHealth()<=0.1){
+                    if (player.getHealth() <= 0.1) {
                         fight.playerLoses();
                         return;
                     }

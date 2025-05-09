@@ -27,14 +27,14 @@ public class GameController {
     private final CraftingView craftingView;
 
     // Stato del gioco
-    private Game game;
+    //private Game game;
 
     public GameController() {
         // Istanzia i controller necessari
         this.startController = new StartController();
         this.dbController = new DBController();
         this.resourceController = new ResourceController();
-        this.fightController=new FightController();
+        this.fightController = new FightController();
 
         // Istanzia le view
         this.setupView = new SetupView();
@@ -50,9 +50,9 @@ public class GameController {
             // 1. Setup iniziale
             int mode = setupView.getDifficultyChoice();
             String nickname = setupView.getNickname();
-            this.game = startController.start(mode, nickname); // Crea il gioco
+            Game game = startController.start(mode, nickname); // Crea il gioco
 
-            if (this.game == null || this.game.getPlayer() == null) {
+            if (game == null || game.getPlayer() == null) {
                 CommonViewUtils.displayMessage("Errore durante l'inizializzazione del gioco.");
                 return;
             }
@@ -71,7 +71,7 @@ public class GameController {
                 switch (choice) {
                     case 1:
                         handleExplore();
-                        continueToPlay=handleEndFight();
+                        continueToPlay = handleEndFight();
                         break;
                     case 2:
                         handleShowInventory();
@@ -109,24 +109,28 @@ public class GameController {
     }
 
     private void handleEnemy() throws IOException {
+        Game game = dbController.getGame();
         Player player = game.getPlayer();
         long currentAreaId = player.getIdArea();
 
         // Logica di gioco per l'evento
         Event event = game.triggerEvent(currentAreaId, game);
         Area currentArea = dbController.getAreasById(currentAreaId);
-        if (event!=null && currentArea!=null){
-            if (Objects.equals(currentArea.getCategory(), "NEMICO")){
-                Enemy enemy= (Enemy) event;
-                Fight fight=new Fight(game,enemy);
+        if (event != null && currentArea != null) {
+            if (Objects.equals(currentArea.getCategory(), "NEMICO")) {
+                Enemy enemy = (Enemy) event;
+                Fight fight = new Fight(game, enemy);
                 fightController.setFight(fight);
                 fight.setObserverUI(fightController);
                 fightController.startFight();
+
             }
         }
 
     }
+
     private void handleExplore() throws IOException {
+        Game game = dbController.getGame();
         Player player = game.getPlayer();
         long currentAreaId = player.getIdArea();
 
@@ -134,15 +138,15 @@ public class GameController {
         Event event = game.triggerEvent(currentAreaId, game);
         Area currentArea = dbController.getAreasById(currentAreaId); // Ottieni l'area per contesto
 
-        if (event != null && currentArea != null ) {
-            switch (currentArea.getCategory()){
+        if (event != null && currentArea != null) {
+            switch (currentArea.getCategory()) {
                 case "RISORSA":
-                    SimpleResource resource= (SimpleResource) event;
+                    SimpleResource resource = (SimpleResource) event;
                     explorationView.displayFoundResource(resource.getName());
                     int pickupChoice = explorationView.getPickupChoice();
                     if (pickupChoice == 1) {
                         if (game.pickUp(resource, player)) { // La logica di pickup aggiorna il player
-                            dbController.updateMap(game.getMap(), resource); // Aggiorna la mappa nel DB
+                            dbController.updateMap(game.getMap(), resource, null); // Aggiorna la mappa nel DB
                             dbController.updatePlayer(player); // Salva lo stato aggiornato del player (inventario)
                             explorationView.displayResourcePickedUp();
                         } else {
@@ -162,20 +166,20 @@ public class GameController {
         // e dbController salva le modifiche persistenti.
     }
 
-    private boolean handleEndFight(){
-        if (game.getPlayer().getHealth()==0.0){
-            return false;
-        }else {
-            return true;
-        }
+    private boolean handleEndFight() {
+        Game game = dbController.getGame();
+        return game.getPlayer().getHealth() != 0.0;
     }
+
     private void handleShowInventory() {
+        Game game = dbController.getGame();
         Player player = game.getPlayer();
         Inventory inventory = dbController.showInventory(player); // Ottiene l'inventario aggiornato
         inventoryView.displayInventory(inventory);
     }
 
     private void handleMove() throws IOException {
+        Game game = dbController.getGame();
         int direction = movementView.getDirectionChoice();
         Player player = game.getPlayer();
         long previousAreaId = player.getIdArea();
@@ -200,6 +204,7 @@ public class GameController {
 
 
     private boolean handleCrafting() throws IOException {
+        Game game= dbController.getGame();
         Player player = game.getPlayer();
         Inventory inventory = dbController.showInventory(player); // Ottieni inventario attuale
 

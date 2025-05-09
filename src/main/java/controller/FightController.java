@@ -30,6 +30,7 @@ public class FightController extends Observer {
             fight.playerLoses();
         } else {
             fight.playerFightsBack(attack);
+
         }
 
     }

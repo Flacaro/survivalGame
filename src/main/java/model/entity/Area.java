@@ -99,6 +99,7 @@ public class Area implements Serializable {
 		this.category = category;
 	}
 
+
 	public Area() {
 	}
 }

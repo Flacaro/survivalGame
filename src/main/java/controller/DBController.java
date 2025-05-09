@@ -96,9 +96,9 @@ public class DBController {
         close();
     }
 
-    public void updateMap(Map map, SimpleResource resource) {
+    public void updateMap(Map map, SimpleResource resource, Enemy enemy) {
         EntityManager em = EntityManagerSingleton.getEntityManager();
-        mapDaoImpl.updateMap(map, resource, em);
+        mapDaoImpl.updateMap(map, resource, enemy, em);
         close();
     }
 

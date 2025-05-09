@@ -2,6 +2,8 @@ package model.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 
 @Entity
 @Table(name = "ENEMY")
@@ -33,4 +35,16 @@ public class Enemy extends Event {
         this.health = health;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Enemy enemy = (Enemy) o;
+        return Double.compare(health, enemy.health) == 0 && Objects.equals(mode, enemy.mode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), mode, health);
+    }
 }

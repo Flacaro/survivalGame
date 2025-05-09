@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -85,5 +86,17 @@ public abstract class Event{
 
     public void setAttacks(List<Attack> attacks) {
         this.attacks = attacks;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return quantity == event.quantity && level == event.level && Objects.equals(id, event.id) && Objects.equals(type, event.type) && Objects.equals(name, event.name) && Objects.equals(description, event.description) && Objects.equals(attacks, event.attacks);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, type, name, description, quantity, level, attacks);
     }
 }

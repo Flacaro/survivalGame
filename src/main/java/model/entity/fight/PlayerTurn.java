@@ -51,8 +51,8 @@ public class PlayerTurn implements State {
         //il palyer deve combattere quindi deve selezionare una risorsa e un attacco
         //viene richiamato dal controllore quando l'esito della scelta è 1
         //riceve come parametro l'attacco
-        while (player.getHealth() > 0.1) {
-            while (enemy.getHealth() > 0.1) {
+        while (enemy.getHealth() > 0.1) {
+            while (player.getHealth() > 0.1) {
                 if (enemy.getLevel() == player.getLevel()) {
                     enemy.setHealth(enemy.getHealth() - attack.getDamage());
                     fight.getObserverUI().updateEnemy(enemy);
@@ -65,8 +65,6 @@ public class PlayerTurn implements State {
                 }
                 if (enemy.getHealth() <= 0.1) {
                     fight.playerWins();
-                    DBController dbController = new DBController();
-                    dbController.updateMap(dbController.getGame().getMap(), null, enemy);
                     return;
                 } else {
                     fight.enemyFightsBack();

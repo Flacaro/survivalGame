@@ -26,9 +26,7 @@ public class FightController extends Observer {
     public void choseWeapons() throws IOException {
         System.out.println("Scegli l'arma");
         Attack attack = fightView.displayWeapons(fight);
-        if (attack == null) {
-            fight.playerLoses();
-        } else {
+        if (attack != null) {
             fight.playerFightsBack(attack);
         }
 
@@ -49,9 +47,7 @@ public class FightController extends Observer {
             System.out.println("Sei riuscito a scappare");
         } else {
             System.out.println("Non sei riuscito a scappare");
-            choseWeapons();
         }
-
     }
 
     @Override
@@ -68,9 +64,6 @@ public class FightController extends Observer {
         //modificati punti exp e livello
         //mostrarli al giocatore ed andare avanti
         System.out.println("Hai sconfitto il  nemico.Ora hai " + player.getExp() + " di esperienza");
-        //eliminare il nemico dall'area e settare la sua quantità a 0
-        this.fight.getGame().setPlayer(player);
-
     }
 
     @Override
@@ -79,8 +72,6 @@ public class FightController extends Observer {
         //salute a 0
         //inventario vuoto
         System.out.println("Il nemico ti ha sconfitto");
-
-
     }
 
     @Override

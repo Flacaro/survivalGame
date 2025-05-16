@@ -114,6 +114,10 @@ public class GameController {
                     fightController.setFight(fight);
                     fight.setObserverUI(fightController);
                     fightController.startFight();
+                    if(handleEndFight()){
+                        currentAreaId.setIdEvent(null);
+                        currentAreaId.setCategory(null);
+                    }
                 }
             }
         }
@@ -131,12 +135,11 @@ public class GameController {
                     int pickupChoice = explorationView.getPickupChoice();
                     if (pickupChoice == 1) {
                         if (game.pickUp(resource, player)) {
-                            game.getMap().updateMap(resource, null);
+                            game.getMap().updateMap(event);
                             explorationView.displayResourcePickedUp();
                         } else {
                             explorationView.displayInventoryFull();
                         }
-
                     } else {
                         explorationView.displayResourceIgnored();
                     }

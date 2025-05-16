@@ -22,7 +22,9 @@ public class PlayerDaoImpl implements PlayerDao {
                 player1.setX_axis(player.getX_axis());
                 player1.setY_axis(player.getY_axis());
                 player1.setExp(player.getExp());
+                player1.setInventory(player.getInventory());
             }
+            em.merge(player1);
             em.getTransaction().commit();
 
         } catch (Exception e) {

@@ -114,7 +114,6 @@ public class GameController {
                     fightController.setFight(fight);
                     fight.setObserverUI(fightController);
                     fightController.startFight();
-
                 }
             }
         }

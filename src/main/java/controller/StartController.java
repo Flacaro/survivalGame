@@ -59,20 +59,22 @@ public class StartController {
         gms.createEvent(areas, mode);
         dbController.updateArea(areas);
         map.setAreas(areas);
-        player.setId_Area(map.getAreas().get(0));
 
-        game.setPlayer(player);
         game.getMap().getAreas().get(3).setCheckpoint(ck);
-        dbController.updateGame(game);
 
+        dbController.updateGame(game);
         Game gameDB = dbController.getGame();
+        gameDB.getPlayer().setId_Area(game.getMap().getAreas().get(0));
+        List<SimpleResource> res = dbController.getResourcesByName();
+        gameDB.getPlayer().setInventory(new Inventory());
+        gameDB.getPlayer().getInventory().setResources(res);
+        dbController.updatePlayer(gameDB.getPlayer());
+        Game ga=dbController.getGame();
 
 
         //add resource necessarie per il craftig nell'inventario
-        Inventory inventory = dbController.showInventory(gameDB.getPlayer());
-        List<SimpleResource> res = dbController.getResourcesByName();
-        inventory.setResources(res);
-        return dbController.getGame();
+        //Inventory inventory = dbController.showInventory(gameDB.getPlayer());
+        return ga;
     }
 
 

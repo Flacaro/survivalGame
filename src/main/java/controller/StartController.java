@@ -61,6 +61,7 @@ public class StartController {
         map.setAreas(areas);
         player.setId_Area(map.getAreas().get(0));
         Game gameDB = dbController.getGame();
+        gameDB.setPlayer(player);
         gameDB.getMap().getAreas().get(3).setCheckpoint(ck);
         dbController.updateGame(gameDB);
         //add resource necessarie per il craftig nell'inventario

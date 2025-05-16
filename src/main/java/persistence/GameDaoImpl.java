@@ -42,6 +42,7 @@ public class GameDaoImpl implements GameDao {
             map.setAreas(areas);
             game.setMap(map);
             game.setPlayer(gameDomain.getPlayer());
+            game.getPlayer().setInventory(gameDomain.getPlayer().getInventory());
             em.merge(game);
             em.getTransaction().commit();
         } catch (Exception e) {

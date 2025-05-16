@@ -135,7 +135,9 @@ public class GameController {
                     int pickupChoice = explorationView.getPickupChoice();
                     if (pickupChoice == 1) {
                         if (game.pickUp(resource, player)) {
-                            game.getMap().updateMap(event);
+
+                            currentAreaId.setIdEvent(null);
+                            currentAreaId.setCategory(null);
                             explorationView.displayResourcePickedUp();
                         } else {
                             explorationView.displayInventoryFull();
@@ -173,9 +175,8 @@ public class GameController {
 
 
     private boolean handleCrafting() throws IOException {
-        //Game game = dbController.getGame();
         Player player = game.getPlayer();
-        Inventory inventory = dbController.showInventory(player);
+        Inventory inventory =player.getInventory();
 
         if (inventory == null || inventory.getResources() == null || inventory.getResources().isEmpty()) {
             craftingView.displayInventoryEmpty();

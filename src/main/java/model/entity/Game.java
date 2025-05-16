@@ -147,8 +147,8 @@ public class Game {
         ArrayList<SimpleResource> res= new ArrayList<>();
         res.add(r);
         if (id.checkCapacity(id)) {
-            return id.updateInventory(res);
+            id.updateInventory(res);
         }
-        return false;
+        return id.checkCapacity(id);
     }
 }

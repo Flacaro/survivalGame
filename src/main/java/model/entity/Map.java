@@ -43,20 +43,4 @@ public class Map {
         List<Area> areaDomains = areadb.subList(0, totalArea - 1);
         return areaDomains;
     }
-
-    public void updateMap(Event event) {
-        Map map=this;
-        for (Area area : map.getAreas()) {
-            if (event.getType()== "RISORSA" && Objects.equals(area.getIdEvent().getId(), event.getId())) {
-                //eliminare la risorsa nell'area
-                area.setIdEvent(null);
-                area.setCategory(null);
-                break;
-            } else if (event.getType()== "NEMICO" && Objects.equals(area.getIdEvent().getId(), event.getId())) {
-                area.setIdEvent(null);
-                area.setCategory(null);
-                break;
-            }
-        }
-    }
 }

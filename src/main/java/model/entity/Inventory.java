@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
@@ -133,28 +134,26 @@ public class Inventory {
 				this.getCraftedResourceList().addAll(lists);
 			}
 	}
-	public boolean updateInventory(ArrayList<SimpleResource> r) {
+	public void updateInventory(ArrayList<SimpleResource> r) {
 		boolean resourceFound = false;
 		for (SimpleResource res :r ){
 			List<ResourceQuantityInv> resourcesQuantity = this.getResources_quantity();
 			this.setCapacity(this.getCapacity() - 1);
 			for (SimpleResource resource : this.getResources()) {
 				for (ResourceQuantityInv rqi : resourcesQuantity) {
-					if (resource.getId() == res.getId()) {
-						if (resource.getId() == rqi.getResource().getId()) {
-								rqi.setQuantity(rqi.getQuantity() + 1);
-								resourceFound = true;
+					if (Objects.equals(resource.getId(), res.getId())) {
+						if (Objects.equals(resource.getId(), rqi.getResource().getId())) {
+							rqi.setQuantity(rqi.getQuantity() + 1);
+							resourceFound = true;
 								break;
 							}
 						}
 					}
-				}
-				if (!resourceFound) {
+			}if (!resourceFound) {
 					this.getResources().add(res);
 					ResourceQuantityInv newResourceq = new ResourceQuantityInv(this, res, 1);
 					resourcesQuantity.add(newResourceq);
 				}
 		}
-		return resourceFound;
 	}
 }

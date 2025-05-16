@@ -184,7 +184,7 @@ public class GameController {
 
 
     private boolean handleCrafting() throws IOException {
-        Game game = dbController.getGame();
+        //Game game = dbController.getGame();
         Player player = game.getPlayer();
         Inventory inventory = dbController.showInventory(player);
 

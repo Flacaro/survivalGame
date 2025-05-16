@@ -1,7 +1,6 @@
 package controller;
 
 import model.entity.*;
-
 import model.entity.fight.Fight;
 import view.*;
 
@@ -27,16 +26,14 @@ public class GameController {
     private final CraftingView craftingView;
 
     // Stato del gioco
-    //private Game game;
+    private Game game;
 
     public GameController() {
-        // Istanzia i controller necessari
         this.startController = new StartController();
         this.dbController = new DBController();
         this.resourceController = new ResourceController();
         this.fightController = new FightController();
 
-        // Istanzia le view
         this.setupView = new SetupView();
         this.mainMenuView = new MainMenuView();
         this.explorationView = new ExplorationView();
@@ -62,8 +59,8 @@ public class GameController {
             // 2. Game Loop Principale
             boolean continueToPlay = true;
             while (continueToPlay) {
-                // Ricarica lo stato corrente se necessario (opzionale, dipende da come gestisci lo stato)
-                // this.game = dbController.getGame(); // Potrebbe non essere necessario ad ogni ciclo
+                //una volta inizializzato il gioco mi salvo l'istanza
+                this.game = dbController.getGame();
 
                 handleEnemy();
                 int choice = mainMenuView.showMainMenu();
@@ -82,11 +79,11 @@ public class GameController {
                     case 4:
                         if (handleCrafting()) {
                             CommonViewUtils.displayMessage("Demo completata!");
-                            continueToPlay = false; // Esce dopo crafting riuscito (come da logica originale)
+                            continueToPlay = false; // Esce dopo crafting riuscito
                         }
                         break;
                     case 5:
-                        continueToPlay = false; // Uscita scelta dall'utente
+                        continueToPlay = false;
                         break;
                     default:
                         CommonViewUtils.displayMessage("Scelta non valida.");
@@ -98,22 +95,18 @@ public class GameController {
 
         } catch (IOException e) {
             CommonViewUtils.displayMessage("Si è verificato un errore di input/output: " + e.getMessage());
-            // Potresti voler loggare l'errore
         } catch (Exception e) {
-            e.printStackTrace(); // Utile per il debug
+            e.printStackTrace();
         } finally {
-//            // 3. Cleanup
             dbController.close();
             CommonViewUtils.displayMessage("Gioco terminato.");
         }
     }
 
     private void handleEnemy() throws IOException {
-        Game game = dbController.getGame();
         Player player = game.getPlayer();
         long currentAreaId = player.getIdArea();
 
-        // Logica di gioco per l'evento
         Event event = game.triggerEvent(currentAreaId, game);
         Area currentArea = dbController.getAreasById(currentAreaId);
         if (event != null && currentArea != null) {
@@ -123,6 +116,7 @@ public class GameController {
                 fightController.setFight(fight);
                 fight.setObserverUI(fightController);
                 fightController.startFight();
+                this.game = dbController.getGame();
 
             }
         }
@@ -130,13 +124,11 @@ public class GameController {
     }
 
     private void handleExplore() throws IOException {
-        Game game = dbController.getGame();
         Player player = game.getPlayer();
         long currentAreaId = player.getIdArea();
 
-        // Logica di gioco per l'evento
         Event event = game.triggerEvent(currentAreaId, game);
-        Area currentArea = dbController.getAreasById(currentAreaId); // Ottieni l'area per contesto
+        Area currentArea = dbController.getAreasById(currentAreaId);
 
         if (event != null && currentArea != null) {
             switch (currentArea.getCategory()) {
@@ -145,13 +137,14 @@ public class GameController {
                     explorationView.displayFoundResource(resource.getName());
                     int pickupChoice = explorationView.getPickupChoice();
                     if (pickupChoice == 1) {
-                        if (game.pickUp(resource, player)) { // La logica di pickup aggiorna il player
-                            dbController.updateMap(game.getMap(), resource, null); // Aggiorna la mappa nel DB
-                            dbController.updatePlayer(player); // Salva lo stato aggiornato del player (inventario)
+                        if (game.pickUp(resource, player)) {
+                            dbController.updateMap(game.getMap(), resource, null);
+                            dbController.updatePlayer(player);
                             explorationView.displayResourcePickedUp();
                         } else {
                             explorationView.displayInventoryFull();
                         }
+
                     } else {
                         explorationView.displayResourceIgnored();
                     }
@@ -162,55 +155,42 @@ public class GameController {
         } else {
             explorationView.displayNothingFound();
         }
-        // Non è necessario aggiornare this.game qui se game.pickUp modifica direttamente l'oggetto player
-        // e dbController salva le modifiche persistenti.
     }
 
     private boolean handleEndFight() {
-        Game game = dbController.getGame();
         return game.getPlayer().getHealth() != 0.0;
     }
 
     private void handleShowInventory() {
-        Game game = dbController.getGame();
         Player player = game.getPlayer();
-        Inventory inventory = dbController.showInventory(player); // Ottiene l'inventario aggiornato
+        Inventory inventory = dbController.showInventory(player);
         inventoryView.displayInventory(inventory);
     }
 
     private void handleMove() throws IOException {
-        Game game = dbController.getGame();
         int direction = movementView.getDirectionChoice();
         Player player = game.getPlayer();
-        long previousAreaId = player.getIdArea();
 
-        // La logica di movimento dovrebbe aggiornare l'ID area del player DENTRO il metodo move
-        // e restituire successo/fallimento e forse la nuova area.
-        // Assumiamo che dbController.move aggiorni il player passato per riferimento (o che game lo faccia)
-        boolean moved = dbController.move(direction, game); // 'move' dovrebbe aggiornare game.getPlayer().setIdArea()
+        boolean moved = dbController.move(direction, game);
 
         Area newArea = null;
         if (moved) {
-            // Se dbController.move non aggiorna l'oggetto 'game', aggiornalo qui:
-            // this.game = dbController.getGame(); // Ricarica lo stato se necessario
-            newArea = dbController.getAreasById(player.getIdArea()); // Ottieni la nuova area DOPO lo spostamento
-            dbController.updatePlayer(player); // Salva la nuova posizione del player
+            newArea = dbController.getAreasById(player.getIdArea());
+            dbController.updatePlayer(player);
         }
 
         movementView.displayMovementResult(moved, newArea);
-
-        // Se non ci si è mossi, non fare nulla (il messaggio è già mostrato)
     }
 
 
     private boolean handleCrafting() throws IOException {
-        Game game= dbController.getGame();
+        Game game = dbController.getGame();
         Player player = game.getPlayer();
-        Inventory inventory = dbController.showInventory(player); // Ottieni inventario attuale
+        Inventory inventory = dbController.showInventory(player);
 
         if (inventory == null || inventory.getResources() == null || inventory.getResources().isEmpty()) {
             craftingView.displayInventoryEmpty();
-            return false; // Non si può craftare senza risorse
+            return false;
         }
 
         ArrayList<CraftedResource> recipes = dbController.getCraftedResources();
@@ -220,13 +200,12 @@ public class GameController {
         HashMap<Integer, SimpleResource> correspondenceMap = craftingView.displayInventoryForCrafting(inventory);
 
         if (correspondenceMap.isEmpty()) {
-            // Già gestito da displayInventoryForCrafting
             return false;
         }
 
-        String[] selections = craftingView.getCraftingInput(true); // Chiede input
+        String[] selections = craftingView.getCraftingInput(true);
 
-        if (selections == null) { // Utente ha scelto 'annulla' o input vuoto
+        if (selections == null) {
             CommonViewUtils.displayMessage("Crafting annullato.");
             return false;
         }
@@ -252,21 +231,17 @@ public class GameController {
         CraftedResource resultingItem = resourceController.compatible(selections, correspondenceMap, recipes);
 
         if (resultingItem != null) {
-            // Esegui il crafting (aggiorna l'inventario del player)
             Inventory updatedInventory = resourceController.combine(selections, correspondenceMap, inventory, resultingItem);
-            player.setInventory(updatedInventory); // Aggiorna l'inventario nel player
+            player.setInventory(updatedInventory);
 
-            // Salva le modifiche nel DB
             dbController.updatePlayer(player);
-            // Potrebbe essere necessario aggiornare anche l'oggetto Game se contiene copie
-            // dbController.updateGame(game); // Dipende dalla struttura
 
             craftingView.displayCraftingResult(true, resultingItem);
-            handleShowInventory(); // Mostra inventario aggiornato
-            return true; // Crafting riuscito (e potenzialmente fine demo)
+            handleShowInventory();
+            return true;
         } else {
             craftingView.displayCraftingResult(false, null);
-            return false; // Combinazione non valida
+            return false;
         }
     }
 

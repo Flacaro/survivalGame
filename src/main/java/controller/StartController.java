@@ -2,7 +2,6 @@ package controller;
 
 import model.GameFactorySingleton;
 import model.entity.*;
-import persistence.ResourceDaoImpl;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,10 +44,8 @@ public class StartController {
         dbController.updateGame(gameDB);
         //add resource necessarie per il craftig nell'inventario
         Inventory inventory = dbController.showInventory(player);
-        List<SimpleResource> res = new ArrayList<>();
-        ResourceDaoImpl resourceDao = new ResourceDaoImpl();
 
-        res = dbController.getResourcesByName();
+        List<SimpleResource> res = dbController.getResourcesByName();
         inventory.setResources(res);
         for (SimpleResource r : res) {
             dbController.updateInventory(r, inventory);

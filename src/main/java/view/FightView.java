@@ -1,15 +1,11 @@
 package view;
 
 import model.entity.Attack;
-import model.entity.Inventory;
-import model.entity.Resource;
 import model.entity.SimpleResource;
 import model.entity.fight.Fight;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class FightView {
 
@@ -41,12 +37,13 @@ public class FightView {
             }
 
         }
-        if(counter == 0) {
+        if (counter == 0) {
             System.out.println("Non hai armi a tua disposizione!");
             return null;
         }
-        int choice = CommonViewUtils.readIntChoice("Scegli la tua arma e combatti per la tua vita! \n Scegli l'indice per selezionare l'arma \n Per uscire dal gioco premere 5");
+        int choice = CommonViewUtils.readIntChoice("Scegli la tua arma e combatti per la tua vita! \n Scegli l'indice per selezionare l'arma.");
         SimpleResource s = correspondence.get(choice);
+
 
         System.out.println("Hai scelto " + s.getName() + " con " + s.getAttacks().get(0));
         return s.getAttacks().get(0);

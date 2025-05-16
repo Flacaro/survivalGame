@@ -18,7 +18,7 @@ public class PlayerDaoImpl implements PlayerDao {
             }
             Player player1 = em.find(Player.class, player.getId()); // Trova l'oggetto con ID 1
             if (player1 != null) {
-                player1.setIdArea(player.getIdArea());
+                player1.setId_Area(player.getId_Area());
                 player1.setX_axis(player.getX_axis());
                 player1.setY_axis(player.getY_axis());
                 player1.setExp(player.getExp());

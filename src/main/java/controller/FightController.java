@@ -30,7 +30,6 @@ public class FightController extends Observer {
             fight.playerLoses();
         } else {
             fight.playerFightsBack(attack);
-
         }
 
     }
@@ -70,8 +69,7 @@ public class FightController extends Observer {
         //mostrarli al giocatore ed andare avanti
         System.out.println("Hai sconfitto il  nemico.Ora hai " + player.getExp() + " di esperienza");
         //eliminare il nemico dall'area e settare la sua quantità a 0
-        DBController dbController = new DBController();
-        dbController.updatePlayer(player);
+        this.fight.getGame().setPlayer(player);
 
     }
 
@@ -80,7 +78,6 @@ public class FightController extends Observer {
         //nel parametro c'è il player dopo essere stato sconfitto
         //salute a 0
         //inventario vuoto
-
         System.out.println("Il nemico ti ha sconfitto");
 
 

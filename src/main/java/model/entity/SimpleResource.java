@@ -52,7 +52,6 @@ public class SimpleResource extends Event implements Resource {
 
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

@@ -113,4 +113,48 @@ public class Inventory {
 		return inventoryDomain.getCapacity() > 0;
 	}
 
+	public void updateInventoryCraft() {
+				ArrayList<SimpleResource> list = new ArrayList<>();
+				ArrayList<ResourceQuantityInv> qnt = new ArrayList<>();
+				for (SimpleResource r : this.getResources()) {
+					list.add(r);
+				}
+				for (ResourceQuantityInv r : this.getResources_quantity()) {
+					qnt.add(r);
+				}
+				this.getResources_quantity().clear();
+				this.getResources().clear();
+				this.getResources().addAll(list);
+				this.getResources_quantity().addAll(qnt);
+				ArrayList<CraftedResource> lists = new ArrayList<>();
+				for (CraftedResource r : this.getCraftedResourceList()) {
+					lists.add(r);
+				this.getCraftedResourceList().clear();
+				this.getCraftedResourceList().addAll(lists);
+			}
+	}
+	public boolean updateInventory(ArrayList<SimpleResource> r) {
+		boolean resourceFound = false;
+		for (SimpleResource res :r ){
+			List<ResourceQuantityInv> resourcesQuantity = this.getResources_quantity();
+			this.setCapacity(this.getCapacity() - 1);
+			for (SimpleResource resource : this.getResources()) {
+				for (ResourceQuantityInv rqi : resourcesQuantity) {
+					if (resource.getId() == res.getId()) {
+						if (resource.getId() == rqi.getResource().getId()) {
+								rqi.setQuantity(rqi.getQuantity() + 1);
+								resourceFound = true;
+								break;
+							}
+						}
+					}
+				}
+				if (!resourceFound) {
+					this.getResources().add(res);
+					ResourceQuantityInv newResourceq = new ResourceQuantityInv(this, res, 1);
+					resourcesQuantity.add(newResourceq);
+				}
+		}
+		return resourceFound;
+	}
 }

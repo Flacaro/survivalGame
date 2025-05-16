@@ -6,6 +6,7 @@ import persistence.MapDaoImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "MAP")
@@ -36,15 +37,26 @@ public class Map {
 
     public List<Area> setTotalMapArea(Mode modeDomain) {
 
-//        List<AreaDomain> areaDomains=new ArrayList<>();
         int totalArea = (int) modeDomain.getTotalArea();
         DBController dbController = new DBController();
         List<Area> areadb = dbController.getAreas();
         List<Area> areaDomains = areadb.subList(0, totalArea - 1);
-//        for (int c = 0; c < totalArea; c++) {
-//            AreaDomain a = new AreaDomain("area", "deserto");
-//            areaDomains.add(a);
-//        }
         return areaDomains;
+    }
+
+    public void updateMap( SimpleResource res, Enemy enemy) {
+        Map map=this;
+        for (Area area : map.getAreas()) {
+            if (res != null && Objects.equals(area.getIdEvent().getId(), res.getId())) {
+                //eliminare la risorsa nell'area
+                area.setIdEvent(null);
+                area.setCategory(null);
+                break;
+            } else if (enemy != null && Objects.equals(area.getIdEvent().getId(), enemy.getId())) {
+                area.setIdEvent(null);
+                area.setCategory(null);
+                break;
+            }
+        }
     }
 }

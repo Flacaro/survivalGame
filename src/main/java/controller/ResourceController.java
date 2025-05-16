@@ -71,8 +71,8 @@ public class ResourceController {
         add.add(s);
         inventoryDomain.setCraftedResourceList(add);
         inventoryDomain.setCapacity(inventoryDomain.getCapacity() - 1);
-        DBController dbController = new DBController();
-        return dbController.updateInventoryCraft(inventoryDomain);
+        inventoryDomain.updateInventoryCraft();
+        return inventoryDomain;
     }
 
 

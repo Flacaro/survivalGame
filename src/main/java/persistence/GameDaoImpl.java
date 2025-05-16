@@ -5,6 +5,7 @@ import jakarta.persistence.TypedQuery;
 import model.entity.Area;
 import model.entity.Game;
 import model.entity.Map;
+import model.entity.Player;
 import persistence.dao.GameDao;
 
 import java.util.ArrayList;
@@ -40,8 +41,8 @@ public class GameDaoImpl implements GameDao {
             Map map = game.getMap();
             map.setAreas(areas);
             game.setMap(map);
+            game.setPlayer(gameDomain.getPlayer());
             em.merge(game);
-
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();

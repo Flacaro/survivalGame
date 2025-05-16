@@ -1,8 +1,8 @@
 package model.entity;
 
-import controller.DBController;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -86,20 +86,7 @@ public class Game {
     }
 
 
-    //viene chiamato ogni volta che il giocatore si muove
-    public Event triggerEvent(long idArea, Game gd) {
-        List<Area> mapAreas = gd.getMap().getAreas();
-        for (Area areas : mapAreas) {
-            if (areas.getId() == idArea) {
-                return areas.getIdEvent();
-            }
-        }
-        return null;
-    }
-
-
     public boolean move(int position) {
-        DBController dbController = new DBController();
         Player p = this.getPlayer();
         int x_axis = p.getX_axis();
         int y_axis = p.getY_axis();
@@ -114,8 +101,7 @@ public class Game {
                     //update player;
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
-                    p.setIdArea(p.setNewIdAreayVariant(y_axis, this));
-                    dbController.updatePlayer(p);
+                    p.setId_Area(p.setNewIdAreayVariant(y_axis, this));
                     return true;
                 }
                 return false;
@@ -126,8 +112,7 @@ public class Game {
                     //update player;
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
-                    p.setIdArea(p.setNewIdAreaxVariant(x_axis, this));
-                    dbController.updatePlayer(p);
+                    p.setId_Area(p.setNewIdAreaxVariant(x_axis, this));
                     return true;
                 }
                 return false;
@@ -138,8 +123,7 @@ public class Game {
                     //update player;
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
-                    p.setIdArea(p.setNewIdAreayVariant(y_axis, this));
-                    dbController.updatePlayer(p);
+                    p.setId_Area(p.setNewIdAreayVariant(y_axis, this));
                     return true;
                 }
                 return false;
@@ -150,8 +134,7 @@ public class Game {
                     //update player;
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
-                    p.setIdArea(p.setNewIdAreaxVariant(x_axis, this));
-                    dbController.updatePlayer(p);
+                    p.setId_Area(p.setNewIdAreaxVariant(x_axis, this));
                     return true;
                 }
                 return false;
@@ -159,11 +142,12 @@ public class Game {
         return false;
     }
 
-    public boolean pickUp(SimpleResource res, Player player) {
+    public boolean pickUp(SimpleResource r, Player player) {
         Inventory id = player.getInventory();
-        DBController dbController = new DBController();
+        ArrayList<SimpleResource> res= new ArrayList<>();
+        res.add(r);
         if (id.checkCapacity(id)) {
-            return dbController.updateInventory(res, id);
+            return id.updateInventory(res);
         }
         return false;
     }

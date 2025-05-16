@@ -40,16 +40,13 @@ public class StartController {
         gms.createEvent(areas, mode);
         dbController.updateArea(areas);
         map.setAreas(areas);
+        player.setId_Area(map.getAreas().get(0));
         Game gameDB = dbController.getGame();
         dbController.updateGame(gameDB);
         //add resource necessarie per il craftig nell'inventario
         Inventory inventory = dbController.showInventory(player);
-
         List<SimpleResource> res = dbController.getResourcesByName();
         inventory.setResources(res);
-        for (SimpleResource r : res) {
-            dbController.updateInventory(r, inventory);
-        }
         return dbController.getGame();
     }
 

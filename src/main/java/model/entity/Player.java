@@ -1,7 +1,6 @@
 package model.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +25,9 @@ public class Player {
 	@Column(name = "exp", nullable = true)
 	private int exp = 0;
 
-	@Column(name = "ID_AREA")
-	@ColumnDefault("1")
-	private long idArea;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ID_AREA", referencedColumnName = "id")
+	private Area id_Area;
 
 	@Column(name = "X_AXIS")
 	private int x_axis=0;
@@ -77,12 +76,12 @@ public class Player {
 		this.level = level;
 	}
 
-	public long getIdArea() {
-		return idArea;
+	public Area getId_Area() {
+		return id_Area;
 	}
 
-	public void setIdArea(long idArea) {
-		this.idArea = idArea;
+	public void setId_Area(Area id_Area) {
+		this.id_Area = id_Area;
 	}
 
 	public Inventory getInventory() {
@@ -118,20 +117,20 @@ public class Player {
 	}
 
 
-	public long setNewIdAreaxVariant(int x_axis, Game g) {
+	public Area setNewIdAreaxVariant(int x_axis, Game g) {
 		List<Area> areaxVariant= new ArrayList<>();
 		List<Area> areas=g.getMap().getAreas();
 		int range= (int) (g.getMode().getTotalArea()/2);
 		areaxVariant=areas.subList(0,range);
-		return areaxVariant.get(x_axis).getId();
+		return areaxVariant.get(x_axis);
 	}
 
-	public long setNewIdAreayVariant(int y_axis, Game g) {
+	public Area setNewIdAreayVariant(int y_axis, Game g) {
 		List<Area> areayVariant= new ArrayList<>();
 		List<Area> areas=g.getMap().getAreas();
 		int range= (int) (g.getMode().getTotalArea()/2);
 		areayVariant=areas.subList(range+1,areas.size()-1);
-		return areayVariant.get(y_axis).getId();
+		return areayVariant.get(y_axis);
 	}
 
 	public int getExp() {

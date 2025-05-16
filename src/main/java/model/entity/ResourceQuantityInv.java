@@ -62,8 +62,4 @@ public class ResourceQuantityInv {
         this.quantity = quantity;
     }
 
-    public void remove(ResourceQuantityInv resourceQuantityInvDomain) {
-        DBController dbController = new DBController();
-        dbController.removeQuantity(resourceQuantityInvDomain);
-    }
 }

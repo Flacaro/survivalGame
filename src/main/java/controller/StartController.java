@@ -36,12 +36,32 @@ public class StartController {
         );
         dbController.insertGame(game);
 
+        Checkpoint ck = new Checkpoint(
+                "primo checkpoint",
+                2,
+                null,
+                null
+
+        );
+        dbController.checkpointUpdate(ck);
+
         ArrayList<Area> areas = dbController.getAreas();
+
+        List<Checkpoint> cks = dbController.getCheckpoints();
+        Checkpoint c = new Checkpoint();
+        if (!cks.isEmpty()) {
+            c = cks.get(0);
+        }
+        c.setArea(areas.get(3));
+        dbController.checkpointUpdate(c);
+
+        areas.get(3).setCheckpoint(c);
         gms.createEvent(areas, mode);
         dbController.updateArea(areas);
         map.setAreas(areas);
         player.setId_Area(map.getAreas().get(0));
         Game gameDB = dbController.getGame();
+        gameDB.getMap().getAreas().get(3).setCheckpoint(ck);
         dbController.updateGame(gameDB);
         //add resource necessarie per il craftig nell'inventario
         Inventory inventory = dbController.showInventory(player);

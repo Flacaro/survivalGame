@@ -38,6 +38,9 @@ public class AreaDaoImpl implements AreaDao {
                 if (area != null) {
                     area.setIdEvent(value.getIdEvent());
                     area.setCategory(value.getCategory());
+                    if (value.getCheckpoint() != null) {
+                        area.setCheckpoint(value.getCheckpoint());
+                    }
                 }
             }
             em.getTransaction().commit();
@@ -57,8 +60,8 @@ public class AreaDaoImpl implements AreaDao {
             }
             TypedQuery<Area> query = em.createQuery("SELECT a FROM Area a", Area.class);
 
-            ArrayList<Area> areaDomains= new ArrayList<>();
-            for (Area a :query.getResultList()){
+            ArrayList<Area> areaDomains = new ArrayList<>();
+            for (Area a : query.getResultList()) {
                 areaDomains.add(a);
             }
             return areaDomains;
@@ -67,7 +70,7 @@ public class AreaDaoImpl implements AreaDao {
             e.printStackTrace();
             em.getTransaction().rollback();
         }
-        return  null;
+        return null;
     }
 
     @Override
@@ -82,7 +85,7 @@ public class AreaDaoImpl implements AreaDao {
             e.printStackTrace();
             em.getTransaction().rollback();
         }
-return null;
+        return null;
     }
 
 

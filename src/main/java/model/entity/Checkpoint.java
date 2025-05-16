@@ -25,6 +25,16 @@ public class Checkpoint {
 	@JoinColumn(name = "id_skill",referencedColumnName = "id")
 	private Skill skill;
 
+	public Checkpoint() {
+	}
+
+	public Checkpoint(String description, int exp, Area area, Skill skill) {
+		this.description = description;
+		this.exp = exp;
+		this.area = area;
+		this.skill = skill;
+	}
+
 	public long getId() {
 		return id;
 	}

@@ -18,6 +18,7 @@ public class DBController {
     ResourceDaoImpl resourceDao = new ResourceDaoImpl();
     InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
     EnemyDaoImpl enemyDao = new EnemyDaoImpl();
+    CheckpointDaoImpl ckDaoImpl = new CheckpointDaoImpl();
 
     public void close() {
         EntityManagerSingleton.closeEntityManager();
@@ -161,11 +162,14 @@ public class DBController {
         return enemies;
     }
 
-    public void getClimateById(Long id) {
-//        EntityManager em = EntityManagerSingleton.getEntityManager();
-//        Climate climate = climateDao.getClimateById(id, em);
-//        close();
-//        return climate;
+    public void checkpointUpdate(Checkpoint ck) {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        ckDaoImpl.saveCheckpoint(ck, em);
+    }
+
+    public List<Checkpoint> getCheckpoints() {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        return ckDaoImpl.getCheckpoints(em);
     }
 
 }

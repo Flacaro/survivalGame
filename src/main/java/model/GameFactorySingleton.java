@@ -1,11 +1,11 @@
 package model;
 
+import controller.DBController;
+import model.entity.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import controller.DBController;
-import model.entity.*;
 
 public class GameFactorySingleton {
     private static GameFactorySingleton instance;
@@ -21,10 +21,11 @@ public class GameFactorySingleton {
         int numRes = modeDomain.getNumResources();
         int numEnemy = modeDomain.getNumEnemy();
         DBController dbController = new DBController();
+
         //devo recuperare le risorse nel db, posizionarle nelle caselle ed aggiornare la quantità
         ArrayList<SimpleResource> resources = dbController.getResources();
         ArrayList<Enemy> enemies = dbController.getEnemies();
-        //Collections.shuffle(totalMapAreaDomain);
+
         Collections.shuffle(resources);
         Collections.shuffle(enemies);
         //id delle caselle contenenti le risorse
@@ -43,7 +44,7 @@ public class GameFactorySingleton {
         for (int i = numEnemy; i < subListAreaDomain.size(); i++) {
             subListAreaDomain.get(i).setIdEvent(subListResources.get(resourceIndex));
             subListAreaDomain.get(i).setCategory(subListResources.get(resourceIndex).getType());
-            resourceIndex ++;
+            resourceIndex++;
         }
 
     }

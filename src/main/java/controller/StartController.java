@@ -39,8 +39,8 @@ public class StartController {
         dbController.insertGame(game);
         Game gameDB = dbController.getGame();
         Skill skill = new Skill();
-        skill.setDescription("Costruire rifugi");
-        skill.setName("Maestro delle costruzioni");
+        skill.setDescription("Ora puoi cucinare per recuperare vita");
+        skill.setName("Cucina curativa");
         skill.setLevel(1);
 
         dbController.updateSkill(skill);

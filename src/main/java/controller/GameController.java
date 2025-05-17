@@ -83,7 +83,6 @@ public class GameController {
                         break;
                     case 5:
                         continueToPlay = false;
-                        dbController.updateGame(game);
                         break;
                     default:
                         CommonViewUtils.displayMessage("Scelta non valida.");
@@ -236,16 +235,17 @@ public class GameController {
 
     public void handleCheckpoint() {
         Player player = game.getPlayer();
-        if (player.getId_Area().getCheckpoint() != null) {
+        Area currentArea=player.getId_Area();
+        if (currentArea.getCheckpoint() != null) {
             player.setExp(player.getExp() + (10 * player.getId_Area().getCheckpoint().getExp()));
             List<Skill> skills = new ArrayList<>();
             skills.add(player.getId_Area().getCheckpoint().getSkill());
             player.setSkills(skills);
             game.setPlayer(player);
             dbController.updateGame(game);
-            CommonViewUtils.displayMessage("\nHai raggiunto il CHECKPOINT! Hai guadagnato " + player.getId_Area().getCheckpoint().getExp() + " punti esperienza!\n"
-            + "Hai sbloccato una nuova skill! " + player.getSkills().get(0).getName() + "\nOra puoi costruire!");
-
+            CommonViewUtils.displayMessage("\nHai raggiunto il CHECKPOINT, hai guadagnato " + player.getId_Area().getCheckpoint().getExp() + " punti esperienza! I tuoi progressi sono stati salvati.\n"
+            + "Hai sbloccato una nuova skill! " + player.getSkills().get(0).getName());
+            currentArea.setCheckpoint(null);
         }
     }
 

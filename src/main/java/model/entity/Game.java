@@ -101,7 +101,7 @@ public class Game {
                     //update player;
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
-                    p.setId_Area(p.setNewIdAreayVariant(y_axis, this));
+                    p.setId_Area(p.newPosition(this));
                     return true;
                 }
                 return false;
@@ -112,7 +112,7 @@ public class Game {
                     //update player;
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
-                    p.setId_Area(p.setNewIdAreaxVariant(x_axis, this));
+                    p.setId_Area(p.newPosition(this));
                     return true;
                 }
                 return false;
@@ -123,7 +123,7 @@ public class Game {
                     //update player;
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
-                    p.setId_Area(p.setNewIdAreayVariant(y_axis, this));
+                    p.setId_Area(p.newPosition(this));
                     return true;
                 }
                 return false;
@@ -134,7 +134,7 @@ public class Game {
                     //update player;
                     p.setX_axis(x_axis);
                     p.setY_axis(y_axis);
-                    p.setId_Area(p.setNewIdAreaxVariant(x_axis, this));
+                    p.setId_Area(p.newPosition(this));
                     return true;
                 }
                 return false;

@@ -117,20 +117,20 @@ public class Player {
     }
 
 
-    public Area setNewIdAreaxVariant(int x_axis, Game g) {
-        List<Area> areaxVariant = new ArrayList<>();
+    public Area newPosition(Game g){
+        List<Area> firsthalf = new ArrayList<>();
+        List<Area> secondhalf = new ArrayList<>();
         List<Area> areas = g.getMap().getAreas();
-        int range = (int) (g.getMode().getTotalArea() / 2);
-        areaxVariant = areas.subList(0, range);
-        return areaxVariant.get(x_axis);
-    }
-
-    public Area setNewIdAreayVariant(int y_axis, Game g) {
-        List<Area> areayVariant = new ArrayList<>();
-        List<Area> areas = g.getMap().getAreas();
-        int range = (int) (g.getMode().getTotalArea() / 2);
-        areayVariant = areas.subList(range + 1, areas.size() - 1);
-        return areayVariant.get(y_axis);
+        int range = (int) g.getMode().getTotalArea()/2;
+        firsthalf = areas.subList(0, range);
+        secondhalf=areas.subList(range+1,areas.size()-1);
+        int x_axis=g.getPlayer().getX_axis();
+        int y_axis=g.getPlayer().getY_axis();
+        if (y_axis==0){
+            return firsthalf.get(x_axis);
+        }else {
+            return secondhalf.get(x_axis);
+        }
     }
 
     public int getExp() {

@@ -47,8 +47,7 @@ public class GameController {
             // 1. Setup iniziale
             int mode = setupView.getDifficultyChoice();
             String nickname = setupView.getNickname();
-            this.game = startController.start(mode, nickname); // Crea il gioco
-//            game.getPlayer().setId_Area(game.getMap().getAreas().get(0));
+            this.game = startController.start(mode, nickname);
             if (game == null || game.getPlayer() == null) {
                 CommonViewUtils.displayMessage("Errore durante l'inizializzazione del gioco.");
                 return;

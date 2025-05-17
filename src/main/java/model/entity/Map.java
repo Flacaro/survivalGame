@@ -2,11 +2,9 @@ package model.entity;
 
 import controller.DBController;
 import jakarta.persistence.*;
-import persistence.MapDaoImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "MAP")
@@ -39,8 +37,7 @@ public class Map {
 
         int totalArea = (int) modeDomain.getTotalArea();
         DBController dbController = new DBController();
-        List<Area> areadb = dbController.getAreas();
-        List<Area> areaDomains = areadb.subList(0, totalArea - 1);
-        return areaDomains;
+        List<Area> areaDb = dbController.getAreas();
+        return areaDb.subList(0, totalArea - 1);
     }
 }

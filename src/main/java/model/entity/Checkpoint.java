@@ -16,9 +16,9 @@ public class Checkpoint {
 	@Column(name = "EXP", nullable = false)
 	private int exp;
 
-	//relazione uno a uno con area
-	@OneToOne(mappedBy = "checkpoint")
-	private Area area;
+//	//relazione uno a uno con area
+//	@OneToOne(mappedBy = "checkpoint")
+//	private Area area;
 
 	//test uno a uno con skill
 	@OneToOne
@@ -28,10 +28,9 @@ public class Checkpoint {
 	public Checkpoint() {
 	}
 
-	public Checkpoint(String description, int exp, Area area, Skill skill) {
+	public Checkpoint(String description, int exp, Skill skill) {
 		this.description = description;
 		this.exp = exp;
-		this.area = area;
 		this.skill = skill;
 	}
 
@@ -58,14 +57,14 @@ public class Checkpoint {
 	public void setExp(int exp) {
 		this.exp = exp;
 	}
-
-	public Area getArea() {
-		return area;
-	}
-
-	public void setArea(Area area) {
-		this.area = area;
-	}
+//
+//	public Area getArea() {
+//		return area;
+//	}
+//
+//	public void setArea(Area area) {
+//		this.area = area;
+//	}
 
 	public Skill getSkill() {
 		return skill;

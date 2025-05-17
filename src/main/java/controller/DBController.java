@@ -20,6 +20,7 @@ public class DBController {
     InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
     EnemyDaoImpl enemyDao = new EnemyDaoImpl();
     CheckpointDaoImpl ckDaoImpl = new CheckpointDaoImpl();
+    SkillDaoImpl skillDao = new SkillDaoImpl();
 
     public void close() {
         EntityManagerSingleton.closeEntityManager();
@@ -171,6 +172,16 @@ public class DBController {
     public List<Checkpoint> getCheckpoints() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         return ckDaoImpl.getCheckpoints(em);
+    }
+
+    public void updateSkill (Skill skill) {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        skillDao.saveSkill(skill, em);
+    }
+
+    public List<Skill> getSkills() {
+        EntityManager em = EntityManagerSingleton.getEntityManager();
+        return skillDao.getSkills(em);
     }
 
 }

@@ -7,6 +7,7 @@ import view.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class GameController {
@@ -60,6 +61,7 @@ public class GameController {
             while (continueToPlay) {
 
                 handleEnemy();
+                handleCheckpoint();
                 int choice = mainMenuView.showMainMenu();
 
                 switch (choice) {
@@ -104,7 +106,7 @@ public class GameController {
     private void handleEnemy() throws IOException {
         Player player = game.getPlayer();
         Area currentAreaId = player.getId_Area();
-        if (currentAreaId!=null) {
+        if (currentAreaId != null) {
             Event event = currentAreaId.getIdEvent();
             if (event != null) {
                 if (Objects.equals(currentAreaId.getCategory(), "NEMICO")) {
@@ -113,7 +115,7 @@ public class GameController {
                     fightController.setFight(fight);
                     fight.setObserverUI(fightController);
                     fightController.startFight();
-                    if(handleEndFight()){
+                    if (handleEndFight()) {
                         currentAreaId.setIdEvent(null);
                         currentAreaId.setCategory(null);
                     }
@@ -125,7 +127,7 @@ public class GameController {
     private void handleExplore() throws IOException {
         Player player = game.getPlayer();
         Area currentAreaId = player.getId_Area();
-        Event event=currentAreaId.getIdEvent();
+        Event event = currentAreaId.getIdEvent();
         if (event != null) {
             switch (currentAreaId.getCategory()) {
                 case "RISORSA":
@@ -159,7 +161,7 @@ public class GameController {
 
     private void handleShowInventory() {
         Player player = game.getPlayer();
-        Inventory inventory =player.getInventory();
+        Inventory inventory = player.getInventory();
         inventoryView.displayInventory(inventory);
     }
 
@@ -169,13 +171,13 @@ public class GameController {
 
         boolean moved = game.move(direction);
 
-        movementView.displayMovementResult(moved,player.getId_Area());
+        movementView.displayMovementResult(moved, player.getId_Area());
     }
 
 
     private boolean handleCrafting() throws IOException {
         Player player = game.getPlayer();
-        Inventory inventory =player.getInventory();
+        Inventory inventory = player.getInventory();
 
         if (inventory == null || inventory.getResources() == null || inventory.getResources().isEmpty()) {
             craftingView.displayInventoryEmpty();
@@ -229,6 +231,21 @@ public class GameController {
         } else {
             craftingView.displayCraftingResult(false, null);
             return false;
+        }
+    }
+
+    public void handleCheckpoint() {
+        Player player = game.getPlayer();
+        if (player.getId_Area().getCheckpoint() != null) {
+            player.setExp(player.getExp() + (10 * player.getId_Area().getCheckpoint().getExp()));
+            List<Skill> skills = new ArrayList<>();
+            skills.add(player.getId_Area().getCheckpoint().getSkill());
+            player.setSkills(skills);
+            game.setPlayer(player);
+            dbController.updateGame(game);
+            CommonViewUtils.displayMessage("\nHai raggiunto il CHECKPOINT! Hai guadagnato " + player.getId_Area().getCheckpoint().getExp() + " punti esperienza!\n"
+            + "Hai sbloccato una nuova skill! " + player.getSkills().get(0).getName() + "\nOra puoi costruire!");
+
         }
     }
 

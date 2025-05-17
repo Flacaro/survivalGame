@@ -1,7 +1,7 @@
 package controller;
 
-import singleton.GameFactorySingleton;
 import model.entity.*;
+import singleton.GameFactorySingleton;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,32 +38,43 @@ public class StartController {
         );
         dbController.insertGame(game);
         Game gameDB = dbController.getGame();
+        Skill skill = new Skill();
+        skill.setDescription("Costruire rifugi");
+        skill.setName("Maestro delle costruzioni");
+        skill.setLevel(1);
+
+        dbController.updateSkill(skill);
+
+        List<Skill> skills = dbController.getSkills();
+        Skill sk = new Skill();
+        if (!skills.isEmpty()) {
+            sk = skills.get(0);
+        }
+
+
         Checkpoint ck = new Checkpoint(
                 "primo checkpoint",
                 2,
-                null,
-                null
+                sk
 
         );
         dbController.checkpointUpdate(ck);
-
-        List<Checkpoint> cks = dbController.getCheckpoints();
+        List<Checkpoint> checkpoints = dbController.getCheckpoints();
         Checkpoint c = new Checkpoint();
-        if (!cks.isEmpty()) {
-            c = cks.get(0);
+        if (!checkpoints.isEmpty()) {
+            c = checkpoints.get(0);
         }
-        c.setArea(areas.get(3));
-        dbController.checkpointUpdate(c);
 
         areas.get(3).setCheckpoint(c);
         gms.createEvent(areas, mode);
         dbController.updateArea(areas);
         map.setAreas(areas);
         gameDB.setMap(map);
-        gameDB.getMap().getAreas().get(3).setCheckpoint(ck);
-
+        gameDB.getMap().getAreas().get(3).setCheckpoint(c);
         gameDB.getPlayer().setId_Area(gameDB.getMap().getAreas().get(0));
+        //gameDB.getPlayer().getId_Area().setCheckpoint(c);
         ArrayList<SimpleResource> res = (ArrayList<SimpleResource>) dbController.getResourcesByName();
+
         gameDB.getPlayer().getInventory().updateInventory(res);
 
         return gameDB;

@@ -18,6 +18,7 @@ public class ResourceQuantityInv {
     @JoinColumn(name = "resource_id")
     private SimpleResource resource;
 
+
     @Column(name = "quantity")
     private int quantity;
 

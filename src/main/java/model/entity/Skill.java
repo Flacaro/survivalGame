@@ -21,9 +21,9 @@ public class Skill implements Serializable {
 	@Column(name = "LEVEL", nullable = false)
 	private int level = 1;
 
-	//test uno a uno con checkpoint
-	@OneToOne(mappedBy = "skill")
-	private Checkpoint checkpoint;
+//	//test uno a uno con checkpoint
+//	@OneToOne(mappedBy = "skill")
+//	private Checkpoint checkpoint;
 
 	public long getId() {
 		return id;
@@ -57,11 +57,11 @@ public class Skill implements Serializable {
 		this.level = level;
 	}
 
-	public Checkpoint getCheckpoint() {
-		return checkpoint;
-	}
-
-	public void setCheckpoint(Checkpoint checkpoint) {
-		this.checkpoint = checkpoint;
-	}
+//	public Checkpoint getCheckpoint() {
+//		return checkpoint;
+//	}
+//
+//	public void setCheckpoint(Checkpoint checkpoint) {
+//		this.checkpoint = checkpoint;
+//	}
 }

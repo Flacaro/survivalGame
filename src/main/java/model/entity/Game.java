@@ -91,7 +91,7 @@ public class Game {
         int x_axis = p.getX_axis();
         int y_axis = p.getY_axis();
         Mode m = this.getMode();
-        int range = (int) (m.getTotalArea() / 2) - 1;
+        int range = (int) (m.getTotalArea() / 2)-1;
         int rangey = 1;
         switch (position) {
             case 0:

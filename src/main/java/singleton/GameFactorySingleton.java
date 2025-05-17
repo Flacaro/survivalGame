@@ -1,4 +1,4 @@
-package model;
+package singleton;
 
 import controller.DBController;
 import model.entity.*;
@@ -6,6 +6,7 @@ import model.entity.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameFactorySingleton {
     private static GameFactorySingleton instance;
@@ -30,8 +31,10 @@ public class GameFactorySingleton {
         Collections.shuffle(enemies);
         //id delle caselle contenenti le risorse
         // 0 index per 4 aree
-        List<Area> subListAreaDomain = totalMapAreaDomain.subList(0, numRes + numEnemy);
-        //List<Area> subListAreaEnemy = totalMapAreaDomain.subList(0, numEnemy);
+        List<Area> availableAreas = totalMapAreaDomain.stream()
+                .filter(area -> area.getId() != 1).collect(Collectors.toList());
+
+        List<Area> subListAreaDomain = availableAreas.subList(0, numRes + numEnemy);
         List<SimpleResource> subListResources = resources.subList(0, numRes);
         List<Enemy> subListEnemies = enemies.subList(0, numEnemy);
 

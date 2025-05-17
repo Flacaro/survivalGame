@@ -3,6 +3,7 @@ package controller;
 import jakarta.persistence.EntityManager;
 import model.entity.*;
 import persistence.*;
+import singleton.EntityManagerSingleton;
 
 import java.util.ArrayList;
 import java.util.List;

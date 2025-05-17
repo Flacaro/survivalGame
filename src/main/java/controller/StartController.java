@@ -1,6 +1,6 @@
 package controller;
 
-import model.GameFactorySingleton;
+import singleton.GameFactorySingleton;
 import model.entity.*;
 
 import java.io.IOException;
@@ -17,11 +17,13 @@ public class StartController {
     public Game start(int choice, String nickname) throws IOException {
 
         Mode mode = dbController.getModeById(choice);
+        ArrayList<Area> areas = dbController.getAreas();
 
         Player player = new Player();
         player.setNickname(nickname);
         player.setHealth(5);
         player.setLevel(1);
+        player.setId_Area(areas.get(0));
 
         Inventory id = new Inventory();
         player.setInventory(id);
@@ -45,8 +47,6 @@ public class StartController {
         );
         dbController.checkpointUpdate(ck);
 
-        ArrayList<Area> areas = dbController.getAreas();
-
         List<Checkpoint> cks = dbController.getCheckpoints();
         Checkpoint c = new Checkpoint();
         if (!cks.isEmpty()) {
@@ -65,9 +65,7 @@ public class StartController {
         gameDB.getPlayer().setId_Area(gameDB.getMap().getAreas().get(0));
         ArrayList<SimpleResource> res = (ArrayList<SimpleResource>) dbController.getResourcesByName();
         gameDB.getPlayer().getInventory().updateInventory(res);
-//        dbController.updatePlayer(gameDB.getPlayer());
-        //add resource necessarie per il craftig nell'inventario
-        //Inventory inventory = dbController.showInventory(gameDB.getPlayer());
+
         return gameDB;
     }
 

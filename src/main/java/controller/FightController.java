@@ -5,6 +5,7 @@ import model.entity.Enemy;
 import model.entity.Player;
 import model.entity.fight.Fight;
 import model.entity.fight.Observer;
+import view.CommonViewUtils;
 import view.FightView;
 
 import java.io.IOException;
@@ -44,9 +45,9 @@ public class FightController extends Observer {
     @Override
     public void updateRunaway(Boolean result) throws IOException {
         if (result) {
-            System.out.println("Sei riuscito a scappare");
+            CommonViewUtils.displayMessage("Sei riuscito a scappare");
         } else {
-            System.out.println("Non sei riuscito a scappare");
+            CommonViewUtils.displayMessage("Non sei riuscito a scappare");
         }
     }
 
@@ -55,7 +56,7 @@ public class FightController extends Observer {
         //nel parametro c'è l'enemy dopo che ha subito l'attacco dal giocatore
         //richiamare il controllore per far mostrare alla view la salute
         //danneggiata del nemico
-        System.out.println("Attacco andato a buon fine.Il nemico ha " + enemy.getHealth() + " di vita");
+        CommonViewUtils.displayMessage("Attacco andato a buon fine.Il nemico ha " + enemy.getHealth() + " di vita");
     }
 
     @Override
@@ -63,7 +64,7 @@ public class FightController extends Observer {
         //nel parametro c'è il giocatore dopo che ha vinto il combattimento
         //modificati punti exp e livello
         //mostrarli al giocatore ed andare avanti
-        System.out.println("Hai sconfitto il  nemico.Ora hai " + player.getExp() + " di esperienza");
+        CommonViewUtils.displayMessage("Hai sconfitto il  nemico.Ora hai " + player.getExp() + " punti esperienza");
     }
 
     @Override
@@ -71,7 +72,7 @@ public class FightController extends Observer {
         //nel parametro c'è il player dopo essere stato sconfitto
         //salute a 0
         //inventario vuoto
-        System.out.println("Il nemico ti ha sconfitto");
+        CommonViewUtils.displayMessage("Il nemico ti ha sconfitto");
     }
 
     @Override
@@ -79,9 +80,8 @@ public class FightController extends Observer {
         //nel paramentro c'è il player con la salute aggiornata dopo l'attacco
         //del nemico, chiedere al giocatore cosa vuole fare e richiamare in caso di attacco
         //ripetuto i metodi playerFightsBack(SimpleResource sr) o playerChoses(int choice)
-        System.out.println("Hai subito un attacco.Ora hai " + player.getHealth() + "di vita");
+        CommonViewUtils.displayMessage("Hai subito un attacco.Ora hai " + player.getHealth() + "di vita");
         choseWeapons();
-
     }
     //chiede gli input alla view
     //passa gli input al fight

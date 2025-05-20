@@ -2,15 +2,13 @@ package model.entity;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 
-public abstract class Event{
+public abstract class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

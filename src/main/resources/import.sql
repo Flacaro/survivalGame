@@ -1,3 +1,6 @@
+INSERT INTO skill (LEVEL, DESCRIPTION, NAME) VALUES (1, "Arte della cucina", "Cucina");
+SET @id_skill := LAST_INSERT_ID();
+INSERT INTO checkpoint (EXP, id_skill, DESCRIPTION) VALUES (10, @id_skill, "Primo checkpoint");
 INSERT INTO attack (DAMAGE, NAME, TYPE) VALUES (1,"morso","nemico");
 INSERT INTO attack (DAMAGE, NAME, TYPE) VALUES (1,"veleno","nemico");
 INSERT INTO attack (DAMAGE, NAME, TYPE) VALUES (3,"affonda","risorsa");

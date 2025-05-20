@@ -36,11 +36,6 @@ public class Area implements Serializable {
         this.idEvent = idEvent;
     }
 
-//	//test uno ad uno con climate, però climate non ne tiene traccia
-//	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-//	@JoinColumn(name = "id_climate",referencedColumnName = "id")
-//	private Climate climate;
-
     public long getId() {
         return id;
     }

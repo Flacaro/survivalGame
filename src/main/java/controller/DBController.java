@@ -14,13 +14,9 @@ public class DBController {
 
     GameDaoImpl gameDaoImpl = new GameDaoImpl();
     AreaDaoImpl areaDaoImpl = new AreaDaoImpl();
-    PlayerDaoImpl playerDaoImpl = new PlayerDaoImpl();
-    MapDaoImpl mapDaoImpl = new MapDaoImpl();
     ResourceDaoImpl resourceDao = new ResourceDaoImpl();
-    InventoryDaoImpl inventoryDao = new InventoryDaoImpl();
     EnemyDaoImpl enemyDao = new EnemyDaoImpl();
     CheckpointDaoImpl ckDaoImpl = new CheckpointDaoImpl();
-    SkillDaoImpl skillDao = new SkillDaoImpl();
 
     public void close() {
         EntityManagerSingleton.closeEntityManager();
@@ -59,24 +55,6 @@ public class DBController {
         return game;
     }
 
-    public void updatePlayer(Player p) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
-        playerDaoImpl.updatePlayer(p, em);
-        close();
-    }
-
-
-    public Inventory showInventory(Player p) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
-        Inventory inventory = playerDaoImpl.getInventoryToShow(p, em);
-        close();
-        return inventory;
-    }
-
-    public boolean move(int move, Game game) {
-        return game.move(move);
-    }
-
     public ArrayList<CraftedResource> getCraftedResources() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         ResourceDaoImpl resourceDao = new ResourceDaoImpl();
@@ -85,27 +63,6 @@ public class DBController {
         return getCraftedResources;
     }
 
-
-    public Area getAreasById(long idArea) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
-        Area area = areaDaoImpl.getAreaById(em, idArea);
-        close();
-        return area;
-    }
-
-    public void removeQuantity(ResourceQuantityInv resourceQuantityInv) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
-        resourceDao.removeQuantity(resourceQuantityInv, em);
-        close();
-    }
-
-    public void updateMap(Map map, SimpleResource resource, Enemy enemy) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
-        mapDaoImpl.updateMap(map, resource, enemy, em);
-        close();
-    }
-
-
     public ArrayList<SimpleResource> getResources() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         ArrayList<SimpleResource> resources = resourceDao.getResources(em);
@@ -113,40 +70,11 @@ public class DBController {
         return resources;
     }
 
-    public SimpleResource getResourceById(long id) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
-        SimpleResource resource = resourceDao.getResourceById(id, em);
-        close();
-        return resource;
-    }
-
-    public Enemy getEnemyById(long id) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
-        Enemy enemy = enemyDao.getEnemyById(id, em);
-        close();
-        return enemy;
-    }
-
     public List<SimpleResource> getResourcesByName() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         List<SimpleResource> resources = resourceDao.getResourceByName(em);
         close();
         return resources;
-    }
-
-
-    public boolean updateInventory(SimpleResource res, Inventory id) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
-        boolean updated = inventoryDao.updateInventory(res, id, em);
-        close();
-        return updated;
-    }
-
-    public Inventory updateInventoryCraft(Inventory id) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
-        Inventory inventory = inventoryDao.updateInventoryCraft(id, em);
-        close();
-        return inventory;
     }
 
     public Mode getModeById(int choice) {
@@ -164,24 +92,10 @@ public class DBController {
         return enemies;
     }
 
-    public void checkpointUpdate(Checkpoint ck) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
-        ckDaoImpl.saveCheckpoint(ck, em);
-    }
-
     public List<Checkpoint> getCheckpoints() {
         EntityManager em = EntityManagerSingleton.getEntityManager();
         return ckDaoImpl.getCheckpoints(em);
     }
 
-    public void updateSkill (Skill skill) {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
-        skillDao.saveSkill(skill, em);
-    }
-
-    public List<Skill> getSkills() {
-        EntityManager em = EntityManagerSingleton.getEntityManager();
-        return skillDao.getSkills(em);
-    }
 
 }

@@ -36,29 +36,10 @@ public class StartController {
                 player,
                 map
         );
+
         dbController.insertGame(game);
         Game gameDB = dbController.getGame();
-        Skill skill = new Skill();
-        skill.setDescription("Costruire rifugi");
-        skill.setName("Maestro delle costruzioni");
-        skill.setLevel(1);
 
-        dbController.updateSkill(skill);
-
-        List<Skill> skills = dbController.getSkills();
-        Skill sk = new Skill();
-        if (!skills.isEmpty()) {
-            sk = skills.get(0);
-        }
-
-
-        Checkpoint ck = new Checkpoint(
-                "primo checkpoint",
-                2,
-                sk
-
-        );
-        dbController.checkpointUpdate(ck);
         List<Checkpoint> checkpoints = dbController.getCheckpoints();
         Checkpoint c = new Checkpoint();
         if (!checkpoints.isEmpty()) {
@@ -72,7 +53,6 @@ public class StartController {
         gameDB.setMap(map);
         gameDB.getMap().getAreas().get(3).setCheckpoint(c);
         gameDB.getPlayer().setId_Area(gameDB.getMap().getAreas().get(0));
-        //gameDB.getPlayer().getId_Area().setCheckpoint(c);
         ArrayList<SimpleResource> res = (ArrayList<SimpleResource>) dbController.getResourcesByName();
 
         gameDB.getPlayer().getInventory().updateInventory(res);

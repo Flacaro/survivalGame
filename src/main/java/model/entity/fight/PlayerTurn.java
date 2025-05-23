@@ -38,9 +38,11 @@ public class PlayerTurn implements State {
                     runaway = true;
                     fight.getObserverUI().updateRunaway(runaway);
                 }
+                break;
             case 1:
                 //ha scelto di combattere, deve scegliere la risorsa
                 fight.getObserverUI().notifyFight();
+                break;
         }
 
     }

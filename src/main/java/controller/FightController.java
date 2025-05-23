@@ -48,6 +48,7 @@ public class FightController extends Observer {
             CommonViewUtils.displayMessage("Sei riuscito a scappare");
         } else {
             CommonViewUtils.displayMessage("Non sei riuscito a scappare");
+            notifyFight();
         }
     }
 

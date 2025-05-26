@@ -6,7 +6,6 @@ import model.entity.Player;
 
 public class Victory implements State{
     Fight fight;
-
     Player player;
     Enemy enemy;
 

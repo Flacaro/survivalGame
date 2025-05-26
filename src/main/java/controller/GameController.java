@@ -245,7 +245,7 @@ public class GameController {
             dbController.updateGame(game);
             CommonViewUtils.displayMessage("\nHai raggiunto il CHECKPOINT! Hai guadagnato " + player.getId_Area().getCheckpoint().getExp() + " punti esperienza!\n"
             + "Hai sbloccato una nuova skill! " + player.getSkills().get(0).getName());
-
+            player.getId_Area().setCheckpoint(null);
         }
     }
 

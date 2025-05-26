@@ -31,7 +31,7 @@ public class FightView {
         CommonViewUtils.displayMessage("Le armi a tua disposizione sono: ");
         for (SimpleResource sr : fight.getGame().getPlayer().getInventory().getResources()) {
             if (!sr.getAttacks().isEmpty()) {
-                CommonViewUtils.displayMessage("Indice arma: " + counter + ", nome arma: " + sr.getName() + " , attacco: " + sr.getAttacks().get(0).getName()+ ", danno: "+ sr.getAttacks().get(0).getDamage()+" , livello:" + sr.getLevel());
+                CommonViewUtils.displayMessage("Indice arma: " + counter + ", nome arma: " + sr.getName() + " , attacco: " + sr.getAttacks().get(0).getName()+ ", danno: "+ sr.getAttacks().get(0).getDamage()+" , livello: " + sr.getLevel());
                 correspondence.put(counter, sr);
                 counter++;
             }
@@ -48,7 +48,7 @@ public class FightView {
         SimpleResource s = correspondence.get(choice);
 
 
-        CommonViewUtils.displayMessage("Hai scelto " + s.getName() + " con attacco " + s.getAttacks().get(0).getName()+ " e danno"+ s.getAttacks().get(0).getDamage());
+        CommonViewUtils.displayMessage("Hai scelto " + s.getName() + " con attacco " + s.getAttacks().get(0).getName()+ " e danno "+ s.getAttacks().get(0).getDamage());
         return s.getAttacks().get(0);
     }
 

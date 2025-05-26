@@ -1,4 +1,5 @@
 package view;
+
 import java.io.IOException;
 
 public class SetupView {
@@ -7,11 +8,11 @@ public class SetupView {
         CommonViewUtils.displayMessage("1. Facile");
         CommonViewUtils.displayMessage("2. Media");
         CommonViewUtils.displayMessage("3. Difficile");
-        int choice=CommonViewUtils.readIntChoice("Inserisci 1, 2 o 3:");
+        int choice = CommonViewUtils.readIntChoice("Inserisci 1, 2 o 3:");
         //solo la modalità facile è stata implementata
-        while (choice<=0 || choice>3 || choice!=1){
+        while (choice <= 0 || choice > 3 || choice != 1) {
             System.out.println("Errore: Inserisci un numero valido.");
-            choice=CommonViewUtils.readIntChoice("Inserisci 1, 2 o 3:");
+            choice = CommonViewUtils.readIntChoice("Inserisci 1, 2 o 3:");
         }
         return choice;
     }
